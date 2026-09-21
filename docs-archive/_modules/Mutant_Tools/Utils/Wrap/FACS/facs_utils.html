@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.Wrap.FACS.facs_utils &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.Wrap.FACS.facs_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.Wrap.FACS.facs_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">version: 1.0.0</span>
+<span class="sd">date: 21/04/2020</span>
+
+<span class="sd">#----------------</span>
+
+<span class="sd">how to:</span>
+
+<span class="sd">try:</span>
+<span class="sd">    import importlib;from importlib import reload</span>
+<span class="sd">except:</span>
+<span class="sd">    import imp;from imp import reload</span>
+
+<span class="sd">import Mutant_Tools</span>
+<span class="sd">import Mutant_Tools.Utils.Wrap.FACS</span>
+<span class="sd">from Mutant_Tools.Utils.Wrap.FACS import facs_utils</span>
+<span class="sd">reload(facs_utils)</span>
+<span class="sd">cWrapFACS = facs_utils.WrapFACS()</span>
+
+
+<span class="sd">cWrapFACS.init_scene(force=True)</span>
+<span class="sd">cWrapFACS.new_face=&#39;Body_Geo&#39;</span>
+<span class="sd">cWrapFACS.create_new_shapes()</span>
+
+<span class="sd">#----------------</span>
+<span class="sd">dependencies:</span>
+
+<span class="sd">Wrap3D</span>
+<span class="sd">maya cmds</span>
+<span class="sd">maya mel</span>
+<span class="sd">pymel</span>
+
+
+<span class="sd">#----------------</span>
+<span class="sd">licence: https://www.eulatemplate.com/live.php?token=FGISW7ApRfgywum6murbBmLcusKONzkv</span>
+<span class="sd">author:  Esteban Rodriguez &lt;info@mutanttools.com&gt;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+
+<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+<span class="kn">import</span> <span class="nn">Mutant_Tools.Utils.Rigging</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Rigging</span> <span class="kn">import</span> <span class="n">main_mutant</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Rigging</span><span class="o">.</span><span class="n">main_mutant</span><span class="p">)</span>
+<span class="n">mt</span> <span class="o">=</span> <span class="n">main_mutant</span><span class="o">.</span><span class="n">Mutant</span><span class="p">()</span>
+
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">PATH_PARTS</span> <span class="o">=</span> <span class="n">PATH</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">FOLDER</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">PATH_PARTS</span><span class="p">:</span>
+	<span class="n">FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WrapFACS">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS">[docs]</a>
+<span class="k">class</span> <span class="nc">WrapFACS</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WrapFACS</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">facs_file</span> <span class="o">=</span> <span class="s1">&#39;FACS_Rig_01.ma&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">facs_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Wrap&#39;</span><span class="p">,</span> <span class="s1">&#39;FACS&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">facs_file</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_face</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#face to tranfer shapes to</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transf0_face</span> <span class="o">=</span> <span class="s1">&#39;transf0&#39;</span> <span class="c1">#Wrapped face</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span> <span class="o">=</span> <span class="s1">&#39;WrapBaseMesh&#39;</span> <span class="c1">#Face with blendshapes oringal</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">targets_grp</span> <span class="o">=</span> <span class="s1">&#39;Targets&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_targets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span> <span class="o">=</span> <span class="s1">&#39;Targets_BSP&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="WrapFACS.init_scene">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.init_scene">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transf0_face</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;We need </span><span class="si">{}</span><span class="s2"> for the FACS transfer to work, please use Zombinator to create it&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transf0_face</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">import_facs_file</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_initial_blendshape</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="WrapFACS.import_facs_file">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.import_facs_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">import_facs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">targets_grp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> Geo already exists in scene, please delete before importing&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_grp</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> Group already exists in scene, please delete before importing&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_grp</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> Blendshape node already exists in scene, please delete before importing&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">))</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facs_path</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;mayaAscii&quot;</span><span class="p">,</span> <span class="n">mergeNamespacesOnClash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rpr</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="WrapFACS.open_facs_file">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.open_facs_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_facs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facs_path</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facs_path</span><span class="p">,</span> <span class="nb">open</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;mayaAscii&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WrapFACS.get_targets">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.get_targets">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_grp</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_grp</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+
+
+<div class="viewcode-block" id="WrapFACS.create_initial_blendshape">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.create_initial_blendshape">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_initial_blendshape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">targets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_targets</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transf0_face</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Targets&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+        <span class="n">bsp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">blendShape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transf0_face</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="WrapFACS.transfer_with_wrap">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.transfer_with_wrap">[docs]</a>
+    <span class="k">def</span> <span class="nf">transfer_with_wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wrap_base_mesh</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">destination_mesh</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">wrap_base_mesh</span><span class="p">:</span>
+            <span class="n">wrap_base_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span> <span class="c1">#meshA with facs</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">destination_mesh</span><span class="p">:</span>
+            <span class="n">destination_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_face</span> <span class="c1">#meshB new geo</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">destination_mesh</span><span class="p">,</span> <span class="n">wrap_base_mesh</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">CreateWrap</span><span class="p">()</span>
+        <span class="n">wrap</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listConnections</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.worldMatrix[0]&#39;</span><span class="o">%</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">destination_mesh</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">plugs</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">wrap</span></div>
+
+
+<div class="viewcode-block" id="WrapFACS.transfer_with_proximity_wrap">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.transfer_with_proximity_wrap">[docs]</a>
+    <span class="k">def</span> <span class="nf">transfer_with_proximity_wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wrap_base_mesh</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">destination_mesh</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        THIS ONE DOESNT WORK YET</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            wrap_base_mesh:</span>
+<span class="sd">            destination_mesh:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">wrap_base_mesh</span><span class="p">:</span>
+            <span class="n">wrap_base_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span> <span class="c1">#meshA with facs</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">destination_mesh</span><span class="p">:</span>
+            <span class="n">destination_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_face</span> <span class="c1">#meshB new geo</span>
+
+        <span class="n">meshA</span> <span class="o">=</span> <span class="n">wrap_base_mesh</span>
+        <span class="n">meshB</span> <span class="o">=</span> <span class="n">destination_mesh</span>
+
+        <span class="c1"># ...for use with Maya 2022 and later</span>
+        <span class="c1"># ...uses ProximityWrap instead of Wrap = Much Faster</span>
+
+        <span class="c1"># ...vars</span>
+        <span class="n">meshAXfer</span> <span class="o">=</span> <span class="n">meshA</span>
+        <span class="n">meshBXfer</span> <span class="o">=</span> <span class="n">meshB</span>
+
+        <span class="c1"># ...create shapeOrig on meshBXfer for proxyWrap</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="n">meshBXfer</span><span class="p">))</span>
+
+        <span class="n">meshAShape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">meshA</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">meshBShape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">meshB</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">meshAXferShape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">meshAXfer</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">meshBXferShape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">meshBXfer</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">meshBXferShapOrig</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">meshBXfer</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+
+        <span class="c1"># ...create proximityWrap</span>
+        <span class="n">proxyWrap</span> <span class="o">=</span> <span class="s1">&#39;proxyWrap_&#39;</span> <span class="o">+</span> <span class="n">meshAXfer</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">deformer</span><span class="p">([</span><span class="n">meshBXfer</span><span class="p">],</span> <span class="n">n</span><span class="o">=</span><span class="n">proxyWrap</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;proximityWrap&#39;</span><span class="p">)</span>
+        <span class="c1"># ...connect meshes to proximityWrap</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.outMesh&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">meshAXferShape</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.drivers[0].driverBindGeometry&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">proxyWrap</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.worldMesh&#39;</span> <span class="o">%</span> <span class="n">meshAShape</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.drivers[0].driverGeometry&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">proxyWrap</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.outMesh&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">meshBXferShapOrig</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.originalGeometry[0]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">proxyWrap</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.outputGeometry[0]&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">proxyWrap</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.inMesh&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">meshBXferShape</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># ...proximityWrap attrs</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.wrapMode&#39;</span> <span class="o">%</span> <span class="n">proxyWrap</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.maxDrivers&#39;</span> <span class="o">%</span> <span class="n">proxyWrap</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.falloffScale&#39;</span> <span class="o">%</span> <span class="n">proxyWrap</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.dropoffRateScale&#39;</span> <span class="o">%</span> <span class="n">proxyWrap</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.smoothInfluences&#39;</span> <span class="o">%</span> <span class="n">proxyWrap</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.smoothNormals&#39;</span> <span class="o">%</span> <span class="n">proxyWrap</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="WrapFACS.crate_new_shape">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.crate_new_shape">[docs]</a>
+    <span class="k">def</span>  <span class="nf">crate_new_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wrap_base_mesh</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_face</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Shape&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">wrap_base_mesh</span><span class="p">:</span>
+            <span class="n">wrap_base_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">new_face</span><span class="p">:</span>
+            <span class="n">new_face</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_face</span>
+
+        <span class="n">dup_new_face</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">new_face</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">new_face</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;Target&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">dup_new_face</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dup_new_face</span></div>
+
+
+<div class="viewcode-block" id="WrapFACS.create_new_shapes">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.create_new_shapes">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_new_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wrap_base_mesh</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_face</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NotProximity&#39;</span><span class="p">,</span> <span class="n">apply_delta</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">delta_attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;distanceWeight&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;smoothingIterations&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">wrap_base_mesh</span><span class="p">:</span>
+            <span class="n">wrap_base_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">new_face</span><span class="p">:</span>
+            <span class="n">new_face</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_face</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">targets</span><span class="p">:</span>
+            <span class="n">targets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_targets</span><span class="p">()</span>
+
+        <span class="c1">#Turn Bsp Targets off exept the transf0</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Proximity&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transfer_with_proximity_wrap</span><span class="p">(</span><span class="n">wrap_base_mesh</span><span class="o">=</span><span class="n">wrap_base_mesh</span><span class="p">,</span> <span class="n">destination_mesh</span><span class="o">=</span><span class="n">new_face</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transfer_with_wrap</span><span class="p">(</span><span class="n">wrap_base_mesh</span><span class="o">=</span><span class="n">wrap_base_mesh</span><span class="p">,</span> <span class="n">destination_mesh</span><span class="o">=</span><span class="n">new_face</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">apply_delta</span><span class="p">:</span>
+            <span class="c1">#create delta</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">deltaMush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_face</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s1">&#39;Zombinator_DeltaMush&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">delta_attrs</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">delta_attrs</span><span class="p">:</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">delta_attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+
+        <span class="n">new_geos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+            <span class="c1"># Turn Bsp Targets on</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">,</span> <span class="n">target</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">dup_geo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crate_new_shape</span><span class="p">(</span><span class="n">wrap_base_mesh</span><span class="o">=</span><span class="n">wrap_base_mesh</span><span class="p">,</span> <span class="n">new_face</span><span class="o">=</span><span class="n">new_face</span><span class="p">,</span>
+                                           <span class="n">name</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+            <span class="n">new_geos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dup_geo</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">,</span> <span class="n">target</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrap</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">apply_delta</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">delta</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+
+        <span class="c1">#Turn Bsp Targets off exept the transf0</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;New Geos&#39;</span><span class="p">,</span> <span class="n">new_geos</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_geos</span></div>
+
+
+<div class="viewcode-block" id="WrapFACS.clean_scene">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.FACS.html#Mutant_Tools.Utils.Wrap.FACS.facs_utils.WrapFACS.clean_scene">[docs]</a>
+    <span class="k">def</span> <span class="nf">clean_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">targets_bsp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">targets_grp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap_base_mesh</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

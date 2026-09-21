@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.UI.Helpers.helpers_utils.mouth_helpers &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.UI.Helpers.helpers_utils.mouth_helpers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.UI.Helpers.helpers_utils.mouth_helpers</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+<span class="kn">import</span> <span class="nn">Mutant_Tools.Utils.Rigging</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Rigging</span> <span class="kn">import</span> <span class="n">main_mutant</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Rigging</span><span class="o">.</span><span class="n">main_mutant</span><span class="p">)</span>
+
+<span class="n">mt</span> <span class="o">=</span> <span class="n">main_mutant</span><span class="o">.</span><span class="n">Mutant</span><span class="p">()</span>
+<span class="n">nc</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">import_configs</span><span class="p">()</span>
+
+<div class="viewcode-block" id="check_facial_addOn_Grp">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.Helpers.helpers_utils.html#Mutant_Tools.UI.Helpers.helpers_utils.mouth_helpers.check_facial_addOn_Grp">[docs]</a>
+<span class="k">def</span> <span class="nf">check_facial_addOn_Grp</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="s1">&#39;Facial_Add_Ons_Grp&#39;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;AddOn group exists.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s1">&#39;Locals_Rig_Grp&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s1">&#39;Facial_Add_Ons_Grp&#39;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="create_MouthIn">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.Helpers.helpers_utils.html#Mutant_Tools.UI.Helpers.helpers_utils.mouth_helpers.create_MouthIn">[docs]</a>
+<span class="k">def</span> <span class="nf">create_MouthIn</span><span class="p">(</span><span class="n">face_geos</span><span class="o">=</span><span class="p">[],</span> <span class="n">mirror</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">created_geos</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_geos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+        <span class="n">face_geos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_geos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Please select the geometry you want to include in the MouthIn blendshape.&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_geos</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">check_facial_addOn_Grp</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">geo</span> <span class="ow">in</span> <span class="n">face_geos</span><span class="p">:</span>
+            <span class="n">face_geo</span> <span class="o">=</span> <span class="s1">&#39;Face_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">geo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;Geo&#39;</span><span class="p">))</span>
+
+            <span class="n">skull_nodes</span> <span class="o">=</span> <span class="n">find_zombie_skull</span><span class="p">(</span><span class="n">face_geo</span><span class="p">)</span>
+
+            <span class="n">dup_geo</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">face_geo</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_BodyMouthIn&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">geo</span><span class="p">))</span>
+            <span class="n">target_count</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">blendShape</span><span class="p">(</span><span class="n">skull_nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">wc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">blendShape</span><span class="p">(</span><span class="n">skull_nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="p">(</span><span class="n">skull_nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">target_count</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">))</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">skull_nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
+            
+            <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;Facial_Add_Ons_Grp&#39;</span><span class="p">)</span>
+            <span class="n">created_geos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">sides</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;L_&#39;</span><span class="p">,</span> <span class="s1">&#39;R_&#39;</span><span class="p">]</span>
+    <span class="n">bind_joints</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Null_Local_Bnd&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span> 
+        <span class="n">commisure_Ctrl</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">Lips_Sub_Ctrl&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">mouthIn_jnt</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">joint</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{side}</span><span class="s1">MouthCorner_0_Jnt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">),</span> <span class="n">a</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">bind_joints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mouthIn_jnt</span><span class="p">)</span>
+        <span class="n">mouthIn_jnt_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">mouthIn_jnt</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">mouthIn_jnt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;Jnt_Grp&#39;</span><span class="p">))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">matchTransform</span><span class="p">(</span><span class="n">mouthIn_jnt_grp</span><span class="p">,</span> <span class="n">commisure_Ctrl</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+
+        <span class="n">mouthIn_ctrl</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">mouthIn_jnt</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span>
+            <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">mouthIn_jnt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;_Ctrl&#39;</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">mt</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>
+        <span class="n">mouthIn_ctrl_grp</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">root_grp</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">mouthIn_ctrl</span><span class="p">)</span>
+        <span class="c1">#mouthIn_ctrl_grp = cmds.group(mouthIn_ctrl, n=mouthIn_ctrl.replace(&#39;Ctrl&#39;, &#39;Grp&#39;))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">matchTransform</span><span class="p">(</span><span class="n">mouthIn_ctrl_grp</span><span class="p">,</span> <span class="n">commisure_Ctrl</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.scaleX&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mouthIn_ctrl_grp</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.scaleY&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mouthIn_ctrl_grp</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.rotate&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mouthIn_ctrl</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.rotate&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mouthIn_jnt</span><span class="p">))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.translate&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mouthIn_ctrl</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.translate&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mouthIn_jnt</span><span class="p">))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.scale&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mouthIn_ctrl</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.scale&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mouthIn_jnt</span><span class="p">))</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">commisure_Ctrl</span><span class="p">,</span> <span class="n">mouthIn_ctrl_grp</span><span class="p">,</span> <span class="n">mo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">mouthIn_ctrl_grp</span><span class="p">,</span> <span class="s1">&#39;Face_Ctrl_Grp&#39;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">mouthIn_jnt_grp</span><span class="p">,</span> <span class="s1">&#39;Face_Bind_Joints_Grp&#39;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">created_geo</span> <span class="ow">in</span> <span class="n">created_geos</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">skinCluster</span><span class="p">(</span><span class="n">bind_joints</span><span class="p">,</span> <span class="n">created_geo</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MouthIn face created in Facial_Add_Ons_Grp.&#39;</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="create_Mouth_RollPull">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.Helpers.helpers_utils.html#Mutant_Tools.UI.Helpers.helpers_utils.mouth_helpers.create_Mouth_RollPull">[docs]</a>
+<span class="k">def</span> <span class="nf">create_Mouth_RollPull</span><span class="p">(</span><span class="n">face_geos</span><span class="o">=</span><span class="p">[],</span> <span class="n">mirror</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_geos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+        <span class="n">face_geos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_geos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Please select the geometry you want to include in the Lip Roll and Lip Pull blendshapes.&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">face_geos</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">check_facial_addOn_Grp</span><span class="p">()</span>
+
+        <span class="n">attr_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Lip_Roll&#39;</span><span class="p">,</span> <span class="s1">&#39;Lip_Pull&#39;</span><span class="p">]</span>
+        <span class="n">blendshape_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Lips_Up_Main_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Lips_Dw_Main_Ctrl&#39;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">blendshape_ctrl</span> <span class="ow">in</span> <span class="n">blendshape_ctrls</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">attr_name</span> <span class="ow">in</span> <span class="n">attr_names</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">blendshape_ctrl</span><span class="p">)</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">addAttr</span><span class="p">(</span><span class="n">blendshape_ctrl</span><span class="p">,</span> <span class="n">sn</span><span class="o">=</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="n">dv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">geo</span> <span class="ow">in</span> <span class="n">face_geos</span><span class="p">:</span>
+                    <span class="n">face_geo</span> <span class="o">=</span> <span class="s1">&#39;Face_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">geo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;Geo&#39;</span><span class="p">))</span>
+                    <span class="n">skull_nodes</span> <span class="o">=</span> <span class="n">find_zombie_skull</span><span class="p">(</span><span class="n">face_geo</span><span class="p">)</span>
+
+                    <span class="n">dup_geo</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="n">face_geo</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">face_geo</span><span class="p">,</span> <span class="n">blendshape_ctrl</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">))</span>
+                    <span class="n">target_count</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">blendShape</span><span class="p">(</span><span class="n">skull_nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">wc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">blendShape</span><span class="p">(</span><span class="n">skull_nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="p">(</span><span class="n">skull_nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">target_count</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">))</span>
+
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">blendshape_ctrl</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">skull_nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;Facial_Add_Ons_Grp&#39;</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">dup_geo</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Lip Roll and Lip Pull blendshapes are ready to be modelled at Facial_Add_Ons_Grp.&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="find_zombie_skull">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.Helpers.helpers_utils.html#Mutant_Tools.UI.Helpers.helpers_utils.mouth_helpers.find_zombie_skull">[docs]</a>
+<span class="k">def</span> <span class="nf">find_zombie_skull</span><span class="p">(</span><span class="n">face_geo</span><span class="p">):</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">face_geo</span><span class="p">,</span> <span class="n">af</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lv</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">history</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;blendShape&quot;</span><span class="p">:</span>
+            <span class="n">bsh_node</span> <span class="o">=</span> <span class="n">node</span>
+    
+    <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">face_geo</span><span class="p">):</span>
+        <span class="n">faceGeo_connections</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listConnections</span><span class="p">(</span><span class="n">bsh_node</span> <span class="o">+</span> <span class="s2">&quot;.inputTarget[0].inputTargetGroup&quot;</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">connection</span> <span class="ow">in</span> <span class="n">faceGeo_connections</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objectType</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;transform&quot;</span><span class="p">:</span>
+                <span class="n">geometry_name</span> <span class="o">=</span> <span class="n">connection</span>
+
+        <span class="n">history</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">geometry_name</span><span class="p">,</span> <span class="n">af</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lv</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">history</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;blendShape&quot;</span><span class="p">:</span>
+                <span class="n">zombiebsh_node</span> <span class="o">=</span> <span class="n">node</span>
+        
+        <span class="k">return</span> <span class="p">[</span><span class="n">geometry_name</span><span class="p">,</span> <span class="n">zombiebsh_node</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Facial system does not exist.&#39;</span><span class="p">)</span>
+        <span class="k">return</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

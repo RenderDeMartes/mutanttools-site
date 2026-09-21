@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.External.RdMWings.GlobalAttr &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.External.RdMWings.GlobalAttr</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.External.RdMWings.GlobalAttr</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">content: select 3 joints(viewport or argument) and it will create and return a locator on optimal pole vector position</span>
+<span class="sd">version: 1.0.0</span>
+
+<span class="sd">date: 21/04/2020</span>
+
+<span class="sd">how to: select desire 3 joints and execute to get pole vector position:</span>
+<span class="sd">        poleVector(bone_one = &#39;&#39;, bone_two = &#39;&#39;, bone_three = &#39;&#39;)</span>
+
+<span class="sd">dependencies: maya.cmds</span>
+<span class="sd">            </span>
+<span class="sd">licence: EULA </span>
+<span class="sd">         https://www.eulatemplate.com/live.php?token=uvtn9mOrCrX6m7CkXYA1EPZOFrBTEj67</span>
+
+<span class="sd">author:  Esteban Rodriguez &lt;info@renderdemartes.com&gt;</span>
+
+<span class="sd">original video by: Marco Giordano</span>
+<span class="sd">               https://vimeo.com/66015036</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+
+<div class="viewcode-block" id="globalControl">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.External.RdMWings.html#Mutant_Tools.Utils.External.RdMWings.GlobalAttr.globalControl">[docs]</a>
+<span class="k">def</span> <span class="nf">globalControl</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">CC</span><span class="p">,</span> <span class="n">GlobalCC</span><span class="p">,</span> <span class="n">AttrName</span><span class="p">,</span> <span class="n">AttrPosition</span> <span class="p">):</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">undoInfo</span><span class="p">(</span><span class="n">openChunk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    method = &#39;Left&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    selection = cmds.ls(sl = True)</span>
+<span class="sd">    CC = selection[0]</span>
+<span class="sd">    print &#39;this is the controller&#39; + str(CC)</span>
+<span class="sd">    </span>
+<span class="sd">    GlobalCC = selection[-1]</span>
+<span class="sd">    print &#39;this is the global&#39; + str(GlobalCC)</span>
+<span class="sd">    </span>
+<span class="sd">    AttrName = &#39;Global&#39;</span>
+<span class="sd">    AttrPosition = CC</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>    
+    
+  
+    <span class="c1"># Create Root Auto GRP</span>
+    <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CC</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_Auto&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">)):</span>
+        
+        <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Change Name of auto group first :D&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">AutoGRP</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">CC</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_Auto&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">),</span> <span class="n">empty</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+
+    
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">CC</span><span class="p">,</span><span class="n">AutoGRP</span><span class="p">,</span> <span class="n">mo</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">scaleConstraint</span><span class="p">(</span><span class="n">CC</span><span class="p">,</span><span class="n">AutoGRP</span><span class="p">,</span> <span class="n">mo</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+
+
+    
+    <span class="n">upHy</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">CC</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">,</span><span class="n">upHy</span><span class="p">)</span>
+    
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.rx&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.ry&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.rz&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.tx&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.ty&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.tz&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   
+    
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">CC</span><span class="p">,</span> <span class="n">AutoGRP</span><span class="p">)</span>
+ 
+   
+
+    <span class="c1">#CreateLocator and do constriant</span>
+    
+    <span class="n">loc</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">spaceLocator</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">CC</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_loc&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">)</span> <span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;Right&#39;</span><span class="p">:</span>
+        <span class="n">locGRP</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">CC</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_loc&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_GRP&#39;</span><span class="p">)</span>
+    
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">orientConstraint</span><span class="p">(</span><span class="n">GlobalCC</span><span class="p">,</span><span class="n">loc</span><span class="p">,</span> <span class="n">mo</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">pointConstraint</span><span class="p">(</span><span class="n">CC</span><span class="p">,</span><span class="n">loc</span><span class="p">,</span> <span class="n">mo</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">locGRP</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">AutoGRP</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+        
+    
+    <span class="n">OC</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">orientConstraint</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">GlobalCC</span><span class="p">,</span> <span class="n">AutoGRP</span><span class="p">,</span> <span class="n">mo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1">#Create Switch</span>
+    
+        <span class="c1">#New Attr</span>
+    <span class="n">Attr</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">addAttr</span><span class="p">(</span><span class="n">AttrPosition</span><span class="p">,</span> <span class="n">ln</span> <span class="o">=</span><span class="n">AttrName</span> <span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dv</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s1">&#39;double&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">AttrPosition</span> <span class="o">+</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">AttrName</span> <span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keyable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1">#ConnectAttr</span>
+    
+    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">AttrPosition</span> <span class="o">+</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">AttrName</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">OC</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s1">&#39;W0&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+   
+    <span class="n">RN</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">shadingNode</span><span class="p">(</span><span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="n">asUtility</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_Reverse&#39;</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">AttrPosition</span> <span class="o">+</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">AttrName</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">RN</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.inputX&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">RN</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.outputX&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">OC</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">GlobalCC</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;W1&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">undoInfo</span><span class="p">(</span><span class="n">closeChunk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<span class="w">    </span>
+<span class="w">    </span>
+<span class="sd">&#39;&#39;&#39;   </span>
+<span class="sd"> </span>
+<span class="sd">globalControl(method = &#39;Left&#39; , CC = &#39;L_Clavicule_CC&#39;, GlobalCC = &#39;Michael_MasterControl&#39;, AttrName = &#39;Global&#39; , AttrPosition = &#39;L_Palm_CC&#39;)    </span>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<div class="viewcode-block" id="deleteGlobal">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.External.RdMWings.html#Mutant_Tools.Utils.External.RdMWings.GlobalAttr.deleteGlobal">[docs]</a>
+<span class="k">def</span> <span class="nf">deleteGlobal</span><span class="p">(</span><span class="n">method</span> <span class="p">,</span> <span class="n">CC</span><span class="p">,</span> <span class="n">GlobalCC</span><span class="p">,</span> <span class="n">AttrName</span><span class="p">,</span> <span class="n">AttrPosition</span> <span class="p">):</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">undoInfo</span><span class="p">(</span><span class="n">openChunk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    selection = cmds.ls(sl = True)</span>
+<span class="sd">    CC = selection[0]</span>
+<span class="sd">    print &#39;this is the controller&#39; + str(CC)</span>
+<span class="sd">    </span>
+<span class="sd">    GlobalCC = selection[-1]</span>
+<span class="sd">    print &#39;this is the global&#39; + str(GlobalCC)</span>
+<span class="sd">    </span>
+<span class="sd">    AttrName = &#39;Global&#39;</span>
+<span class="sd">    AttrPosition = CC</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CC</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_loc&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_GRP&#39;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CC</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_loc&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">))</span>
+        
+    <span class="n">cmds</span><span class="o">.</span><span class="n">deleteAttr</span><span class="p">(</span><span class="n">AttrPosition</span> <span class="o">+</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">AttrName</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">CC</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">CC</span> <span class="o">+</span> <span class="s1">&#39;_Auto&#39;</span> <span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">),</span> <span class="n">p</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">CC</span> <span class="o">+</span> <span class="s1">&#39;_Auto&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">AttrName</span><span class="p">))</span>
+        
+    <span class="n">cmds</span><span class="o">.</span><span class="n">undoInfo</span><span class="p">(</span><span class="n">closeChunk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<span class="w">   </span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">deleteGlobal(method = &#39;Left&#39; , CC = &#39;L_Clavicule_CC&#39;, GlobalCC = &#39;Michael_MasterControl&#39;, AttrName = &#39;Global&#39; , AttrPosition = &#39;L_Palm_CC&#39;)    </span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

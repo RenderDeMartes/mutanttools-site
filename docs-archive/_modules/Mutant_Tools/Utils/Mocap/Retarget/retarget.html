@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.Mocap.Retarget.retarget &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.Mocap.Retarget.retarget</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.Mocap.Retarget.retarget</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">version: 1.0.0</span>
+<span class="sd">date: 21/04/2020</span>
+
+<span class="sd">#----------------</span>
+
+<span class="sd">how to:</span>
+
+<span class="sd">#Maps are the ones that reads the mocap file for saving</span>
+<span class="sd">#Offset maps are the one to connect to Mutant Tools, Mixamo offset is the connection between Mixamo and Mutant</span>
+
+<span class="sd">import Mutant_Tools</span>
+<span class="sd">try:</span>
+<span class="sd">    import importlib;from importlib import reload</span>
+<span class="sd">except:</span>
+<span class="sd">    import imp;from imp import reload</span>
+
+<span class="sd">import Mutant_Tools.Utils.Mocap.Retarget</span>
+<span class="sd">from Mutant_Tools.Utils.Mocap.Retarget import retarget</span>
+<span class="sd">reload(Mutant_Tools.Utils.Mocap.Retarget.retarget)</span>
+
+<span class="sd">cRetarget = retarget.Retarget()</span>
+
+<span class="sd">#get Mocap data</span>
+<span class="sd">#Need to set the time line, remove namespaces and create missing items from the mocap maps for saving, example &#39;group&#39; in mixamo_map</span>
+<span class="sd">cRetarget.set_timeline(0,25)</span>
+<span class="sd">cRetarget.set_fps(30)</span>
+<span class="sd">cRetarget.set_for_mixamo()</span>
+<span class="sd">mocap_data = cRetarget.get_mocap_data()</span>
+<span class="sd">cRetarget.save_mocap_data_to_file()</span>
+
+<span class="sd">#Apply mocap</span>
+<span class="sd">cRetarget.set_for_mixamo()</span>
+<span class="sd">#cRetarget.load_mocap_data_from_file()</span>
+<span class="sd">cRetarget.mocap_data = mocap_data</span>
+<span class="sd">cRetarget.apply_mocap_data()</span>
+
+<span class="sd">#Load Mixamo that have been already created:</span>
+<span class="sd">cRetarget.mocap_data</span>
+<span class="sd">cRetarget.load_mixamo_animation(anim_file = &#39;walking&#39;)</span>
+
+<span class="sd">#Resotore the rig to non mocap state:</span>
+<span class="sd">cRetarget.restore_scene()</span>
+
+<span class="sd">#----------------</span>
+<span class="sd">dependencies:</span>
+
+<span class="sd">json</span>
+<span class="sd">pymel</span>
+<span class="sd">maya mel</span>
+<span class="sd">maya.cmds</span>
+
+<span class="sd">#----------------</span>
+<span class="sd">licence: https://www.eulatemplate.com/live.php?token=FGISW7ApRfgywum6murbBmLcusKONzkv</span>
+<span class="sd">author:  Esteban Rodriguez &lt;info@mutanttools.com&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span>  <span class="nn">maya</span> <span class="kn">import</span> <span class="n">mel</span>
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Helpers</span> <span class="kn">import</span> <span class="n">helpers</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Helpers</span><span class="o">.</span><span class="n">helpers</span><span class="p">)</span>
+<span class="n">mh</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">Helpers</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Animation</span> <span class="kn">import</span> <span class="n">animation_utils</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">animation_utils</span><span class="p">)</span>
+<span class="c1">#-----------------------------------------------------------------------------------------------</span>
+
+<span class="c1">#Read name conventions as nc[&#39;&#39;] and setup as seup[&#39;&#39;]</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">PATH_PARTS</span> <span class="o">=</span> <span class="n">PATH</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">FOLDER</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">PATH_PARTS</span><span class="p">:</span>
+	<span class="n">FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="n">JSON_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s1">&#39;name_conventions.json&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">JSON_FILE</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+	<span class="n">nc</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget">[docs]</a>
+<span class="k">class</span> <span class="nc">Retarget</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="mi">24</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cog_mult</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skip_cog_translate</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rig_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_mutant_rig_map</span><span class="p">()</span> <span class="c1">#Mutant Map</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mocap_provider_map</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Rokoko Map, Mizamo Map, Radical Map, Etc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mocap_data</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">#collected data top retarget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset_map</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Rokoko Offset Map, Mizamo Offset Map, Radical Offset Map, Etc</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_pose_fixer</span> <span class="o">=</span> <span class="mi">35</span>
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.set_mutant_rig_map">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.set_mutant_rig_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_mutant_rig_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Mocap&#39;</span><span class="p">,</span> <span class="s1">&#39;Retarget&#39;</span><span class="p">,</span> <span class="s1">&#39;Maps&#39;</span><span class="p">,</span> <span class="s1">&#39;mutant_map.json&#39;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rig_map</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.set_timeline">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.set_timeline">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_timeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">playbackOptions</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span> <span class="nb">min</span> <span class="p">,</span> <span class="nb">max</span><span class="o">=</span> <span class="nb">max</span><span class="p">,</span> <span class="n">ps</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">playbackOptions</span><span class="p">(</span><span class="n">ast</span><span class="o">=</span> <span class="nb">min</span> <span class="p">,</span> <span class="n">aet</span><span class="o">=</span> <span class="nb">max</span><span class="p">,</span> <span class="n">ps</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Retarget.set_fps">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.set_fps">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_fps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="mi">24</span><span class="p">):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">currentUnit</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">fps&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fps</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fps</span> <span class="o">=</span> <span class="n">fps</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.read_mocap_map">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.read_mocap_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_mocap_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; will read json file with mocap data</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path: path to where the json file is (rembember to use \\ to define the folders)</span>
+
+<span class="sd">        Returns: dictionary with data</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">import_window</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mocap_provider_map</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.read_offset_map">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.read_offset_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_offset_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; will read json file with mocap data</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path: path to where the json file is (rembember to use \\ to define the folders)</span>
+
+<span class="sd">        Returns: dictionary with data</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">import_window</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset_map</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.set_for_mixamo">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.set_for_mixamo">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_for_mixamo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_mocap_map</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Mocap&#39;</span><span class="p">,</span> <span class="s1">&#39;Retarget&#39;</span><span class="p">,</span> <span class="s1">&#39;Maps&#39;</span><span class="p">,</span> <span class="s1">&#39;mixamo_map.json&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_offset_map</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Mocap&#39;</span><span class="p">,</span> <span class="s1">&#39;Retarget&#39;</span><span class="p">,</span> <span class="s1">&#39;Maps&#39;</span><span class="p">,</span> <span class="s1">&#39;mixamo_offset_map.json&#39;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Retarget.set_for_radical">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.set_for_radical">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_for_radical</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_mocap_map</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Mocap&#39;</span><span class="p">,</span> <span class="s1">&#39;Retarget&#39;</span><span class="p">,</span> <span class="s1">&#39;Maps&#39;</span><span class="p">,</span> <span class="s1">&#39;radical_map.json&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_offset_map</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Mocap&#39;</span><span class="p">,</span> <span class="s1">&#39;Retarget&#39;</span><span class="p">,</span> <span class="s1">&#39;Maps&#39;</span><span class="p">,</span> <span class="s1">&#39;radical_offset_map.json&#39;</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="Retarget.set_for_rokoko">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.set_for_rokoko">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_for_rokoko</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_mocap_map</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Mocap&#39;</span><span class="p">,</span> <span class="s1">&#39;Retarget&#39;</span><span class="p">,</span> <span class="s1">&#39;Maps&#39;</span><span class="p">,</span> <span class="s1">&#39;rokoko_map.json&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_offset_map</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Mocap&#39;</span><span class="p">,</span> <span class="s1">&#39;Retarget&#39;</span><span class="p">,</span> <span class="s1">&#39;Maps&#39;</span><span class="p">,</span> <span class="s1">&#39;rokoko_offset_map.json&#39;</span><span class="p">))</span></div>
+
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.get_mocap_data">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.get_mocap_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_mocap_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">provider</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">provider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mocap_provider_map</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">provider</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;We need to set provider as in attrs or as in self.mocap_provider_map&quot;</span><span class="p">)</span>
+
+        <span class="n">mocap_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">currentTime</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+            <span class="n">frame_data</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">jnt</span> <span class="ow">in</span> <span class="n">provider</span><span class="p">:</span>
+                <span class="n">jnt_data</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">mocap_jnt</span> <span class="o">=</span> <span class="n">provider</span><span class="p">[</span><span class="n">jnt</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">mocap_jnt</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;rotateX&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.rotateX&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mocap_jnt</span><span class="p">))</span>
+                <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;rotateY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.rotateY&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mocap_jnt</span><span class="p">))</span>
+                <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;rotateZ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.rotateZ&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mocap_jnt</span><span class="p">))</span>
+
+                <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;translateX&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.translateX&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mocap_jnt</span><span class="p">))</span>
+                <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;translateY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.translateY&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mocap_jnt</span><span class="p">))</span>
+                <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;translateZ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.translateZ&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mocap_jnt</span><span class="p">))</span>
+
+                <span class="n">frame_data</span><span class="p">[</span><span class="n">jnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">jnt_data</span>
+
+            <span class="n">mocap_data</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame_data</span>
+            
+        <span class="c1">#import pprint</span>
+        <span class="c1">#pprint.pprint(mocap_data)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">currentTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mocap_data</span> <span class="o">=</span> <span class="n">mocap_data</span>
+
+        <span class="k">return</span> <span class="n">mocap_data</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.save_mocap_data_to_file">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.save_mocap_data_to_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_mocap_data_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mocap_data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">mocap_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mocap_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mocap_data</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">export_window</span><span class="p">(</span><span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mocap_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.set_ctrls_to_fk">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.set_ctrls_to_fk">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_ctrls_to_fk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;L_Ankle_Fk_Ctrl|L_Hip_Jnt_Switch_Loc.Switch_IK_FK&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;R_Ankle_Fk_Ctrl|R_Hip_Jnt_Switch_Loc.Switch_IK_FK&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;L_Wrist_Fk_Ctrl|L_Shoulder_Jnt_Switch_Loc.Switch_IK_FK&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;R_Wrist_Fk_Ctrl|R_Shoulder_Jnt_Switch_Loc.Switch_IK_FK&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;Head_Ctrl|Neck_Attrs_Loc.HeadSpace&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;L_ElbowMid_Bendy_Ctrl|L_Shoulder_Jnt_Switch_Loc.FK_Arms&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;R_ElbowMid_Bendy_Ctrl|R_Shoulder_Jnt_Switch_Loc.FK_Arms&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;R_KneeMid_Bendy_Ctrl|R_Hip_Jnt_Switch_Loc.FK_Arms&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;L_KneeMid_Bendy_Ctrl|L_Hip_Jnt_Switch_Loc.FK_Arms&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;We didnt manage to switch all the ctrls to FK, please do it manually.&#39;</span><span class="p">)</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.load_mocap_data_from_file">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.load_mocap_data_from_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_mocap_data_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">read_path</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">import_window</span><span class="p">(</span><span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.json&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">read_path</span> <span class="o">=</span> <span class="n">path</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mocap_data</span><span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="n">read_path</span><span class="p">,</span> <span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.apply_mocap_data">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.apply_mocap_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_mocap_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">mocap_data</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;We need mocap data to work dude!!!&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_ctrls_to_fk</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_timeline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Range:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">)</span>
+
+        <span class="n">rig_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rig_map</span>
+        <span class="n">offset_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset_map</span>
+
+        <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">currentTime</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span><span class="n">frame_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mocap_data</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">frame</span><span class="p">)]</span>
+            <span class="k">except</span><span class="p">:</span><span class="k">continue</span>
+            <span class="k">for</span> <span class="n">jnt</span> <span class="ow">in</span> <span class="n">frame_data</span><span class="p">:</span>
+
+                <span class="n">jnt_data</span> <span class="o">=</span> <span class="n">frame_data</span><span class="p">[</span><span class="n">jnt</span><span class="p">]</span>
+                <span class="c1">#import pprint</span>
+                <span class="c1">#pprint.pprint(jnt_data)</span>
+
+                <span class="c1">#get mocap specific data</span>
+                <span class="n">mocap_rotX</span> <span class="o">=</span> <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;rotateX&quot;</span><span class="p">]</span>
+                <span class="n">mocap_rotY</span> <span class="o">=</span> <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;rotateY&quot;</span><span class="p">]</span>
+                <span class="n">mocap_rotZ</span> <span class="o">=</span> <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;rotateZ&quot;</span><span class="p">]</span>
+                <span class="n">mocap_transX</span> <span class="o">=</span> <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;translateX&quot;</span><span class="p">]</span>
+                <span class="n">mocap_transY</span> <span class="o">=</span> <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;translateY&quot;</span><span class="p">]</span>
+                <span class="n">mocap_transZ</span> <span class="o">=</span> <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;translateZ&quot;</span><span class="p">]</span>
+
+                <span class="c1">#apply the data with all the offset/mults</span>
+                <span class="n">rig_rotX</span> <span class="o">=</span> <span class="p">(</span><span class="n">mocap_rotX</span> <span class="o">+</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;offset&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;mult&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">rig_rotY</span> <span class="o">=</span> <span class="p">(</span><span class="n">mocap_rotY</span> <span class="o">+</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;offset&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;mult&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">rig_rotZ</span> <span class="o">=</span> <span class="p">(</span><span class="n">mocap_rotZ</span> <span class="o">+</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;offset&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;mult&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">rig_transX</span> <span class="o">=</span> <span class="n">mocap_transX</span><span class="o">*</span><span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;mult&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">rig_transY</span> <span class="o">=</span> <span class="n">mocap_transY</span><span class="o">*</span><span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;mult&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">rig_transZ</span> <span class="o">=</span> <span class="n">mocap_transZ</span><span class="o">*</span><span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;mult&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">]:</span>
+
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.rotate</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">],</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;connection&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="n">rig_rotX</span><span class="p">)</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.rotate</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">],</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;connection&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span> <span class="n">rig_rotY</span><span class="p">)</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.rotate</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">],</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;connection&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]),</span> <span class="n">rig_rotZ</span><span class="p">)</span>
+
+                    <span class="n">a_pose_fixer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a_pose_fixer</span>
+                    <span class="k">if</span> <span class="n">jnt</span> <span class="o">==</span> <span class="s2">&quot;l_clavicle&quot;</span> <span class="ow">or</span> <span class="n">jnt</span> <span class="o">==</span> <span class="s2">&quot;r_clavicle&quot;</span><span class="p">:</span>
+                        <span class="n">new_value</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.rotate</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">],</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;connection&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="n">a_pose_fixer</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.rotate</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">],</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;connection&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="n">new_value</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">jnt</span> <span class="o">==</span> <span class="s2">&quot;cog&quot;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">frame</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">cog_offset</span> <span class="o">=</span> <span class="n">jnt_data</span><span class="p">[</span><span class="s2">&quot;translateY&quot;</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cog_mult</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="ow">not</span> <span class="n">cog_offset</span><span class="p">:</span>
+                                <span class="n">cog_offset</span> <span class="o">=</span> <span class="mi">0</span>
+
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_cog_translate</span><span class="p">:</span>
+                             <span class="k">continue</span>
+
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.translate</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">],</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;connection&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="n">rig_transX</span><span class="p">)</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.translate</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">],</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;connection&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span> <span class="n">rig_transY</span> <span class="o">-</span> <span class="n">cog_offset</span><span class="p">)</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.translate</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">],</span> <span class="n">offset_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">][</span><span class="s2">&quot;connection&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]),</span> <span class="n">rig_transZ</span><span class="p">)</span>
+
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">rig_map</span><span class="p">[</span><span class="n">jnt</span><span class="p">])</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setKeyframe</span><span class="p">()</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">currentTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.load_mixamo_animation">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.load_mixamo_animation">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_mixamo_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anim_file</span> <span class="o">=</span> <span class="s1">&#39;walking&#39;</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">restore_scene</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_for_mixamo</span><span class="p">()</span>
+
+        <span class="n">anim_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span><span class="s1">&#39;Mocap&#39;</span><span class="p">,</span><span class="s1">&#39;MocapFiles&#39;</span><span class="p">,</span><span class="s1">&#39;Mixamo&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mocap_data</span><span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="n">anim_path</span><span class="p">,</span> <span class="n">json_file</span><span class="o">=</span><span class="n">anim_file</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">)</span>
+
+        <span class="c1"># import pprint</span>
+        <span class="c1"># pprint.pprint(self.mocap_data)</span>
+
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mocap_data</span><span class="p">:</span>
+            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">frame</span><span class="p">))</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">frames</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_timeline</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">frames</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply_mocap_data</span><span class="p">()</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.restore_scene">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.restore_scene">[docs]</a>
+    <span class="k">def</span> <span class="nf">restore_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;L_Ankle_Fk_Ctrl|L_Hip_Jnt_Switch_Loc.Switch_IK_FK&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;R_Ankle_Fk_Ctrl|R_Hip_Jnt_Switch_Loc.Switch_IK_FK&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;L_Wrist_Fk_Ctrl|L_Shoulder_Jnt_Switch_Loc.Switch_IK_FK&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;R_Wrist_Fk_Ctrl|R_Shoulder_Jnt_Switch_Loc.Switch_IK_FK&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;Head_Ctrl|Neck_Attrs_Loc.HeadSpace&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;L_ElbowMid_Bendy_Ctrl|L_Shoulder_Jnt_Switch_Loc.FK_Arms&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;R_ElbowMid_Bendy_Ctrl|R_Shoulder_Jnt_Switch_Loc.FK_Arms&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;R_KneeMid_Bendy_Ctrl|R_Hip_Jnt_Switch_Loc.FK_Arms&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;L_KneeMid_Bendy_Ctrl|L_Hip_Jnt_Switch_Loc.FK_Arms&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;We didnt manage to retore the scene please do it manually.&#39;</span><span class="p">)</span>
+
+        <span class="n">ctrls</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;*_Ctrl&#39;</span><span class="p">)</span>
+
+        <span class="n">animation_utils</span><span class="o">.</span><span class="n">delete_keys</span><span class="p">()</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;translateX&#39;</span><span class="p">,</span><span class="s1">&#39;translateY&#39;</span><span class="p">,</span><span class="s1">&#39;translateZ&#39;</span><span class="p">,</span><span class="s1">&#39;rotateX&#39;</span><span class="p">,</span><span class="s1">&#39;rotateY&#39;</span><span class="p">,</span><span class="s1">&#39;rotateZ&#39;</span><span class="p">,</span><span class="s1">&#39;scaleX&#39;</span><span class="p">,</span><span class="s1">&#39;scaleY&#39;</span><span class="p">,</span><span class="s1">&#39;ScaleZ&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">ctrls</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="s1">&#39;scale&#39;</span> <span class="ow">in</span> <span class="n">attr</span><span class="p">:</span>
+                    <span class="n">value</span><span class="o">=</span><span class="mi">1</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.batch_save">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.batch_save">[docs]</a>
+    <span class="k">def</span> <span class="nf">batch_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin_folder</span><span class="p">,</span> <span class="n">destination_folder</span><span class="p">,</span> <span class="n">set_for</span> <span class="o">=</span> <span class="s1">&#39;mixamo&#39;</span><span class="p">):</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">new</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">set_for</span> <span class="o">==</span> <span class="s1">&#39;mixamo&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_for_mixamo</span><span class="p">()</span>
+
+        <span class="n">mocap_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">origin_folder</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">mocap_files</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">mocap_file</span> <span class="ow">in</span> <span class="n">mocap_files</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">new</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="n">mocap_file</span><span class="p">)</span>
+
+            <span class="n">name</span> <span class="o">=</span> <span class="n">mocap_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">origin_folder</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.fbx&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="c1">#Open mocap file and clean it</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">mocap_file</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;FBX&#39;</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="nb">all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">snapKey</span><span class="p">()</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">snapKey</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_name_spaces</span><span class="p">()</span>
+
+            <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Hips&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+
+            <span class="c1">#Get all Keys</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="s2">&quot;Hips&quot;</span>  <span class="c1"># Object to check animation range with.</span>
+            <span class="n">all_keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">keyframe</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[])</span>  <span class="c1"># Get all the keys and sort them by order. We use `or []` in-case it has no keys, which will use an empty list instead so it doesn&#39;t crash `sort`.</span>
+            <span class="k">if</span> <span class="n">all_keys</span><span class="p">:</span>  <span class="c1"># Check to see if it at least has one key.</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">all_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">all_keys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">all_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">all_keys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_timeline</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">all_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">all_keys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_fps</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+            <span class="n">mocap_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mocap_data</span><span class="p">()</span>
+
+            <span class="c1">#self.save_mocap_data_to_file(path=os.path.join(destination_folder, name+&#39;.json&#39;), mocap_data=mocap_data)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destination_folder</span><span class="p">,</span> <span class="n">name</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">mocap_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destination_folder</span><span class="p">,</span> <span class="n">name</span><span class="o">+</span><span class="s1">&#39;.json&#39;</span><span class="p">))</span></div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Retarget.delete_name_spaces">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Mocap.Retarget.html#Mutant_Tools.Utils.Mocap.Retarget.retarget.Retarget.delete_name_spaces">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_name_spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Set root namespace</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">namespace</span><span class="p">(</span><span class="n">setNamespace</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Collect all namespaces except for the Maya built ins.</span>
+        <span class="n">all_namespaces</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">namespaceInfo</span><span class="p">(</span><span class="n">listOnlyNamespaces</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recurse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span>
+                          <span class="n">x</span> <span class="o">!=</span> <span class="s2">&quot;UI&quot;</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="s2">&quot;shared&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">all_namespaces</span><span class="p">:</span>
+            <span class="c1"># Sort by hierarchy, deepest first.</span>
+            <span class="n">all_namespaces</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">namespace</span> <span class="ow">in</span> <span class="n">all_namespaces</span><span class="p">:</span>
+                <span class="c1"># When a deep namespace is removed, it also removes the root. So check here to see if these still exist.</span>
+                <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">namespace</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">namespace</span><span class="p">(</span><span class="n">removeNamespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">,</span> <span class="n">mergeNamespaceWithRoot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+
+    <span class="c1">#----------------------------------------------------------------------------</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

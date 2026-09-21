@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.External.Ribbonizer &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.External.Ribbonizer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.External.Ribbonizer</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ao_ribbonizer.py</span>
+<span class="sd">version 2.0</span>
+<span class="sd">copyright (C) 2018 Orkhan Ashrafov</span>
+<span class="sd">email: o.ashrafov@gmail.com</span>
+<span class="sd">given a nurbs surface creates a ribbon.</span>
+<span class="sd">---------------------------------------------------------------------------------------------------------------------------------------------</span>
+<span class="sd">install instructions: place this file in the default &quot;scripts&quot; folder. go to maya and run these two lines from a python tab:</span>
+
+<span class="sd">import ao_ribbonizer</span>
+<span class="sd">reload(ao_ribbonizer)</span>
+<span class="sd">ao_ribbonizer.UI()</span>
+
+<span class="sd">import Mutant_Tools</span>
+<span class="sd">import imp</span>
+<span class="sd">imp.reload(Mutant_Tools)</span>
+<span class="sd">from Mutant_Tools.Utils.External import Ribbonizer</span>
+<span class="sd">Ribbonizer.ribbonize(surf_tr, equal, num_of_Ctrls, num_of_Jnts, prefix, constrain, add_fk, wire)</span>
+
+<span class="sd">---------------------------------------------------------------------------------------------------------------------------------------------</span>
+<span class="sd">EQUAL DIST - if checked, controls are distributed with equal distance from one another. if not,</span>
+<span class="sd">they are distributed proportionally according to the deformed surface (this was the case in the older version).</span>
+<span class="sd">no difference in results unless the surface is deformed after creation (i.e: cvs have been moved).</span>
+<span class="sd">in any case, the final bind joints are always distributed with equal distance. default is checked.</span>
+<span class="sd">CONSTRAIN - control joints are constrained to the controls. if not checked, joints are controlled by direct connections. default is checked.</span>
+<span class="sd">WIRE - deform the surface using wire deformer instead of skinCluster. skinCluster is used if there&#39;s only 1 control</span>
+<span class="sd">ADD FK - add fk controls over the ik ones to the rig. skipped if the surface is periodic</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">maya.OpenMaya</span> <span class="k">as</span> <span class="nn">om</span>
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="k">as</span> <span class="nn">cmds</span>
+<span class="kn">import</span> <span class="nn">Mutant_Tools.Utils.Rigging</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Rigging</span> <span class="kn">import</span> <span class="n">main_mutant</span>
+
+<span class="n">mt</span> <span class="o">=</span> <span class="n">main_mutant</span><span class="o">.</span><span class="n">Mutant</span><span class="p">()</span>
+<span class="n">nc</span><span class="p">,</span> <span class="n">curve_data</span><span class="p">,</span> <span class="n">setup</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">import_configs</span><span class="p">()</span>
+
+<div class="viewcode-block" id="get_bbox_center">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.get_bbox_center">[docs]</a>
+<span class="k">def</span> <span class="nf">get_bbox_center</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># get bb of the shape in case there are children</span>
+    <span class="n">cvs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+        <span class="n">num_of_cvs</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">shape</span> <span class="o">+</span> <span class="s2">&quot;.controlPoints&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cvs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.cv[0:</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">num_of_cvs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">bbmin</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">exactWorldBoundingBox</span><span class="p">(</span><span class="n">cvs</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">bbmax</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">exactWorldBoundingBox</span><span class="p">(</span><span class="n">cvs</span><span class="p">)[</span><span class="mi">3</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+
+    <span class="n">mid_point</span> <span class="o">=</span> <span class="p">[(</span><span class="n">b_max</span> <span class="o">+</span> <span class="n">b_min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">b_min</span><span class="p">,</span> <span class="n">b_max</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bbmin</span><span class="p">,</span> <span class="n">bbmax</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">mid_point</span></div>
+
+
+
+<div class="viewcode-block" id="make_fk_Ctrls">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.make_fk_Ctrls">[docs]</a>
+<span class="k">def</span> <span class="nf">make_fk_Ctrls</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">num_of_Ctrls</span><span class="p">):</span>
+    <span class="n">fk_Ctrls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fk_Ctrl_off_Grps</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">fk_Ctrls</span> <span class="o">=</span> <span class="n">Ctrl_maker</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">Ctrl_type</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">num_of_Ctrls</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sp</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fk&quot;</span><span class="p">)</span>
+    <span class="n">fk_Ctrl_off_Grps</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">fk_Ctrl</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">fk_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;_offset&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">fk_Ctrl</span> <span class="ow">in</span> <span class="n">fk_Ctrls</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">fk_Ctrl_off_Grp</span><span class="p">,</span> <span class="n">piv</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">os</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">fk_Ctrl_off_Grp</span> <span class="ow">in</span> <span class="n">fk_Ctrl_off_Grps</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fk_Ctrl_off_Grps</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">fk_Ctrls</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fk_Ctrls</span><span class="p">,</span> <span class="n">fk_Ctrl_off_Grps</span></div>
+
+
+
+<span class="c1">##########################################################################################</span>
+
+<div class="viewcode-block" id="Ctrl_maker">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.Ctrl_maker">[docs]</a>
+<span class="k">def</span> <span class="nf">Ctrl_maker</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">Ctrl_type</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">deg</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+
+    <span class="n">ribbonizer_int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+
+    <span class="n">Ctrls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">Ctrl_type</span> <span class="o">==</span> <span class="s2">&quot;cube&quot;</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">c1</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span>
+                            <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}{}{:02d}</span><span class="s2">_Ctrl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ribbonizer_int</span><span class="p">),</span>
+                            <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># c1 = cmds.curve(p=[(-1.0, 1.0, 1.0), (-1.0, 1.0, -1.0), (1.0, 1.0, -1.0),</span>
+            <span class="c1">#                  (1.0, 1.0, 1.0), (-1.0, 1.0, 1.0), (-1.0, -1.0, 1.0),</span>
+            <span class="c1">#                  (1.0, -1.0, 1.0), (1.0, -1.0, -1.0), (-1.0, -1.0, -1.0),</span>
+            <span class="c1">#                  (-1.0, -1.0, 1.0), (-1.0, -1.0, -1.0), (-1.0, 1.0, -1.0),</span>
+            <span class="c1">#                  (1.0, 1.0, -1.0), (1.0, -1.0, -1.0), (1.0, -1.0, 1.0), (1.0, 1.0, 1.0)],</span>
+            <span class="c1">#               k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], d=1)</span>
+            <span class="n">ribbonizer_int</span> <span class="o">=</span> <span class="n">ribbonizer_int</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">Ctrls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">Ctrl_type</span> <span class="o">==</span> <span class="s2">&quot;sphere&quot;</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">c1</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span>
+                            <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}{}{:02d}</span><span class="s2">_Ctrl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ribbonizer_int</span><span class="p">),</span>
+                            <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># c1 = cmds.circle(d=deg, s=sp, nr=(1, 0, 0), r=1, ch=0)[0]</span>
+            <span class="c1"># c2 = cmds.circle(d=deg, s=sp, nr=(0, 1, 0), r=1, ch=0)[0]</span>
+            <span class="c1"># c3 = cmds.circle(d=deg, s=sp, nr=(0, 0, 1), r=1, ch=0)[0]</span>
+            <span class="c1">#</span>
+            <span class="c1"># cmds.parent(cmds.listRelatives(c2, s=True), cmds.listRelatives(c3, s=True), c1, r=True, s=True)</span>
+            <span class="c1"># cmds.delete(c2, c3)</span>
+            <span class="n">ribbonizer_int</span> <span class="o">=</span> <span class="n">ribbonizer_int</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">Ctrls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">Ctrl_type</span> <span class="o">==</span> <span class="s2">&quot;circle&quot;</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">c1</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;circleX&#39;</span><span class="p">,</span>
+                            <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}{}{:02d}</span><span class="s2">_Ctrl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ribbonizer_int</span><span class="p">),</span>
+                            <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># c1 = cmds.circle(d=deg, s=sp, nr=(1, 0, 0), r=1, ch=0)[0]</span>
+            <span class="n">ribbonizer_int</span> <span class="o">=</span> <span class="n">ribbonizer_int</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">Ctrls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">Ctrl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Ctrls</span><span class="p">):</span>
+        <span class="c1">#Ctrls[x] = cmds.rename(Ctrl, &quot;{}{}{:02d}_Ctrl&quot;.format(prefix, name, x + 1))</span>
+        <span class="n">shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">Ctrls</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">shape</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shapes</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">Shape</span><span class="si">{:02d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ctrls</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Ctrls</span></div>
+
+
+
+<span class="c1">#######################################################################</span>
+
+<div class="viewcode-block" id="lock_hide">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.lock_hide">[docs]</a>
+<span class="k">def</span> <span class="nf">lock_hide</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">obj</span> <span class="o">+</span> <span class="n">attr</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#####################################################################</span>
+
+<div class="viewcode-block" id="param_from_length">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.param_from_length">[docs]</a>
+<span class="k">def</span> <span class="nf">param_from_length</span><span class="p">(</span><span class="n">curve</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">curve_type</span><span class="o">=</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="s2">&quot;uv&quot;</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">curve_type</span> <span class="o">==</span> <span class="s2">&quot;periodic&quot;</span><span class="p">:</span>
+        <span class="n">divider</span> <span class="o">=</span> <span class="n">count</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">divider</span> <span class="o">=</span> <span class="n">count</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">divider</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">divider</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">dag</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MDagPath</span><span class="p">()</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MObject</span><span class="p">()</span>
+    <span class="n">crv</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MSelectionList</span><span class="p">()</span>
+    <span class="n">crv</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">curve</span><span class="p">)</span>
+    <span class="n">crv</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dag</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+
+    <span class="n">curve_fn</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MFnNurbsCurve</span><span class="p">(</span><span class="n">dag</span><span class="p">)</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">curve_fn</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+
+    <span class="n">param</span> <span class="o">=</span> <span class="p">[</span><span class="n">curve_fn</span><span class="o">.</span><span class="n">findParamFromLength</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">divider</span><span class="p">))</span> <span class="o">*</span> <span class="n">length</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="n">space</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">space</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MSpace</span><span class="o">.</span><span class="n">kWorld</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MPoint</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param</span><span class="p">:</span>
+            <span class="n">curve_fn</span><span class="o">.</span><span class="n">getPointAtParam</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>  <span class="c1"># world space points</span>
+    <span class="k">elif</span> <span class="n">normalized</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">normalizer</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">old_range</span><span class="p">,</span> <span class="n">new_range</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">old_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">new_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">new_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">old_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">old_range</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">new_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">max_v</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">curve</span> <span class="o">+</span> <span class="s2">&quot;.minMaxValue.maxValue&quot;</span><span class="p">)</span>
+        <span class="n">min_v</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">curve</span> <span class="o">+</span> <span class="s2">&quot;.minMaxValue.minValue&quot;</span><span class="p">)</span>
+
+        <span class="c1"># normalized parameters (before i was just dividing p to max_v. but with weird ranges (ie. 1.4281 to 6.98214) the result is of is not as expected. this also could have been fixed by just rebuilding the surface uniformly)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">normalizer</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">[</span><span class="n">min_v</span><span class="p">,</span> <span class="n">max_v</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">param</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+
+<span class="c1">#####################################################################</span>
+
+<div class="viewcode-block" id="set_color">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.set_color">[docs]</a>
+<span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">color_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;blue&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="s2">&quot;mid_blue&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;light_green&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">obj</span> <span class="o">+</span> <span class="s2">&quot;.ove&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">obj</span> <span class="o">+</span> <span class="s2">&quot;.ovc&quot;</span><span class="p">,</span> <span class="n">color_dict</span><span class="p">[</span><span class="n">color</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">obj</span> <span class="o">+</span> <span class="s2">&quot;.ove&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">obj</span> <span class="o">+</span> <span class="s2">&quot;.ovc&quot;</span><span class="p">,</span> <span class="n">color_dict</span><span class="p">[</span><span class="n">color</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">objects</span> <span class="o">+</span> <span class="s2">&quot;.ove&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">objects</span> <span class="o">+</span> <span class="s2">&quot;.ovc&quot;</span><span class="p">,</span> <span class="n">color_dict</span><span class="p">[</span><span class="n">color</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">objects</span> <span class="o">+</span> <span class="s2">&quot;.ove&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">objects</span> <span class="o">+</span> <span class="s2">&quot;.ovc&quot;</span><span class="p">,</span> <span class="n">color_dict</span><span class="p">[</span><span class="n">color</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="get_selection">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.get_selection">[docs]</a>
+<span class="k">def</span> <span class="nf">get_selection</span><span class="p">():</span>
+    <span class="c1"># check if nurbsSurface is selected</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sel</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;select a nurbs surface to ribbonize&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">shapes</span> <span class="ow">and</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objectType</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;nurbsSurface&quot;</span><span class="p">:</span>
+        <span class="n">surf_tr</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># after changing attributes on &quot;makeNurbPlane&quot; node it stays selected.</span>
+    <span class="c1"># so instead of raising an error we just get the connected surface</span>
+    <span class="k">elif</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objectType</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;makeNurbPlane&quot;</span> <span class="ow">or</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objectType</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;makeNurbCylinder&quot;</span><span class="p">:</span>
+        <span class="n">surf_tr</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listConnections</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.outputSurface&quot;</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;dude, that isn&#39;t a nurbs surface&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">return</span> <span class="n">surf_tr</span></div>
+
+
+
+<div class="viewcode-block" id="ribbonize">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.ribbonize">[docs]</a>
+<span class="k">def</span> <span class="nf">ribbonize</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">equal</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_of_Ctrls</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_of_Jnts</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">constrain</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">add_fk</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">wire</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">middle_ctrl_pos</span><span class="o">=</span><span class="s1">&#39;Original&#39;</span><span class="p">):</span>
+    <span class="n">attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.tx&quot;</span><span class="p">,</span> <span class="s2">&quot;.ty&quot;</span><span class="p">,</span> <span class="s2">&quot;.tz&quot;</span><span class="p">,</span> <span class="s2">&quot;.rx&quot;</span><span class="p">,</span> <span class="s2">&quot;.ry&quot;</span><span class="p">,</span> <span class="s2">&quot;.rz&quot;</span><span class="p">,</span> <span class="s2">&quot;.sx&quot;</span><span class="p">,</span> <span class="s2">&quot;.sy&quot;</span><span class="p">,</span> <span class="s2">&quot;.sz&quot;</span><span class="p">,</span> <span class="s2">&quot;.v&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;care to name it?&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+
+    <span class="c1">#####################################################</span>
+
+    <span class="n">surf_tr</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;ribbon_surface&quot;</span><span class="p">)</span>
+    <span class="n">surf</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># freeze transformations and delete the surface history</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">makeIdentity</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">apply</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># duplicate surface curves to determine the direction</span>
+    <span class="n">u_curve</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicateCurve</span><span class="p">(</span><span class="n">surf_tr</span> <span class="o">+</span> <span class="s2">&quot;.v[.5]&quot;</span><span class="p">,</span> <span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">v_curve</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicateCurve</span><span class="p">(</span><span class="n">surf_tr</span> <span class="o">+</span> <span class="s2">&quot;.u[.5]&quot;</span><span class="p">,</span> <span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># delete the history just in case</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">u_length</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">arclen</span><span class="p">(</span><span class="n">u_curve</span><span class="p">)</span>
+    <span class="n">v_length</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">arclen</span><span class="p">(</span><span class="n">v_curve</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">u_length</span> <span class="o">&lt;</span> <span class="n">v_length</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">reverseSurface</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rpo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">reverseSurface</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rpo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">parameter</span> <span class="o">=</span> <span class="s2">&quot;.parameterU&quot;</span>
+    <span class="n">other_param</span> <span class="o">=</span> <span class="s2">&quot;.parameterV&quot;</span>
+
+    <span class="c1"># correct u_curve after reversing to calculate the length</span>
+    <span class="n">u_curve_corr</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicateCurve</span><span class="p">(</span><span class="n">surf_tr</span> <span class="o">+</span> <span class="s2">&quot;.v[.5]&quot;</span><span class="p">,</span> <span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1">#############################################################################</span>
+
+    <span class="c1"># selected surface is periodic or open? (cylinder or a plane)</span>
+    <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.formU&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.formV&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">curve_type</span> <span class="o">=</span> <span class="s2">&quot;periodic&quot;</span>
+        <span class="n">divider_for_Ctrls</span> <span class="o">=</span> <span class="n">num_of_Ctrls</span>
+    <span class="k">elif</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.formU&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.formV&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">curve_type</span> <span class="o">=</span> <span class="s2">&quot;open&quot;</span>
+        <span class="n">divider_for_Ctrls</span> <span class="o">=</span> <span class="n">num_of_Ctrls</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="c1">#############################################################################</span>
+    <span class="n">param_Ctrls</span> <span class="o">=</span> <span class="n">param_from_length</span><span class="p">(</span><span class="n">u_curve_corr</span><span class="p">,</span> <span class="n">num_of_Ctrls</span><span class="p">,</span> <span class="n">curve_type</span><span class="p">,</span> <span class="s2">&quot;uv&quot;</span><span class="p">)</span>
+    <span class="n">param_joints</span> <span class="o">=</span> <span class="n">param_from_length</span><span class="p">(</span><span class="n">u_curve_corr</span><span class="p">,</span> <span class="n">num_of_Jnts</span><span class="p">,</span> <span class="n">curve_type</span><span class="p">,</span> <span class="s2">&quot;uv&quot;</span><span class="p">)</span>
+
+    <span class="n">length</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">arclen</span><span class="p">(</span><span class="n">u_curve_corr</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">u_curve</span><span class="p">,</span> <span class="n">v_curve</span><span class="p">,</span> <span class="n">u_curve_corr</span><span class="p">)</span>
+
+    <span class="c1">############################################################################</span>
+
+    <span class="c1"># create groups, main control and main control offset</span>
+    <span class="c1">#final_group = cmds.group(n=prefix + &quot;Ribbon_Grp&quot;, em=True)</span>
+    <span class="n">Ctrl_joints_Grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;Ctrl_Joints_Grp&quot;</span><span class="p">,</span> <span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">Ctrl_Grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;Ctrls_Grp&quot;</span><span class="p">,</span> <span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">follicles_Grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;Follicles_Grp&quot;</span><span class="p">,</span> <span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">rig_Grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;Rig_Grp&quot;</span><span class="p">,</span> <span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">main_Ctrl</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                         <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;circleX&#39;</span><span class="p">,</span>
+                         <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">name</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;Main_Ctrl&quot;</span><span class="p">,</span>
+                         <span class="n">size</span><span class="o">=</span><span class="n">length</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">main_Ctrl_offset</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;Ctrl_Main_Offset_Grp&quot;</span><span class="p">,</span> <span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">,</span> <span class="n">main_Ctrl_offset</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">Ctrl_Grp</span><span class="p">,</span> <span class="n">main_Ctrl</span><span class="p">)</span>
+    <span class="c1">#cmds.parent(main_Ctrl_offset, rig_Grp, final_group)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">Ctrl_joints_Grp</span><span class="p">,</span> <span class="n">follicles_Grp</span><span class="p">,</span> <span class="n">rig_Grp</span><span class="p">)</span>
+
+
+
+    <span class="c1">############################################################################</span>
+
+    <span class="n">fols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fols_tr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">bind_Jnts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Bind_joints_rad</span> <span class="o">=</span> <span class="p">(</span><span class="n">length</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">num_of_Jnts</span><span class="p">)</span> <span class="o">/</span> <span class="mi">40</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_of_Jnts</span><span class="p">):</span>
+        <span class="n">fol</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s2">&quot;follicle&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">fol</span> <span class="o">+</span> <span class="s2">&quot;.visibility&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">temp_fol</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">fol</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">fols_tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">temp_fol</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">follicle_</span><span class="si">{:02d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">fols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">fols_tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># connect follicle shapes to their transforms</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.outTranslate&quot;</span><span class="p">,</span> <span class="n">fols_tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.translate&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.outRotate&quot;</span><span class="p">,</span> <span class="n">fols_tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.rotate&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># attach follicle shapes to the surface</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.worldMatrix[0]&quot;</span><span class="p">,</span> <span class="n">fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.inputWorldMatrix&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.local&quot;</span><span class="p">,</span> <span class="n">fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.inputSurface&quot;</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">param_joints</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">other_param</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">fols_tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">follicles_Grp</span><span class="p">)</span>
+
+        <span class="c1"># create final bind joints on the surface</span>
+        <span class="n">bind_Jnts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s2">&quot;joint&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">Bind_</span><span class="si">{:02d}</span><span class="s2">_Bnd&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">fols_tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">bind_Jnts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">mo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">scaleConstraint</span><span class="p">(</span><span class="n">fols_tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">bind_Jnts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">mo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">bind_Jnts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.radius&quot;</span><span class="p">,</span> <span class="n">Bind_joints_rad</span><span class="p">)</span>
+
+    <span class="n">set_color</span><span class="p">(</span><span class="n">bind_Jnts</span><span class="p">,</span> <span class="s2">&quot;mid_blue&quot;</span><span class="p">)</span>
+
+    <span class="c1">############################################################################</span>
+
+    <span class="c1"># create temp follicles for control offset groups to align</span>
+    <span class="n">temp_fols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">temp_fols_tr</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_of_Ctrls</span><span class="p">):</span>
+        <span class="n">temp_fols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s2">&quot;follicle&quot;</span><span class="p">))</span>
+        <span class="n">temp_fols_tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">temp_fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">temp_fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.outTranslate&quot;</span><span class="p">,</span> <span class="n">temp_fols_tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.translate&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">temp_fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.outRotate&quot;</span><span class="p">,</span> <span class="n">temp_fols_tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.rotate&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.worldMatrix[0]&quot;</span><span class="p">,</span> <span class="n">temp_fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.inputWorldMatrix&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.local&quot;</span><span class="p">,</span> <span class="n">temp_fols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.inputSurface&quot;</span><span class="p">)</span>
+
+    <span class="c1">####################################################</span>
+
+    <span class="k">if</span> <span class="n">equal</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">temp_fol</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">temp_fols</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">temp_fol</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">param_Ctrls</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">temp_fol</span> <span class="o">+</span> <span class="n">other_param</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">equal</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">temp_fol</span> <span class="ow">in</span> <span class="n">temp_fols</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">temp_fol</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">temp_fol</span> <span class="o">+</span> <span class="n">other_param</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">divider_for_Ctrls</span><span class="p">)</span>
+
+    <span class="c1">####################################################</span>
+
+    <span class="c1"># move main_Ctrl_offset to the center of the surfaces bbox (in case its pivot is somewhere else)</span>
+    <span class="k">if</span> <span class="n">middle_ctrl_pos</span> <span class="o">==</span> <span class="s1">&#39;Start&#39;</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">bind_Jnts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">main_Ctrl_offset</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">middle_ctrl_pos</span> <span class="o">==</span> <span class="s1">&#39;End&#39;</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">bind_Jnts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">main_Ctrl_offset</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mid_point</span> <span class="o">=</span> <span class="n">get_bbox_center</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">attr</span><span class="p">,</span> <span class="n">mid_pnt_el</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">attrs</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">mid_point</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">main_Ctrl_offset</span> <span class="o">+</span> <span class="n">attr</span><span class="p">,</span> <span class="n">mid_pnt_el</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">orientConstraint</span><span class="p">(</span><span class="n">bind_Jnts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bind_Jnts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">main_Ctrl_offset</span><span class="p">))</span>
+
+    <span class="c1">############################################################################</span>
+
+    <span class="c1"># create controls and control joints</span>
+    <span class="n">controls</span> <span class="o">=</span> <span class="n">Ctrl_maker</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">Ctrl_type</span><span class="o">=</span><span class="s2">&quot;cube&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">num_of_Ctrls</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sp</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+    <span class="n">Ctrl_ofs_Grps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Ctrl_joints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Ctrl_Jnt_ofs_Grps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Ctrl_joints_rad</span> <span class="o">=</span> <span class="n">Bind_joints_rad</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">ik_Ctrl_scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">length</span> <span class="o">/</span> <span class="mi">35</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">num_of_Ctrls</span><span class="p">)</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">Ctrl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">controls</span><span class="p">):</span>
+
+        <span class="n">Ctrl_ofs_Grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">Ctrl</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_Offset_Grp&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ctrl</span><span class="p">))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">temp_fols_tr</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">Ctrl_ofs_Grp</span><span class="p">))</span>
+        <span class="n">Ctrl_ofs_Grps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Ctrl_ofs_Grp</span><span class="p">)</span>
+
+        <span class="c1"># scale ik controls</span>
+        <span class="n">Ctrl_shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">Ctrl</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">Ctrl_shape</span> <span class="ow">in</span> <span class="n">Ctrl_shapes</span><span class="p">:</span>
+            <span class="n">Ctrl_cvs_count</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">Ctrl_shape</span> <span class="o">+</span> <span class="s2">&quot;.controlPoints&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">ik_Ctrl_scale</span><span class="p">,</span> <span class="n">ik_Ctrl_scale</span><span class="p">,</span> <span class="n">ik_Ctrl_scale</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.cv[0:</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ctrl_shape</span><span class="p">,</span> <span class="n">Ctrl_cvs_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+                     <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ocp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># create the control joints</span>
+        <span class="n">Ctrl_joints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s2">&quot;joint&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">Ctrl_</span><span class="si">{:02d}</span><span class="s2">_Jnt&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="c1"># set the radius of controls joints to 2 times that of the surface joints</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">Ctrl_joints</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.radius&quot;</span><span class="p">,</span> <span class="n">Ctrl_joints_rad</span><span class="p">)</span>
+        <span class="c1"># create offset groups for Ctrl joints</span>
+        <span class="n">Ctrl_Jnt_ofs_Grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">Ctrl_joints</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_Offset_Grp&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ctrl_joints</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">temp_fols_tr</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">Ctrl_Jnt_ofs_Grp</span><span class="p">))</span>
+        <span class="n">Ctrl_Jnt_ofs_Grps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Ctrl_Jnt_ofs_Grp</span><span class="p">)</span>
+
+    <span class="c1">###</span>
+    <span class="n">set_color</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
+    <span class="n">set_color</span><span class="p">(</span><span class="n">Ctrl_joints</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">Ctrl_ofs_Grps</span><span class="p">,</span> <span class="n">Ctrl_Grp</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">Ctrl_Jnt_ofs_Grps</span><span class="p">,</span> <span class="n">Ctrl_joints_Grp</span><span class="p">)</span>
+
+    <span class="c1">#lock_hide(Ctrl_ofs_Grps, attrs[:9])</span>
+    <span class="c1">#lock_hide(Ctrl_Jnt_ofs_Grps, attrs[:9])</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">temp_fols_tr</span><span class="p">)</span>
+
+    <span class="c1">####################################################</span>
+
+    <span class="c1"># determine if constraint or connection method is chosen</span>
+    <span class="k">if</span> <span class="n">constrain</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">Ctrl_joints</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">[:</span><span class="mi">7</span><span class="p">]:</span>  <span class="c1"># skip scale attributes</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">attr</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">attr</span><span class="p">)</span>
+
+        <span class="n">childs</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">Ctrl_joints_Grp</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">childs</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">,</span> <span class="n">Ctrl_joints_Grp</span><span class="p">))</span>
+        <span class="n">mt</span><span class="o">.</span><span class="n">root_grp</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">Ctrl_joints_Grp</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">childs</span><span class="p">,</span> <span class="n">Ctrl_joints_Grp</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.translate&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.translate&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ctrl_joints_Grp</span><span class="p">))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.rotate&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.rotate&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ctrl_joints_Grp</span><span class="p">))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.scale&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.scale&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ctrl_joints_Grp</span><span class="p">))</span>
+
+        <span class="c1">#cmds.parentConstraint(main_Ctrl, Ctrl_joints_Grp, mo=True)</span>
+        <span class="c1">#cmds.scaleConstraint(main_Ctrl, Ctrl_joints_Grp)</span>
+
+        <span class="c1"># scale the follicles with the main control</span>
+        <span class="k">for</span> <span class="n">flt</span> <span class="ow">in</span> <span class="n">fols_tr</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.sx&quot;</span><span class="p">,</span> <span class="n">flt</span> <span class="o">+</span> <span class="s2">&quot;.sx&quot;</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.sx&quot;</span><span class="p">,</span> <span class="n">flt</span> <span class="o">+</span> <span class="s2">&quot;.sy&quot;</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.sx&quot;</span><span class="p">,</span> <span class="n">flt</span> <span class="o">+</span> <span class="s2">&quot;.sz&quot;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">constrain</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">Ctrl_joints</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">scaleConstraint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+
+        <span class="c1"># scale the follicles with the main control</span>
+        <span class="k">for</span> <span class="n">flt</span> <span class="ow">in</span> <span class="n">fols_tr</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">scaleConstraint</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">,</span> <span class="n">flt</span><span class="p">)</span>
+
+    <span class="c1">#######################################################################</span>
+
+    <span class="k">if</span> <span class="n">wire</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">num_of_Ctrls</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+
+        <span class="n">temp_crv</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicateCurve</span><span class="p">(</span><span class="n">surf_tr</span> <span class="o">+</span> <span class="s2">&quot;.v[.5]&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;wire_crv&quot;</span><span class="p">,</span> <span class="n">local</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">num_of_Ctrls</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">degree</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">degree</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="n">wire_crv</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">param_from_length</span><span class="p">(</span><span class="n">temp_crv</span><span class="p">,</span> <span class="n">num_of_Ctrls</span> <span class="o">+</span> <span class="p">(</span><span class="n">num_of_Ctrls</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="n">degree</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">temp_crv</span><span class="p">)</span>
+
+        <span class="n">wire_crv</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">wire_crv</span><span class="p">,</span>
+                             <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;wire_crv&quot;</span><span class="p">)</span>  <span class="c1"># if name at the creation time, the shape doesn&#39;t get renamed</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">wire_crv</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">wire</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">wire</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">gw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">en</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ce</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">li</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">dds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">w</span><span class="o">=</span><span class="n">wire_crv</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;wire&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.sx&quot;</span><span class="p">,</span> <span class="n">wire</span> <span class="o">+</span> <span class="s2">&quot;.scale[0]&quot;</span><span class="p">)</span>
+
+        <span class="n">cps</span> <span class="o">=</span> <span class="n">param_from_length</span><span class="p">(</span><span class="n">wire_crv</span><span class="p">,</span> <span class="n">num_of_Ctrls</span><span class="p">,</span> <span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;uv&quot;</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">cp</span> <span class="ow">in</span> <span class="n">cps</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.u[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wire_crv</span><span class="p">,</span> <span class="n">cp</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">dropoffLocator</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">wire</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">Ctrl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">controls</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.rx&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.wireLocatorTwist[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wire</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+
+        <span class="n">wire_Grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">wire_crv</span><span class="p">,</span> <span class="n">wire_crv</span> <span class="o">+</span> <span class="s2">&quot;BaseWire&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;wire_crv_Grp&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">wire_Grp</span><span class="p">,</span> <span class="n">rig_Grp</span><span class="p">)</span>
+        <span class="n">lock_hide</span><span class="p">([</span><span class="n">wire_Grp</span><span class="p">],</span> <span class="n">attrs</span><span class="p">[:</span><span class="mi">9</span><span class="p">])</span>
+
+        <span class="n">wire_skin_cluster</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">skinCluster</span><span class="p">(</span><span class="n">Ctrl_joints</span><span class="p">,</span> <span class="n">wire_crv</span><span class="p">,</span> <span class="n">dr</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mi</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bm</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># bind the surface to the joints</span>
+        <span class="n">nurbs_skin_cluster</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">skinCluster</span><span class="p">(</span><span class="n">Ctrl_joints</span><span class="p">,</span> <span class="n">surf_tr</span><span class="p">,</span> <span class="n">dr</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mi</span><span class="o">=</span><span class="n">num_of_Ctrls</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ns</span><span class="o">=</span><span class="n">num_of_Ctrls</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">bm</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                            <span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;skinCluster&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">skinPercent</span><span class="p">(</span><span class="n">nurbs_skin_cluster</span><span class="p">,</span> <span class="n">surf_tr</span><span class="p">,</span> <span class="n">pruneWeights</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">wire</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">num_of_Ctrls</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;wire skipped. at least 2 controls needed&quot;</span><span class="p">)</span>
+
+    <span class="c1">##########################################################################################</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">surf_tr</span> <span class="o">+</span> <span class="s2">&quot;.v&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">rig_Grp</span> <span class="o">+</span> <span class="s2">&quot;.v&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1">#cmds.connectAttr(main_Ctrl + &quot;.sx&quot;, main_Ctrl + &quot;.sy&quot;)</span>
+    <span class="c1">#cmds.connectAttr(main_Ctrl + &quot;.sx&quot;, main_Ctrl + &quot;.sz&quot;)</span>
+    <span class="c1">#cmds.aliasAttr(&quot;Scale&quot;, main_Ctrl + &quot;.sx&quot;)</span>
+    <span class="n">scale_Attr</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">new_attr</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">main_Ctrl</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Scale&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mi">9999</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">9999</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">scale_Attr</span><span class="p">,</span> <span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.sx&quot;</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">scale_Attr</span><span class="p">,</span> <span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.sy&quot;</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">scale_Attr</span><span class="p">,</span> <span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.sz&quot;</span><span class="p">)</span>
+
+    <span class="n">set_color</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+
+    <span class="c1">#cmds.connectAttr(main_Ctrl_offset + &quot;.sx&quot;, main_Ctrl_offset + &quot;.sy&quot;)</span>
+    <span class="c1">#cmds.connectAttr(main_Ctrl_offset + &quot;.sx&quot;, main_Ctrl_offset + &quot;.sz&quot;)</span>
+    <span class="c1">#cmds.aliasAttr(&quot;Scale&quot;, main_Ctrl_offset + &quot;.sx&quot;)</span>
+
+    <span class="c1"># lock and hide attributes</span>
+    <span class="c1">#lock_hide([final_group, follicles_Grp, Ctrl_joints_Grp, surf_tr, Ctrl_Grp, rig_Grp], attrs[:9])</span>
+    <span class="n">lock_hide</span><span class="p">([</span><span class="n">main_Ctrl</span><span class="p">],</span> <span class="n">attrs</span><span class="p">[</span><span class="mi">6</span><span class="p">:])</span>
+    <span class="n">lock_hide</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">attrs</span><span class="p">[</span><span class="mi">7</span><span class="p">:])</span>
+
+    <span class="c1"># clear selection</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># if selection isn&#39;t cleared a control joint gets added to the bind joints set</span>
+
+    <span class="c1"># create a set with bind joints</span>
+    <span class="c1">#bind_Jnts_set = cmds.sets(n=prefix + &quot;bind_Jnts_set&quot;)</span>
+    <span class="c1">#cmds.sets(bind_Jnts, add=bind_Jnts_set)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#ik_Ctrls_set = cmds.sets(n=prefix + &quot;ik_Ctrls_set&quot;)</span>
+    <span class="c1">#cmds.sets(controls, add=ik_Ctrls_set)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#controls_set = cmds.sets(n=prefix + &quot;controls_set&quot;)</span>
+    <span class="c1">#cmds.sets(main_Ctrl, ik_Ctrls_set, add=controls_set)</span>
+
+    <span class="c1">##########################################################################################</span>
+
+    <span class="k">if</span> <span class="n">add_fk</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.formU&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.formV&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+
+        <span class="n">fk_Ctrls</span><span class="p">,</span> <span class="n">fk_Ctrl_off_Grps</span> <span class="o">=</span> <span class="n">make_fk_Ctrls</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">num_of_Ctrls</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">fk_Ctrl_off_Grps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Ctrl_Grp</span><span class="p">)</span>
+
+        <span class="c1"># scale fk controls</span>
+        <span class="n">fk_Ctrl_scale</span> <span class="o">=</span> <span class="n">ik_Ctrl_scale</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="k">for</span> <span class="n">fk_Ctrl</span> <span class="ow">in</span> <span class="n">fk_Ctrls</span><span class="p">:</span>
+            <span class="n">fk_Ctrl_shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">fk_Ctrl</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">fk_Ctrl_shape</span> <span class="ow">in</span> <span class="n">fk_Ctrl_shapes</span><span class="p">:</span>
+                <span class="n">fk_Ctrl_cvs_count</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">fk_Ctrl_shape</span> <span class="o">+</span> <span class="s2">&quot;.controlPoints&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">fk_Ctrl_scale</span><span class="p">,</span> <span class="n">fk_Ctrl_scale</span><span class="p">,</span> <span class="n">fk_Ctrl_scale</span><span class="p">,</span>
+                         <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.cv[0:</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fk_Ctrl_shape</span><span class="p">,</span> <span class="n">fk_Ctrl_cvs_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ocp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># add fk controls to a set</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1">#fk_Ctrls_set = cmds.sets(n=prefix + &quot;fk_Ctrls_set&quot;)</span>
+        <span class="c1">#cmds.sets(fk_Ctrls, add=fk_Ctrls_set)</span>
+
+        <span class="c1">########</span>
+        <span class="n">ik_Ctrl_constr_Grps</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">Ctrl</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">Ctrl</span> <span class="o">+</span> <span class="s2">&quot;_constr_Grp&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">Ctrl</span> <span class="ow">in</span> <span class="n">controls</span><span class="p">]</span>
+        <span class="p">[</span><span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">ik_Ctrl_constr_Grp</span><span class="p">,</span> <span class="n">piv</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">os</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">ik_Ctrl_constr_Grp</span> <span class="ow">in</span> <span class="n">ik_Ctrl_constr_Grps</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">ik</span><span class="p">,</span> <span class="n">fk</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">controls</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">fk_Ctrl_off_Grps</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">ik</span><span class="p">,</span> <span class="n">fk</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">fk</span><span class="p">,</span> <span class="n">ik</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fk_Ctrls</span><span class="p">,</span> <span class="n">ik_Ctrl_constr_Grps</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="n">ik</span><span class="p">)</span>
+
+        <span class="c1"># constrain last ik Ctrl</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">fk_Ctrls</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">ik_Ctrl_constr_Grps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">mo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1">#lock_hide(ik_Ctrl_constr_Grps, attrs[:9])</span>
+
+        <span class="c1">########</span>
+        <span class="n">set_color</span><span class="p">(</span><span class="n">fk_Ctrls</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+        <span class="c1">#lock_hide(fk_Ctrl_off_Grps, attrs[:9])</span>
+
+        <span class="c1">#cmds.sets(fk_Ctrls_set, add=controls_set)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">add_fk</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.formU&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.formV&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;surface is periodic. fk controls skipped&quot;</span><span class="p">)</span>
+
+    <span class="c1">################ADD MESSAGE ATTRS################</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">addAttr</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="s2">&quot;joints&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;message&quot;</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">addAttr</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="s2">&quot;follicles&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;message&quot;</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">addAttr</span><span class="p">(</span><span class="n">main_Ctrl</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="s2">&quot;surface&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;message&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">attributeQuery</span><span class="p">(</span><span class="s2">&quot;i_am_the_surface&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">surf</span><span class="p">,</span> <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">addAttr</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="s2">&quot;i_am_the_surface&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;message&quot;</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.surface&quot;</span><span class="p">,</span> <span class="n">surf</span> <span class="o">+</span> <span class="s2">&quot;.i_am_the_surface&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bind_Jnts</span><span class="p">,</span> <span class="n">fols</span><span class="p">):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">addAttr</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="s2">&quot;i_am_a_joint&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;message&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">addAttr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="s2">&quot;i_am_a_follicle&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;message&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.joints&quot;</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="s2">&quot;.i_am_a_joint&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">main_Ctrl</span> <span class="o">+</span> <span class="s2">&quot;.follicles&quot;</span><span class="p">,</span> <span class="n">f</span> <span class="o">+</span> <span class="s2">&quot;.i_am_a_follicle&quot;</span><span class="p">)</span>
+
+    <span class="c1">##########################################################################################</span>
+
+    <span class="c1"># Group bnd joints</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bind_Jnts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;Bnd_Grp&#39;</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;Bnd_Grp&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;Bnd_Grp&#39;</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;Bnd_Grp&#39;</span><span class="p">)</span>
+
+    <span class="c1">#Return stuff after the build</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">main_Ctrl_offset</span><span class="p">,</span> <span class="n">rig_Grp</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;Bnd_Grp&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="UI">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.UI">[docs]</a>
+<span class="k">class</span> <span class="nc">UI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">windowName</span> <span class="o">=</span> <span class="s2">&quot;ribbonizer_window&quot;</span>
+        <span class="n">windowWidth</span> <span class="o">=</span> <span class="mi">400</span>
+        <span class="n">windowHeight</span> <span class="o">=</span> <span class="mi">160</span>
+
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">windowName</span><span class="p">,</span> <span class="n">ex</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">deleteUI</span><span class="p">(</span><span class="n">windowName</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">windowPref</span><span class="p">(</span><span class="n">windowName</span><span class="p">,</span> <span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">mainWindow</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">windowName</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;Ribbonizer 3.0 adapted for BARDEL&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mnb</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mxb</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">windowName</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">wh</span><span class="o">=</span><span class="p">(</span><span class="n">windowWidth</span><span class="p">,</span> <span class="n">windowHeight</span><span class="p">))</span>
+        <span class="n">mainFormL</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">()</span>
+
+        <span class="n">prefixText</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="s2">&quot;prefix:&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefixField</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textField</span><span class="p">(</span><span class="s2">&quot;prefix&quot;</span><span class="p">,</span> <span class="n">pht</span><span class="o">=</span><span class="s2">&quot;name me&quot;</span><span class="p">)</span>
+        <span class="n">numCtrlsText</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="s2">&quot;num_of_Ctrls:&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numCtrlsField</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">intField</span><span class="p">(</span><span class="s2">&quot;num_of_Ctrls&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">numJntsText</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="s2">&quot;num_of_Jnts:&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numJntsField</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">intField</span><span class="p">(</span><span class="s2">&quot;num_of_Jnts&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">equalCheckbox</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s2">&quot;equal_dist&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constrCheckbox</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="s2">&quot;constrain&quot;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s2">&quot;constrain&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wireCheckbox</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="s2">&quot;wire&quot;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s2">&quot;wire&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fkCheckbox</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="s2">&quot;add_fk&quot;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s2">&quot;add_fk&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ribbonizeBtn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="s2">&quot;Ribbonize&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">launch</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">(</span><span class="n">mainFormL</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                      <span class="n">attachForm</span><span class="o">=</span><span class="p">[(</span><span class="n">prefixText</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="n">numCtrlsText</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="n">numJntsText</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="n">prefixText</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prefixField</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">equalCheckbox</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wireCheckbox</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constrCheckbox</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">110</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fkCheckbox</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">110</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prefixField</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">110</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numCtrlsField</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">110</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numJntsField</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">110</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ribbonizeBtn</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ribbonizeBtn</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ribbonizeBtn</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ribbonizeBtn</span><span class="p">,</span> <span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+                                  <span class="p">],</span>
+
+                      <span class="n">attachControl</span><span class="o">=</span><span class="p">[(</span><span class="n">numCtrlsText</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">prefixText</span><span class="p">),</span> <span class="p">(</span><span class="n">numJntsText</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">numCtrlsText</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numCtrlsField</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefixField</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numJntsField</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numCtrlsField</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">equalCheckbox</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numJntsField</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wireCheckbox</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">equalCheckbox</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constrCheckbox</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numJntsField</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fkCheckbox</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constrCheckbox</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prefixField</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ribbonizeBtn</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numCtrlsField</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ribbonizeBtn</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numJntsField</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ribbonizeBtn</span><span class="p">),</span>
+
+                                     <span class="p">])</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">mainWindow</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UI.launch">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.UI.launch">[docs]</a>
+    <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+
+        <span class="n">sel</span> <span class="o">=</span> <span class="n">get_selection</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sel</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">surf_tr</span> <span class="o">=</span> <span class="n">sel</span>
+
+        <span class="n">equal</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">equalCheckbox</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">num_of_Ctrls</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">intField</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numCtrlsField</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">num_of_Jnts</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">intField</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numJntsField</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textField</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prefixField</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">constrain</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constrCheckbox</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">add_fk</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fkCheckbox</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">wire</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wireCheckbox</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">ribbonize</span><span class="p">(</span><span class="n">surf_tr</span><span class="p">,</span> <span class="n">equal</span><span class="p">,</span> <span class="n">num_of_Ctrls</span><span class="p">,</span> <span class="n">num_of_Jnts</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">constrain</span><span class="p">,</span> <span class="n">add_fk</span><span class="p">,</span> <span class="n">wire</span><span class="p">)</span></div>
+</div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">ribbonize(surf_tr, equal, num_of_Ctrls, num_of_Jnts, prefix, constrain, add_fk, wire)</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

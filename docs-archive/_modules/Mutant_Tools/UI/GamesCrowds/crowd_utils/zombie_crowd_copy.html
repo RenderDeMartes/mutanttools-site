@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SCRIPT TO  TRANSFER SKINNING FROM ZOMBIE BASEMESHES TO GENERIC ZOMBIES</span>
+
+<span class="sd">date = October28, 2022</span>
+<span class="sd">author = Sebastian Cisneros Sojo</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+
+<span class="n">FEMALE_BASEMESH_PATH</span> <span class="o">=</span> <span class="s2">&quot;/job/anythinggoes/assets/char/BasemeshFZombieA/wip/rigging/sebastian.cisneros/maya/scenes/BasemeshFZombieA_rigging_sebastianc_CrowdRig_v021.ma&quot;</span>
+<span class="n">MALE_BASEMESH_PATH</span> <span class="o">=</span> <span class="s2">&quot;/job/anythinggoes/assets/char/BasemeshMZombieA/wip/rigging/sebastian.cisneros/maya/scenes/BasemeshMZombieA_rigging_sebastianc_CrowdRig_v024.ma&quot;</span>
+
+
+<span class="c1">#define function to select joints from skin clusters. </span>
+<div class="viewcode-block" id="sel_cluster_joints">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.GamesCrowds.crowd_utils.html#Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy.sel_cluster_joints">[docs]</a>
+<span class="k">def</span> <span class="nf">sel_cluster_joints</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+	<span class="n">cluster_jnts</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">skinCluster</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">inf</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+	<span class="k">return</span><span class="p">(</span><span class="n">cluster_jnts</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#helper function to for the organize_outliner function. </span>
+<div class="viewcode-block" id="sort_children">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.GamesCrowds.crowd_utils.html#Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy.sort_children">[docs]</a>
+<span class="k">def</span> <span class="nf">sort_children</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">entire_hierarchy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Gets children of item and sorts them by alphabetical order</span>
+<span class="sd">	</span>
+<span class="sd">	param: entire_hierarchy, determines whether to go through all the children and childrens children</span>
+<span class="sd">	param: case_sensitive, whether to sort the items with case or not</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">import</span> <span class="nn">pymel.core</span> <span class="k">as</span> <span class="nn">pm</span>
+	
+	<span class="n">item_children</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">getChildren</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;transform&quot;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">item_children</span><span class="p">:</span>
+		<span class="k">return</span>
+	
+	
+	<span class="c1"># set &quot;entire_hierarchy&quot; to False to skip this</span>
+	<span class="k">if</span> <span class="n">entire_hierarchy</span><span class="p">:</span>
+		<span class="k">for</span> <span class="n">child_item</span> <span class="ow">in</span> <span class="n">item_children</span><span class="p">:</span>
+			<span class="n">sort_children</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">child_item</span><span class="p">,</span> <span class="n">entire_hierarchy</span><span class="o">=</span><span class="n">entire_hierarchy</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="o">=</span><span class="n">case_sensitive</span><span class="p">)</span>
+	
+	
+	<span class="c1"># Sorting methods</span>
+	<span class="k">if</span> <span class="n">case_sensitive</span><span class="p">:</span>
+		<span class="n">sorted_children</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">item_children</span><span class="p">)</span>                           <span class="c1"># case sensitive alphabet sort</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">sorted_children</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">item_children</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>  <span class="c1"># case insensitive alphabet sort</span>
+	
+	
+	<span class="n">sorted_children</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>  <span class="c1"># reverse list as we reorder bottom to top</span>
+	
+	<span class="k">for</span> <span class="n">sorted_item</span> <span class="ow">in</span> <span class="n">sorted_children</span><span class="p">:</span>
+		<span class="n">pm</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="n">sorted_item</span><span class="p">,</span> <span class="n">front</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># the actual reorder command</span></div>
+
+
+
+
+<span class="c1">#define function to transfer weights the first selected object to all the rest. </span>
+<div class="viewcode-block" id="bulk_copy_weights">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.GamesCrowds.crowd_utils.html#Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy.bulk_copy_weights">[docs]</a>
+<span class="k">def</span> <span class="nf">bulk_copy_weights</span><span class="p">(</span><span class="n">affected_objs</span><span class="o">=</span><span class="p">[],</span> <span class="n">inf_asso</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">max_inf</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">uv_transf</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skinning_method</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+
+	<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+
+	<span class="c1">#define all objects that will have their weights copied from the first selected object.    </span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">affected_objs</span><span class="p">:</span>
+		<span class="n">affected_objs</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;transform&quot;</span><span class="p">)</span>
+	
+	<span class="c1">#find the source skinCluster</span>
+	<span class="n">obj_hist</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">affected_objs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	
+	<span class="k">if</span> <span class="n">obj_hist</span><span class="p">:</span>
+		<span class="n">source_skinCluster</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">obj_hist</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;skinCluster&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Source &#39;</span><span class="si">{}</span><span class="s2">&#39; has no deformer history.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">affected_objs</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+	
+	<span class="c1">#Determine if the source object has a skin cluster and report it if it doesn&#39;t.    </span>
+	<span class="k">if</span> <span class="n">source_skinCluster</span><span class="p">:</span>
+		<span class="c1">#copy weights from source object to all target objects, regardless of if they have already a skinCluster.</span>
+		<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">affected_objs</span><span class="p">)):</span>
+			<span class="n">source_joints</span> <span class="o">=</span> <span class="n">sel_cluster_joints</span><span class="p">(</span><span class="n">affected_objs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+			
+			
+			<span class="c1">#Create new skin cluster from target&#39;s joints if it doesn&#39;t have one, pass if it does. </span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">new_skinCluster</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">skinCluster</span><span class="p">(</span><span class="n">source_joints</span><span class="p">,</span> <span class="n">affected_objs</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="n">toSelectedBones</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dropoffRate</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+				<span class="n">removeUnusedInfluence</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bindMethod</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skinMethod</span><span class="o">=</span><span class="n">skinning_method</span><span class="p">,</span> <span class="n">ignoreHierarchy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">maximumInfluences</span><span class="o">=</span><span class="n">max_inf</span><span class="p">,</span> <span class="n">obeyMaxInfluences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+			<span class="k">except</span><span class="p">:</span>
+				<span class="nb">print</span><span class="p">(</span><span class="n">affected_objs</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; already has a skinCluster connected or is just a group.&quot;</span><span class="p">)</span>
+			
+			<span class="c1">#find the target skinCluster</span>
+			<span class="n">new_obj_hist</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">affected_objs</span><span class="p">[</span><span class="n">num</span><span class="p">])</span>
+			<span class="n">target_skinCluster</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">new_obj_hist</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;skinCluster&quot;</span><span class="p">)</span>
+			
+
+			<span class="c1">#copy weights from source to target.</span>
+			<span class="k">if</span> <span class="n">uv_transf</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">copySkinWeights</span><span class="p">(</span><span class="n">sourceSkin</span><span class="o">=</span><span class="n">source_skinCluster</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">destinationSkin</span><span class="o">=</span><span class="n">target_skinCluster</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">influenceAssociation</span><span class="o">=</span><span class="n">inf_asso</span><span class="p">,</span> <span class="n">surfaceAssociation</span><span class="o">=</span><span class="s2">&quot;closestPoint&quot;</span><span class="p">,</span> <span class="n">noMirror</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+			
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">copySkinWeights</span><span class="p">(</span><span class="n">sourceSkin</span><span class="o">=</span><span class="n">source_skinCluster</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">destinationSkin</span><span class="o">=</span><span class="n">target_skinCluster</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">influenceAssociation</span><span class="o">=</span><span class="n">inf_asso</span><span class="p">,</span> <span class="n">surfaceAssociation</span><span class="o">=</span><span class="s2">&quot;closestPoint&quot;</span><span class="p">,</span> <span class="n">noMirror</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+				<span class="n">uvSpace</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;map1&quot;</span><span class="p">,</span> <span class="s2">&quot;map1&quot;</span><span class="p">])</span>
+
+	<span class="k">else</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Source &#39;</span><span class="si">{}</span><span class="s2">&#39; object has no skin cluster to copy from.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">affected_objs</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+	
+	<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+
+
+
+<span class="c1">#Function to organize outliner alphabetically. </span>
+<div class="viewcode-block" id="organize_outliner">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.GamesCrowds.crowd_utils.html#Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy.organize_outliner">[docs]</a>
+<span class="k">def</span> <span class="nf">organize_outliner</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+	<span class="kn">import</span> <span class="nn">pymel.core</span> <span class="k">as</span> <span class="nn">pm</span>
+	<span class="k">for</span> <span class="n">top_node</span> <span class="ow">in</span> <span class="n">pm</span><span class="o">.</span><span class="n">selected</span><span class="p">():</span>
+		<span class="n">sort_children</span><span class="p">(</span><span class="n">top_node</span><span class="p">)</span></div>
+
+
+
+
+
+<span class="c1">#IMPORTING MALE OF FEMALE BASEMESHES</span>
+<div class="viewcode-block" id="import_female_basemeshes">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.GamesCrowds.crowd_utils.html#Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy.import_female_basemeshes">[docs]</a>
+<span class="k">def</span> <span class="nf">import_female_basemeshes</span><span class="p">():</span>
+	<span class="n">cmds</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">FEMALE_BASEMESH_PATH</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;mayaAscii&quot;</span><span class="p">)</span> </div>
+
+
+<div class="viewcode-block" id="import_male_basemeshes">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.GamesCrowds.crowd_utils.html#Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy.import_male_basemeshes">[docs]</a>
+<span class="k">def</span> <span class="nf">import_male_basemeshes</span><span class="p">():</span>
+	<span class="n">cmds</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">MALE_BASEMESH_PATH</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;mayaAscii&quot;</span><span class="p">)</span> </div>
+
+
+
+
+<div class="viewcode-block" id="name_transfer_hierarchy_skins">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.GamesCrowds.crowd_utils.html#Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy.name_transfer_hierarchy_skins">[docs]</a>
+<span class="k">def</span> <span class="nf">name_transfer_hierarchy_skins</span><span class="p">():</span>
+	<span class="n">base_hierarchy_skinned_geos</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">base_hierarchy_skinClusters</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">name_copied_objs</span> <span class="o">=</span> <span class="p">[]</span>
+
+	<span class="c1">#Define hierarchies by selection order.</span>
+	<span class="n">hierarchy_parent_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+	<span class="n">hierarchy_parent_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+
+	<span class="c1">#Make lists out of hierarchy elements.</span>
+	<span class="n">hierarchy_1</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">hierarchy_parent_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">fullPath</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="n">hierarchy_2</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">hierarchy_parent_2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">fullPath</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+	<span class="c1">#Determine which objects in hierachy_1 have skin cluster and add them to list.</span>
+	<span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">hierarchy_1</span><span class="p">:</span>
+		
+		<span class="c1">#Determine if object in the source hierarchy has history.</span>
+		<span class="n">obj_hist</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+		
+		<span class="c1">#Determine if object in the source hierarchy has a skinCluster.</span>
+		<span class="k">if</span> <span class="n">obj_hist</span><span class="p">:</span>
+			<span class="n">obj_skinCluster</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">obj_hist</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;skinCluster&quot;</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">obj_skinCluster</span><span class="p">:</span>
+				<span class="n">base_hierarchy_skinned_geos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+				<span class="n">base_hierarchy_skinClusters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj_skinCluster</span><span class="p">)</span>
+
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">continue</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">continue</span>
+
+	<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">base_hierarchy_skinned_geos</span><span class="p">)):</span>
+		<span class="n">base_short_name</span> <span class="o">=</span> <span class="n">base_hierarchy_skinned_geos</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">hierarchy_2</span><span class="p">:</span>
+			<span class="n">target_short_name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+			<span class="k">if</span> <span class="n">base_short_name</span> <span class="o">==</span> <span class="n">target_short_name</span><span class="p">:</span>
+				<span class="n">bulk_copy_weights</span><span class="p">([</span><span class="n">base_hierarchy_skinned_geos</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="n">obj</span><span class="p">])</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weights copied from </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_hierarchy_skinned_geos</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="n">obj</span><span class="p">))</span>
+				<span class="n">name_copied_objs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_short_name</span><span class="p">)</span>
+
+			<span class="k">else</span><span class="p">:</span>
+				<span class="k">continue</span>
+
+	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weights copied through naming to:&quot;</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">copied_obj</span> <span class="ow">in</span> <span class="n">name_copied_objs</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">copied_obj</span><span class="p">)</span>
+	<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="n">hierarchy_parent_1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hierarchy_parent_2</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+	<span class="k">return</span> <span class="n">hierarchy_2</span></div>
+
+		
+
+
+
+<div class="viewcode-block" id="attachment_groups_copy">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.UI.GamesCrowds.crowd_utils.html#Mutant_Tools.UI.GamesCrowds.crowd_utils.zombie_crowd_copy.attachment_groups_copy">[docs]</a>
+<span class="k">def</span> <span class="nf">attachment_groups_copy</span><span class="p">():</span>
+	
+	<span class="n">head_attachment_full_path</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">head_full_path</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">body_attachment_full_path</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">body_full_path</span> <span class="o">=</span> <span class="p">[]</span>
+	
+	
+	<span class="c1">#Define hierarchies by selection order.</span>
+	<span class="n">hierarchy_parent_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+	<span class="n">hierarchy_parent_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+
+	<span class="c1">#Make lists out of hierarchy elements.</span>
+	<span class="n">hierarchy_1</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">hierarchy_parent_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">fullPath</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="n">hierarchy_2</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">hierarchy_parent_2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">fullPath</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+	<span class="n">hierarchy_2_short_names</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">hierarchy_parent_2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+
+	<span class="c1">#Define objects head and body objects and their groups to copy to based on naming</span>
+	<span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">hierarchy_2</span><span class="p">:</span>
+		<span class="n">target_short_name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="k">if</span> <span class="n">target_short_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;head_attachments_grp&quot;</span><span class="p">:</span>
+			<span class="n">head_attachment_full_path</span> <span class="o">=</span> <span class="n">obj</span>
+
+		<span class="k">elif</span> <span class="n">target_short_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;c_head_hi&quot;</span><span class="p">:</span>
+			<span class="n">head_full_path</span> <span class="o">=</span> <span class="n">obj</span>
+
+		<span class="k">elif</span> <span class="n">target_short_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;body_attachments_grp&quot;</span><span class="p">:</span>
+			<span class="n">body_attachment_full_path</span> <span class="o">=</span> <span class="n">obj</span>
+
+		<span class="k">elif</span> <span class="n">target_short_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;c_body_hi&quot;</span><span class="p">:</span>
+			<span class="n">body_full_path</span> <span class="o">=</span> <span class="n">obj</span>
+
+
+
+	<span class="c1">#If head exists on hierarchy proceed.</span>
+	<span class="k">if</span> <span class="n">head_full_path</span><span class="p">:</span>
+		<span class="c1">#if head attachment group exists in hierarchy proceed.</span>
+		<span class="k">if</span> <span class="n">head_attachment_full_path</span><span class="p">:</span>
+			<span class="c1">#get all objects inside group.</span>
+			<span class="n">head_attachment_hierarchy</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">head_attachment_full_path</span><span class="p">,</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">fullPath</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">head_attachment_hierarchy</span><span class="p">:</span>
+				<span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">head_attachment_hierarchy</span><span class="p">:</span>
+					<span class="c1">#Copy weights from head to all objects inside group. &quot;Try&quot; is used to avoid stopping script if there are groups inside.</span>
+					<span class="k">try</span><span class="p">:</span>
+						<span class="n">bulk_copy_weights</span><span class="p">([</span><span class="n">head_full_path</span><span class="p">,</span> <span class="n">obj</span><span class="p">])</span>
+					<span class="k">except</span><span class="p">:</span>
+						<span class="k">continue</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No body attachments group to copy weights to.&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No new head geo to copy weights from. &quot;</span><span class="p">)</span>
+
+	<span class="c1">#If head exists on hierarchy proceed.</span>
+	<span class="k">if</span> <span class="n">body_full_path</span><span class="p">:</span>
+		<span class="c1">#if head attachment group exists in hierarchy proceed.</span>
+		<span class="k">if</span> <span class="n">body_attachment_full_path</span><span class="p">:</span>
+			<span class="c1">#get all objects inside group.</span>
+			<span class="n">body_attachment_hierarchy</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">body_attachment_full_path</span><span class="p">,</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">fullPath</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">body_attachment_hierarchy</span><span class="p">:</span>
+				<span class="c1">#Copy weights from head to all objects inside group. &quot;Try&quot; is used to avoid stopping script if there are groups inside.</span>
+				<span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">body_attachment_hierarchy</span><span class="p">:</span>
+					<span class="k">try</span><span class="p">:</span>
+						<span class="n">bulk_copy_weights</span><span class="p">([</span><span class="n">body_full_path</span><span class="p">,</span> <span class="n">obj</span><span class="p">])</span>
+					<span class="k">except</span><span class="p">:</span>
+						<span class="k">continue</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No body attachments group to copy weights to.&quot;</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No new body geo to copy weights from. &quot;</span><span class="p">)</span></div>
+
+
+
+
+
+<span class="c1">#import_female_basemeshes()</span>
+<span class="c1">#import_male_basemeshes()</span>
+<span class="c1">#name_transfer_hierarchy_skins()</span>
+<span class="c1">#attachment_groups_copy()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

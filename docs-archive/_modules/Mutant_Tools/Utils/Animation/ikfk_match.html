@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.Animation.ikfk_match &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.Animation.ikfk_match</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.Animation.ikfk_match</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">version: 1.0.0</span>
+<span class="sd">date: 21/04/2020</span>
+
+<span class="sd">#----------------</span>
+
+<span class="sd">how to:</span>
+
+<span class="sd">try:</span>
+<span class="sd">    import importlib;from importlib import reload</span>
+<span class="sd">except:</span>
+<span class="sd">    import imp;from imp import reload</span>
+
+<span class="sd">import Mutant_Tools</span>
+<span class="sd">try:</span>
+<span class="sd">    import importlib;from importlib import reload</span>
+<span class="sd">except:</span>
+<span class="sd">    import imp;from imp import reload</span>
+
+
+<span class="sd">from Mutant_Tools.Utils.Animation import ikfk_match</span>
+<span class="sd">reload(ikfk_match)</span>
+<span class="sd">ikfk_match.ikfk_match_callback()</span>
+
+<span class="sd">#----------------</span>
+<span class="sd">dependencies:</span>
+
+<span class="sd">maya cmds</span>
+<span class="sd">maya mel</span>
+<span class="sd">pymel</span>
+
+
+<span class="sd">#----------------</span>
+<span class="sd">licence: https://www.eulatemplate.com/live.php?token=FGISW7ApRfgywum6murbBmLcusKONzkv</span>
+<span class="sd">author:  Esteban Rodriguez &lt;info@mutanttools.com&gt;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+
+<span class="c1">#------------------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="k">as</span> <span class="nn">cmds</span>
+<span class="kn">from</span> <span class="nn">maya.api</span> <span class="kn">import</span> <span class="n">OpenMaya</span> <span class="k">as</span> <span class="n">om2</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+<span class="kn">import</span> <span class="nn">Mutant_Tools.Utils.Rigging</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Rigging</span> <span class="kn">import</span> <span class="n">main_mutant</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Rigging</span><span class="o">.</span><span class="n">main_mutant</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">rigTools.IkFkMatch</span> <span class="kn">import</span> <span class="n">Bardel_IkFkMatch</span> <span class="k">as</span> <span class="n">matcher</span>
+    <span class="n">reload</span><span class="p">(</span><span class="n">matcher</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">mt</span> <span class="o">=</span> <span class="n">main_mutant</span><span class="o">.</span><span class="n">Mutant</span><span class="p">()</span>
+
+<span class="n">nc</span><span class="p">,</span> <span class="n">curve_data</span><span class="p">,</span> <span class="n">setup</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">import_configs</span><span class="p">()</span>
+
+<div class="viewcode-block" id="undo">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.undo">[docs]</a>
+<span class="k">def</span> <span class="nf">undo</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Puts the wrapped `func` into a single Maya Undo action, then</span>
+<span class="sd">        undoes it when the function enters the finally: block &quot;&quot;&quot;</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_undofunc</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># start an undo chunk</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">undoInfo</span><span class="p">(</span><span class="n">ock</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;entering finally block&quot;</span><span class="p">)</span>
+            <span class="c1"># after calling the func, end the undo chunk and undo</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">undoInfo</span><span class="p">(</span><span class="n">cck</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1">#cmds.undo()</span>
+
+    <span class="k">return</span> <span class="n">_undofunc</span></div>
+
+
+<div class="viewcode-block" id="get_dag_path">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.get_dag_path">[docs]</a>
+<span class="k">def</span> <span class="nf">get_dag_path</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">om2</span><span class="o">.</span><span class="n">MSelectionList</span><span class="p">()</span>
+    <span class="n">sel</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">dag</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dag</span></div>
+
+
+<div class="viewcode-block" id="place_pole_vector">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.place_pole_vector">[docs]</a>
+<span class="k">def</span> <span class="nf">place_pole_vector</span><span class="p">(</span><span class="n">pole_vector</span><span class="p">,</span> <span class="n">joint_a</span><span class="p">,</span> <span class="n">joint_b</span><span class="p">,</span> <span class="n">joint_c</span><span class="p">,</span> <span class="n">force_fk</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">force_fk</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">pointConstraint</span><span class="p">(</span><span class="n">joint_b</span><span class="p">,</span> <span class="n">pole_vector</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forcing&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">OA</span> <span class="o">=</span> <span class="n">om2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="o">*</span><span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">joint_a</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="n">OB</span> <span class="o">=</span> <span class="n">om2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="o">*</span><span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">joint_b</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="n">OC</span> <span class="o">=</span> <span class="n">om2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="o">*</span><span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">joint_c</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+        <span class="n">AC</span> <span class="o">=</span> <span class="n">OC</span> <span class="o">-</span> <span class="n">OA</span>
+        <span class="n">AB</span> <span class="o">=</span> <span class="n">OB</span> <span class="o">-</span> <span class="n">OA</span>
+        <span class="n">BC</span> <span class="o">=</span> <span class="n">OC</span> <span class="o">-</span> <span class="n">OB</span>
+
+        <span class="n">multiplier</span> <span class="o">=</span> <span class="p">(</span><span class="n">AC</span> <span class="o">*</span> <span class="n">AB</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">AC</span> <span class="o">*</span> <span class="n">AC</span><span class="p">)</span>
+        <span class="n">projection</span> <span class="o">=</span> <span class="n">AC</span> <span class="o">*</span> <span class="n">multiplier</span> <span class="o">+</span> <span class="n">OA</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="p">(</span><span class="n">OB</span> <span class="o">-</span> <span class="n">projection</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+        <span class="n">length</span> <span class="o">=</span> <span class="n">AB</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">+</span> <span class="n">BC</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+        <span class="n">pv_pos</span> <span class="o">=</span> <span class="n">OB</span> <span class="o">+</span> <span class="n">direction</span> <span class="o">*</span> <span class="n">length</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">pole_vector</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="p">[</span><span class="n">pv_pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pv_pos</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">pv_pos</span><span class="o">.</span><span class="n">z</span><span class="p">],</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ikFKSwitch">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.ikFKSwitch">[docs]</a>
+<span class="nd">@undo</span>
+<span class="k">def</span> <span class="nf">ikFKSwitch</span><span class="p">(</span><span class="n">ikFk_attr</span><span class="p">,</span> <span class="n">ik_ctrls</span><span class="p">,</span> <span class="n">ik_chain</span><span class="p">,</span> <span class="n">fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">isLeg</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">attr_at_fk</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="c1"># add side prefix</span>
+    <span class="n">ik_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="n">namespace</span> <span class="o">+</span> <span class="n">side</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ik_ctrls</span><span class="p">]</span>
+    <span class="n">ik_chain</span> <span class="o">=</span> <span class="p">[</span><span class="n">namespace</span> <span class="o">+</span> <span class="n">side</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ik_chain</span><span class="p">]</span>
+    <span class="n">fk_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="n">namespace</span> <span class="o">+</span> <span class="n">side</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fk_ctrls</span><span class="p">]</span>
+    <span class="n">ikFk_attr</span> <span class="o">=</span> <span class="n">namespace</span> <span class="o">+</span> <span class="n">side</span> <span class="o">+</span> <span class="n">ikFk_attr</span>
+
+    <span class="c1"># check ikfk value</span>
+
+    <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">ikFk_attr</span><span class="p">)</span> <span class="o">==</span> <span class="n">attr_at_fk</span><span class="p">:</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">ikFk_attr</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">attr_at_fk</span><span class="p">)</span>
+        <span class="n">place_pole_vector</span><span class="p">(</span><span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fk_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fk_ctrls</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fk_ctrls</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">fk_wrist_ws_m</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">fk_ctrls</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ws</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">fk_wrist_ws_m</span><span class="p">)</span>
+        <span class="c1">#debug_loc = cmds.spaceLocator(n=&#39;DEBUG_FK_Wrist&#39;)</span>
+        <span class="c1">#cmds.xform(debug_loc, ws=1, m=fk_wrist_ws_m)</span>
+        <span class="c1">#cmds.xform(ik_ctrls[0], p=1, roo=&#39;zyx&#39;)</span>
+        <span class="c1">#cmds.rotate(offset[0], offset[1], offset[2], ik_ctrls[0], r=1, os=1)</span>
+        
+        <span class="n">cmds</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">os</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">offset</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">os</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">offset</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">os</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">#force pole vector</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">matchTransform</span><span class="p">(</span><span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fk_ctrls</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">isLeg</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s1">&#39;R_&#39;</span> <span class="ow">in</span> <span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+                <span class="n">dif</span> <span class="o">=</span> <span class="n">get_wrist_diference</span><span class="p">(</span><span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">dif</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dif&#39;</span><span class="p">,</span> <span class="n">dif</span><span class="p">)</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.rotateX&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.rotateX&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ik_ctrls</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">+</span><span class="n">dif</span><span class="p">)</span>
+
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ik_joint</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ik_chain</span><span class="p">):</span>
+            <span class="n">ik_joint_ws_matrix</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">ik_joint</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">fk_ctrls</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ws</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">ik_joint_ws_matrix</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">ikFk_attr</span><span class="p">,</span> <span class="n">attr_at_fk</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="force_last">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.force_last">[docs]</a>
+<span class="k">def</span> <span class="nf">force_last</span><span class="p">(</span><span class="n">ik_ctrl</span><span class="p">,</span> <span class="n">fk_ctrl</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ik_ctrl</span><span class="p">,</span> <span class="n">fk_ctrl</span><span class="p">)</span>
+    <span class="n">up_locator</span><span class="p">,</span> <span class="n">side_locator</span><span class="p">,</span> <span class="n">front_locator</span><span class="p">,</span> <span class="n">dummy_guide</span> <span class="o">=</span> <span class="n">create_aim_locators</span><span class="p">(</span><span class="n">fk_ctrl</span><span class="p">)</span>
+
+    <span class="n">dummy_ik</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">spaceLocator</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">ik_ctrl</span><span class="o">+</span><span class="s1">&#39;_Temp&#39;</span><span class="o">+</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;locator&#39;</span><span class="p">])</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">dummy_ik</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">ik_ctrl</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">constraint</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">aimConstraint</span><span class="p">(</span><span class="n">side_locator</span><span class="p">,</span> <span class="n">dummy_ik</span><span class="p">,</span> <span class="n">aimVector</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">upVector</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                                      <span class="n">worldUpType</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">worldUpObject</span><span class="o">=</span><span class="n">front_locator</span><span class="p">)</span>
+
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">ik_ctrl</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">dummy_ik</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="n">up_locator</span><span class="p">,</span> <span class="n">side_locator</span><span class="p">,</span> <span class="n">front_locator</span><span class="p">,</span> <span class="n">dummy_guide</span><span class="p">,</span> <span class="n">dummy_ik</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="create_aim_locators">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.create_aim_locators">[docs]</a>
+<span class="k">def</span> <span class="nf">create_aim_locators</span><span class="p">(</span><span class="n">guide</span><span class="p">):</span>
+    <span class="n">up_locator</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">spaceLocator</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">guide</span> <span class="o">+</span> <span class="s1">&#39;_Temp_Up&#39;</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;locator&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">side_locator</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">spaceLocator</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">guide</span> <span class="o">+</span> <span class="s1">&#39;_Temp_Side&#39;</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;locator&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">front_locator</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">spaceLocator</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">guide</span> <span class="o">+</span> <span class="s1">&#39;_Temp_Front&#39;</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;locator&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">dummy_guide</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">spaceLocator</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">guide</span> <span class="o">+</span> <span class="s1">&#39;_Temp&#39;</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;locator&#39;</span><span class="p">])</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">dummy_guide</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">guide</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">up_locator</span><span class="p">,</span> <span class="n">side_locator</span><span class="p">,</span> <span class="n">front_locator</span><span class="p">,</span> <span class="n">dummy_guide</span><span class="p">)</span>
+
+    <span class="n">mt</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">up_locator</span><span class="p">,</span> <span class="n">guide</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">mt</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">side_locator</span><span class="p">,</span> <span class="n">guide</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">mt</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">front_locator</span><span class="p">,</span> <span class="n">guide</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># cmds.move(0, 10, 0, up_locator, r=True)</span>
+    <span class="c1"># cmds.move(10, 0, 0, side_locator, r=True)</span>
+    <span class="c1"># cmds.move(0, 0, 10, front_locator, r=True)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">up_locator</span><span class="o">+</span><span class="s1">&#39;.ty&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">side_locator</span><span class="o">+</span><span class="s1">&#39;.tx&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">front_locator</span><span class="o">+</span><span class="s1">&#39;.tz&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">up_locator</span><span class="p">,</span> <span class="n">side_locator</span><span class="p">,</span> <span class="n">front_locator</span><span class="p">,</span> <span class="n">dummy_guide</span></div>
+
+
+<span class="c1"># list of ctrls and joints names</span>
+
+<span class="n">arm_ik_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Wrist_Ik_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Wrist_Ik_PoleVector_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Shoulder_Ik_Ctrl&#39;</span><span class="p">]</span>
+<span class="n">arm_fk_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Shoulder_Fk_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Elbow_Fk_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Wrist_Fk_Ctrl&#39;</span><span class="p">]</span>
+<span class="n">arm_ik_joints</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Shoulder_Ik_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;Elbow_Ik_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;Wrist_Ik_Jnt&#39;</span><span class="p">]</span>
+<span class="n">arm_ikFk_attr</span> <span class="o">=</span> <span class="s1">&#39;Shoulder_Jnt_Switch_Loc.Switch_IK_FK&#39;</span>
+<span class="n">leg_ik_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Ankle_Ik_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Ankle_Ik_PoleVector_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Hip_Ik_Ctrl&#39;</span><span class="p">]</span>
+<span class="n">leg_fk_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hip_Fk_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Knee_Fk_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Ankle_Fk_Ctrl&#39;</span><span class="p">]</span>
+<span class="n">leg_ik_joints</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hip_Ik_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;Knee_Ik_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;Ankle_Ik_Jnt&#39;</span><span class="p">]</span>
+<span class="n">leg_ikFk_attr</span> <span class="o">=</span> <span class="s1">&#39;Hip_Jnt_Switch_Loc.Switch_IK_FK&#39;</span>
+
+<span class="n">bd_arm_ik_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Ik_Wrist_01_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Ik_Elbow_01_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Ik_Shoulder_01_Ctrl&#39;</span><span class="p">]</span>
+<span class="n">bd_arm_fk_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Fk_Shoulder_01_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Fk_Elbow_01_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Fk_Wrist_01_Ctrl&#39;</span><span class="p">]</span>
+<span class="n">bd_arm_ik_joints</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;setup_shoulder_01_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;setup_elbow_01_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;setup_wrist_01_Jnt&#39;</span><span class="p">]</span>
+<span class="n">bd_arm_ikFk_attr</span> <span class="o">=</span> <span class="s1">&#39;Palm_01_Ctrl.fkik&#39;</span>
+<span class="n">bd_leg_ik_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Ik_Base_01_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Ik_Knee_01_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Ik_Hip_01_Ctrl&#39;</span><span class="p">]</span>
+<span class="n">bd_leg_fk_ctrls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Fk_Hip_01_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Fk_Knee_01_Ctrl&#39;</span><span class="p">,</span> <span class="s1">&#39;Fk_Ankle_01_Ctrl&#39;</span><span class="p">]</span>
+<span class="n">bd_leg_ik_joints</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;setup_hip_01_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;setup_knee_01_Jnt&#39;</span><span class="p">,</span> <span class="s1">&#39;setup_ankle_01_Jnt&#39;</span><span class="p">]</span>
+<span class="n">bd_leg_ikFk_attr</span> <span class="o">=</span> <span class="s1">&#39;Heel_01_Ctrl.fkik&#39;</span>
+
+<span class="c1"># offsets stored as euler rotations</span>
+
+<span class="n">ikFkRotationOffsets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.045</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.29</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">)</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="ikfk_match_callback">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.ikfk_match_callback">[docs]</a>
+<span class="k">def</span> <span class="nf">ikfk_match_callback</span><span class="p">():</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">sel</span><span class="p">:</span>
+        <span class="n">ns</span><span class="p">,</span> <span class="n">sel</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">ns</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span>
+
+    <span class="n">side</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">arm_ik_ctrls</span> <span class="ow">or</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">arm_fk_ctrls</span><span class="p">:</span>
+        <span class="n">ikFKSwitch</span><span class="p">(</span><span class="n">arm_ikFk_attr</span><span class="p">,</span> <span class="n">arm_ik_ctrls</span><span class="p">,</span> <span class="n">arm_ik_joints</span><span class="p">,</span> <span class="n">arm_fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">ikFkRotationOffsets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">leg_ik_ctrls</span> <span class="ow">or</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">leg_fk_ctrls</span><span class="p">:</span>
+        <span class="c1">#print(&#39;rot offset = {}&#39;.format(ikFkRotationOffsets[4]) )</span>
+        <span class="n">ikFKSwitch</span><span class="p">(</span><span class="n">leg_ikFk_attr</span><span class="p">,</span> <span class="n">leg_ik_ctrls</span><span class="p">,</span> <span class="n">leg_ik_joints</span><span class="p">,</span> <span class="n">leg_fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">ikFkRotationOffsets</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">bd_arm_ik_ctrls</span> <span class="ow">or</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">bd_arm_fk_ctrls</span><span class="p">:</span>
+        <span class="n">offset_index</span> <span class="o">=</span> <span class="mi">3</span> <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;R_&#39;</span> <span class="k">else</span> <span class="mi">2</span>
+        <span class="n">ikFKSwitch</span><span class="p">(</span><span class="n">bd_arm_ikFk_attr</span><span class="p">,</span> <span class="n">bd_arm_ik_ctrls</span><span class="p">,</span> <span class="n">bd_arm_ik_joints</span><span class="p">,</span> <span class="n">bd_arm_fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">ikFkRotationOffsets</span><span class="p">[</span><span class="n">offset_index</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">bd_leg_ik_ctrls</span> <span class="ow">or</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">bd_leg_fk_ctrls</span><span class="p">:</span>
+        <span class="n">offset_index</span> <span class="o">=</span> <span class="mi">6</span> <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s1">&#39;R_&#39;</span> <span class="k">else</span> <span class="mi">5</span>
+        <span class="n">ikFKSwitch</span><span class="p">(</span><span class="n">bd_leg_ikFk_attr</span><span class="p">,</span> <span class="n">bd_leg_ik_ctrls</span><span class="p">,</span> <span class="n">bd_leg_ik_joints</span><span class="p">,</span> <span class="n">bd_leg_fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">ikFkRotationOffsets</span><span class="p">[</span><span class="n">offset_index</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="left_arm_match">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.left_arm_match">[docs]</a>
+<span class="k">def</span> <span class="nf">left_arm_match</span><span class="p">():</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">sel</span><span class="p">:</span>
+        <span class="n">ns</span><span class="p">,</span> <span class="n">sel</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">ns</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span>
+
+    <span class="n">side</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">arm_ik_ctrls</span> <span class="ow">or</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">arm_fk_ctrls</span> <span class="ow">and</span> <span class="n">side</span> <span class="o">==</span><span class="s1">&#39;L_&#39;</span><span class="p">:</span>
+        <span class="n">ikFKSwitch</span><span class="p">(</span><span class="n">arm_ikFk_attr</span><span class="p">,</span> <span class="n">arm_ik_ctrls</span><span class="p">,</span> <span class="n">arm_ik_joints</span><span class="p">,</span> <span class="n">arm_fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="right_arm_match">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.right_arm_match">[docs]</a>
+<span class="k">def</span> <span class="nf">right_arm_match</span><span class="p">():</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">sel</span><span class="p">:</span>
+        <span class="n">ns</span><span class="p">,</span> <span class="n">sel</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">ns</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span>
+
+    <span class="n">side</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">arm_ik_ctrls</span> <span class="ow">or</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">arm_fk_ctrls</span> <span class="ow">and</span> <span class="n">side</span> <span class="o">==</span><span class="s1">&#39;R_&#39;</span><span class="p">:</span>
+        <span class="n">ikFKSwitch</span><span class="p">(</span><span class="n">arm_ikFk_attr</span><span class="p">,</span> <span class="n">arm_ik_ctrls</span><span class="p">,</span> <span class="n">arm_ik_joints</span><span class="p">,</span> <span class="n">arm_fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="left_leg_match">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.left_leg_match">[docs]</a>
+<span class="k">def</span> <span class="nf">left_leg_match</span><span class="p">():</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">sel</span><span class="p">:</span>
+        <span class="n">ns</span><span class="p">,</span> <span class="n">sel</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">ns</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span>
+
+    <span class="n">side</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">arm_ik_ctrls</span> <span class="ow">or</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">arm_fk_ctrls</span> <span class="ow">and</span> <span class="n">side</span> <span class="o">==</span><span class="s1">&#39;L_&#39;</span><span class="p">:</span>
+        <span class="n">ikFKSwitch</span><span class="p">(</span><span class="n">leg_ikFk_attr</span><span class="p">,</span> <span class="n">leg_ik_ctrls</span><span class="p">,</span> <span class="n">leg_ik_joints</span><span class="p">,</span> <span class="n">leg_fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="right_leg_match">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.right_leg_match">[docs]</a>
+<span class="k">def</span> <span class="nf">right_leg_match</span><span class="p">():</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">sel</span><span class="p">:</span>
+        <span class="n">ns</span><span class="p">,</span> <span class="n">sel</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">ns</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span>
+
+    <span class="n">side</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">arm_ik_ctrls</span> <span class="ow">or</span> <span class="n">sel</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">arm_fk_ctrls</span> <span class="ow">and</span> <span class="n">side</span> <span class="o">==</span><span class="s1">&#39;R_&#39;</span><span class="p">:</span>
+        <span class="n">ikFKSwitch</span><span class="p">(</span><span class="n">leg_ikFk_attr</span><span class="p">,</span> <span class="n">leg_ik_ctrls</span><span class="p">,</span> <span class="n">leg_ik_joints</span><span class="p">,</span> <span class="n">leg_fk_ctrls</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_wrist_diference">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.get_wrist_diference">[docs]</a>
+<span class="k">def</span> <span class="nf">get_wrist_diference</span><span class="p">(</span><span class="n">ik_ctrl</span><span class="p">):</span>
+
+    <span class="n">right_rotate_compansate_ctrl</span> <span class="o">=</span> <span class="n">ik_ctrl</span><span class="o">+</span><span class="s1">&#39;_RotationCorrection_Grp&#39;</span>
+
+    <span class="n">custom_attr</span> <span class="o">=</span> <span class="s1">&#39;IkCorrectionX&#39;</span>
+    <span class="n">attr_exists</span><span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">attributeQuery</span><span class="p">(</span><span class="n">custom_attr</span><span class="p">,</span>  <span class="n">node</span><span class="o">=</span><span class="n">ik_ctrl</span><span class="p">,</span>  <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">right_rotate_compansate_ctrl</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">attr_exists</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">attr_exists</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">ik_ctrl</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">custom_attr</span><span class="p">,</span> <span class="n">asString</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span><span class="o">*-</span><span class="mi">1</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">left_rotate_compansate_ctrl</span> <span class="o">=</span> <span class="n">right_rotate_compansate_ctrl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;R_&#39;</span><span class="p">,</span> <span class="s1">&#39;L_&#39;</span><span class="p">)</span>
+        <span class="n">r_rotx</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">right_rotate_compansate_ctrl</span><span class="o">+</span><span class="s1">&#39;.rx&#39;</span><span class="p">)</span>
+        <span class="n">l_rotx</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">left_rotate_compansate_ctrl</span><span class="o">+</span><span class="s1">&#39;.rx&#39;</span><span class="p">)</span>
+
+        <span class="n">dif</span> <span class="o">=</span> <span class="n">r_rotx</span><span class="o">-</span><span class="n">l_rotx</span>
+        <span class="k">return</span> <span class="n">dif</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

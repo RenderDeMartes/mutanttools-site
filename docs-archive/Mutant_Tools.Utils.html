@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils package &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=1382df98"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Mutant_Tools.Utils.Animation package" href="Mutant_Tools.Utils.Animation.html" />
+    <link rel="prev" title="Mutant_Tools.UI.Zombinator package" href="Mutant_Tools.UI.Zombinator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Mutant_Tools</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="Mutant_Tools.html">Mutant_Tools package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Mutant_Tools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Icons.html">Mutant_Tools.Icons package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Others.html">Mutant_Tools.Others package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.UI.html">Mutant_Tools.UI package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Mutant_Tools.Utils package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.config.html">Mutant_Tools.config package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.html#mutant-tools-easy-install-module">Mutant_Tools.easy_install module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Mutant_Tools</a></li>
+          <li class="breadcrumb-item"><a href="Mutant_Tools.html">Mutant_Tools package</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Mutant_Tools.Utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mutant-tools-utils-package">
+<h1>Mutant_Tools.Utils package<a class="headerlink" href="#mutant-tools-utils-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html">Mutant_Tools.Utils.Animation package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#mutant-tools-utils-animation-animation-utils-module">Mutant_Tools.Utils.Animation.animation_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.animation_utils.check_rotations"><code class="docutils literal notranslate"><span class="pre">check_rotations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.animation_utils.create_anim_instances"><code class="docutils literal notranslate"><span class="pre">create_anim_instances()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.animation_utils.create_follow_cam"><code class="docutils literal notranslate"><span class="pre">create_follow_cam()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.animation_utils.create_rotate_nighty"><code class="docutils literal notranslate"><span class="pre">create_rotate_nighty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.animation_utils.delete_keys"><code class="docutils literal notranslate"><span class="pre">delete_keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.animation_utils.global_ctrl_movements"><code class="docutils literal notranslate"><span class="pre">global_ctrl_movements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.animation_utils.select_ctrls_from_sid"><code class="docutils literal notranslate"><span class="pre">select_ctrls_from_sid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.animation_utils.set_time_slider"><code class="docutils literal notranslate"><span class="pre">set_time_slider()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#mutant-tools-utils-animation-calisthenics-utils-module">Mutant_Tools.Utils.Animation.calisthenics_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.calisthenics_utils.clean_rom"><code class="docutils literal notranslate"><span class="pre">clean_rom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.calisthenics_utils.create_copies"><code class="docutils literal notranslate"><span class="pre">create_copies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.calisthenics_utils.create_rom"><code class="docutils literal notranslate"><span class="pre">create_rom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.calisthenics_utils.create_sectret_node"><code class="docutils literal notranslate"><span class="pre">create_sectret_node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.calisthenics_utils.load_animtion"><code class="docutils literal notranslate"><span class="pre">load_animtion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.calisthenics_utils.set_camera_angle"><code class="docutils literal notranslate"><span class="pre">set_camera_angle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.calisthenics_utils.set_timeline"><code class="docutils literal notranslate"><span class="pre">set_timeline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.calisthenics_utils.show_only_polys"><code class="docutils literal notranslate"><span class="pre">show_only_polys()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#mutant-tools-utils-animation-ikfk-match-module">Mutant_Tools.Utils.Animation.ikfk_match module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.create_aim_locators"><code class="docutils literal notranslate"><span class="pre">create_aim_locators()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.force_last"><code class="docutils literal notranslate"><span class="pre">force_last()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.get_dag_path"><code class="docutils literal notranslate"><span class="pre">get_dag_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.get_wrist_diference"><code class="docutils literal notranslate"><span class="pre">get_wrist_diference()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.ikFKSwitch"><code class="docutils literal notranslate"><span class="pre">ikFKSwitch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.ikfk_match_callback"><code class="docutils literal notranslate"><span class="pre">ikfk_match_callback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.left_arm_match"><code class="docutils literal notranslate"><span class="pre">left_arm_match()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.left_leg_match"><code class="docutils literal notranslate"><span class="pre">left_leg_match()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.place_pole_vector"><code class="docutils literal notranslate"><span class="pre">place_pole_vector()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.right_arm_match"><code class="docutils literal notranslate"><span class="pre">right_arm_match()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.right_leg_match"><code class="docutils literal notranslate"><span class="pre">right_leg_match()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.ikfk_match.undo"><code class="docutils literal notranslate"><span class="pre">undo()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#mutant-tools-utils-animation-reference-refresher-module">Mutant_Tools.Utils.Animation.reference_refresher module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#mutant-tools-utils-animation-studio-library-utils-module">Mutant_Tools.Utils.Animation.studio_library_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.studio_library_utils.delete_keys"><code class="docutils literal notranslate"><span class="pre">delete_keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.studio_library_utils.load_rom"><code class="docutils literal notranslate"><span class="pre">load_rom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#Mutant_Tools.Utils.Animation.studio_library_utils.save_rom"><code class="docutils literal notranslate"><span class="pre">save_rom()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Animation.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html">Mutant_Tools.Utils.BlendShapes package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#mutant-tools-utils-blendshapes-mtshapes-module">Mutant_Tools.Utils.BlendShapes.MtSHAPES module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES"><code class="docutils literal notranslate"><span class="pre">MtSHAPES</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.add_target_posed"><code class="docutils literal notranslate"><span class="pre">MtSHAPES.add_target_posed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.get_index_by_target_name"><code class="docutils literal notranslate"><span class="pre">MtSHAPES.get_index_by_target_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.get_target_name_by_index"><code class="docutils literal notranslate"><span class="pre">MtSHAPES.get_target_name_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.get_target_shapes"><code class="docutils literal notranslate"><span class="pre">MtSHAPES.get_target_shapes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.get_valid_target_index"><code class="docutils literal notranslate"><span class="pre">MtSHAPES.get_valid_target_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.split_target"><code class="docutils literal notranslate"><span class="pre">MtSHAPES.split_target()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.BlendShapes.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.html">Mutant_Tools.Utils.Crowds package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.Facial.html">Mutant_Tools.Utils.Crowds.Facial package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.Facial.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.Facial.html#mutant-tools-utils-crowds-facial-eyelids-local2crowd-module">Mutant_Tools.Utils.Crowds.Facial.eyelids_local2crowd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.Facial.html#mutant-tools-utils-crowds-facial-facial-utils-module">Mutant_Tools.Utils.Crowds.Facial.facial_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.Facial.html#mutant-tools-utils-crowds-facial-poses-to-sdk-module">Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.Facial.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.html#mutant-tools-utils-crowds-crowds-utils-module">Mutant_Tools.Utils.Crowds.crowds_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Crowds.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.External.html">Mutant_Tools.Utils.External package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.External.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.PerryTools.html">Mutant_Tools.Utils.External.PerryTools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.PerryTools.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.PerryTools.html#mutant-tools-utils-external-perrytools-mesh-module">Mutant_Tools.Utils.External.PerryTools.mesh module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.PerryTools.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html">Mutant_Tools.Utils.External.RdMWings package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html#mutant-tools-utils-external-rdmwings-bindfeathers-module">Mutant_Tools.Utils.External.RdMWings.BindFeathers module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html#mutant-tools-utils-external-rdmwings-globalattr-module">Mutant_Tools.Utils.External.RdMWings.GlobalAttr module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html#mutant-tools-utils-external-rdmwings-autofold-module">Mutant_Tools.Utils.External.RdMWings.autoFold module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html#mutant-tools-utils-external-rdmwings-autowings-module">Mutant_Tools.Utils.External.RdMWings.autoWings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html#mutant-tools-utils-external-rdmwings-loadautowings-module">Mutant_Tools.Utils.External.RdMWings.loadAutoWings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html#mutant-tools-utils-external-rdmwings-wingmodule-module">Mutant_Tools.Utils.External.RdMWings.wingModule module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.RdMWings.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.External.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.External.html#mutant-tools-utils-external-ribbonizer-module">Mutant_Tools.Utils.External.Ribbonizer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.Ctrl_maker"><code class="docutils literal notranslate"><span class="pre">Ctrl_maker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.UI"><code class="docutils literal notranslate"><span class="pre">UI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.UI.launch"><code class="docutils literal notranslate"><span class="pre">UI.launch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.get_bbox_center"><code class="docutils literal notranslate"><span class="pre">get_bbox_center()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.get_selection"><code class="docutils literal notranslate"><span class="pre">get_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.lock_hide"><code class="docutils literal notranslate"><span class="pre">lock_hide()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.make_fk_Ctrls"><code class="docutils literal notranslate"><span class="pre">make_fk_Ctrls()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.param_from_length"><code class="docutils literal notranslate"><span class="pre">param_from_length()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.ribbonize"><code class="docutils literal notranslate"><span class="pre">ribbonize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.External.html#Mutant_Tools.Utils.External.Ribbonizer.set_color"><code class="docutils literal notranslate"><span class="pre">set_color()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.External.html#mutant-tools-utils-external-geonode-module">Mutant_Tools.Utils.External.geoNode module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.External.html#mutant-tools-utils-external-mayanode-module">Mutant_Tools.Utils.External.mayaNode module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.External.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Games.html">Mutant_Tools.Utils.Games package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Games.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Games.maps.html">Mutant_Tools.Utils.Games.maps package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Games.maps.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Games.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Games.html#mutant-tools-utils-games-games-utils-module">Mutant_Tools.Utils.Games.games_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Games.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html">Mutant_Tools.Utils.Helpers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#mutant-tools-utils-helpers-ai-helpers-module">Mutant_Tools.Utils.Helpers.ai_helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#mutant-tools-utils-helpers-decorators-module">Mutant_Tools.Utils.Helpers.decorators module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.decorators.keep_selection"><code class="docutils literal notranslate"><span class="pre">keep_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.decorators.undo"><code class="docutils literal notranslate"><span class="pre">undo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.decorators.viewport_off"><code class="docutils literal notranslate"><span class="pre">viewport_off()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.decorators.wait_cursor"><code class="docutils literal notranslate"><span class="pre">wait_cursor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#mutant-tools-utils-helpers-discord-module">Mutant_Tools.Utils.Helpers.discord module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#mutant-tools-utils-helpers-helpers-module">Mutant_Tools.Utils.Helpers.helpers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers"><code class="docutils literal notranslate"><span class="pre">Helpers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.capture_viewport"><code class="docutils literal notranslate"><span class="pre">Helpers.capture_viewport()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.export_window"><code class="docutils literal notranslate"><span class="pre">Helpers.export_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.find_user_show"><code class="docutils literal notranslate"><span class="pre">Helpers.find_user_show()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.folder_window"><code class="docutils literal notranslate"><span class="pre">Helpers.folder_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.get_inbetween_text"><code class="docutils literal notranslate"><span class="pre">Helpers.get_inbetween_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.import_window"><code class="docutils literal notranslate"><span class="pre">Helpers.import_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.read_json"><code class="docutils literal notranslate"><span class="pre">Helpers.read_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.read_setup_file"><code class="docutils literal notranslate"><span class="pre">Helpers.read_setup_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.reset_to_default"><code class="docutils literal notranslate"><span class="pre">Helpers.reset_to_default()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.write_json"><code class="docutils literal notranslate"><span class="pre">Helpers.write_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#Mutant_Tools.Utils.Helpers.helpers.Helpers.write_setup_file"><code class="docutils literal notranslate"><span class="pre">Helpers.write_setup_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Helpers.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.IO.html">Mutant_Tools.Utils.IO package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.IO.Ctrl_Data.html">Mutant_Tools.Utils.IO.Ctrl_Data package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.Ctrl_Data.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.IO.Guide_Data.html">Mutant_Tools.Utils.IO.Guide_Data package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.Guide_Data.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.IO.NgSkin_Data.html">Mutant_Tools.Utils.IO.NgSkin_Data package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.NgSkin_Data.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#mutant-tools-utils-io-ctrlutils-module">Mutant_Tools.Utils.IO.CtrlUtils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls"><code class="docutils literal notranslate"><span class="pre">Ctrls</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.apply_ctrls_color_data"><code class="docutils literal notranslate"><span class="pre">Ctrls.apply_ctrls_color_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.assignColour"><code class="docutils literal notranslate"><span class="pre">Ctrls.assignColour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getColour"><code class="docutils literal notranslate"><span class="pre">Ctrls.getColour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getKnots"><code class="docutils literal notranslate"><span class="pre">Ctrls.getKnots()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getShape"><code class="docutils literal notranslate"><span class="pre">Ctrls.getShape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.get_ctrl_colors"><code class="docutils literal notranslate"><span class="pre">Ctrls.get_ctrl_colors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.loadData"><code class="docutils literal notranslate"><span class="pre">Ctrls.loadData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_all"><code class="docutils literal notranslate"><span class="pre">Ctrls.load_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_all_vis_connections"><code class="docutils literal notranslate"><span class="pre">Ctrls.load_all_vis_connections()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_selected"><code class="docutils literal notranslate"><span class="pre">Ctrls.load_selected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirrorCtlShapes"><code class="docutils literal notranslate"><span class="pre">Ctrls.mirrorCtlShapes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirror_all"><code class="docutils literal notranslate"><span class="pre">Ctrls.mirror_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirror_all_ctrl_shapes"><code class="docutils literal notranslate"><span class="pre">Ctrls.mirror_all_ctrl_shapes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.reparent_locators"><code class="docutils literal notranslate"><span class="pre">Ctrls.reparent_locators()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.saveData"><code class="docutils literal notranslate"><span class="pre">Ctrls.saveData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.save_all"><code class="docutils literal notranslate"><span class="pre">Ctrls.save_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.save_all_vis_connections"><code class="docutils literal notranslate"><span class="pre">Ctrls.save_all_vis_connections()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.setColour"><code class="docutils literal notranslate"><span class="pre">Ctrls.setColour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.setShape"><code class="docutils literal notranslate"><span class="pre">Ctrls.setShape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.smart_assign_colors"><code class="docutils literal notranslate"><span class="pre">Ctrls.smart_assign_colors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.validateCurve"><code class="docutils literal notranslate"><span class="pre">Ctrls.validateCurve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.validatePath"><code class="docutils literal notranslate"><span class="pre">Ctrls.validatePath()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#mutant-tools-utils-io-easyskin-module">Mutant_Tools.Utils.IO.EasySkin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#mutant-tools-utils-io-guides-module">Mutant_Tools.Utils.IO.Guides module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.Guides.Guides"><code class="docutils literal notranslate"><span class="pre">Guides</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.Guides.Guides.export_ma_guide"><code class="docutils literal notranslate"><span class="pre">Guides.export_ma_guide()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.Guides.Guides.import_ma_guide"><code class="docutils literal notranslate"><span class="pre">Guides.import_ma_guide()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.Guides.Guides.load_preset"><code class="docutils literal notranslate"><span class="pre">Guides.load_preset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.Guides.Guides.save_preset"><code class="docutils literal notranslate"><span class="pre">Guides.save_preset()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#mutant-tools-utils-io-ngskinutils-module">Mutant_Tools.Utils.IO.NgSkinUtils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#mutant-tools-utils-io-skinutils-module">Mutant_Tools.Utils.IO.SkinUtils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.LODs.html">Mutant_Tools.Utils.LODs package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.LODs.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.LODs.html#mutant-tools-utils-lods-lods-utils-module">Mutant_Tools.Utils.LODs.lods_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.LODs.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Misc.html">Mutant_Tools.Utils.Misc package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Misc.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Misc.html#mutant-tools-utils-misc-isolaterigs-module">Mutant_Tools.Utils.Misc.isolateRigs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Misc.html#Mutant_Tools.Utils.Misc.isolateRigs.isolate_asset"><code class="docutils literal notranslate"><span class="pre">isolate_asset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Misc.html#mutant-tools-utils-misc-label-joints-module">Mutant_Tools.Utils.Misc.label_joints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Misc.html#Mutant_Tools.Utils.Misc.label_joints.mass_label_joints"><code class="docutils literal notranslate"><span class="pre">mass_label_joints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Misc.html#mutant-tools-utils-misc-open-jaw-module">Mutant_Tools.Utils.Misc.open_jaw module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Misc.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.html">Mutant_Tools.Utils.Mocap package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.HIK.html">Mutant_Tools.Utils.Mocap.HIK package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.HIK.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.HIK.html#mutant-tools-utils-mocap-hik-hik-bipeddefinition-module">Mutant_Tools.Utils.Mocap.HIK.HIK_BipedDefinition module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.HIK.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.MocapFiles.html">Mutant_Tools.Utils.Mocap.MocapFiles package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.MocapFiles.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.MocapFiles.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.Retarget.html">Mutant_Tools.Utils.Mocap.Retarget package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.Retarget.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.Retarget.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.Retarget.html#mutant-tools-utils-mocap-retarget-retarget-module">Mutant_Tools.Utils.Mocap.Retarget.retarget module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.Retarget.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Mocap.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html">Mutant_Tools.Utils.Rigging package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#mutant-tools-utils-rigging-kinematics-module">Mutant_Tools.Utils.Rigging.kinematics module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class"><code class="docutils literal notranslate"><span class="pre">Kinematics_class</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.advance_twist"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.advance_twist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.base_spline"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.base_spline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.basic_ribbon"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.basic_ribbon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.bend_and_squash"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.bend_and_squash()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.bend_and_squash_head"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.bend_and_squash_head()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.blend_between"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.blend_between()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.create_auto_rotate_fk"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.create_auto_rotate_fk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.create_lods_containers"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.create_lods_containers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.create_mid_ribbons"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.create_mid_ribbons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.create_wire_system"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.create_wire_system()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.curve_to_ribbon"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.curve_to_ribbon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.dinamic_pivot"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.dinamic_pivot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.fk_chain"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.fk_chain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.get_distance_between"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.get_distance_between()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.joints_middle"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.joints_middle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.joints_middle_no_chain"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.joints_middle_no_chain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.mirror_group"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.mirror_group()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.parent_matrix"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.parent_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.pole_vector_placement"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.pole_vector_placement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.proxy_this_attrs"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.proxy_this_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.put_inside_lod"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.put_inside_lod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.remove_rivets_ctrls"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.remove_rivets_ctrls()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.ribbon_between"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.ribbon_between()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.rivets_ctrls"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.rivets_ctrls()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.simple_fk_ik"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.simple_fk_ik()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.simple_ik_chain"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.simple_ik_chain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.spline_twist"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.spline_twist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.streatchy_ik"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.streatchy_ik()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.twist"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.twist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.twist_fk_ik"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.twist_fk_ik()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.kinematics.Kinematics_class.twist_rotate_info"><code class="docutils literal notranslate"><span class="pre">Kinematics_class.twist_rotate_info()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#mutant-tools-utils-rigging-main-mutant-module">Mutant_Tools.Utils.Rigging.main_mutant module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.main_mutant.Mutant"><code class="docutils literal notranslate"><span class="pre">Mutant</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.main_mutant.Mutant.compare_versions"><code class="docutils literal notranslate"><span class="pre">Mutant.compare_versions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.main_mutant.Mutant.get_local_version"><code class="docutils literal notranslate"><span class="pre">Mutant.get_local_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.main_mutant.Mutant.get_online_version"><code class="docutils literal notranslate"><span class="pre">Mutant.get_online_version()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#mutant-tools-utils-rigging-modules-module">Mutant_Tools.Utils.Rigging.modules module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class"><code class="docutils literal notranslate"><span class="pre">Modules_class</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.Mutant_logger"><code class="docutils literal notranslate"><span class="pre">Modules_class.Mutant_logger()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.ask_name"><code class="docutils literal notranslate"><span class="pre">Modules_class.ask_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.build_baseA"><code class="docutils literal notranslate"><span class="pre">Modules_class.build_baseA()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.check_dev_mode"><code class="docutils literal notranslate"><span class="pre">Modules_class.check_dev_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.check_is_there_is_base"><code class="docutils literal notranslate"><span class="pre">Modules_class.check_is_there_is_base()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.create_block"><code class="docutils literal notranslate"><span class="pre">Modules_class.create_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.create_joint_guide"><code class="docutils literal notranslate"><span class="pre">Modules_class.create_joint_guide()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.create_stellar_joint_guide"><code class="docutils literal notranslate"><span class="pre">Modules_class.create_stellar_joint_guide()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.duplicate_and_remove_guides"><code class="docutils literal notranslate"><span class="pre">Modules_class.duplicate_and_remove_guides()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.duplicate_and_remove_stellar_guides"><code class="docutils literal notranslate"><span class="pre">Modules_class.duplicate_and_remove_stellar_guides()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.move_outliner"><code class="docutils literal notranslate"><span class="pre">Modules_class.move_outliner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.orient_joint"><code class="docutils literal notranslate"><span class="pre">Modules_class.orient_joint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.toggle_dev_mode"><code class="docutils literal notranslate"><span class="pre">Modules_class.toggle_dev_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.update_icons"><code class="docutils literal notranslate"><span class="pre">Modules_class.update_icons()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#mutant-tools-utils-rigging-tools-module">Mutant_Tools.Utils.Rigging.tools module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class"><code class="docutils literal notranslate"><span class="pre">Tools_class</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.assign_color"><code class="docutils literal notranslate"><span class="pre">Tools_class.assign_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.assign_color_rgb"><code class="docutils literal notranslate"><span class="pre">Tools_class.assign_color_rgb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.bounding_cube"><code class="docutils literal notranslate"><span class="pre">Tools_class.bounding_cube()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.build_all_curves"><code class="docutils literal notranslate"><span class="pre">Tools_class.build_all_curves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.calculate_bounding_box_diagonal"><code class="docutils literal notranslate"><span class="pre">Tools_class.calculate_bounding_box_diagonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.change_curve_shape"><code class="docutils literal notranslate"><span class="pre">Tools_class.change_curve_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.change_default"><code class="docutils literal notranslate"><span class="pre">Tools_class.change_default()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.check_input"><code class="docutils literal notranslate"><span class="pre">Tools_class.check_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.connect_md_node"><code class="docutils literal notranslate"><span class="pre">Tools_class.connect_md_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.connect_remap_value"><code class="docutils literal notranslate"><span class="pre">Tools_class.connect_remap_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.connect_rotate_order"><code class="docutils literal notranslate"><span class="pre">Tools_class.connect_rotate_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.connect_with_line"><code class="docutils literal notranslate"><span class="pre">Tools_class.connect_with_line()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.controller"><code class="docutils literal notranslate"><span class="pre">Tools_class.controller()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.create_ik_spline_twist"><code class="docutils literal notranslate"><span class="pre">Tools_class.create_ik_spline_twist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.create_proxy_attr"><code class="docutils literal notranslate"><span class="pre">Tools_class.create_proxy_attr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.create_softmod"><code class="docutils literal notranslate"><span class="pre">Tools_class.create_softmod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.curve"><code class="docutils literal notranslate"><span class="pre">Tools_class.curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.curve_between"><code class="docutils literal notranslate"><span class="pre">Tools_class.curve_between()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.duplicate_change_names"><code class="docutils literal notranslate"><span class="pre">Tools_class.duplicate_change_names()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.find_closest_joint"><code class="docutils literal notranslate"><span class="pre">Tools_class.find_closest_joint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.get_closest_vertex"><code class="docutils literal notranslate"><span class="pre">Tools_class.get_closest_vertex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.get_dag_path"><code class="docutils literal notranslate"><span class="pre">Tools_class.get_dag_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.get_orient"><code class="docutils literal notranslate"><span class="pre">Tools_class.get_orient()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.get_position"><code class="docutils literal notranslate"><span class="pre">Tools_class.get_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.get_scale"><code class="docutils literal notranslate"><span class="pre">Tools_class.get_scale()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.hide_attr"><code class="docutils literal notranslate"><span class="pre">Tools_class.hide_attr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.import_configs"><code class="docutils literal notranslate"><span class="pre">Tools_class.import_configs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.line_attr"><code class="docutils literal notranslate"><span class="pre">Tools_class.line_attr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.lock_node"><code class="docutils literal notranslate"><span class="pre">Tools_class.lock_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.match"><code class="docutils literal notranslate"><span class="pre">Tools_class.match()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.new_attr"><code class="docutils literal notranslate"><span class="pre">Tools_class.new_attr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.new_attr_interger"><code class="docutils literal notranslate"><span class="pre">Tools_class.new_attr_interger()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.new_boolean"><code class="docutils literal notranslate"><span class="pre">Tools_class.new_boolean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.new_enum"><code class="docutils literal notranslate"><span class="pre">Tools_class.new_enum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.nurbs_between"><code class="docutils literal notranslate"><span class="pre">Tools_class.nurbs_between()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.nurbs_between_trio"><code class="docutils literal notranslate"><span class="pre">Tools_class.nurbs_between_trio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.put_inside_rig_container"><code class="docutils literal notranslate"><span class="pre">Tools_class.put_inside_rig_container()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.read_json"><code class="docutils literal notranslate"><span class="pre">Tools_class.read_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.replace_connection_with_doublelinear"><code class="docutils literal notranslate"><span class="pre">Tools_class.replace_connection_with_doublelinear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.replace_name"><code class="docutils literal notranslate"><span class="pre">Tools_class.replace_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.rivet_constraint"><code class="docutils literal notranslate"><span class="pre">Tools_class.rivet_constraint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.root_grp"><code class="docutils literal notranslate"><span class="pre">Tools_class.root_grp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.rotate_shape"><code class="docutils literal notranslate"><span class="pre">Tools_class.rotate_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.scale_shape"><code class="docutils literal notranslate"><span class="pre">Tools_class.scale_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.shape_with_attr"><code class="docutils literal notranslate"><span class="pre">Tools_class.shape_with_attr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.string_attr"><code class="docutils literal notranslate"><span class="pre">Tools_class.string_attr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.switch_blend_colors"><code class="docutils literal notranslate"><span class="pre">Tools_class.switch_blend_colors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.switch_constraints"><code class="docutils literal notranslate"><span class="pre">Tools_class.switch_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.text_curves"><code class="docutils literal notranslate"><span class="pre">Tools_class.text_curves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.transform_on_sel"><code class="docutils literal notranslate"><span class="pre">Tools_class.transform_on_sel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.translate_shape"><code class="docutils literal notranslate"><span class="pre">Tools_class.translate_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.Tools_class.write_json"><code class="docutils literal notranslate"><span class="pre">Tools_class.write_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.tools.import_configs"><code class="docutils literal notranslate"><span class="pre">import_configs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Rigging.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html">Mutant_Tools.Utils.Toon package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#mutant-tools-utils-toon-toon-libs-module">Mutant_Tools.Utils.Toon.toon_libs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.connect_pe_to_ribbon"><code class="docutils literal notranslate"><span class="pre">connect_pe_to_ribbon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.connect_stroke_to_render"><code class="docutils literal notranslate"><span class="pre">connect_stroke_to_render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.convert_curve_to_pe"><code class="docutils literal notranslate"><span class="pre">convert_curve_to_pe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.convert_outline_to_curves"><code class="docutils literal notranslate"><span class="pre">convert_outline_to_curves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.convert_outline_to_geo"><code class="docutils literal notranslate"><span class="pre">convert_outline_to_geo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.create_camara_based_curve"><code class="docutils literal notranslate"><span class="pre">create_camara_based_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.create_curve_rig"><code class="docutils literal notranslate"><span class="pre">create_curve_rig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.create_toon_outline"><code class="docutils literal notranslate"><span class="pre">create_toon_outline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Toon.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.html">Mutant_Tools.Utils.Wrap package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.FACS.html">Mutant_Tools.Utils.Wrap.FACS package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.FACS.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.FACS.html#mutant-tools-utils-wrap-facs-facs-utils-module">Mutant_Tools.Utils.Wrap.FACS.facs_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.FACS.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.Skeletor.html">Mutant_Tools.Utils.Wrap.Skeletor package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.Skeletor.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.Skeletor.html#mutant-tools-utils-wrap-skeletor-skeletor-module">Mutant_Tools.Utils.Wrap.Skeletor.Skeletor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.Skeletor.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.html#mutant-tools-utils-wrap-wrap-utils-module">Mutant_Tools.Utils.Wrap.wrap_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.Wrap.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="mutant-tools-utils-mt-menu-module">
+<h2>Mutant_Tools.Utils.mt_menu module<a class="headerlink" href="#mutant-tools-utils-mt-menu-module" title="Link to this heading"></a></h2>
+<dl class="py function" id="module-Mutant_Tools.Utils.mt_menu">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.ROM">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">ROM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#ROM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.ROM" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.contact">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#contact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.contact" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.create_mutant_menu">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">create_mutant_menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#create_mutant_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.create_mutant_menu" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.crowds">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">crowds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#crowds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.crowds" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.developers_block_help">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">developers_block_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#developers_block_help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.developers_block_help" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.donate_crypto">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">donate_crypto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#donate_crypto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.donate_crypto" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.donate_paypal">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">donate_paypal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#donate_paypal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.donate_paypal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.download_latest">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">download_latest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#download_latest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.download_latest" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.face_install">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">face_install</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#face_install"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.face_install" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.faceform_wrap">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">faceform_wrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#faceform_wrap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.faceform_wrap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.games">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">games</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#games"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.games" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.help">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.help" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.helpers">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">helpers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#helpers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.helpers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.install_ng">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">install_ng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#install_ng"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.install_ng" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.join_discord">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">join_discord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#join_discord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.join_discord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.load_guide_placement">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">load_guide_placement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#load_guide_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.load_guide_placement" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.make_maya_pretty">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">make_maya_pretty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#make_maya_pretty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.make_maya_pretty" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.make_outliner_pretty">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">make_outliner_pretty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#make_outliner_pretty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.make_outliner_pretty" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.mt_commands">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">mt_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#mt_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.mt_commands" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.open_block_builder">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">open_block_builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#open_block_builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.open_block_builder" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.open_rig_builder">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">open_rig_builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#open_rig_builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.open_rig_builder" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.open_rig_tools">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">open_rig_tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#open_rig_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.open_rig_tools" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.open_website">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">open_website</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">website</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'http://mutanttools.com/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'view'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#open_website"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.open_website" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.put_in_userSetup">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">put_in_userSetup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#put_in_userSetup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.put_in_userSetup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.report_bug">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">report_bug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#report_bug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.report_bug" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.request_feature">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">request_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#request_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.request_feature" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.reset_colors">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">reset_colors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#reset_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.reset_colors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.riggers_help">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">riggers_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#riggers_help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.riggers_help" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.shapes">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">shapes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#shapes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.shapes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.shelves">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">shelves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#shelves"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.shelves" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.tools_tutorial">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">tools_tutorial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#tools_tutorial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.tools_tutorial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.view_log">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">view_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#view_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.view_log" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.mt_menu.zombinator">
+<span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.mt_menu.</span></span><span class="sig-name descname"><span class="pre">zombinator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/mt_menu.html#zombinator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.mt_menu.zombinator" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<span class="target" id="module-Mutant_Tools.Utils"></span></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Mutant_Tools.UI.Zombinator.html" class="btn btn-neutral float-left" title="Mutant_Tools.UI.Zombinator package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Mutant_Tools.Utils.Animation.html" class="btn btn-neutral float-right" title="Mutant_Tools.Utils.Animation package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

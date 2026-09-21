@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.Wrap.Skeletor.Skeletor &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.Wrap.Skeletor.Skeletor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.Wrap.Skeletor.Skeletor</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">round</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">#Title: Skeletor.py</span>
+<span class="sd">#Author: Noah Schnapp</span>
+<span class="sd">#LinkedIn: https://www.linkedin.com/in/wnschnapp/</span>
+<span class="sd">#Youtube: http://www.youtube.com/WilliamNoahSchnapp</span>
+
+<span class="sd">import Mutant_Tools</span>
+
+<span class="sd">from Mutant_Tools.Utils.Wrap.Skeletor import Skeletor</span>
+<span class="sd">import imp</span>
+<span class="sd">imp.reload(Skeletor)</span>
+<span class="sd">Skeletor.openUI()</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">####################</span>
+<span class="c1">####################</span>
+<span class="c1">#...Import Commands</span>
+<span class="c1">####################</span>
+<span class="c1">####################</span>
+
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="k">as</span> <span class="nn">cmds</span>
+<span class="kn">import</span> <span class="nn">maya.mel</span> <span class="k">as</span> <span class="nn">mel</span>
+<span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">PATH_PARTS</span> <span class="o">=</span> <span class="n">PATH</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">FOLDER</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">PATH_PARTS</span><span class="p">:</span>
+	<span class="n">FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="c1">####################</span>
+<span class="c1">####################</span>
+
+<span class="c1">#...SCRIPT EDITOR USE</span>
+<span class="n">dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span><span class="s1">&#39;Wrap&#39;</span><span class="p">,</span><span class="s1">&#39;Skeletor&#39;</span><span class="p">)</span>
+
+<span class="c1"># dirpath = r&#39;F:\schnapp_projects_ARCHIVE\_myProjects\sandbox\automaticallyPlaceJointsTutorial\02-files&#39;</span>
+<span class="c1"># import sys, imp </span>
+<span class="c1"># sys.path.insert(0, dirpath) </span>
+<span class="c1"># import automaticJointPlacement_complete </span>
+<span class="c1"># imp.reload(automaticJointPlacement_complete)</span>
+<span class="c1"># automaticJointPlacement_complete.run_dev()</span>
+
+<span class="c1">####################</span>
+<span class="c1">####################</span>
+
+<span class="c1"># def run_dev():</span>
+<span class="c1"># 	#...args</span>
+<span class="c1"># 	mode = &#39;body&#39;</span>
+<span class="c1"># 	#...name file</span>
+<span class="c1"># 	filepath = &#39;%s/00_example_%s.mb&#39;%(dirpath, mode)</span>
+<span class="c1"># 	#...open scene</span>
+<span class="c1"># 	#cmds.file(filepath, o=True, f=True)</span>
+<span class="c1"># 	#...setLayout</span>
+<span class="c1"># 	#mel.eval(&#39;setNamedPanelLayout &quot;layout_user&quot;;&#39;)</span>
+<span class="c1"># 	#...rename scene for testing</span>
+<span class="c1"># 	cmds.file(rename=&#39;untitled&#39;)</span>
+<span class="c1"># 	#...openUI</span>
+<span class="c1"># 	openUI(dirpath)</span>
+<span class="c1">#</span>
+<span class="c1"># 	#...dev code</span>
+<span class="c1"># 	cSkeletor = Skeletor()</span>
+<span class="c1"># 	# cSkeletor.sample_one(sample_Array=cmds.ls(sl=1,fl=True)[:-1], node=cmds.ls(sl=1)[-1], auto=False)</span>
+<span class="c1"># 	cSkeletor.dirpath = dirpath</span>
+<span class="c1"># 	# cSkeletor.mirror_records()</span>
+<span class="c1"># 	# cSkeletor.select_nodeSamples()</span>
+<span class="c1"># 	# cSkeletor.select_nodesInAutoMode()</span>
+<span class="c1">#</span>
+<span class="c1"># 	# cSkeletor.update_positionRecords()</span>
+<span class="c1"># 	# cSkeletor.record_one()</span>
+<span class="c1"># 	# cSkeletor.record_all()</span>
+<span class="c1">#</span>
+<span class="c1"># 	# cSkeletor.reconform_all()</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># 	# cSkeletor.sample_all(&#39;base_body&#39;, cmds.ls(sl=True))</span>
+<span class="c1"># 	# print cSkeletor.data</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># 	return True</span>
+
+<span class="c1">#Fix for python 3</span>
+<span class="n">xrange</span><span class="o">=</span><span class="nb">range</span>
+
+
+<div class="viewcode-block" id="dev_rotatePlanar">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.dev_rotatePlanar">[docs]</a>
+<span class="k">def</span> <span class="nf">dev_rotatePlanar</span><span class="p">(</span><span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;L_Shoulder_Guide&quot;</span><span class="p">,</span> <span class="s2">&quot;L_Elbow_Guide&quot;</span><span class="p">,</span> <span class="s2">&quot;L_Wrist_Guide&quot;</span><span class="p">]):</span>
+	<span class="c1">#...example rotate_planar</span>
+	<span class="n">rotate_planar</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="openUI">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.openUI">[docs]</a>
+<span class="k">def</span> <span class="nf">openUI</span><span class="p">(</span><span class="n">dirpath</span><span class="o">=</span><span class="n">dirpath</span><span class="p">):</span>
+	<span class="n">cSkeletorUI</span> <span class="o">=</span> <span class="n">SkeletorUI</span><span class="p">()</span>
+	<span class="n">cSkeletorUI</span><span class="o">.</span><span class="n">create_mainWindow</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+	<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SkeletorUI">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI">[docs]</a>
+<span class="k">class</span> <span class="nc">SkeletorUI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+		<span class="c1">#...classes</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span> <span class="o">=</span> <span class="n">Skeletor</span><span class="p">()</span>
+
+		<span class="c1">#...vars</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">windowName</span> <span class="o">=</span> <span class="s1">&#39;SkeletorUI&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">windowWidth</span> <span class="o">=</span> <span class="mi">300</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">textFieldWidth</span> <span class="o">=</span> <span class="mi">300</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">buttonWidth</span> <span class="o">=</span> <span class="mi">300</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span> <span class="o">=</span> <span class="mi">25</span>
+		<span class="k">pass</span>
+
+<div class="viewcode-block" id="SkeletorUI.create_mainWindow">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.create_mainWindow">[docs]</a>
+	<span class="k">def</span> <span class="nf">create_mainWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+		<span class="c1">#...set dirpath</span>
+		<span class="k">if</span> <span class="n">dirpath</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">dirpath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">dirpath</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">dirpath</span> <span class="o">=</span> <span class="n">dirpath</span>
+
+		<span class="c1"># Make a new window</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowName</span><span class="p">,</span> <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">deleteUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowName</span><span class="p">)</span>
+			
+		<span class="c1">#...title</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowName</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">windowName</span><span class="p">,</span> <span class="n">sizeable</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">resizeToFitChildren</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ui</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">(</span><span class="n">adjustableColumn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">windowWidth</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Directory&#39;</span><span class="p">)</span>
+
+		<span class="c1">#...dirpath</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioA</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rowColumnLayout</span><span class="p">(</span><span class="s1">&#39;columnLayout__ioA&#39;</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ui</span><span class="p">,</span> <span class="n">numberOfColumns</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowWidth</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">textField__dirpath</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textField</span><span class="p">(</span><span class="s1">&#39;textField__dirpath&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">270</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioA</span><span class="p">)</span> 
+		<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Set&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>  <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btnCmd_setDirpath</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioA</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">)</span>
+
+		<span class="c1">#...buttons</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioBBB</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rowColumnLayout</span><span class="p">(</span><span class="s1">&#39;columnLayout__ioBBB&#39;</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ui</span><span class="p">,</span> <span class="n">numberOfColumns</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowWidth</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Record All&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonWidth</span><span class="p">,</span>  <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">btnCmd_recordAll</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioBBB</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Record One&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonWidth</span><span class="p">,</span>  <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btnCmd_recordOne</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioBBB</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Select Node Samples&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonWidth</span><span class="p">,</span>  <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btnCmd_selectNodeSamples</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioBBB</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Select Nodes in Auto Mode&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonWidth</span><span class="p">,</span>  <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btnCmd_selectNodesInAutoMode</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioBBB</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mirror Records&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonWidth</span><span class="p">,</span>  <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btnCmd_mirrorRecords</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioBBB</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Update Position Records&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonWidth</span><span class="p">,</span>  <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btnCmd_updatePositionRecords</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioBBB</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Reconform Nodes To Selected Mesh&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonWidth</span><span class="p">,</span>  <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonHeight</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btnCmd_reconformNodesToSelectedMesh</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnLayout__ioBBB</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+	<span class="c1">#...UI</span>
+<div class="viewcode-block" id="SkeletorUI.btnCmd_setDirpath">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.btnCmd_setDirpath">[docs]</a>
+	<span class="k">def</span> <span class="nf">btnCmd_setDirpath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="c1">#...get dirpath</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">dirpath</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">fileDialog2</span><span class="p">(</span><span class="n">caption</span><span class="o">=</span><span class="s1">&#39;Select Data Directory&#39;</span><span class="p">,</span> 
+										<span class="n">dialogStyle</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+										<span class="n">fileMode</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+										<span class="n">startingDirectory</span><span class="o">=</span><span class="n">cmds</span><span class="o">.</span><span class="n">workspace</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rootDirectory</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> 
+										<span class="n">fileFilter</span><span class="o">=</span><span class="s1">&#39;*.</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">filenameExtension</span><span class="p">,</span> 
+										<span class="n">okCaption</span> <span class="o">=</span> <span class="s2">&quot;Select&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+		<span class="c1">#...update textfield</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">textField</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">textField__dirpath</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SkeletorUI.btnCmd_recordAll">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.btnCmd_recordAll">[docs]</a>
+	<span class="k">def</span> <span class="nf">btnCmd_recordAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="c1">#...parse_selection</span>
+		<span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">parse_selection</span><span class="p">()</span>
+		<span class="c1">#...update vars</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">filenameExtension</span><span class="p">)</span>
+		<span class="c1">#...if confirm</span>
+		<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">filepath</span><span class="p">):</span>
+			<span class="n">result</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">confirmDialog</span><span class="p">(</span>
+					<span class="n">title</span><span class="o">=</span><span class="s1">&#39;Skeletor Data Exists!&#39;</span><span class="p">,</span>
+					<span class="n">message</span><span class="o">=</span><span class="s1">&#39;Overwrite existing Data for: &quot;</span><span class="si">%s</span><span class="s1">&quot;?&#39;</span><span class="o">%</span><span class="n">mesh</span><span class="p">,</span>
+					<span class="n">button</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Overwrite&#39;</span><span class="p">,</span> <span class="s1">&#39;Cancel&#39;</span><span class="p">],</span>
+					<span class="n">defaultButton</span><span class="o">=</span><span class="s1">&#39;Cancel&#39;</span><span class="p">,</span>
+					<span class="n">cancelButton</span><span class="o">=</span><span class="s1">&#39;Cancel&#39;</span><span class="p">,</span>
+					<span class="n">dismissString</span><span class="o">=</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
+			<span class="c1">#...Overwrite</span>
+			<span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s1">&#39;Cancel&#39;</span><span class="p">:</span>
+				<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...record_all</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">record_all</span><span class="p">()</span>
+
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SkeletorUI.btnCmd_recordOne">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.btnCmd_recordOne">[docs]</a>
+	<span class="k">def</span> <span class="nf">btnCmd_recordOne</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="c1">#...record_one</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">record_one</span><span class="p">()</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SkeletorUI.btnCmd_mirrorRecords">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.btnCmd_mirrorRecords">[docs]</a>
+	<span class="k">def</span> <span class="nf">btnCmd_mirrorRecords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="c1">#...mirror_records</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">mirror_records</span><span class="p">()</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SkeletorUI.btnCmd_updatePositionRecords">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.btnCmd_updatePositionRecords">[docs]</a>
+	<span class="k">def</span> <span class="nf">btnCmd_updatePositionRecords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="c1">#...update_positionRecords</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">update_positionRecords</span><span class="p">()</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SkeletorUI.btnCmd_selectNodeSamples">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.btnCmd_selectNodeSamples">[docs]</a>
+	<span class="k">def</span> <span class="nf">btnCmd_selectNodeSamples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="c1">#...select_nodeSamples</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">select_nodeSamples</span><span class="p">()</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SkeletorUI.btnCmd_selectNodesInAutoMode">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.btnCmd_selectNodesInAutoMode">[docs]</a>
+	<span class="k">def</span> <span class="nf">btnCmd_selectNodesInAutoMode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="c1">#...select autoNodes</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">select_nodesInAutoMode</span><span class="p">()</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="SkeletorUI.btnCmd_reconformNodesToSelectedMesh">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.SkeletorUI.btnCmd_reconformNodesToSelectedMesh">[docs]</a>
+	<span class="k">def</span> <span class="nf">btnCmd_reconformNodesToSelectedMesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="c1">#...reconform_all</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">cSkeletor</span><span class="o">.</span><span class="n">reconform_all</span><span class="p">()</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+</div>
+
+
+<div class="viewcode-block" id="Skeletor">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor">[docs]</a>
+<span class="k">class</span> <span class="nc">Skeletor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span><span class="s1">&#39;Wrap&#39;</span><span class="p">,</span><span class="s1">&#39;Skeletor&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="kc">None</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">sampleCount</span> <span class="o">=</span> <span class="mi">120</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">filenameExtension</span> <span class="o">=</span> <span class="s1">&#39;skeletor&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">vtxPosition_Array</span> <span class="o">=</span> <span class="p">[]</span>
+
+		<span class="k">pass</span>
+
+	<span class="c1">#...record</span>
+<div class="viewcode-block" id="Skeletor.record_all">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.record_all">[docs]</a>
+	<span class="k">def</span> <span class="nf">record_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...parse_selection</span>
+		<span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_selection</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">mesh</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Select a mesh and node_Array to record Auto Node Samples!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...load_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...analyze mesh</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">sample_all</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">node_Array</span><span class="p">)</span>
+		<span class="c1">#...save_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">save_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SUCCESS: Recorded nodes on mesh: &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="o">%</span><span class="n">mesh</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">node_Array</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.record_one">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.record_one">[docs]</a>
+	<span class="k">def</span> <span class="nf">record_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...parse_selection</span>
+		<span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_selection</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">sample_Array</span> <span class="o">==</span> <span class="p">[]:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Select a mesh and sample_Array to record Node Samples!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...load_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...analyze mesh</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">sample_one</span><span class="p">(</span><span class="n">sample_Array</span><span class="p">,</span> <span class="n">node_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="c1">#...save_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">save_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SUCCESS: Recorded nodes on mesh: &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="o">%</span><span class="n">mesh</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">node_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.mirror_records">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.mirror_records">[docs]</a>
+	<span class="k">def</span> <span class="nf">mirror_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...parse_selection</span>
+		<span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_selection</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="k">if</span> <span class="n">mesh</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Select a mesh to Mirror Records!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...load_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...mirror_all</span>
+		<span class="n">keys</span><span class="o">=</span><span class="p">[]</span>
+		<span class="n">mirror_keys</span><span class="o">=</span><span class="p">[]</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+			<span class="n">mirror_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">mirror_all</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">mirror_keys</span><span class="p">)</span>
+		<span class="c1">#...save_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">save_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SUCCESS: Recorded all Mirror samples on mesh: &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="o">%</span><span class="n">mesh</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.update_positionRecords">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.update_positionRecords">[docs]</a>
+	<span class="k">def</span> <span class="nf">update_positionRecords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...parse_selection</span>
+		<span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_selection</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="k">if</span> <span class="n">mesh</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Select a mesh to Update Node Records!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...load_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...updateRecords</span>
+		<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">sample_one</span><span class="p">(</span><span class="n">sample_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">auto</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+		<span class="c1">#...save_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">save_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SUCCESS: Updated all Node Position Vectors on mesh: &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="o">%</span><span class="n">mesh</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.select_nodeSamples">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.select_nodeSamples">[docs]</a>
+	<span class="k">def</span> <span class="nf">select_nodeSamples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...parse_selection</span>
+		<span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_selection</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="k">if</span> <span class="n">mesh</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">node_Array</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Select both a Mesh and Node to show Node Samples!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="n">node</span> <span class="o">=</span> <span class="n">node_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="c1">#...load_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...select sample</span>
+		<span class="n">vertID_Array</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="n">vertID_Array</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+		<span class="c1">#...construct meshVtx_Array</span>
+		<span class="n">meshVtx_Array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.vtx[</span><span class="si">%s</span><span class="s1">]&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vertID_Array</span><span class="p">]</span>
+		<span class="c1">#...select components</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">meshVtx_Array</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+	
+<div class="viewcode-block" id="Skeletor.select_nodesInAutoMode">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.select_nodesInAutoMode">[docs]</a>
+	<span class="k">def</span> <span class="nf">select_nodesInAutoMode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...parse_selection</span>
+		<span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_selection</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="k">if</span> <span class="n">mesh</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Select a mesh to list autoNodes for!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...load_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...select auto_Array</span>
+		<span class="n">auto_Array</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+					<span class="n">auto_Array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+		<span class="c1">#...select</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">auto_Array</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+	
+<div class="viewcode-block" id="Skeletor.reconform_all">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.reconform_all">[docs]</a>
+	<span class="k">def</span> <span class="nf">reconform_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_self_path</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+		<span class="c1">#...parse_selection</span>
+		<span class="k">if</span> <span class="n">sel_Array</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">sel_Array</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="c1">#...debug</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Select a Source and Destination mesh to reconform nodes too!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...filepath exists?</span>
+		<span class="k">if</span> <span class="n">use_self_path</span><span class="p">:</span>
+			<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">sel_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">filenameExtension</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">sel_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">filenameExtension</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Cannot find Skeletor Data file for &quot;</span><span class="si">%s</span><span class="s1">&quot; at path: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">filepath</span><span class="p">))</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...load_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">)</span>
+		<span class="c1">#...place_all</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">place_all</span><span class="p">(</span><span class="n">sel_Array</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+		<span class="c1">#...debug</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SUCCESS: Reconform nodes to mesh: &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="o">%</span><span class="n">sel_Array</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+		<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+	<span class="c1">#...analyze</span>
+<div class="viewcode-block" id="Skeletor.get_vtxPositions">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.get_vtxPositions">[docs]</a>
+	<span class="k">def</span> <span class="nf">get_vtxPositions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">):</span>
+		<span class="n">posFlatten_Array</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.vtx[*]&#39;</span><span class="o">%</span><span class="n">mesh</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">vtxPosition_Array</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">posFlatten_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">posFlatten_Array</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">posFlatten_Array</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]))</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vtxPosition_Array</span></div>
+
+	
+<div class="viewcode-block" id="Skeletor.get_sampleArray">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.get_sampleArray">[docs]</a>
+	<span class="k">def</span> <span class="nf">get_sampleArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">sampleCount</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+		<span class="c1">#...need to reanalyze mesh?</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">!=</span> <span class="n">mesh</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">vtxPosition_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vtxPositions</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vtxPosition_Array</span> <span class="o">==</span> <span class="p">[]:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">vtxPosition_Array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vtxPositions</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+
+		<span class="c1">#...get node position</span>
+		<span class="n">xform_node</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="c1">#...get distance</span>
+		<span class="n">distance_Array</span> <span class="o">=</span> <span class="p">[[</span><span class="n">distance</span><span class="p">(</span><span class="n">xform_vtx</span><span class="p">,</span> <span class="n">xform_node</span><span class="p">),</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">xform_vtx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vtxPosition_Array</span><span class="p">)]</span>
+		<span class="c1">#...sort array</span>
+		<span class="n">distance_Array</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+		<span class="c1">#...construct meshVtx_Array</span>
+		<span class="n">meshVtx_Array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.vtx[</span><span class="si">%s</span><span class="s1">]&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">distance_Array</span><span class="p">[:</span><span class="n">sampleCount</span><span class="p">]]</span>
+
+		<span class="k">return</span> <span class="n">meshVtx_Array</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.parse_selection">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.parse_selection">[docs]</a>
+	<span class="k">def</span> <span class="nf">parse_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sel_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+		<span class="n">node_Array</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">mesh</span> <span class="o">=</span> <span class="kc">None</span>
+		<span class="n">sample_Array</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="c1">#...get sel_Array</span>
+		<span class="k">if</span> <span class="n">sel_Array</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">sel_Array</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">sel_Array</span> <span class="o">==</span> <span class="p">[]:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: Can&#39;t parse Selection! Nothing Selected!&quot;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span>
+		<span class="c1">#...get sample_Array from selection</span>
+		<span class="n">sample_Array</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">([</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sel_Array</span> <span class="k">if</span> <span class="s1">&#39;.vtx[&#39;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">],</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="c1">#...get node/mesh from sel_Array</span>
+		<span class="n">node_Array</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">mesh</span> <span class="o">=</span> <span class="kc">None</span>
+		<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sel_Array</span><span class="p">:</span>
+			<span class="k">if</span> <span class="s1">&#39;.vtx[&#39;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+				<span class="n">mesh</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.vtx&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="c1">#...determine mesh from nodes</span>
+				<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objectType</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;joint&#39;</span><span class="p">:</span>
+					<span class="n">node_Array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="n">mesh</span> <span class="o">=</span> <span class="n">s</span>
+
+		<span class="k">return</span> <span class="n">node_Array</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">sample_Array</span></div>
+
+	
+	<span class="c1">#...sample mesh and node relationship</span>
+<div class="viewcode-block" id="Skeletor.sample_all">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.sample_all">[docs]</a>
+	<span class="k">def</span> <span class="nf">sample_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">node_Array</span><span class="p">):</span>
+		<span class="c1">#...add node position entries</span>
+		<span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_one</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_sampleArray</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">sampleCount</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sampleCount</span><span class="p">),</span> <span class="n">node</span><span class="p">,</span> <span class="n">auto</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_Array</span><span class="p">]</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.sample_one">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.sample_one">[docs]</a>
+	<span class="k">def</span> <span class="nf">sample_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+		<span class="c1">#...use existing sample_Array?</span>
+		<span class="k">if</span> <span class="n">sample_Array</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">sample_Array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.vtx[</span><span class="si">%s</span><span class="s1">]&#39;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+		<span class="c1">#...check for node</span>
+		<span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...use existing auto setting?</span>
+		<span class="k">if</span> <span class="n">auto</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">auto</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+		<span class="c1">#...get position of centroid of sel_Array</span>
+		<span class="n">pos_centroid</span> <span class="o">=</span> <span class="n">get_centroid</span><span class="p">(</span><span class="n">sample_Array</span><span class="p">)</span>
+		<span class="c1">#...get position of node</span>
+		<span class="n">pos_node</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ws</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="c1">#...get vector of centroid to node</span>
+		<span class="n">vector</span> <span class="o">=</span> <span class="n">get_vector</span><span class="p">(</span><span class="n">pos_centroid</span><span class="p">,</span> <span class="n">pos_node</span><span class="p">)</span>
+		<span class="c1">#...convert sample_Array to number_Array only </span>
+		<span class="n">vertID_Array</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.vtx[&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sample_Array</span><span class="p">,</span> <span class="n">fl</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+		<span class="c1">#...get scaleFactor</span>
+		<span class="n">scaleFactor</span> <span class="o">=</span> <span class="n">get_scaleFactor</span><span class="p">(</span><span class="n">sample_Array</span><span class="p">)</span>
+		<span class="c1">#...store in data ram</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">vertID_Array</span><span class="p">,</span> <span class="n">vector</span><span class="p">,</span> <span class="n">scaleFactor</span><span class="p">,</span> <span class="n">auto</span><span class="p">]</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.mirror_all">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.mirror_all">[docs]</a>
+	<span class="k">def</span> <span class="nf">mirror_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">node_Array</span><span class="p">):</span>
+		<span class="c1">#...mirror list</span>
+		<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_Array</span><span class="p">:</span>
+			<span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;r_&#39;</span><span class="p">):</span>
+				<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">mirror_one</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+	
+<div class="viewcode-block" id="Skeletor.mirror_one">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.mirror_one">[docs]</a>
+	<span class="k">def</span> <span class="nf">mirror_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...get data info</span>
+		<span class="p">[</span><span class="n">vtxID_Array</span><span class="p">,</span> <span class="n">vector</span><span class="p">,</span> <span class="n">scaleFactorOld</span><span class="p">,</span> <span class="n">auto</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+		<span class="c1">#...create sample_Array</span>
+		<span class="n">sample_Array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.vtx[</span><span class="si">%s</span><span class="s1">]&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vtxID_Array</span><span class="p">]</span>
+		<span class="c1">#...mirror</span>
+		<span class="n">mirror_ArrayTemp</span> <span class="o">=</span> <span class="n">get_mirrorVerts</span><span class="p">(</span><span class="n">sample_Array</span><span class="p">)</span>
+		<span class="c1">#...remove l side if l in nodeMirror:</span>
+		<span class="n">mirror_Array</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;l_&#39;</span><span class="p">):</span>
+			<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mirror_ArrayTemp</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sample_Array</span><span class="p">:</span>
+					<span class="n">mirror_Array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">mirror_Array</span> <span class="o">=</span> <span class="n">mirror_ArrayTemp</span><span class="p">[::]</span>
+		<span class="c1">#...get mirror node, l =&gt; r, m =&gt; m</span>
+		<span class="n">nodeMirror</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;l_&#39;</span><span class="p">,</span><span class="s1">&#39;r_&#39;</span><span class="p">)</span>
+		<span class="c1">#...sample one</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">sample_one</span><span class="p">(</span><span class="n">mirror_Array</span><span class="p">,</span> <span class="n">nodeMirror</span><span class="p">,</span> <span class="n">auto</span><span class="o">=</span><span class="n">auto</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+	<span class="c1">#...reconform nodes to new mesh</span>
+<div class="viewcode-block" id="Skeletor.place_all">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.place_all">[docs]</a>
+	<span class="k">def</span> <span class="nf">place_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">node_Array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...node_Array == None, reconform nodes in self.data</span>
+		<span class="k">if</span> <span class="n">node_Array</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">node_Array</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+		<span class="c1">#...store parent_Array</span>
+		<span class="n">hierarchy_Array</span> <span class="o">=</span> <span class="n">unparent_hierarchy</span><span class="p">(</span><span class="n">node_Array</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_Array</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">place_one</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+		<span class="c1">#...reparent hiearchy</span>
+		<span class="n">parent_hierarchy</span><span class="p">(</span><span class="n">hierarchy_Array</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.place_one">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.place_one">[docs]</a>
+	<span class="k">def</span> <span class="nf">place_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+		<span class="c1">#...get data info</span>
+		<span class="p">[</span><span class="n">vtxID_Array</span><span class="p">,</span> <span class="n">vector</span><span class="p">,</span> <span class="n">scaleFactorOld</span><span class="p">,</span> <span class="n">auto</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+		<span class="c1">#...create sample_Array</span>
+		<span class="n">sample_Array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">.vtx[</span><span class="si">%s</span><span class="s1">]&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vtxID_Array</span><span class="p">]</span>
+		<span class="c1">#...get position of centroid of sel_Array</span>
+		<span class="n">pos_centroid</span> <span class="o">=</span> <span class="n">get_centroid</span><span class="p">(</span><span class="n">sample_Array</span><span class="p">)</span>
+		<span class="c1">#...get new scaleFactor</span>
+		<span class="n">scaleFactorNew</span> <span class="o">=</span> <span class="n">get_scaleFactor</span><span class="p">(</span><span class="n">sample_Array</span><span class="p">)</span>
+		<span class="c1">#...get new position from centroid + vector</span>
+		<span class="n">scaleFactorNew</span> <span class="o">=</span> <span class="n">get_scaleFactor</span><span class="p">(</span><span class="n">sample_Array</span><span class="p">)</span>
+		<span class="n">scaleFactorMult</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">scaleFactorOld</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaleFactorNew</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">scaleFactorOld</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">scaleFactorOld</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaleFactorNew</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">scaleFactorOld</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">scaleFactorOld</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaleFactorNew</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">scaleFactorOld</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+		<span class="c1">#...get new position from centroid + vector</span>
+		<span class="n">pos_nodeNew</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+		<span class="n">pos_nodeNew</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_centroid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="n">pos_nodeNew</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_centroid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+		<span class="n">pos_nodeNew</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_centroid</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">scaleFactorMult</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+		<span class="c1">#...move node to reconform position</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">pos_nodeNew</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+	<span class="c1">#...save/load</span>
+<div class="viewcode-block" id="Skeletor.save_data">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.save_data">[docs]</a>
+	<span class="k">def</span> <span class="nf">save_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...get dirpath</span>
+		<span class="k">if</span> <span class="n">dirpath</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">dirpath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span>
+		<span class="c1">#...get filepath</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filenameExtension</span><span class="p">)</span>
+		<span class="c1">#...save data</span>
+		<span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+		<span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">fh</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+		<span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+		<span class="c1">#...debug</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SUCCESS: Saved Skeletor Data to: &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Skeletor.load_data">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.Skeletor.load_data">[docs]</a>
+	<span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="c1">#...define mesh</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span>
+		<span class="c1">#...get dirpath</span>
+		<span class="k">if</span> <span class="n">dirpath</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">dirpath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span>
+		<span class="c1">#...get filepath</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filenameExtension</span><span class="p">)</span>
+		<span class="c1">#...file exist?</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">):</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: Skeletor Data Not Found! &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="c1">#...load data</span>
+		<span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+		<span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+		<span class="c1">#...debug</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SUCCESS: Loaded Skeletor Data from: &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
+</div>
+
+
+<span class="c1">#####################################################################</span>
+<span class="c1">#####################################################################</span>
+
+<span class="c1">#############################################</span>
+<span class="c1">#...other funcs</span>
+<span class="c1">#############################################</span>
+<div class="viewcode-block" id="unparent_hierarchy">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.unparent_hierarchy">[docs]</a>
+<span class="k">def</span> <span class="nf">unparent_hierarchy</span><span class="p">(</span><span class="n">node_Array</span><span class="p">):</span>
+	<span class="n">hierarchy_Array</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="c1">#...get child/parent</span>
+	<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">node_Array</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+			<span class="n">hierarchy_Array</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">n</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)])</span>
+			<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">hierarchy_Array</span></div>
+
+
+<div class="viewcode-block" id="parent_hierarchy">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.parent_hierarchy">[docs]</a>
+<span class="k">def</span> <span class="nf">parent_hierarchy</span><span class="p">(</span><span class="n">hierarchy_Array</span><span class="p">):</span>
+	<span class="c1">#...parent</span>
+	<span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">hierarchy_Array</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">parent</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="get_mirrorVerts">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.get_mirrorVerts">[docs]</a>
+<span class="k">def</span> <span class="nf">get_mirrorVerts</span><span class="p">(</span><span class="n">meshVtx_Array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	<span class="c1">#...get sel_Array</span>
+	<span class="k">if</span> <span class="n">meshVtx_Array</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">meshVtx_Array</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+	<span class="c1">#...turn on sym sel</span>
+	<span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;reflectionSetMode objectx;&#39;</span><span class="p">)</span>
+	<span class="n">main_Array</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">meshVtx_Array</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">main_Array</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="c1">#...get mirror</span>
+	<span class="n">mirror_Array</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+		<span class="n">mirror_Array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+	<span class="c1">#...remove duplicates</span>
+	<span class="n">mirror_Array</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">mirror_Array</span><span class="p">))</span>
+	<span class="c1">#...turn off sym sel</span>
+	<span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;reflectionSetMode none;&#39;</span><span class="p">)</span>
+	<span class="c1">#...clear selection</span>
+	<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="c1">#...select mirror_Array</span>
+	<span class="k">if</span> <span class="n">select</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">mirror_Array</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">mirror_Array</span></div>
+
+
+<span class="c1">#############################################</span>
+<span class="c1">#...math funcs</span>
+<span class="c1">#############################################</span>
+<div class="viewcode-block" id="get_scaleFactor">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.get_scaleFactor">[docs]</a>
+<span class="k">def</span> <span class="nf">get_scaleFactor</span><span class="p">(</span><span class="n">node_Array</span><span class="p">):</span>
+	<span class="n">bb</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">exactWorldBoundingBox</span><span class="p">(</span><span class="n">node_Array</span><span class="p">,</span> <span class="n">ignoreInvisible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="n">scaleFactor</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">scaleFactor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">bb</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="n">scaleFactor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">-</span><span class="n">bb</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+	<span class="n">scaleFactor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">-</span><span class="n">bb</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+
+	<span class="k">return</span> <span class="n">scaleFactor</span></div>
+
+
+<div class="viewcode-block" id="get_vector">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.get_vector">[docs]</a>
+<span class="k">def</span> <span class="nf">get_vector</span><span class="p">(</span><span class="n">pt0</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pt1</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+	<span class="n">dx</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pt0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">dy</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pt0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">dz</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pt0</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+	<span class="k">return</span> <span class="p">[</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="get_centroid">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.get_centroid">[docs]</a>
+<span class="k">def</span> <span class="nf">get_centroid</span><span class="p">(</span><span class="n">node_Array</span><span class="p">):</span>
+	<span class="c1">#...get centroid of nodes</span>
+	<span class="n">posX</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="n">posY</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="n">posZ</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_Array</span><span class="p">:</span>
+		<span class="n">position</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">query</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">translation</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">worldSpace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="n">posX</span> <span class="o">=</span> <span class="n">posX</span> <span class="o">+</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="n">posY</span> <span class="o">=</span> <span class="n">posY</span> <span class="o">+</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+		<span class="n">posZ</span> <span class="o">=</span> <span class="n">posZ</span> <span class="o">+</span> <span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+	<span class="n">nodeCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node_Array</span><span class="p">)</span>
+	<span class="n">centroid</span> <span class="o">=</span> <span class="p">[</span><span class="n">posX</span><span class="o">/</span><span class="n">nodeCount</span><span class="p">,</span> <span class="n">posY</span><span class="o">/</span><span class="n">nodeCount</span><span class="p">,</span> <span class="n">posZ</span><span class="o">/</span><span class="n">nodeCount</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">centroid</span></div>
+
+
+<div class="viewcode-block" id="distance">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.distance">[docs]</a>
+<span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">pt0</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pt1</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+	<span class="n">dx</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pt0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">dy</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pt0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">dz</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pt0</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+	<span class="n">distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">*</span><span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span><span class="o">*</span><span class="n">dy</span> <span class="o">+</span> <span class="n">dz</span><span class="o">*</span><span class="n">dz</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">distance</span></div>
+
+
+<div class="viewcode-block" id="crossProduct">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.crossProduct">[docs]</a>
+<span class="k">def</span> <span class="nf">crossProduct</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+	<span class="n">cp</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+	<span class="k">return</span> <span class="n">cp</span></div>
+
+
+<div class="viewcode-block" id="normalize_Array">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.normalize_Array">[docs]</a>
+<span class="k">def</span> <span class="nf">normalize_Array</span><span class="p">(</span><span class="n">val_Array</span><span class="p">):</span>
+	<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_Array</span><span class="p">)):</span>
+		<span class="n">val</span> <span class="o">=</span> <span class="n">val_Array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">val_Array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">total</span> <span class="o">=</span> <span class="n">total</span> <span class="o">+</span> <span class="n">val</span>
+	<span class="n">divideVal</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_Array</span><span class="p">)):</span>
+		<span class="n">val_Array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">divideVal</span>
+	<span class="k">return</span> <span class="n">val_Array</span></div>
+
+
+<div class="viewcode-block" id="create_matrix">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.create_matrix">[docs]</a>
+<span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="n">vectAx</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vectAy</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vectAz</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">shear_Array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+	<span class="k">if</span> <span class="n">vectAx</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">vectAx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+	<span class="k">if</span> <span class="n">vectAy</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">vectAy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+	<span class="k">if</span> <span class="n">vectAz</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">vectAz</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+	<span class="k">if</span> <span class="n">shear_Array</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">shear_Array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+	<span class="k">if</span> <span class="n">position</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+
+	<span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAx</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAx</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">shear_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">shear_Array</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAz</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAz</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectAz</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">shear_Array</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+	<span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">shear_Array</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+
+	<span class="k">return</span> <span class="n">matrix</span></div>
+
+
+<div class="viewcode-block" id="rotate_planar">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Wrap.Skeletor.html#Mutant_Tools.Utils.Wrap.Skeletor.Skeletor.rotate_planar">[docs]</a>
+<span class="k">def</span> <span class="nf">rotate_planar</span><span class="p">(</span><span class="n">node_Array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">freeze_translate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">freeze_rotate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">freeze_scale</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	<span class="c1">#...Get Args from Selection</span>
+	<span class="k">if</span> <span class="n">node_Array</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">node_Array</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="c1">#...store parent_Array</span>
+	<span class="n">hierarchy_Array</span> <span class="o">=</span> <span class="n">unparent_hierarchy</span><span class="p">(</span><span class="n">node_Array</span><span class="p">)</span>
+	<span class="c1">#...get positions</span>
+	<span class="n">nodeA</span> <span class="o">=</span> <span class="n">node_Array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">nodeB</span> <span class="o">=</span> <span class="n">node_Array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">nodeC</span> <span class="o">=</span> <span class="n">node_Array</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+	<span class="n">vectA_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">scalePivot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">query</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">worldSpace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+	<span class="n">vectB_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">nodeB</span><span class="p">,</span> <span class="n">scalePivot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">query</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">worldSpace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+	<span class="n">vectC_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">nodeC</span><span class="p">,</span> <span class="n">scalePivot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">query</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">worldSpace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+	<span class="c1">#...get vectors and matricies</span>
+	<span class="n">vectAx</span> <span class="o">=</span> <span class="n">get_vector</span><span class="p">(</span><span class="n">vectA_pos</span><span class="p">,</span> <span class="n">vectB_pos</span><span class="p">)</span>
+	<span class="n">vectBx</span> <span class="o">=</span> <span class="n">get_vector</span><span class="p">(</span><span class="n">vectB_pos</span><span class="p">,</span> <span class="n">vectC_pos</span><span class="p">)</span>
+
+	<span class="n">vectAy</span> <span class="o">=</span> <span class="n">crossProduct</span><span class="p">(</span><span class="n">vectAx</span><span class="p">,</span><span class="n">vectBx</span><span class="p">)</span>
+	<span class="n">vectAz</span> <span class="o">=</span> <span class="n">crossProduct</span><span class="p">(</span><span class="n">vectAy</span><span class="p">,</span><span class="n">vectAx</span><span class="p">)</span>
+
+	<span class="n">vectBy</span> <span class="o">=</span> <span class="n">crossProduct</span><span class="p">(</span><span class="n">vectAx</span><span class="p">,</span><span class="n">vectBx</span><span class="p">)</span>
+	<span class="n">vectBz</span> <span class="o">=</span> <span class="n">crossProduct</span><span class="p">(</span><span class="n">vectBy</span><span class="p">,</span><span class="n">vectBx</span><span class="p">)</span>
+
+	<span class="n">vectAx</span> <span class="o">=</span> <span class="n">normalize_Array</span><span class="p">(</span><span class="n">vectAx</span><span class="p">)</span>
+	<span class="n">vectAy</span> <span class="o">=</span> <span class="n">normalize_Array</span><span class="p">(</span><span class="n">vectAy</span><span class="p">)</span>
+	<span class="n">vectAz</span> <span class="o">=</span> <span class="n">normalize_Array</span><span class="p">(</span><span class="n">vectAz</span><span class="p">)</span>
+
+	<span class="n">nodeA_matrix</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="p">(</span><span class="n">vectAx</span> <span class="o">=</span> <span class="n">vectAx</span><span class="p">,</span> <span class="n">vectAy</span> <span class="o">=</span> <span class="n">vectAy</span><span class="p">,</span> <span class="n">vectAz</span> <span class="o">=</span> <span class="n">vectAz</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="n">vectA_pos</span><span class="p">)</span>
+	<span class="n">nodeB_matrix</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="p">(</span><span class="n">vectAx</span> <span class="o">=</span> <span class="n">vectBx</span><span class="p">,</span> <span class="n">vectAy</span> <span class="o">=</span> <span class="n">vectBy</span><span class="p">,</span> <span class="n">vectAz</span> <span class="o">=</span> <span class="n">vectBz</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="n">vectB_pos</span><span class="p">)</span>
+
+	<span class="c1">#...orient nodes</span>
+	<span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">nodeA_matrix</span><span class="p">,</span> <span class="n">worldSpace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+	<span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">nodeB</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">nodeB_matrix</span><span class="p">,</span> <span class="n">worldSpace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+	<span class="n">cmds</span><span class="o">.</span><span class="n">makeIdentity</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">freeze_translate</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="n">freeze_rotate</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="n">freeze_scale</span><span class="p">,</span><span class="n">apply</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+	<span class="n">cmds</span><span class="o">.</span><span class="n">makeIdentity</span><span class="p">(</span><span class="n">nodeB</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">freeze_translate</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="n">freeze_rotate</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="n">freeze_scale</span><span class="p">,</span><span class="n">apply</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+	<span class="c1">#...reparent hiearchy</span>
+	<span class="n">parent_hierarchy</span><span class="p">(</span><span class="n">hierarchy_Array</span><span class="p">)</span>
+	<span class="k">return</span> <span class="kc">True</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

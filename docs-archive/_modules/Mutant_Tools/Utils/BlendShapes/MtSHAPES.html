@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.BlendShapes.MtSHAPES &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.BlendShapes.MtSHAPES</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.BlendShapes.MtSHAPES</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+
+
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="k">as</span> <span class="nn">cmds</span>
+<span class="kn">import</span> <span class="nn">maya.mel</span> <span class="k">as</span> <span class="nn">mel</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Usage:</span>
+
+<span class="sd">from Mutant_Tools.Utils.BlendShapes.MtSHAPES import MtSHAPES</span>
+
+
+<span class="sd">sphereShapes = MtSHAPES(&#39;pSphere1&#39;)</span>
+<span class="sd">sphereShapes.split_target(&#39;star&#39;, 0.1)</span>
+<span class="sd">sphereShapes.add_target_posed(&#39;targetMesh&#39;)</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="MtSHAPES">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES">[docs]</a>
+<span class="k">class</span> <span class="nc">MtSHAPES</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Initialize the object with the name of the target mesh as argument.</span>
+<span class="sd">        It&#39;s blendshape node will automatically be loaded as a member variable.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">pluginInfo</span><span class="p">(</span><span class="s2">&quot;SHAPESTools.mll&quot;</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loaded</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">loadPlugin</span><span class="p">(</span><span class="s2">&quot;SHAPESTools.mll&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to load shapes plugin, maybe try buying it next time &quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">pluginInfo</span><span class="p">(</span><span class="s2">&quot;invertShape.so&quot;</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loaded</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">loadPlugin</span><span class="p">(</span><span class="s2">&quot;invertShape.so&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mesh_blend_shape_nodes</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+            
+    <span class="k">def</span> <span class="nf">_get_mesh_blend_shape_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        returns single node if only one is present, returns a list if multiple bs nodes are found</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">blend_shape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">mesh</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;blendShape&#39;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">blend_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">blend_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">blend_shape</span>
+            
+<div class="viewcode-block" id="MtSHAPES.get_target_shapes">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.get_target_shapes">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_target_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.w&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span><span class="p">)</span>
+        <span class="n">weight_list</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listAttr</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">weight_list</span></div>
+
+            
+<div class="viewcode-block" id="MtSHAPES.get_target_name_by_index">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.get_target_name_by_index">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_target_name_by_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_target_shapes</span><span class="p">()[</span><span class="n">index</span><span class="p">]</span></div>
+
+        
+<div class="viewcode-block" id="MtSHAPES.get_index_by_target_name">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.get_index_by_target_name">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_index_by_target_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_target_shapes</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="MtSHAPES.get_valid_target_index">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.get_valid_target_index">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_valid_target_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_target_shapes</span><span class="p">())</span></div>
+
+            
+<div class="viewcode-block" id="MtSHAPES.split_target">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.split_target">[docs]</a>
+    <span class="k">def</span> <span class="nf">split_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">og_target_name</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+        <span class="c1">#og_target_name = self.get_target_name_by_index(blend_shape, target_index) </span>
+        <span class="n">target_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index_by_target_name</span><span class="p">(</span><span class="n">og_target_name</span><span class="p">)</span>
+        <span class="n">left_duplicate_index</span> <span class="o">=</span> <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;blendShapeDuplicateTarget(&quot;</span><span class="si">{}</span><span class="s1">&quot;, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span><span class="p">,</span> <span class="n">target_index</span><span class="p">))</span>
+        <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;blendShapeRenameTargetAlias </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span><span class="p">,</span> <span class="n">left_duplicate_index</span><span class="p">,</span> <span class="s2">&quot;L_&quot;</span> <span class="o">+</span> <span class="n">og_target_name</span><span class="p">))</span>
+        <span class="n">right_duplicate_index</span> <span class="o">=</span> <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;blendShapeDuplicateTarget(&quot;</span><span class="si">{}</span><span class="s1">&quot;, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span><span class="p">,</span> <span class="n">target_index</span><span class="p">))</span>
+        <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;blendShapeRenameTargetAlias </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span><span class="p">,</span> <span class="n">right_duplicate_index</span><span class="p">,</span> <span class="s2">&quot;R_&quot;</span> <span class="o">+</span> <span class="n">og_target_name</span><span class="p">))</span>
+        
+        <span class="n">og_shape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fullPath</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="n">cmds</span><span class="o">.</span><span class="n">br_blendShapeSplitTarget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span><span class="p">,</span> 
+            <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> 
+            <span class="n">invert</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+            <span class="n">blend</span><span class="o">=</span><span class="n">blend</span><span class="p">,</span> 
+            <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+            <span class="n">index</span><span class="o">=</span><span class="n">left_duplicate_index</span><span class="p">,</span> 
+            <span class="n">originalMesh</span><span class="o">=</span><span class="n">og_shape</span><span class="p">,</span> 
+            <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">br_blendShapeSplitTarget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span><span class="p">,</span> 
+            <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> 
+            <span class="n">invert</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> 
+            <span class="n">blend</span><span class="o">=</span><span class="n">blend</span><span class="p">,</span> 
+            <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+            <span class="n">index</span><span class="o">=</span><span class="n">right_duplicate_index</span><span class="p">,</span> 
+            <span class="n">originalMesh</span><span class="o">=</span><span class="n">og_shape</span><span class="p">,</span> 
+            <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="MtSHAPES.add_target_posed">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.BlendShapes.html#Mutant_Tools.Utils.BlendShapes.MtSHAPES.MtSHAPES.add_target_posed">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_target_posed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_mesh</span><span class="p">):</span>
+        <span class="c1">#invert shape will throw out the deltas between the based pose base and the target corrective</span>
+        <span class="n">delta_mesh</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">invertShape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span> <span class="n">target_mesh</span><span class="p">)</span>
+        <span class="n">valid_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_valid_target_index</span><span class="p">()</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">blendShape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blend_shape</span><span class="p">,</span> <span class="n">edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span> <span class="n">valid_index</span><span class="p">,</span> <span class="n">delta_mesh</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">delta_mesh</span><span class="p">)</span></div>
+</div>
+
+        
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

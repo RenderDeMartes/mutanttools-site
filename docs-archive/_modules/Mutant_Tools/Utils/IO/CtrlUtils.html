@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.IO.CtrlUtils &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.IO.CtrlUtils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.IO.CtrlUtils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">version: 1.0.0</span>
+<span class="sd">date: 21/04/2020</span>
+
+<span class="sd">#----------------</span>
+
+<span class="sd">how to:</span>
+
+<span class="sd">try:</span>
+<span class="sd">    import importlib;from importlib import reload</span>
+<span class="sd">except:</span>
+<span class="sd">    import imp;from imp import reload</span>
+
+<span class="sd">import Mutant_Tools</span>
+<span class="sd">import Mutant_Tools.Utils.IO</span>
+<span class="sd">from Mutant_Tools.Utils.IO import CtrlUtils</span>
+<span class="sd">reload(Mutant_Tools.Utils.IO.CtrlUtils)</span>
+
+<span class="sd">ctrls = CtrlUtils.Ctrls()</span>
+<span class="sd">ctrls.FUNC_NAME(argument = &#39;&#39;)</span>
+
+<span class="sd">#----------------</span>
+<span class="sd">dependencies:</span>
+
+<span class="sd">NG</span>
+
+<span class="sd">#----------------</span>
+<span class="sd">licence: https://www.eulatemplate.com/live.php?token=FGISW7ApRfgywum6murbBmLcusKONzkv</span>
+<span class="sd">author:  Esteban Rodriguez &lt;info@mutanttools.com&gt;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span> <span class="k">as</span> <span class="n">cmds</span>
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">OpenMaya</span> <span class="k">as</span> <span class="n">om</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Helpers.decorators</span> <span class="kn">import</span> <span class="n">undo</span>
+
+<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Helpers</span> <span class="kn">import</span> <span class="n">helpers</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Helpers</span><span class="o">.</span><span class="n">helpers</span><span class="p">)</span>
+<span class="n">mh</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">Helpers</span><span class="p">()</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<span class="c1">#Read name conventions as nc[&#39;&#39;] and setup as seup[&#39;&#39;]</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">PATH_PARTS</span> <span class="o">=</span> <span class="n">PATH</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">FOLDER</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">PATH_PARTS</span><span class="p">:</span>
+	<span class="n">FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="n">JSON_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s1">&#39;name_conventions.json&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">JSON_FILE</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+	<span class="n">nc</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+<span class="c1">#Read curve shapes info</span>
+<span class="n">CURVE_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s1">&#39;curves.json&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">CURVE_FILE</span><span class="p">)</span> <span class="k">as</span> <span class="n">curve_file</span><span class="p">:</span>
+	<span class="n">curve_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">curve_file</span><span class="p">)</span>
+<span class="c1">#setup File</span>
+<span class="n">SETUP_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s1">&#39;rig_setup.json&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">SETUP_FILE</span><span class="p">)</span> <span class="k">as</span> <span class="n">setup_file</span><span class="p">:</span>
+	<span class="n">setup</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">setup_file</span><span class="p">)</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls">[docs]</a>
+<span class="k">class</span> <span class="nc">Ctrls</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c1">#Thanks to: https://github.com/vshotarov/controlShapeManager/blob/master/utils.py</span>
+    <span class="c1">#Thanks To: https://bindpose.com/creating-maya-control-shape-manager/</span>
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_delete</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.validateCurve">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.validateCurve">[docs]</a>
+    <span class="k">def</span> <span class="nf">validateCurve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;transform&quot;</span> <span class="ow">or</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">crv</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;nurbsCurve&quot;</span><span class="p">:</span>
+            <span class="n">crvShapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">crv</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;nurbsCurve&quot;</span><span class="p">:</span>
+            <span class="n">crvShapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">crv</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">crvShapes</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">return_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">crvShapes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;locator&#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">return_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">return_list</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.getShape">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getShape">[docs]</a>
+    <span class="k">def</span> <span class="nf">getShape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">crvShapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validateCurve</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">crvShapes</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">crvShapeList</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">crvShape</span> <span class="ow">in</span> <span class="n">crvShapes</span><span class="p">:</span>
+            <span class="n">crvShapeDict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;knots&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">crvShape</span> <span class="o">+</span> <span class="s2">&quot;.form&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;degree&quot;</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">crvShape</span> <span class="o">+</span> <span class="s2">&quot;.degree&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;colour&quot;</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">crvShape</span> <span class="o">+</span> <span class="s2">&quot;.overrideColor&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">crvShape</span> <span class="o">+</span> <span class="s2">&quot;.controlPoints&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)):</span>
+                <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">crvShape</span> <span class="o">+</span> <span class="s2">&quot;.controlPoints[</span><span class="si">%i</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="n">crvShapeDict</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span>
+            <span class="n">crvShapeDict</span><span class="p">[</span><span class="s2">&quot;knots&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getKnots</span><span class="p">(</span><span class="n">crvShape</span><span class="p">)</span>
+
+            <span class="n">crvShapeList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">crvShapeDict</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">crvShapeList</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.getKnots">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getKnots">[docs]</a>
+    <span class="k">def</span> <span class="nf">getKnots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crvShape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">mObj</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MObject</span><span class="p">()</span>
+        <span class="n">sel</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MSelectionList</span><span class="p">()</span>
+        <span class="n">sel</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">crvShape</span><span class="p">)</span>
+        <span class="n">sel</span><span class="o">.</span><span class="n">getDependNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mObj</span><span class="p">)</span>
+
+        <span class="n">fnCurve</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MFnNurbsCurve</span><span class="p">(</span><span class="n">mObj</span><span class="p">)</span>
+        <span class="n">tmpKnots</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MDoubleArray</span><span class="p">()</span>
+        <span class="n">fnCurve</span><span class="o">.</span><span class="n">getKnots</span><span class="p">(</span><span class="n">tmpKnots</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">tmpKnots</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tmpKnots</span><span class="o">.</span><span class="n">length</span><span class="p">())]</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.setShape">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.setShape">[docs]</a>
+    <span class="k">def</span> <span class="nf">setShape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crv</span><span class="p">,</span> <span class="n">crvShapeList</span><span class="p">):</span>
+        <span class="n">crvShapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validateCurve</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span>
+
+        <span class="n">oldColour</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">crvShapes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.overrideColor&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">crvShapes</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">crvShapeDict</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">crvShapeList</span><span class="p">):</span>
+            <span class="n">tmpCrv</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">crvShapeDict</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">crvShapeDict</span><span class="p">[</span><span class="s2">&quot;knots&quot;</span><span class="p">],</span> <span class="n">d</span><span class="o">=</span><span class="n">crvShapeDict</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">],</span> <span class="n">per</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">crvShapeDict</span><span class="p">[</span><span class="s2">&quot;form&quot;</span><span class="p">]))</span>
+            <span class="n">newShape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">tmpCrv</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">newShape</span><span class="p">,</span> <span class="n">crv</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">newShape</span> <span class="o">+</span> <span class="s2">&quot;.lineWidth&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;line_width&#39;</span><span class="p">]))</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">tmpCrv</span><span class="p">)</span>
+
+        <span class="c1">#newShape = cmds.rename(newShape, crv + &quot;Shape&quot; + str(i + 1).zfill(2))</span>
+        <span class="n">newShape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">newShape</span><span class="p">,</span> <span class="n">crvShapes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1">#cmds.setAttr(newShape + &quot;.overrideEnabled&quot;, 1)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;colour&quot;</span> <span class="ow">in</span> <span class="n">crvShapeDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setColour</span><span class="p">(</span><span class="n">newShape</span><span class="p">,</span> <span class="n">crvShapeDict</span><span class="p">[</span><span class="s2">&quot;colour&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setColour</span><span class="p">(</span><span class="n">newShape</span><span class="p">,</span> <span class="n">oldColour</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.setColour">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.setColour">[docs]</a>
+    <span class="k">def</span> <span class="nf">setColour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crv</span><span class="p">,</span> <span class="n">colour</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;transform&quot;</span><span class="p">:</span>
+            <span class="n">crvShapes</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">crvShapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">crv</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">crv</span> <span class="ow">in</span> <span class="n">crvShapes</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">crv</span> <span class="o">+</span> <span class="s2">&quot;.overrideColor&quot;</span><span class="p">,</span> <span class="n">colour</span><span class="p">)</span></div>
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.getColour">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getColour">[docs]</a>
+    <span class="k">def</span> <span class="nf">getColour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crv</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;transform&quot;</span><span class="p">:</span>
+            <span class="n">crv</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">crv</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">crv</span> <span class="o">+</span> <span class="s2">&quot;.overrideColor&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.assignColour">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.assignColour">[docs]</a>
+    <span class="k">def</span> <span class="nf">assignColour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fl</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setColour</span><span class="p">(</span><span class="n">each</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="Ctrls.loadData">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.loadData">[docs]</a>
+    <span class="k">def</span> <span class="nf">loadData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The file &quot;</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot; doesn&#39;t exist&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.saveData">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.saveData">[docs]</a>
+    <span class="k">def</span> <span class="nf">saveData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validatePath</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">force_validate</span><span class="o">=</span><span class="n">force_validate</span><span class="p">):</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">)))</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.validatePath">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.validatePath">[docs]</a>
+    <span class="k">def</span> <span class="nf">validatePath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Checks if the file already exists and provides a dialog to overwrite or not&#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">force_validate</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">confirm</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">confirmDialog</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Overwrite file?&#39;</span><span class="p">,</span>
+                                       <span class="n">message</span><span class="o">=</span><span class="s1">&#39;The file &#39;</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39; already exists.Do you want to overwrite it?&#39;</span><span class="p">,</span>
+                                       <span class="n">button</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">],</span>
+                                       <span class="n">defaultButton</span><span class="o">=</span><span class="s1">&#39;Yes&#39;</span><span class="p">,</span>
+                                       <span class="n">cancelButton</span><span class="o">=</span><span class="s1">&#39;No&#39;</span><span class="p">,</span>
+                                       <span class="n">dismissString</span><span class="o">=</span><span class="s1">&#39;No&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s2">&quot;No&quot;</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The file &quot;</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot; was not saved&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="mi">1</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.mirrorCtlShapes">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirrorCtlShapes">[docs]</a>
+    <span class="k">def</span> <span class="nf">mirrorCtlShapes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Mirrors the selected control&#39;s shape to the other control on the other side&#39;&#39;&#39;</span>
+        <span class="n">sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fl</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ctl</span> <span class="ow">in</span> <span class="n">sel</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ctl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">search</span> <span class="o">=</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span>
+            <span class="n">replace</span> <span class="o">=</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">ctl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span>
+                <span class="n">replace</span> <span class="o">=</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span>
+            <span class="n">shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getShape</span><span class="p">(</span><span class="n">ctl</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+                <span class="n">shape</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;colour&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">ctl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">search</span><span class="p">,</span> <span class="n">replace</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ctl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">search</span><span class="p">,</span> <span class="n">replace</span><span class="p">),</span> <span class="n">shapes</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_flipCtlShape</span><span class="p">(</span><span class="n">ctl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">search</span><span class="p">,</span> <span class="n">replace</span><span class="p">))</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">ctl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">search</span><span class="p">,</span> <span class="n">replace</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reparent_locators</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">ctl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">search</span><span class="p">,</span> <span class="n">replace</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;: Doesnt Exists&#39;</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">sel</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">_flipCtlShape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+        <span class="n">shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getShape</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span>
+
+        <span class="n">newShapes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">]):</span>
+                <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">each</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">each</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">axis</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">each</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+        <span class="n">newShapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">crv</span><span class="p">,</span> <span class="n">newShapes</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">crv</span><span class="p">)</span>
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="Ctrls.save_all">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.save_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctrls</span><span class="o">=</span><span class="s1">&#39;All&#39;</span><span class="p">,</span> <span class="n">folder_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1">#ctrls.save_all(&#39;C:\\Users\\PC\\Desktop\\ctrls.json&#39;)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">folder_path</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">export_window</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">folder_path</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">all_ctrls</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">ctrls</span> <span class="o">==</span> <span class="s1">&#39;All&#39;</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getShape</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+            <span class="n">all_ctrls</span><span class="p">[</span><span class="n">ctrl</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">saveData</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">all_ctrls</span><span class="p">,</span> <span class="n">force_validate</span><span class="o">=</span><span class="n">force_validate</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="Ctrls.load_all">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_all">[docs]</a>
+    <span class="nd">@undo</span>
+    <span class="k">def</span> <span class="nf">load_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1">#ctrls.load_all(&#39;C:\\Users\\PC\\Desktop\\ctrls.json&#39;)</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">import_window</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Path doesnt exists&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">vis_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_all_vis_connections</span><span class="p">()</span>
+        <span class="n">colors_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ctrl_colors</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadData</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">shape_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ctrl</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">shape_data</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reparent_locators</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Error with load_all: </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_all_vis_connections</span><span class="p">(</span><span class="n">vis_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply_ctrls_color_data</span><span class="p">(</span><span class="n">colors_data</span><span class="o">=</span><span class="n">colors_data</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Ctrls.load_selected">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_selected">[docs]</a>
+    <span class="nd">@undo</span>
+    <span class="k">def</span> <span class="nf">load_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1">#ctrls.load_all(&#39;C:\\Users\\PC\\Desktop\\ctrls.json&#39;)</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">import_window</span><span class="p">(</span><span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">vis_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_all_vis_connections</span><span class="p">()</span>
+        <span class="n">colors_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ctrl_colors</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadData</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">shape_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ctrl</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setShape</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">shape_data</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reparent_locators</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Error with load_selected: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_all_vis_connections</span><span class="p">(</span><span class="n">vis_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply_ctrls_color_data</span><span class="p">(</span><span class="n">colors_data</span><span class="o">=</span><span class="n">colors_data</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="Ctrls.mirror_all">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirror_all">[docs]</a>
+    <span class="nd">@undo</span>
+    <span class="k">def</span> <span class="nf">mirror_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">vis_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_all_vis_connections</span><span class="p">()</span>
+        <span class="n">colors_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ctrl_colors</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mirrorCtlShapes</span><span class="p">()</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_all_vis_connections</span><span class="p">(</span><span class="n">vis_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply_ctrls_color_data</span><span class="p">(</span><span class="n">colors_data</span><span class="o">=</span><span class="n">colors_data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Ctrls.mirror_all_ctrl_shapes">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirror_all_ctrl_shapes">[docs]</a>
+    <span class="nd">@undo</span>
+    <span class="k">def</span> <span class="nf">mirror_all_ctrl_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctrls</span> <span class="o">=</span><span class="s1">&#39;All&#39;</span><span class="p">):</span>
+        <span class="c1"># Get ctrls</span>
+        <span class="k">if</span> <span class="n">ctrls</span> <span class="o">==</span> <span class="s1">&#39;All&#39;</span><span class="p">:</span>
+            <span class="n">ctrls</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ctrls</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ctrls</span><span class="p">)</span>
+
+        <span class="c1"># Loop ctrls</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">ctrls</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ctrl</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]):</span>
+                <span class="k">continue</span>
+            <span class="c1"># Get shape data</span>
+            <span class="n">shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;nurbsCurve&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">shapes</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+                <span class="c1"># Calculate mirror shape</span>
+                <span class="n">current_side</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">mirror_side</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current_side</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">mirror_side</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">mirror_shape</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">current_side</span><span class="p">,</span> <span class="n">mirror_side</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="c1"># Calculate mirror points</span>
+                <span class="n">mirror_points</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.cv[*]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">fl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># crv.points doesn&#39;t get what we need</span>
+                <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+                    <span class="n">cv</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">mirror_pos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+                    <span class="n">mirror_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="n">mirror_points</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mirror_shape</span><span class="p">,</span> <span class="n">cv</span><span class="p">)]</span> <span class="o">=</span> <span class="n">mirror_pos</span>
+                <span class="c1"># Mirror the cvs</span>
+                <span class="k">for</span> <span class="n">cv</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">mirror_points</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">cv</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.reparent_locators">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.reparent_locators">[docs]</a>
+    <span class="k">def</span> <span class="nf">reparent_locators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctrl</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ctrl</span> <span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+            <span class="n">ctrl</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;locator&#39;</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;locator&#39;</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.smart_assign_colors">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.smart_assign_colors">[docs]</a>
+    <span class="k">def</span> <span class="nf">smart_assign_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s1">&#39;&#39;</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="Ctrls.save_all_vis_connections">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.save_all_vis_connections">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_all_vis_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctrls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ctrls</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]))</span>
+            <span class="n">ctrls</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">connections</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">to_delete</span> <span class="o">=</span><span class="p">[]</span>
+        <span class="n">no_shapes_ctrl</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">ctrls</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ctrl</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]):</span>
+                <span class="k">continue</span>
+            <span class="n">shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">shapes</span><span class="p">:</span>
+                <span class="n">no_shapes_ctrl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">nodeType</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;nurbsCurve&#39;</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="n">vis_connection</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listConnections</span><span class="p">(</span><span class="n">shape</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">vis_connection</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">vis_connection</span><span class="p">:</span>
+                <span class="n">vis_connection</span> <span class="o">=</span> <span class="n">vis_connection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">connections</span><span class="p">[</span><span class="n">ctrl</span><span class="p">]</span> <span class="o">=</span> <span class="n">vis_connection</span>
+
+            <span class="c1">#connect a dummy node so it remains in scene after load</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">dummy_node</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">spaceLocator</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dummy_node</span><span class="p">)</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">vis_connection</span><span class="p">,</span> <span class="n">dummy_node</span><span class="o">+</span><span class="s1">&#39;.v&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error with save_all_vis_connections: &#39;</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_delete</span> <span class="o">=</span> <span class="n">to_delete</span>
+        <span class="k">if</span> <span class="n">no_shapes_ctrl</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Please check: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">no_shapes_ctrl</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">connections</span></div>
+
+
+<div class="viewcode-block" id="Ctrls.load_all_vis_connections">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_all_vis_connections">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_all_vis_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctrls_data</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">ctrls_data</span><span class="p">:</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">shape</span><span class="p">:</span>
+                <span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">connection</span> <span class="o">=</span> <span class="n">ctrls_data</span><span class="p">[</span><span class="n">ctrl</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">connection</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">shape</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error with load_all_vis_connections: &#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">+</span><span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_delete</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_delete</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.get_ctrl_colors">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.get_ctrl_colors">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_ctrl_colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="p">[],</span> <span class="n">long_name</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="n">ctrs_enciclopedia</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># all_ctrls = [&#39;MultiShape_ctrl&#39;,</span>
+        <span class="c1"># &#39;MultiOverrideMultiShape_ctrl&#39;]</span>
+        <span class="k">if</span> <span class="n">selection</span> <span class="ow">and</span> <span class="n">long_name</span><span class="p">:</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">long</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">selection</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">long_name</span><span class="p">:</span>
+                <span class="n">selection</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">long</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">selection</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">selection</span><span class="p">:</span>
+            <span class="c1"># Getting all transforms in scene with the *trl termination.</span>
+            <span class="k">if</span> <span class="n">long_name</span><span class="p">:</span>
+                <span class="n">selection</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;*_*trl&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;transform&quot;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">selection</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;*_*trl&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;transform&quot;</span><span class="p">)</span>
+
+        <span class="n">all_ctrls</span> <span class="o">=</span> <span class="n">selection</span>
+
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">all_ctrls</span><span class="p">:</span>
+            <span class="c1"># Getting ctrl attributes info.</span>
+            <span class="n">ctrl_info_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="c1"># 1) Get if the object has override on it&#39;s transform node. If it doesn&#39;t record it on the dictionary as false and move to the next part.</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.overrideEnabled&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ctrl_info_dict</span><span class="p">[</span><span class="s2">&quot;overrideEnabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="c1"># 2) If the object has override get the type of color.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">color_type</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideRGBColors&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">))</span>
+
+                <span class="c1"># 3) Acording to the type of color record RGB.</span>
+                <span class="k">if</span> <span class="n">color_type</span><span class="p">:</span>
+                    <span class="n">transform_color</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColorRGB&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">transform_color</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColor&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">))</span>
+
+                <span class="c1"># Add result as info for the key &#39;overrideEnabled&#39;.</span>
+                <span class="n">ctrl_info_dict</span><span class="p">[</span><span class="s2">&quot;overrideEnabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">color_type</span><span class="p">,</span> <span class="n">transform_color</span><span class="p">]</span>
+
+            <span class="c1"># 4) Get all curve shapes from the object.</span>
+            <span class="k">if</span> <span class="n">long_name</span><span class="p">:</span>
+                <span class="n">ctrl_shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;nurbsCurve&quot;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ctrl_shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;nurbsCurve&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ctrl_shapes</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Control: &#39;</span><span class="si">{}</span><span class="s2">&#39; has no shapes.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">))</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Created empty list to group dictionaries.</span>
+            <span class="n">shape_dictionaries</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">ctrl_shapes</span><span class="p">:</span>
+                <span class="n">shape_info_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+                <span class="c1"># 5) For each shape get if they have color override and if they do record which color it is.</span>
+                <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.overrideEnabled&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">shape_info_dict</span><span class="p">[</span><span class="s2">&quot;shapeOverrideEnabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">shape_color_type</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideRGBColors&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
+
+                    <span class="c1"># 6) Acording to the type of color record RGB for shape.</span>
+                    <span class="k">if</span> <span class="n">shape_color_type</span><span class="p">:</span>
+                        <span class="n">shape_color</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColorRGB&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">shape_color</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColor&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
+
+                    <span class="c1"># Add result as info for the key &#39;overrideEnabled&#39;.</span>
+                    <span class="n">shape_info_dict</span><span class="p">[</span><span class="s2">&quot;shapeOverrideEnabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">shape_color_type</span><span class="p">,</span> <span class="n">shape_color</span><span class="p">]</span>
+
+                <span class="c1"># 6) Add the shape dictionary to the main dictionary above.</span>
+                <span class="n">shape_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">shape</span><span class="p">:</span> <span class="n">shape_info_dict</span><span class="p">}</span>
+
+                <span class="c1"># 7) Appending shape disctionary to the group shape dictionary.</span>
+                <span class="n">shape_dictionaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape_dict</span><span class="p">)</span>
+
+            <span class="c1"># 8) Apending finalized group shape dictionary to the ctrl info dictionary.</span>
+            <span class="n">ctrl_info_dict</span><span class="p">[</span><span class="s2">&quot;shapes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shape_dictionaries</span>
+
+            <span class="c1"># Grouping all attributes of the ctrl unders a single dictionary with it&#39;s name.</span>
+            <span class="n">ctrl_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">ctrl</span><span class="p">:</span> <span class="n">ctrl_info_dict</span><span class="p">}</span>
+
+            <span class="n">ctrs_enciclopedia</span><span class="p">[</span><span class="n">ctrl</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctrl_info_dict</span>
+
+        <span class="k">return</span> <span class="n">ctrs_enciclopedia</span></div>
+
+
+    <span class="c1">#---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Ctrls.apply_ctrls_color_data">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.IO.html#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.apply_ctrls_color_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_ctrls_color_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colors_data</span><span class="o">=</span><span class="p">{},</span> <span class="n">selection</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">selection</span><span class="p">:</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">long</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">selection</span><span class="p">:</span>
+            <span class="n">selection</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">colors_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">selection</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">colors_data</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">:</span>
+                <span class="c1"># Getting the info from the control&#39;s dictionary.</span>
+                <span class="n">ctrl_info</span> <span class="o">=</span> <span class="n">colors_data</span><span class="p">[</span><span class="n">ctrl</span><span class="p">]</span>
+
+                <span class="c1"># Checking if the transform&#39;s drawing override is on.</span>
+                <span class="k">if</span> <span class="n">ctrl_info</span><span class="p">[</span><span class="s2">&quot;overrideEnabled&quot;</span><span class="p">]:</span>
+                    <span class="c1"># If Yes then turn it on.</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.overrideEnabled&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+
+                    <span class="c1"># Extract which type of color it is. False = Index, True = Color.</span>
+                    <span class="k">if</span> <span class="n">ctrl_info</span><span class="p">[</span><span class="s2">&quot;overrideEnabled&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="c1"># If the type is RGB set it to True.</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideRGBColors&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+
+                        <span class="c1"># Set the 3 rgb colors.</span>
+                        <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ctrl_info</span><span class="p">[</span><span class="s2">&quot;overrideEnabled&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColorRGB.overrideColorR&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColorRGB.overrideColorG&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColorRGB.overrideColorB&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="n">b</span><span class="p">)</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># If the type is index set it to false.</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideRGBColors&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColor&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="n">ctrl_info</span><span class="p">[</span><span class="s2">&quot;overrideEnabled&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.overrideEnabled&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+
+                <span class="c1"># Getting shape dictionary lists.</span>
+                <span class="n">shape_dictionaries</span> <span class="o">=</span> <span class="n">ctrl_info</span><span class="p">[</span><span class="s2">&quot;shapes&quot;</span><span class="p">]</span>
+
+                <span class="c1"># Guesting each shape and dictionary.</span>
+                <span class="k">for</span> <span class="n">shape_dict</span> <span class="ow">in</span> <span class="n">shape_dictionaries</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">shape_dict</span><span class="p">:</span>
+                        <span class="n">shape_info</span> <span class="o">=</span> <span class="n">shape_dict</span><span class="p">[</span><span class="n">shape</span><span class="p">]</span>
+
+                        <span class="c1"># Checking if the transform&#39;s drawing override is on.</span>
+                        <span class="k">if</span> <span class="n">shape_info</span><span class="p">[</span><span class="s2">&quot;shapeOverrideEnabled&quot;</span><span class="p">]:</span>
+                            <span class="c1"># If Yes then turn it on.</span>
+                            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.overrideEnabled&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+
+                            <span class="c1"># Extract which type of color it is. False = Index, True = Color.</span>
+                            <span class="k">if</span> <span class="n">shape_info</span><span class="p">[</span><span class="s2">&quot;shapeOverrideEnabled&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                                <span class="c1"># If the type is RGB set it to True.</span>
+                                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideRGBColors&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+
+                                <span class="c1"># Set the 3 rgb colors.</span>
+                                <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">shape_info</span><span class="p">[</span><span class="s2">&quot;shapeOverrideEnabled&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColorRGB.overrideColorR&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">r</span><span class="p">)</span>
+                                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColorRGB.overrideColorG&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+                                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColorRGB.overrideColorB&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">b</span><span class="p">)</span>
+
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="c1"># If the type is index set it to false.</span>
+                                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideRGBColors&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+                                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.drawOverride.overrideColor&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span>
+                                             <span class="n">shape_info</span><span class="p">[</span><span class="s2">&quot;shapeOverrideEnabled&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.overrideEnabled&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

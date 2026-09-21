@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="c1">#DEMBONE POSES TO SDK</span>
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Helpers</span> <span class="kn">import</span> <span class="n">helpers</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="c1">#reload(Mutant_Tools.Utils.Helpers.helpers)</span>
+<span class="n">mh</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">Helpers</span><span class="p">()</span>
+
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">PATH_PARTS</span> <span class="o">=</span> <span class="n">PATH</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">FOLDER</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">PATH_PARTS</span><span class="p">:</span>
+	<span class="n">FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="n">FOLDER_NAME</span> <span class="o">=</span> <span class="s1">&#39;GamesCrowds&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Path to json is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;UI&#39;</span><span class="p">,</span> <span class="n">FOLDER_NAME</span><span class="p">,</span> <span class="s1">&#39;crowd_utils&#39;</span><span class="p">)))</span>
+
+
+<span class="n">anim_dict</span> <span class="o">=</span>  <span class="n">mh</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;UI&#39;</span><span class="p">,</span> <span class="n">FOLDER_NAME</span><span class="p">,</span> <span class="s1">&#39;crowd_utils&#39;</span><span class="p">),</span> <span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;SDKMap.json&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;geo_grp exists = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="s1">&#39;Geo_Grp&#39;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;control_grp exists = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="s1">&#39;Control_Grp&#39;</span><span class="p">)))</span>
+
+<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="s1">&#39;Geo_Grp&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="s1">&#39;Control_Grp&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using BD dict&#39;</span><span class="p">)</span>
+    <span class="n">anim_dict</span> <span class="o">=</span>  <span class="n">mh</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;UI&#39;</span><span class="p">,</span> <span class="n">FOLDER_NAME</span><span class="p">,</span> <span class="s1">&#39;crowd_utils&#39;</span><span class="p">),</span> <span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;SDKMap_BD.json&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">anim_dict</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            
+<div class="viewcode-block" id="getAttName">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Crowds.Facial.html#Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk.getAttName">[docs]</a>
+<span class="k">def</span> <span class="nf">getAttName</span><span class="p">(</span><span class="n">fullname</span><span class="p">):</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">fullname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="getDemAnim">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Crowds.Facial.html#Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk.getDemAnim">[docs]</a>
+<span class="k">def</span> <span class="nf">getDemAnim</span><span class="p">(</span><span class="n">dem_joints</span><span class="o">=</span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Reads DemBones imported animation and saves the </span>
+<span class="sd">    transform/rotation values to its corresponding </span>
+<span class="sd">    input_key slot in the dictionaro</span>
+<span class="sd">		Args:</span>
+<span class="sd">			dem_joints: DemBones joints</span>
+
+<span class="sd">		Returns: anim_dict (Updated dictionary)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#run through dictionary and get translate and rotate values</span>
+    <span class="c1"># for each fac</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">anim_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="c1"># move to the anim frame</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;input_key&#39;</span><span class="p">]</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">currentTime</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+        
+        <span class="c1"># get all translate and rotate values and store them in a dict </span>
+        <span class="n">t_values</span><span class="o">=</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="n">r_values</span><span class="o">=</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">dem_joints</span><span class="p">:</span>
+            <span class="n">t_values</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">r_values</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ro</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            
+        <span class="c1">#saved recovered values to the associated control</span>
+        <span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;t_values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_values</span>
+        <span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;r_values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r_values</span>
+    
+    <span class="c1">#Delete joints to avoide creating blendweights nodes early</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">dem_joints</span><span class="p">:</span>
+        <span class="n">animAttributes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listAnimatable</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">animAttributes</span><span class="p">:</span>
+            <span class="n">numKeyframes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">keyframe</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">keyframeCount</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">numKeyframes</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">cutKey</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="n">getAttName</span><span class="p">(</span><span class="n">attribute</span><span class="p">),</span> <span class="n">option</span><span class="o">=</span><span class="s2">&quot;keys&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done getting SDK values from DemBones Animation.&#39;</span><span class="p">)</span>
+    <span class="c1">#pprint.pprint(anim_dict)</span>
+    <span class="c1">#pprint.pprint(anim_dict.keys)</span>
+
+    <span class="k">return</span> <span class="n">anim_dict</span> </div>
+
+    
+<div class="viewcode-block" id="fill_cero_controls">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Crowds.Facial.html#Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk.fill_cero_controls">[docs]</a>
+<span class="k">def</span> <span class="nf">fill_cero_controls</span><span class="p">(</span><span class="n">dem_joints</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Recoveres all the controls defined in the SDK dictionary </span>
+<span class="sd">		Args:</span>
+<span class="sd">			dem_joints: DemBones joints</span>
+
+<span class="sd">		Returns: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#get all keyed control available</span>
+    <span class="n">allCtrls</span><span class="o">=</span><span class="p">[]</span>
+
+    <span class="c1"># for each fac</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">anim_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;controls&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;task=</span><span class="si">{}</span><span class="s2">, control=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">))</span>
+                <span class="n">attr</span><span class="o">=</span> <span class="s2">&quot;</span><span class="si">{a}</span><span class="s2">.</span><span class="si">{t}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ctrl</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;controls&#39;</span><span class="p">][</span><span class="n">ctrl</span><span class="p">][</span><span class="s1">&#39;axis&#39;</span><span class="p">])</span>    
+                <span class="n">allCtrls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+    <span class="n">anim_dict</span><span class="p">[</span><span class="s1">&#39;Cero_Animation&#39;</span><span class="p">][</span><span class="s1">&#39;controls&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">allCtrls</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">allCtrls</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="cero_SDK">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Crowds.Facial.html#Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk.cero_SDK">[docs]</a>
+<span class="k">def</span> <span class="nf">cero_SDK</span><span class="p">(</span><span class="n">dem_joints</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Connects default Face Rig controls to default DemBones Anim pose</span>
+<span class="sd">		Args:</span>
+<span class="sd">			dem_joints: DemBones joints</span>
+
+<span class="sd">		Returns: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#SDK - 0 animation value (default)  </span>
+    <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">anim_dict</span><span class="p">[</span><span class="s1">&#39;Cero_Animation&#39;</span><span class="p">][</span><span class="s1">&#39;controls&#39;</span><span class="p">]:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        
+        <span class="c1">#zero out values according to default values</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">dem_joints</span><span class="p">:</span> 
+            <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">anim_dict</span><span class="p">[</span><span class="s1">&#39;Cero_Animation&#39;</span><span class="p">][</span><span class="s1">&#39;t_values&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ro</span><span class="o">=</span><span class="n">anim_dict</span><span class="p">[</span><span class="s1">&#39;Cero_Animation&#39;</span><span class="p">][</span><span class="s1">&#39;r_values&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+            
+            <span class="c1">#set SDK fro zeros</span>
+            <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setDrivenKeyframe</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{j}</span><span class="s2">.t</span><span class="si">{a}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="n">cd</span><span class="o">=</span><span class="n">ctrl</span><span class="p">)</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setDrivenKeyframe</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{j}</span><span class="s2">.r</span><span class="si">{a}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="n">cd</span><span class="o">=</span><span class="n">ctrl</span><span class="p">)</span> 
+    
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Cero Anim key completed.&#39;</span><span class="p">)</span></div>
+
+    
+    
+<div class="viewcode-block" id="anim_to_SDK">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Crowds.Facial.html#Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk.anim_to_SDK">[docs]</a>
+<span class="k">def</span> <span class="nf">anim_to_SDK</span><span class="p">(</span><span class="n">dem_joints</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Read SDK dictionary and connects Face Rig control to DemBones Anim pose</span>
+<span class="sd">		Args:</span>
+<span class="sd">			dem_joints: DemBones joints</span>
+
+<span class="sd">		Returns: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">currentTime</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1">#Set SDK values for rest of keyframes info</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">anim_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;input_key&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">frame</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1">#skips setting values on 0, does set values in other keyframes</span>
+            <span class="k">for</span> <span class="n">ctrl</span> <span class="ow">in</span> <span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;controls&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">ctrl</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> does not exist, skipping&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ctrl</span><span class="p">))</span>
+                    <span class="k">continue</span>
+                <span class="n">attr</span><span class="o">=</span> <span class="s2">&quot;</span><span class="si">{a}</span><span class="s2">.</span><span class="si">{t}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ctrl</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;controls&#39;</span><span class="p">][</span><span class="n">ctrl</span><span class="p">][</span><span class="s1">&#39;axis&#39;</span><span class="p">])</span>
+                <span class="c1">#control value with number</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;controls&#39;</span><span class="p">][</span><span class="n">ctrl</span><span class="p">][</span><span class="s1">&#39;values&#39;</span><span class="p">]))</span>
+                
+                <span class="c1">#creates sdk for the values at that current frame, certain transform on control and joint animation</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">dem_joints</span><span class="p">:</span> 
+                
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;t_values&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                    <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ro</span><span class="o">=</span><span class="n">anim_dict</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="s1">&#39;r_values&#39;</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                       
+                    <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]:</span> 
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setDrivenKeyframe</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{j}</span><span class="s2">.t</span><span class="si">{a}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="n">cd</span><span class="o">=</span><span class="n">attr</span><span class="p">)</span>
+                        <span class="n">cmds</span><span class="o">.</span><span class="n">setDrivenKeyframe</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{j}</span><span class="s2">.r</span><span class="si">{a}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="n">axis</span><span class="p">),</span> <span class="n">cd</span><span class="o">=</span><span class="n">attr</span><span class="p">)</span> 
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> key completed.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">task</span><span class="p">))</span>
+
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Not running Cero_Anim.&#39;</span><span class="p">)</span>
+             
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Done.&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="connect_Face_SDK">
+<a class="viewcode-back" href="../../../../../Mutant_Tools.Utils.Crowds.Facial.html#Mutant_Tools.Utils.Crowds.Facial.poses_to_sdk.connect_Face_SDK">[docs]</a>
+<span class="k">def</span> <span class="nf">connect_Face_SDK</span><span class="p">(</span><span class="n">dem_joints</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Connects determined FaceControls to DemBones anim poses through SDKs</span>
+<span class="sd">		Args:</span>
+<span class="sd">			dem_joints: DemBones joints</span>
+
+<span class="sd">		Returns: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">getDemAnim</span><span class="p">(</span><span class="n">dem_joints</span><span class="o">=</span><span class="n">dem_joints</span><span class="p">)</span>
+    <span class="n">fill_cero_controls</span><span class="p">(</span><span class="n">dem_joints</span><span class="o">=</span><span class="n">dem_joints</span><span class="p">)</span>
+    <span class="n">cero_SDK</span><span class="p">(</span><span class="n">dem_joints</span><span class="o">=</span><span class="n">dem_joints</span><span class="p">)</span>                              
+    <span class="n">anim_to_SDK</span><span class="p">(</span><span class="n">dem_joints</span><span class="o">=</span><span class="n">dem_joints</span><span class="p">)</span></div>
+
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

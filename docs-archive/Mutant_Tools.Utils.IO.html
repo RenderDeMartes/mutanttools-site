@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.IO package &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=1382df98"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Mutant_Tools.Utils.IO.Ctrl_Data package" href="Mutant_Tools.Utils.IO.Ctrl_Data.html" />
+    <link rel="prev" title="Mutant_Tools.Utils.Helpers package" href="Mutant_Tools.Utils.Helpers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Mutant_Tools</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="Mutant_Tools.html">Mutant_Tools package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Mutant_Tools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Icons.html">Mutant_Tools.Icons package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.Others.html">Mutant_Tools.Others package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.UI.html">Mutant_Tools.UI package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="Mutant_Tools.Utils.html">Mutant_Tools.Utils package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mutant_Tools.config.html">Mutant_Tools.config package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.html#mutant-tools-easy-install-module">Mutant_Tools.easy_install module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mutant_Tools.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Mutant_Tools</a></li>
+          <li class="breadcrumb-item"><a href="Mutant_Tools.html">Mutant_Tools package</a></li>
+          <li class="breadcrumb-item"><a href="Mutant_Tools.Utils.html">Mutant_Tools.Utils package</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.IO package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Mutant_Tools.Utils.IO.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mutant-tools-utils-io-package">
+<h1>Mutant_Tools.Utils.IO package<a class="headerlink" href="#mutant-tools-utils-io-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.IO.Ctrl_Data.html">Mutant_Tools.Utils.IO.Ctrl_Data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.Ctrl_Data.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.IO.Guide_Data.html">Mutant_Tools.Utils.IO.Guide_Data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.Guide_Data.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Mutant_Tools.Utils.IO.NgSkin_Data.html">Mutant_Tools.Utils.IO.NgSkin_Data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mutant_Tools.Utils.IO.NgSkin_Data.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="mutant-tools-utils-io-ctrlutils-module">
+<h2>Mutant_Tools.Utils.IO.CtrlUtils module<a class="headerlink" href="#mutant-tools-utils-io-ctrlutils-module" title="Link to this heading"></a></h2>
+<dl class="py class" id="module-Mutant_Tools.Utils.IO.CtrlUtils">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.IO.CtrlUtils.</span></span><span class="sig-name descname"><span class="pre">Ctrls</span></span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.apply_ctrls_color_data">
+<span class="sig-name descname"><span class="pre">apply_ctrls_color_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.apply_ctrls_color_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.apply_ctrls_color_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.assignColour">
+<span class="sig-name descname"><span class="pre">assignColour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.assignColour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.assignColour" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getColour">
+<span class="sig-name descname"><span class="pre">getColour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crv</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.getColour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getColour" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getKnots">
+<span class="sig-name descname"><span class="pre">getKnots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crvShape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.getKnots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getKnots" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getShape">
+<span class="sig-name descname"><span class="pre">getShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.getShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.getShape" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.get_ctrl_colors">
+<span class="sig-name descname"><span class="pre">get_ctrl_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.get_ctrl_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.get_ctrl_colors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.loadData">
+<span class="sig-name descname"><span class="pre">loadData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.loadData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.loadData" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_all">
+<span class="sig-name descname"><span class="pre">load_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.load_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_all_vis_connections">
+<span class="sig-name descname"><span class="pre">load_all_vis_connections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctrls_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.load_all_vis_connections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_all_vis_connections" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_selected">
+<span class="sig-name descname"><span class="pre">load_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.load_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.load_selected" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirrorCtlShapes">
+<span class="sig-name descname"><span class="pre">mirrorCtlShapes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.mirrorCtlShapes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirrorCtlShapes" title="Link to this definition"></a></dt>
+<dd><p>Mirrors the selected control’s shape to the other control on the other side</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirror_all">
+<span class="sig-name descname"><span class="pre">mirror_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.mirror_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirror_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirror_all_ctrl_shapes">
+<span class="sig-name descname"><span class="pre">mirror_all_ctrl_shapes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctrls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'All'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.mirror_all_ctrl_shapes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.mirror_all_ctrl_shapes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.reparent_locators">
+<span class="sig-name descname"><span class="pre">reparent_locators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.reparent_locators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.reparent_locators" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.saveData">
+<span class="sig-name descname"><span class="pre">saveData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.saveData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.saveData" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.save_all">
+<span class="sig-name descname"><span class="pre">save_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctrls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'All'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.save_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.save_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.save_all_vis_connections">
+<span class="sig-name descname"><span class="pre">save_all_vis_connections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctrls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.save_all_vis_connections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.save_all_vis_connections" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.setColour">
+<span class="sig-name descname"><span class="pre">setColour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colour</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.setColour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.setColour" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.setShape">
+<span class="sig-name descname"><span class="pre">setShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crvShapeList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.setShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.setShape" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.smart_assign_colors">
+<span class="sig-name descname"><span class="pre">smart_assign_colors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.smart_assign_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.smart_assign_colors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.validateCurve">
+<span class="sig-name descname"><span class="pre">validateCurve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.validateCurve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.validateCurve" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.validatePath">
+<span class="sig-name descname"><span class="pre">validatePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/CtrlUtils.html#Ctrls.validatePath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.CtrlUtils.Ctrls.validatePath" title="Link to this definition"></a></dt>
+<dd><p>Checks if the file already exists and provides a dialog to overwrite or not</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="mutant-tools-utils-io-easyskin-module">
+<h2>Mutant_Tools.Utils.IO.EasySkin module<a class="headerlink" href="#mutant-tools-utils-io-easyskin-module" title="Link to this heading"></a></h2>
+</section>
+<section id="mutant-tools-utils-io-guides-module">
+<h2>Mutant_Tools.Utils.IO.Guides module<a class="headerlink" href="#mutant-tools-utils-io-guides-module" title="Link to this heading"></a></h2>
+<dl class="py class" id="module-Mutant_Tools.Utils.IO.Guides">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.Guides.Guides">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Mutant_Tools.Utils.IO.Guides.</span></span><span class="sig-name descname"><span class="pre">Guides</span></span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/Guides.html#Guides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.Guides.Guides" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.Guides.Guides.export_ma_guide">
+<span class="sig-name descname"><span class="pre">export_ma_guide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/Guides.html#Guides.export_ma_guide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.Guides.Guides.export_ma_guide" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.Guides.Guides.import_ma_guide">
+<span class="sig-name descname"><span class="pre">import_ma_guide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/Guides.html#Guides.import_ma_guide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.Guides.Guides.import_ma_guide" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.Guides.Guides.load_preset">
+<span class="sig-name descname"><span class="pre">load_preset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Mutant_Preset.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/Guides.html#Guides.load_preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.Guides.Guides.load_preset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Mutant_Tools.Utils.IO.Guides.Guides.save_preset">
+<span class="sig-name descname"><span class="pre">save_preset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Mutant_Preset.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mutant_Tools/Utils/IO/Guides.html#Guides.save_preset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Mutant_Tools.Utils.IO.Guides.Guides.save_preset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="mutant-tools-utils-io-ngskinutils-module">
+<h2>Mutant_Tools.Utils.IO.NgSkinUtils module<a class="headerlink" href="#mutant-tools-utils-io-ngskinutils-module" title="Link to this heading"></a></h2>
+</section>
+<section id="mutant-tools-utils-io-skinutils-module">
+<h2>Mutant_Tools.Utils.IO.SkinUtils module<a class="headerlink" href="#mutant-tools-utils-io-skinutils-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<span class="target" id="module-Mutant_Tools.Utils.IO"></span></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Mutant_Tools.Utils.Helpers.html" class="btn btn-neutral float-left" title="Mutant_Tools.Utils.Helpers package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Mutant_Tools.Utils.IO.Ctrl_Data.html" class="btn btn-neutral float-right" title="Mutant_Tools.Utils.IO.Ctrl_Data package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

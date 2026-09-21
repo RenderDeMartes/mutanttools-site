@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.UI.Versionize.versionize_utils &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.UI.Versionize.versionize_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.UI.Versionize.versionize_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The idea of this is to be able to publish Mutant_Tools to web without the source code</span>
+
+<span class="sd">#How to</span>
+
+<span class="sd">from Mutant_Tools.UI.Versionize import versionize_utils</span>
+<span class="sd">try:</span>
+<span class="sd">    import importlib;from importlib import reload</span>
+<span class="sd">except:</span>
+<span class="sd">    import imp;from imp import reload</span>
+<span class="sd">reload(versionize_utils)</span>
+
+<span class="sd">cVersionize = versionize_utils.Versionize()</span>
+
+<span class="sd">cVersionize.new_folder</span>
+<span class="sd">cVersionize.duplicate_mutant_folder()</span>
+<span class="sd">cVersionize.replace_all_strings()</span>
+<span class="sd">cVersionize.print_new_load_code()</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">distutils.dir_util</span> <span class="kn">import</span> <span class="n">copy_tree</span>
+
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+
+<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+<span class="kn">import</span> <span class="nn">Mutant_Tools.Utils.Rigging</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Rigging</span> <span class="kn">import</span> <span class="n">main_mutant</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Rigging</span><span class="o">.</span><span class="n">main_mutant</span><span class="p">)</span>
+<span class="n">mt</span> <span class="o">=</span> <span class="n">main_mutant</span><span class="o">.</span><span class="n">Mutant</span><span class="p">()</span>
+
+<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Helpers</span> <span class="kn">import</span> <span class="n">helpers</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Helpers</span><span class="o">.</span><span class="n">helpers</span><span class="p">)</span>
+<span class="n">mh</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">Helpers</span><span class="p">()</span>
+
+<span class="c1">#Read name conventions as nc[&#39;&#39;] and setup as seup[&#39;&#39;]</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">PATH_PARTS</span> <span class="o">=</span> <span class="n">PATH</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">FOLDER</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">PATH_PARTS</span><span class="p">:</span>
+	<span class="n">FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="n">VERSION_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s1">&#39;version.json&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">VERSION_FILE</span><span class="p">)</span> <span class="k">as</span> <span class="n">version_file</span><span class="p">:</span>
+	<span class="n">version</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">version_file</span><span class="p">)</span>
+
+<span class="n">mutant_version</span> <span class="o">=</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mutant_version</span><span class="p">)</span>
+
+<span class="c1">#----------------------------------------------------------------</span>
+<span class="c1">#----------------------------------------------------------------</span>
+
+<span class="n">replace_this_strings</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="s2">&quot;&#39;SP&#39;&quot;</span><span class="p">:</span><span class="s2">&quot;&#39;ES&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&#39;sp&#39;&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;es&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&#39;Sp&#39;&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;Es&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&#39;sP&#39;&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;eS&#39;&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;SP&quot;&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;ES&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;sp&quot;&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;sp&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Sp&quot;&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;Es&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;sP&quot;&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;eS&quot;&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;&#39;AG&#39;&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;TE&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&#39;ag&#39;&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;te&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&#39;Ag&#39;&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;Te&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&#39;aG&#39;&quot;</span><span class="p">:</span> <span class="s1">&#39;&quot;tE&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;AG&quot;&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;TE&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;ag&quot;&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;te&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Ag&quot;&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;Te&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;aG&quot;&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;tE&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;MOR&#39;</span><span class="p">:</span> <span class="s1">&#39;BAN&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mor&#39;</span><span class="p">:</span> <span class="s1">&#39;ban&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Mor&#39;</span><span class="p">:</span> <span class="s1">&#39;Ban&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;stellar&#39;</span><span class="p">:</span> <span class="s1">&#39;rdm&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Stellar&#39;</span><span class="p">:</span> <span class="s1">&#39;RdM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;STELLAR&#39;</span><span class="p">:</span> <span class="s1">&#39;RDM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Sandbox&#39;</span> <span class="p">:</span> <span class="s1">&#39;SB&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sandbox&#39;</span><span class="p">:</span> <span class="s1">&#39;sb&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rstar&#39;</span><span class="p">:</span> <span class="s1">&#39;dogr&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mstar&#39;</span><span class="p">:</span> <span class="s1">&#39;dogm&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rigSystem&#39;</span><span class="p">:</span> <span class="s1">&#39;bubbles&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_one_sid&#39;</span><span class="p">:</span> <span class="s1">&#39;get_that_node&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;validate_sid&#39;</span><span class="p">:</span> <span class="s1">&#39;validate_that_node&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sid =&#39;</span><span class="p">:</span> <span class="s1">&#39;node =&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Project.findby_name&#39;</span><span class="p">:</span> <span class="s1">&#39;P.do_that&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;AnythingGoes&#39;</span><span class="p">:</span><span class="s1">&#39;WatterBottle&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;anythinggoes&#39;</span><span class="p">:</span><span class="s1">&#39;watterbottle&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Anythinggoes&#39;</span><span class="p">:</span><span class="s1">&#39;Watterbottle&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rid =&#39;</span><span class="p">:</span> <span class="s1">&#39;node =&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rid.sid.tag_node&#39;</span><span class="p">:</span> <span class="s1">&#39;mpaz&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;set_tag&#39;</span><span class="p">:</span> <span class="s1">&#39;nachos&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;assetTemplates&#39;</span><span class="p">:</span> <span class="s1">&#39;sukiTemp&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_hierarchy&#39;</span><span class="p">:</span> <span class="s1">&#39;getFood&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_that_node&#39;</span><span class="p">:</span> <span class="s1">&#39;thatNode&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;assetChecks&#39;</span><span class="p">:</span> <span class="s1">&#39;cleaner&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Shampoo&#39;</span><span class="p">:</span> <span class="s1">&#39;Review&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Frank&#39;</span><span class="p">:</span> <span class="s1">&#39;Erick&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;frank&#39;</span><span class="p">:</span> <span class="s1">&#39;erick&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sebastian.cisneros&#39;</span><span class="p">:</span> <span class="s1">&#39;esteban.rodriguez&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;BasemeshFZombieA&#39;</span><span class="p">:</span> <span class="s1">&#39;base_geoA&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;BasemeshMZombieA&#39;</span><span class="p">:</span> <span class="s1">&#39;base_geoB&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;job/&#39;</span><span class="p">:</span> <span class="s1">&#39;disk/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="s1">&#39;worlflow&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;net/&#39;</span><span class="p">:</span> <span class="s1">&#39;red/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;KidDodgeball3&#39;</span> <span class="p">:</span> <span class="s1">&#39;guy3&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;carlos&quot;</span> <span class="p">:</span> <span class="s2">&quot;Gabriel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cesar&quot;</span><span class="p">:</span> <span class="s2">&quot;Diana&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gaston&quot;</span> <span class="p">:</span> <span class="s2">&quot;Mike&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;alejandro&quot;</span> <span class="p">:</span> <span class="s2">&quot;Leo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;jean&quot;</span> <span class="p">:</span> <span class="s2">&quot;Jessy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ricardo&quot;</span> <span class="p">:</span> <span class="s2">&quot;Dan&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sebastian&quot;</span> <span class="p">:</span> <span class="s2">&quot;Jose&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;alejandra&quot;</span> <span class="p">:</span> <span class="s2">&quot;Clara&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;brisa&quot;</span> <span class="p">:</span> <span class="s2">&quot;Pedro&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;luis&quot;</span> <span class="p">:</span> <span class="s2">&quot;Lourdes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Carlos&quot;</span> <span class="p">:</span> <span class="s2">&quot;Gabriel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Cesar&quot;</span><span class="p">:</span> <span class="s2">&quot;Diana&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Gaston&quot;</span> <span class="p">:</span> <span class="s2">&quot;Mike&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Alejandro&quot;</span> <span class="p">:</span> <span class="s2">&quot;Leo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Jean&quot;</span> <span class="p">:</span> <span class="s2">&quot;Jessy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ricardo&quot;</span> <span class="p">:</span> <span class="s2">&quot;Dan&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Sebastian&quot;</span> <span class="p">:</span> <span class="s2">&quot;Jose&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Alejandra&quot;</span> <span class="p">:</span> <span class="s2">&quot;Clara&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Brisa&quot;</span> <span class="p">:</span> <span class="s2">&quot;Pedro&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Luis&quot;</span> <span class="p">:</span> <span class="s2">&quot;Lourdes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Chacon&quot;</span><span class="p">:</span> <span class="s2">&quot;Rodriguez&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;chacon&quot;</span><span class="p">:</span> <span class="s2">&quot;rodriguez&quot;</span>
+<span class="p">}</span>
+
+<span class="c1">#----------------------------------------------------------------</span>
+<span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Versionize">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize">[docs]</a>
+<span class="k">class</span> <span class="nc">Versionize</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;Mutant_Tools_v</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mutant_version</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">omit_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.mb&#39;</span><span class="p">,</span> <span class="s1">&#39;.ma&#39;</span><span class="p">,</span> <span class="s1">&#39;.psd&#39;</span><span class="p">,</span> <span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="s1">&#39;.pyc&#39;</span><span class="p">,</span> <span class="s1">&#39;.wrap&#39;</span><span class="p">,</span> <span class="s1">&#39;.abc&#39;</span><span class="p">,</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;.otf&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.git&#39;</span><span class="p">,</span> <span class="s1">&#39;.gitignore&#39;</span><span class="p">,</span> <span class="s1">&#39;Qt Designer Setup.exe&#39;</span><span class="p">,</span> <span class="s1">&#39;Qt Designer.dmg&#39;</span><span class="p">,</span> <span class="s1">&#39;DemBones&#39;</span><span class="p">,</span> <span class="s1">&#39;git&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">omit_strings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;setWindowFlags&#39;</span><span class="p">,</span> <span class="s1">&#39;grid =&#39;</span><span class="p">,</span> <span class="s1">&#39;Carlos Chacon L.&#39;</span><span class="p">,</span> <span class="s1">&#39;author = Sebastian Cisneros Sojo&#39;</span><span class="p">,</span> <span class="s1">&#39;By Gaston Aguilar&#39;</span><span class="p">,</span> <span class="s1">&#39;By Ricardo Quiros&#39;</span><span class="p">,</span> <span class="s1">&#39;Franklin Gothic Book&#39;</span><span class="p">]</span>
+
+    <span class="c1"># ----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Versionize.duplicate_mutant_folder">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.duplicate_mutant_folder">[docs]</a>
+    <span class="k">def</span> <span class="nf">duplicate_mutant_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">#print(FOLDER)</span>
+        <span class="n">target_folder</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;Mutant_Tools_v</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mutant_version</span><span class="p">),</span> <span class="s1">&#39;Mutant_Tools&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">target_folder</span><span class="p">):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">target_folder</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">target_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1">#print(target_folder)</span>
+
+        <span class="n">copy_tree</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">target_folder</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span> <span class="o">=</span> <span class="n">target_folder</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_init_file</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;remember to delete:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">,</span> <span class="s1">&#39;/UI/Versionize/versionize_utils&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Versionize.create_init_file">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.create_init_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_init_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">,</span> <span class="s1">&#39;__init__.py&#39;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Versionize.get_all_files">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.get_all_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_all_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">dirName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span>
+
+        <span class="c1"># Get the list of all files in directory tree at given path</span>
+        <span class="n">listOfFiles</span> <span class="o">=</span> <span class="n">getListOfFiles</span><span class="p">(</span><span class="n">dirName</span><span class="p">)</span>
+
+        <span class="c1"># # Print the files</span>
+        <span class="c1"># for elem in listOfFiles:</span>
+        <span class="c1">#     print(elem)</span>
+        <span class="c1"># print(&quot;****************&quot;)</span>
+
+        <span class="c1"># Get the list of all files in directory tree at given path</span>
+        <span class="n">listOfFiles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span><span class="p">)</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">dirName</span><span class="p">):</span>
+            <span class="n">listOfFiles</span> <span class="o">+=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+
+        <span class="c1"># Print the files</span>
+        <span class="k">return</span> <span class="n">listOfFiles</span></div>
+
+
+    <span class="c1"># ----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Versionize.get_all_py_files">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.get_all_py_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_all_py_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">all_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_files</span><span class="p">()</span>
+
+        <span class="n">py_files</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.py&#39;</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;.pyc&#39;</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">py_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">py_files</span></div>
+
+
+<div class="viewcode-block" id="Versionize.get_all_local_py_files">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.get_all_local_py_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_all_local_py_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">dirName</span> <span class="o">=</span> <span class="n">FOLDER</span>
+
+        <span class="c1"># Get the list of all files in directory tree at given path</span>
+        <span class="n">listOfFiles</span> <span class="o">=</span> <span class="n">getListOfFiles</span><span class="p">(</span><span class="n">dirName</span><span class="p">)</span>
+
+        <span class="c1"># # Print the files</span>
+        <span class="c1"># for elem in listOfFiles:</span>
+        <span class="c1">#     print(elem)</span>
+        <span class="c1"># print(&quot;****************&quot;)</span>
+
+        <span class="c1"># Get the list of all files in directory tree at given path</span>
+        <span class="n">listOfFiles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span><span class="p">)</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">dirName</span><span class="p">):</span>
+            <span class="n">listOfFiles</span> <span class="o">+=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+
+        <span class="c1"># Print the files</span>
+        <span class="n">all_files</span> <span class="o">=</span> <span class="n">listOfFiles</span>
+
+        <span class="n">py_files</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.py&#39;</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;.pyc&#39;</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">py_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">py_files</span></div>
+
+
+    <span class="c1"># ----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Versionize.replace_strings">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.replace_strings">[docs]</a>
+    <span class="k">def</span> <span class="nf">replace_strings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+
+        <span class="n">file_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">replace_this_strings</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                <span class="n">newText</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                    <span class="n">omit_this_line</span> <span class="o">=</span><span class="kc">False</span>
+                    <span class="k">for</span> <span class="n">ol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">omit_strings</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">ol</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                            <span class="n">omit_this_line</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="k">if</span> <span class="n">omit_this_line</span><span class="p">:</span>
+                        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                            <span class="n">og_line</span> <span class="o">=</span> <span class="n">line</span>
+                            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">replace_this_strings</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
+                            <span class="n">file_data</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">og_line</span>
+                    <span class="n">newText</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">newText</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">file_data</span></div>
+
+
+    <span class="c1"># ----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Versionize.replace_all_strings">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.replace_all_strings">[docs]</a>
+    <span class="k">def</span> <span class="nf">replace_all_strings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">omit_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">omit_list</span>
+        <span class="n">files_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">all_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_files</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+
+            <span class="c1">#print(&#39;Start removing strings on:&#39;, file)</span>
+
+            <span class="c1">#Amot file types</span>
+            <span class="n">omit_this_one</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">omit</span> <span class="ow">in</span> <span class="n">omit_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">omit</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="n">omit_this_one</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="c1">#print(omit)</span>
+            <span class="k">if</span> <span class="n">omit_this_one</span><span class="p">:</span>
+                <span class="c1">#print(&#39;Omitting File:&#39;, file)</span>
+                <span class="k">continue</span>
+
+            <span class="c1">#Replace studio strings to be safe</span>
+            <span class="n">file_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replace_strings</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Removed strings on:&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">file_data</span><span class="p">:</span>
+                <span class="n">files_data</span><span class="p">[</span><span class="n">file</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_data</span>
+
+        <span class="kn">import</span> <span class="nn">pprint</span>
+        <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">files_data</span><span class="p">)</span>
+
+        <span class="n">mh</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;mutant_versionize_strings.json&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">files_data</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;replace_all_strings&#39;</span><span class="p">,</span> <span class="s1">&#39;Done&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;remember to delete:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">,</span> <span class="s1">&#39;/UI/Versionize/versionize_utils&#39;</span><span class="p">,</span> <span class="s1">&#39;Config/Studio.json&#39;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Versionize.remove_all_reloads_in_files">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.remove_all_reloads_in_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_all_reloads_in_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">py_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_py_files</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">py_files</span><span class="p">:</span>
+            <span class="c1">#print(file)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">original_text_lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                <span class="n">new_lines</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">original_text_lines</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;reload(&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="n">line</span><span class="o">=</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;imp.reload(&#39;</span><span class="p">,</span> <span class="s1">&#39;#imp.reload(&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;reload(&#39;</span><span class="p">,</span> <span class="s1">&#39;#reload(&#39;</span><span class="p">)</span>
+                    <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">new_lines</span><span class="p">)</span></div>
+
+
+
+    <span class="c1"># ----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Versionize.cache_all_files">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.cache_all_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">cache_all_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">omit_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="s1">&#39;exec_block_sides&#39;</span><span class="p">,</span> <span class="s1">&#39;get_maya_icons&#39;</span><span class="p">,</span> <span class="s1">&#39;user_setup&#39;</span><span class="p">,</span> <span class="s1">&#39;Exec_Block&#39;</span><span class="p">,</span> <span class="s1">&#39;userSetup&#39;</span><span class="p">,</span> <span class="s1">&#39;exec_postbuilds&#39;</span><span class="p">,</span> <span class="s1">&#39;exec_spaceSwitch&#39;</span><span class="p">,</span> <span class="s1">&#39;HIK_BipedDefinition&#39;</span><span class="p">]</span>
+
+        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">,</span> <span class="s1">&#39;Mutant_Tools&#39;</span><span class="p">))</span>
+
+        <span class="n">py_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_py_files</span><span class="p">()</span>
+        <span class="c1">#py_files = self.get_all_local_py_files()</span>
+
+
+        <span class="c1">#Add path to sys</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">py_files</span><span class="p">:</span>
+            <span class="c1">#Get file and file</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">path_parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+            <span class="n">new_path</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">path_parts</span><span class="p">:</span>
+                <span class="n">new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="c1">#print(new_path, file)</span>
+
+            <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">new_path</span><span class="p">)</span>
+
+
+        <span class="c1">#Execute impor reloads</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">py_files</span><span class="p">:</span>
+            <span class="c1">#Get file and file</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">path_parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+            <span class="c1">#omit certain files that will error the import</span>
+            <span class="n">omit_this_one</span><span class="o">=</span><span class="kc">False</span>
+            <span class="k">for</span> <span class="n">omit</span> <span class="ow">in</span> <span class="n">omit_files</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">omit</span> <span class="o">==</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="n">omit_this_one</span><span class="o">=</span><span class="kc">True</span>
+            <span class="k">if</span> <span class="n">omit_this_one</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">new_path</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">path_parts</span><span class="p">:</span>
+                <span class="n">new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="c1">#print(new_path, file)</span>
+
+            <span class="c1">#Impor reload</span>
+            <span class="c1">#sys.path.insert(0, new_path)</span>
+
+            <span class="c1">#(&quot;*&quot; * 50)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">exec</span><span class="p">(</span><span class="s1">&#39;import </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="s1">&#39;&#39;</span>
+                <span class="c1">#print(&#39;Error Import:&#39;, new_path, file)</span>
+                <span class="c1">#print(e)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">exec</span><span class="p">(</span><span class="s1">&#39;reload </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="s1">&#39;&#39;</span></div>
+
+                <span class="c1">#print(&quot;*&quot; * 50)</span>
+                <span class="c1">#print(&#39;Error Reload:&#39;, new_path, file)</span>
+                <span class="c1">#print(e)</span>
+
+
+<div class="viewcode-block" id="Versionize.delete_all_non_block_py_files">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.delete_all_non_block_py_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_all_non_block_py_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">py_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_py_files</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">py_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;Blocks&#39;</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="s1">&#39;&#39;</span></div>
+
+                <span class="c1">#print(file)</span>
+                <span class="c1">#Do Delete</span>
+            <span class="c1">#print(file)</span>
+
+<div class="viewcode-block" id="Versionize.hard_code_remove_studio_stuff">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.hard_code_remove_studio_stuff">[docs]</a>
+    <span class="k">def</span> <span class="nf">hard_code_remove_studio_stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1">#Remove Studio Blocks</span>
+        <span class="n">templates_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">,</span> <span class="s1">&#39;Mutant_Tools&#39;</span><span class="p">,</span> <span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;IO&#39;</span><span class="p">,</span> <span class="s1">&#39;Guide_Data&#39;</span><span class="p">)</span>
+        <span class="c1">#print(templates_folder)</span>
+        <span class="n">guides</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">templates_folder</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+        <span class="c1">#print(guides)</span>
+        <span class="k">for</span> <span class="n">guide</span> <span class="ow">in</span> <span class="n">guides</span><span class="p">:</span>
+            <span class="c1">#print(guide)</span>
+            <span class="k">if</span> <span class="s1">&#39;AG&#39;</span> <span class="ow">in</span> <span class="n">guide</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">guide</span><span class="p">,</span> <span class="n">guide</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;AG&#39;</span><span class="p">,</span> <span class="s1">&#39;AF&#39;</span><span class="p">))</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">guide</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s1">&#39;Sausage&#39;</span> <span class="ow">in</span> <span class="n">guide</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">guide</span><span class="p">,</span> <span class="n">guide</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Sausage&#39;</span><span class="p">,</span> <span class="s1">&#39;Toon&#39;</span><span class="p">))</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">guide</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Versionize.rename_file">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.rename_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">rename_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+        <span class="c1">#cVersionize.rename_file(file=&#39;C://Users//Esteban//Documents//maya//2022//scripts//Mutant_Tools_v1.03//Mutant_Tools//Blocks//001_Studio//02_Human_Fixes.json&#39;)</span>
+
+        <span class="c1">#folder = self.new_folder</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">replace_this_strings</span><span class="p">:</span>
+            <span class="c1">#print(s, file)</span>
+            <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">replace_this_strings</span><span class="p">[</span><span class="n">s</span><span class="p">]))</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+                <span class="c1">#print(&quot;renamed: {}&quot;.format(new_name))</span>
+                <span class="k">return</span> <span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">delete_string</span><span class="p">,</span> <span class="n">add_string</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Versionize.rename_all_files">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.rename_all_files">[docs]</a>
+    <span class="k">def</span> <span class="nf">rename_all_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">all_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_files</span><span class="p">()</span>
+
+        <span class="c1"># rename_file</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">:</span>
+            <span class="c1">#print(file)</span>
+            <span class="n">new_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rename_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;remember to delete:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">,</span> <span class="s1">&#39;/UI/Versionize/versionize_utils&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Versionize.print_new_load_code">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.Versionize.print_new_load_code">[docs]</a>
+    <span class="k">def</span> <span class="nf">print_new_load_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">import sys</span>
+<span class="s2">import os</span>
+<span class="s2">from maya import cmds</span>
+<span class="s2">mutant_path = &#39;</span><span class="si">{}</span><span class="s2">&#39;</span>
+<span class="s2">if mutant_path not in sys.path:</span>
+<span class="s2">    sys.path.append(mutant_path)</span>
+<span class="s2">    </span>
+<span class="s2">import Mutant_Tools</span>
+
+<span class="s2">import Mutant_Tools.UI.AutoRigger.load_autoRigger as load_autoRigger</span>
+<span class="s2">try:</span>
+<span class="s2">    import importlib;from importlib import reload</span>
+<span class="s2">except:</span>
+<span class="s2">    import imp;from imp import reload</span>
+
+<span class="s2">reload(load_autoRigger)</span>
+
+<span class="s2">try:AutoRigger.close()</span>
+<span class="s2">except:pass</span>
+<span class="s2">AutoRigger = load_autoRigger.AutoRigger()</span>
+<span class="s2">AutoRigger.show()</span>
+<span class="s2">        </span>
+<span class="s2">        </span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;remember to delete:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_folder</span><span class="p">,</span> <span class="s1">&#39;/UI/Versionize/versionize_utils&#39;</span><span class="p">)</span></div>
+</div>
+
+
+
+
+<span class="c1">#----------------------------------------------------------------</span>
+<span class="c1">#----------------------------------------------------------------</span>
+<span class="c1">#----------------------------------------------------------------</span>
+<span class="c1">#----------------------------------------------------------------</span>
+
+<span class="c1">#Utils found online</span>
+<span class="c1">#https://thispointer.com/python-how-to-get-list-of-files-in-directory-and-sub-directories/</span>
+<div class="viewcode-block" id="getListOfFiles">
+<a class="viewcode-back" href="../../../../Mutant_Tools.UI.Versionize.html#Mutant_Tools.UI.Versionize.versionize_utils.getListOfFiles">[docs]</a>
+<span class="k">def</span> <span class="nf">getListOfFiles</span><span class="p">(</span><span class="n">dirName</span><span class="p">):</span>
+    <span class="c1"># create a list of file and sub directories</span>
+    <span class="c1"># names in the given directory</span>
+    <span class="n">listOfFile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dirName</span><span class="p">)</span>
+    <span class="n">allFiles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="c1"># Iterate over all the entries</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">listOfFile</span><span class="p">:</span>
+        <span class="c1"># Create full path</span>
+        <span class="n">fullPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirName</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+        <span class="c1"># If entry is a directory then get the list of files in this directory</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">fullPath</span><span class="p">):</span>
+            <span class="n">allFiles</span> <span class="o">=</span> <span class="n">allFiles</span> <span class="o">+</span> <span class="n">getListOfFiles</span><span class="p">(</span><span class="n">fullPath</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">allFiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fullPath</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">allFiles</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.Rigging.modules &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.Rigging.modules</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.Rigging.modules</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">version: 1.0.0</span>
+<span class="sd">date: 21/04/2020</span>
+
+
+<span class="sd">#----------------</span>
+<span class="sd">how to: </span>
+<span class="sd">	</span>
+<span class="sd">import Mutant_Tools</span>
+<span class="sd">import Mutant_Tools.Utils.Rigging</span>
+<span class="sd">from Mutant_Tools.Utils.Rigging import modules</span>
+<span class="sd">reload(Mutant_Tools.Utils.Rigging.modules)</span>
+
+<span class="sd">modules = modules.Modules_class()</span>
+<span class="sd">modules.FUNC(ARGUMENTS)</span>
+
+<span class="sd">#----------------</span>
+<span class="sd">dependencies:   </span>
+<span class="sd">	</span>
+<span class="sd">json</span>
+<span class="sd">pymel</span>
+<span class="sd">maya mel</span>
+<span class="sd">maya.cmds</span>
+<span class="sd">OpenMaya</span>
+
+<span class="sd">tools.Tools_Class</span>
+<span class="sd">kinematics.Kinematics_class</span>
+
+
+<span class="sd">#----------------</span>
+<span class="sd">licence: https://www.eulatemplate.com/live.php?token=FGISW7ApRfgywum6murbBmLcusKONzkv</span>
+<span class="sd">author:  Esteban Rodriguez &lt;info@mutanttools.com&gt;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">maya.mel</span>
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+<span class="c1">#import pymel.core as pm</span>
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">OpenMaya</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">try</span><span class="p">:</span> 
+	<span class="kn">import</span> <span class="nn">tools</span>
+	<span class="n">reload</span><span class="p">(</span><span class="n">tools</span><span class="p">)</span>
+	<span class="kn">import</span> <span class="nn">kinematics</span>
+	<span class="n">reload</span><span class="p">(</span><span class="n">kinematics</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+	<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+	<span class="kn">import</span> <span class="nn">Mutant_Tools.Utils.Rigging</span>
+	<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Rigging</span> <span class="kn">import</span> <span class="n">tools</span>
+	<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Rigging</span><span class="o">.</span><span class="n">tools</span><span class="p">)</span>
+	<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Rigging</span> <span class="kn">import</span> <span class="n">kinematics</span>
+	<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Rigging</span><span class="o">.</span><span class="n">kinematics</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+	<span class="kn">from</span> <span class="nn">rstar.naming</span> <span class="kn">import</span> <span class="n">NameInfo</span>
+	<span class="kn">from</span> <span class="nn">rstar.nodes.joint</span> <span class="kn">import</span> <span class="n">Joint</span>
+	<span class="n">stellar_guide</span><span class="o">=</span> <span class="n">NameInfo</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s1">&#39;Guide&#39;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+	<span class="n">stellar_guide</span> <span class="o">=</span> <span class="s1">&#39;Guide&#39;</span>
+
+<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<span class="c1">#Read name conventions as self.nc[&#39;&#39;] and setup as seup[&#39;&#39;]</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">PATH_PARTS</span> <span class="o">=</span> <span class="n">PATH</span><span class="o">.</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">FOLDER</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">PATH_PARTS</span><span class="p">:</span>
+	<span class="n">FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="c1">#nc, curve_data, setup = tools.import_configs()</span>
+
+<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class">[docs]</a>
+<span class="k">class</span> <span class="nc">Modules_class</span><span class="p">(</span><span class="n">kinematics</span><span class="o">.</span><span class="n">Kinematics_class</span><span class="p">):</span>
+
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">super</span><span class="p">(</span><span class="n">Modules_class</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.create_block">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.create_block">[docs]</a>
+	<span class="k">def</span> <span class="nf">create_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Mutant&#39;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s1">&#39;Limb&#39;</span><span class="p">,</span> <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;attrs&#39;</span><span class="p">:</span><span class="s1">&#39;something&#39;</span><span class="p">},</span> <span class="n">build_command</span> <span class="o">=</span> <span class="s1">&#39;print(&quot;Test&quot;)&#39;</span><span class="p">,</span> <span class="n">import_command</span> <span class="o">=</span> <span class="s1">&#39;print(&quot;Test2&quot;)&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Creates a block with specified attributes and commands.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">		    name (str): The name of the block to create. Defaults to &#39;Mutant&#39;.</span>
+<span class="sd">		    icon (str): The name of the icon to use for the block. Defaults to &#39;Limb&#39;.</span>
+<span class="sd">		    attrs (dict): A dictionary containing the attributes to add to the block. Defaults to {&#39;attrs&#39;: &#39;something&#39;}.</span>
+<span class="sd">		    build_command (str): The build command associated with the block. Defaults to &#39;print(&quot;Test&quot;)&#39;.</span>
+<span class="sd">		    import_command (str): The import command associated with the block. Defaults to &#39;print(&quot;Test2&quot;)&#39;.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">		    tuple: A tuple containing the block and the configuration network node.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		This function creates a block with the specified name and icon. It also adds attributes to the block based on the provided &#39;attrs&#39; dictionary.</span>
+<span class="sd">		The build and import commands are associated with the block as well.</span>
+
+<span class="sd">		The function starts by constructing the path to the icon file using the &#39;os.path.join&#39; function and the provided &#39;icon&#39; name.</span>
+
+<span class="sd">		It then creates an empty container object using the &#39;container&#39; command and assigns it the specified name with the appropriate naming</span>
+<span class="sd">		convention. The icon for the container is set using the &#39;setAttr&#39; command.</span>
+
+<span class="sd">		The function calls &#39;hide_attr&#39; to hide transformation attributes of the block.</span>
+
+<span class="sd">		If the &#39;Mutant_Build&#39; group does not exist, the function creates it using the &#39;group&#39; command.</span>
+
+<span class="sd">		A network node is created using the &#39;createNode&#39; command, and the necessary connections between the network node and the container are</span>
+<span class="sd">		established using the &#39;connectAttr&#39; command.</span>
+
+<span class="sd">		Next, the function creates various attributes based on the provided &#39;attrs&#39; dictionary. String attributes are created using the &#39;string_attr&#39;</span>
+<span class="sd">		function, enum attributes using the &#39;new_enum&#39; function, float attributes using the &#39;new_attr_interger&#39; function, and boolean attributes</span>
+<span class="sd">		using the &#39;new_boolean&#39; function.</span>
+
+<span class="sd">		Finally, the function creates a &#39;precode&#39; and &#39;postcode&#39; attribute using the &#39;string_attr&#39; function and returns the block and configuration</span>
+<span class="sd">		network node as a tuple.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">		    This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="n">icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="s1">&#39;Icons&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">+</span><span class="s1">&#39;.png&#39;</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">block</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">container</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">],</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;dagContainer&#39;</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.iconName&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">),</span> <span class="n">icon</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">hide_attr</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="s1">&#39;Mutant_Build&#39;</span><span class="p">):</span>
+			<span class="k">pass</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="s1">&#39;Mutant_Build&#39;</span><span class="p">,</span> <span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="nb">print</span> <span class="p">(</span><span class="n">block</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">block</span><span class="p">,</span><span class="s1">&#39;Mutant_Build&#39;</span><span class="p">)</span>
+
+		<span class="c1">#create network node with all the attrs</span>
+		<span class="n">config</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s1">&#39;network&#39;</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_Config&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.nodeState&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.nodeState&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+
+		<span class="c1">#-----------------------------------------------------------------------------------------</span>
+		<span class="n">precode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_attr</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">config</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;precode&#39;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+		<span class="n">build_command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_attr</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">config</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Build_Command&#39;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="n">build_command</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">build_command</span><span class="p">,</span> <span class="n">lock</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">import_command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_attr</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">config</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Import_Command&#39;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="n">import_command</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">import_command</span><span class="p">,</span> <span class="n">lock</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="c1">#main block attrs</span>
+		<span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+			<span class="k">if</span> <span class="s1">&#39;string&#39;</span> <span class="ow">in</span> <span class="n">attr</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">string_attr</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">config</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">string</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+			<span class="k">elif</span> <span class="s1">&#39;enum&#39;</span> <span class="ow">in</span> <span class="n">attr</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">new_enum</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span> <span class="n">config</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">enums</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+			<span class="k">elif</span> <span class="s1">&#39;float&#39;</span> <span class="ow">in</span> <span class="n">attr</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">new_attr_interger</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span> <span class="n">config</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">min</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">]))</span>
+			<span class="k">elif</span> <span class="s1">&#39;bool&#39;</span> <span class="ow">in</span> <span class="n">attr</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">new_boolean</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span> <span class="n">config</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dv</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+
+		<span class="n">postcode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_attr</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">config</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;postcode&#39;</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">block</span><span class="p">,</span><span class="n">config</span></div>
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.move_outliner">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.move_outliner">[docs]</a>
+	<span class="k">def</span> <span class="nf">move_outliner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">up</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">down</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Moves the specified object or objects in the outliner hierarchy.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">		    input (str or list): The name or list of names of the object(s) to move in the outliner hierarchy. Defaults to an empty string, which</span>
+<span class="sd">		                         selects the currently selected objects in the scene.</span>
+<span class="sd">		    up (bool): Specifies whether to move the object(s) up in the outliner hierarchy. Defaults to False.</span>
+<span class="sd">		    down (bool): Specifies whether to move the object(s) down in the outliner hierarchy. Defaults to False.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		This function allows moving an object or a list of objects in the outliner hierarchy. The objects to move can be specified by name or by using</span>
+<span class="sd">		the currently selected objects in the scene.</span>
+
+<span class="sd">		The function first checks if the &#39;input&#39; argument is empty. If it is empty, it selects the currently selected objects in the scene.</span>
+
+<span class="sd">		The function then retrieves the parent of the input object(s) using the &#39;listRelatives&#39; command and stores it in the &#39;parent&#39; variable. It also</span>
+<span class="sd">		retrieves the list of children of the parent object using the &#39;listRelatives&#39; command and stores it in the &#39;brothers&#39; variable.</span>
+
+<span class="sd">		If the &#39;up&#39; argument is True, the function checks if the input object(s) is the first child in the &#39;brothers&#39; list. If it is, it prints a</span>
+<span class="sd">		message indicating that the object(s) is already at the top. Otherwise, it uses the &#39;reorder&#39; command to move the object(s) up by one</span>
+<span class="sd">		position in the outliner hierarchy.</span>
+
+<span class="sd">		If the &#39;down&#39; argument is True, the function checks if the input object(s) is the last child in the &#39;brothers&#39; list. If it is, it prints a</span>
+<span class="sd">		message indicating that the object(s) is already at the bottom. Otherwise, it uses the &#39;reorder&#39; command to move the object(s) down by one</span>
+<span class="sd">		position in the outliner hierarchy.</span>
+
+<span class="sd">		If both &#39;up&#39; and &#39;down&#39; arguments are False, the function does nothing.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">		    This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="nb">input</span> <span class="o">==</span>  <span class="s1">&#39;&#39;</span><span class="p">:</span>
+			<span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">parent</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+			<span class="n">brothers</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+			<span class="c1">#print (brothers)</span>
+
+			<span class="k">if</span> <span class="n">up</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">brothers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">input</span><span class="p">:</span>
+					<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is top&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">input</span><span class="p">))</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="n">cmds</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+					<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> moved up&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">input</span><span class="p">))</span>
+
+			<span class="k">if</span> <span class="n">down</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">brothers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nb">input</span><span class="p">:</span>
+					<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is bottom&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">input</span><span class="p">))</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="n">cmds</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span> <span class="mi">1</span> <span class="p">)</span>		
+					<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> moved down&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">input</span><span class="p">))</span>
+
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">up</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span> <span class="nb">input</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+			<span class="k">if</span> <span class="n">down</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span> <span class="nb">input</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span> <span class="mi">1</span> <span class="p">)</span></div>
+
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.create_joint_guide">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.create_joint_guide">[docs]</a>
+	<span class="k">def</span> <span class="nf">create_joint_guide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Guide&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Creates a joint guide with the specified name.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			name (str): The name of the joint guide. Defaults to &#39;Guide&#39;.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			str: The name of the created joint guide.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		This function creates a joint guide consisting of a joint, a 2D arrow, a sphere, an arrow axis, and an arrow front. The joint guide is</span>
+<span class="sd">		named using the specified name and the naming convention for guides.</span>
+
+<span class="sd">		The function uses the &#39;cmds.joint&#39; command to create the joint. It then creates the 2D arrow, sphere, arrow axis, and arrow front using the</span>
+<span class="sd">		&#39;curve&#39; function with the respective types.</span>
+
+<span class="sd">		The function assigns colors to the components of the joint guide using the &#39;assign_color&#39; function.</span>
+
+<span class="sd">		An enumeration attribute called &#39;Helper&#39; is created on the joint, which can be used to turn on or off the visibility of the joint guide</span>
+<span class="sd">		components. The visibility of each component is connected to this enumeration attribute using the &#39;connectAttr&#39; function.</span>
+
+<span class="sd">		The visibility of the joint guide components is controlled based on the value of the &#39;axis_helper&#39; setup attribute. If &#39;axis_helper&#39; is set</span>
+<span class="sd">		to &#39;True&#39;, the visibility of the joint guide components is turned on. Otherwise, it is turned off.</span>
+
+<span class="sd">		The joint guide components are parented under the joint using the &#39;parent&#39; command.</span>
+
+<span class="sd">		The sphere, arrow, arrow axis, and arrow front components are deleted after parenting.</span>
+
+<span class="sd">		Finally, the created joint is selected, and its name is returned.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">			This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">joint</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">joint</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;guide&#39;</span><span class="p">])</span>
+		<span class="n">arrow</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;2dArrow&#39;</span><span class="p">)</span>
+		<span class="n">sphere</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;sphere&#39;</span><span class="p">)</span>
+
+		<span class="n">arrowAxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;2dArrow&#39;</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowAxis</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.cv[0:9]&#39;</span><span class="p">)</span>
+		<span class="n">arrowFront</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;2dArrow&#39;</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowFront</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.cv[0:9]&#39;</span><span class="p">)</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrow</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowAxis</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowFront</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+		<span class="c1">#create turn off and on attr</span>
+		<span class="n">hide_attr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_enum</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">joint</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Helper&#39;</span><span class="p">)</span>
+		<span class="nb">print</span> <span class="p">(</span><span class="n">hide_attr</span><span class="p">)</span>
+		<span class="nb">print</span> <span class="p">(</span><span class="n">joint</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrow</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowAxis</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowFront</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;axis_helper&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrow</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">joint</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">joint</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowAxis</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">joint</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowFront</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">joint</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span> <span class="n">arrow</span><span class="p">,</span> <span class="n">arrowAxis</span><span class="p">,</span><span class="n">arrowFront</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">joint</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">joint</span></div>
+
+	
+<div class="viewcode-block" id="Modules_class.create_stellar_joint_guide">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.create_stellar_joint_guide">[docs]</a>
+	<span class="k">def</span> <span class="nf">create_stellar_joint_guide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">stellar_guide</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Creates a stellar joint guide with the specified name.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">		    name (str): The name of the stellar joint guide. Defaults to &#39;stellar_guide&#39;.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">		    str: The name of the created joint guide.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		This function creates a stellar joint guide consisting of a joint, a 2D arrow, a sphere, an arrow axis, and an arrow front. The joint guide is</span>
+<span class="sd">		named using the specified name and the naming convention for guides.</span>
+
+<span class="sd">		The function uses the &#39;Joint.create&#39; method (assuming it exists) or the &#39;cmds.joint&#39; command to create the joint. It then creates the 2D arrow,</span>
+<span class="sd">		sphere, arrow axis, and arrow front using the &#39;curve&#39; function with the respective types.</span>
+
+<span class="sd">		The function assigns colors to the components of the joint guide using the &#39;assign_color&#39; function.</span>
+
+<span class="sd">		An enumeration attribute called &#39;Helper&#39; is created on the joint, which can be used to turn on or off the visibility of the joint guide</span>
+<span class="sd">		components. The visibility of each component is connected to this enumeration attribute using the &#39;connectAttr&#39; function.</span>
+
+<span class="sd">		The visibility of the joint guide components is controlled based on the value of the &#39;axis_helper&#39; setup attribute. If &#39;axis_helper&#39; is set</span>
+<span class="sd">		to &#39;True&#39;, the visibility of the joint guide components is turned on. Otherwise, it is turned off.</span>
+
+<span class="sd">		The joint guide components are parented under the joint using the &#39;parent&#39; command.</span>
+
+<span class="sd">		The sphere, arrow, arrow axis, and arrow front components are deleted after parenting.</span>
+
+<span class="sd">		Finally, the created joint is selected, and its name is returned.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">		    This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1">#name = str(name)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">joint</span> <span class="o">=</span> <span class="n">Joint</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">sself</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;guide&#39;</span><span class="p">])</span>
+		<span class="c1">#joint = cmds.joint(n = name + self.nc[&#39;guide&#39;])</span>
+		<span class="n">arrow</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;2dArrow&#39;</span><span class="p">)</span>
+		<span class="n">sphere</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;sphere&#39;</span><span class="p">)</span>
+
+		<span class="n">arrowAxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;2dArrow&#39;</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowAxis</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.cv[0:9]&#39;</span><span class="p">)</span>
+		<span class="n">arrowFront</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;2dArrow&#39;</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowFront</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.cv[0:9]&#39;</span><span class="p">)</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrow</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowAxis</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowFront</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+		<span class="c1">#create turn off and on attr</span>
+		<span class="n">hide_attr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_enum</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">joint</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Helper&#39;</span><span class="p">)</span>
+		<span class="nb">print</span> <span class="p">(</span><span class="n">hide_attr</span><span class="p">)</span>
+		<span class="nb">print</span> <span class="p">(</span><span class="n">joint</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrow</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowAxis</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowFront</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.v&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;axis_helper&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">hide_attr</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrow</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">joint</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">joint</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowAxis</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">joint</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">arrowFront</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span><span class="n">joint</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span> <span class="n">arrow</span><span class="p">,</span> <span class="n">arrowAxis</span><span class="p">,</span><span class="n">arrowFront</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">joint</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">joint</span></div>
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.orient_joint">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.orient_joint">[docs]</a>
+	<span class="k">def</span> <span class="nf">orient_joint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Orients a joint based on the specified input.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">		    input (str): The name of the joint to orient. If not provided, the currently selected joint is used. Defaults to an empty string.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		This function orients a joint by applying identity transformation, including translation, rotation, and scale. It then adjusts the joint&#39;s</span>
+<span class="sd">		orientation based on the specified twist axis and secondary axis orientation.</span>
+
+<span class="sd">		If the &#39;input&#39; parameter is not provided, the function uses the currently selected joint as the input.</span>
+
+<span class="sd">		The function uses the &#39;makeIdentity&#39; function to reset the joint&#39;s transformations. It then uses the &#39;joint&#39; function with the appropriate</span>
+<span class="sd">		&#39;oj&#39; (orient joint) flag and &#39;secondaryAxisOrient&#39; parameter to orient the joint based on the specified twist axis and secondary axis orientation.</span>
+
+<span class="sd">		If an error occurs during the joint orientation process, an error message is printed.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">		    This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">		    orient_joint(input=&#39;joint1&#39;)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="nb">input</span> <span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">:</span>
+			<span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">makeIdentity</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">apply</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span> <span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pn</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;twist_axis&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">joint</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">oj</span> <span class="o">=</span> <span class="s1">&#39;yxz&#39;</span> <span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">secondaryAxisOrient</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;secondaryAxisOrient&#39;</span><span class="p">]))</span>
+			<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;twist_axis&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">joint</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">oj</span> <span class="o">=</span> <span class="s1">&#39;xyz&#39;</span> <span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">secondaryAxisOrient</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;secondaryAxisOrient&#39;</span><span class="p">]))</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">joint</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">oj</span> <span class="o">=</span> <span class="s1">&#39;zyx&#39;</span> <span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">secondaryAxisOrient</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;secondaryAxisOrient&#39;</span><span class="p">]))</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Error while orienting joints, sorry&#39;</span><span class="p">)</span></div>
+
+			
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.ask_name">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.ask_name">[docs]</a>
+	<span class="k">def</span> <span class="nf">ask_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ask_for</span> <span class="o">=</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">check_split</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">popup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_name_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Asks the user for a block name.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">		    text (str): The initial text displayed in the prompt dialog. Defaults to an empty string.</span>
+<span class="sd">		    ask_for (str): The message displayed in the prompt dialog, specifying what the name is asked for. Defaults to &#39;Name&#39;.</span>
+<span class="sd">		    check_split (bool): Specifies whether to check for name existence after splitting the input at a comma. Defaults to False.</span>
+<span class="sd">		    popup (bool): Specifies whether to display a popup dialog for errors and warnings. Defaults to True.</span>
+<span class="sd">			allow_name_exists (bool) : Allow names in case is used not for a block creation</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">		    str or None: The entered block name if the user clicked &#39;OK&#39; and the name doesn&#39;t exist, or None if the user clicked &#39;Cancel&#39;</span>
+<span class="sd">		                or didn&#39;t enter a name.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		This function displays a prompt dialog with a given title and message, allowing the user to enter a block name. The dialog</span>
+<span class="sd">		has &#39;OK&#39; and &#39;Cancel&#39; buttons. If the user clicks &#39;OK&#39;, the function checks if the entered name already exists as an object</span>
+<span class="sd">		in the scene. If the name already exists, an error message is printed and a confirmation dialog is displayed indicating the</span>
+<span class="sd">		name already exists.</span>
+
+<span class="sd">		If the &#39;check_split&#39; parameter is set to True, the function also checks for name existence after splitting the entered name</span>
+<span class="sd">		at a comma (&#39;,&#39;). If the split name already exists, an error message is printed and a confirmation dialog is displayed.</span>
+
+<span class="sd">		The function returns the entered block name if the user clicked &#39;OK&#39; and the name doesn&#39;t exist. If the user clicked &#39;Cancel&#39;</span>
+<span class="sd">		or didn&#39;t enter a name, None is returned.</span>
+
+<span class="sd">		If the &#39;popup&#39; parameter is set to True, warning messages are displayed using the &#39;cmds.warning&#39; function. Otherwise, the</span>
+<span class="sd">		warning messages are printed to the console.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">		    This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">		    name = ask_name(text=&#39;Enter block name:&#39;, ask_for=&#39;Block Name&#39;, check_split=True, popup=True)</span>
+<span class="sd">		    if name is not None:</span>
+<span class="sd">		        print(f&quot;Entered block name: {name}&quot;)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="n">ask_name</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">promptDialog</span><span class="p">(</span>
+						<span class="n">title</span><span class="o">=</span><span class="s1">&#39;Name Block&#39;</span><span class="p">,</span>
+						<span class="n">message</span><span class="o">=</span><span class="n">ask_for</span><span class="p">,</span>
+						<span class="n">button</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OK&#39;</span><span class="p">,</span> <span class="s1">&#39;Cancel&#39;</span><span class="p">],</span>
+						<span class="n">defaultButton</span><span class="o">=</span><span class="s1">&#39;OK&#39;</span><span class="p">,</span>
+						<span class="n">cancelButton</span><span class="o">=</span><span class="s1">&#39;Cancel&#39;</span><span class="p">,</span>
+						<span class="n">dismissString</span><span class="o">=</span><span class="s1">&#39;Cancel&#39;</span><span class="p">,</span>
+						<span class="n">tx</span> <span class="o">=</span> <span class="n">text</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">ask_name</span> <span class="o">==</span> <span class="s1">&#39;OK&#39;</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">promptDialog</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">]):</span>
+				<span class="k">if</span> <span class="ow">not</span> <span class="n">allow_name_exists</span><span class="p">:</span>
+					<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Name exists error&#39;</span><span class="p">)</span>
+					<span class="n">cmds</span><span class="o">.</span><span class="n">confirmDialog</span><span class="p">(</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span>
+										<span class="n">message</span><span class="o">=</span><span class="s1">&#39;Error &quot;</span><span class="si">{}</span><span class="s1">&quot;: Block name already exists.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+											<span class="n">cmds</span><span class="o">.</span><span class="n">promptDialog</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">]),</span>
+										<span class="n">button</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Oh! ok!&quot;</span><span class="p">])</span>
+
+			<span class="k">if</span> <span class="n">check_split</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">promptDialog</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">]):</span>
+					<span class="k">if</span> <span class="ow">not</span> <span class="n">allow_name_exists</span><span class="p">:</span>
+						<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Name exists error&#39;</span><span class="p">)</span>
+						<span class="n">cmds</span><span class="o">.</span><span class="n">confirmDialog</span><span class="p">(</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span>
+											<span class="n">message</span><span class="o">=</span><span class="s1">&#39;Error: Block name already exists&#39;</span><span class="p">,</span>
+											<span class="n">button</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Oh! ok!&quot;</span><span class="p">])</span>
+
+			<span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">promptDialog</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>	
+
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;We need a name :)&#39;</span><span class="p">)</span></div>
+
+			
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.duplicate_and_remove_guides">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.duplicate_and_remove_guides">[docs]</a>
+	<span class="k">def</span> <span class="nf">duplicate_and_remove_guides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Duplicates the top chain joint and changes &#39;_Guide&#39; to &#39;_Jnt&#39; in the name.</span>
+<span class="sd">		Renames all children and parent to the world.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			input (str): The input joint(s) to duplicate. If empty, selects the first item from the current selection.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			str: The name of the duplicated joint.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		This function duplicates the specified joint(s) and modifies the name of the duplicated joint(s) by replacing the &#39;_Guide&#39;</span>
+<span class="sd">		suffix with &#39;_Jnt&#39;. It also removes specific attributes and re-parents the joints to the world space.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">			This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">			duplicate_and_remove_guides(input=&#39;joint_01_Guide&#39;)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="nb">input</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+			<span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+		<span class="c1">#duplicate the joints</span>
+		<span class="n">clean_joints</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="nb">input</span> <span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;guide&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint&#39;</span><span class="p">]),</span> <span class="n">rc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">jnt</span> <span class="ow">in</span> <span class="n">clean_joints</span><span class="p">:</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;guide&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">jnt</span><span class="p">):</span>
+				<span class="n">jnt</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">jnt</span><span class="p">,</span> <span class="n">jnt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;guide&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint&#39;</span><span class="p">]))</span>
+
+				<span class="k">try</span><span class="p">:</span><span class="n">cmds</span><span class="o">.</span><span class="n">deleteAttr</span><span class="p">(</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.Helper&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jnt</span><span class="p">)</span> <span class="p">)</span>
+				<span class="k">except</span><span class="p">:</span><span class="k">pass</span>
+
+			<span class="k">if</span> <span class="n">jnt</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">):</span>
+				<span class="n">jnt</span> <span class="o">=</span><span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">jnt</span><span class="p">,</span> <span class="n">jnt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">parent</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">jnt</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">jnt</span><span class="p">,</span><span class="n">w</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span> <span class="n">jnt</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+			<span class="k">except</span><span class="p">:</span><span class="k">pass</span>
+
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">clean_joints</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">w</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">clean_joints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Modules_class.duplicate_and_remove_stellar_guides">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.duplicate_and_remove_stellar_guides">[docs]</a>
+	<span class="k">def</span> <span class="nf">duplicate_and_remove_stellar_guides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Duplicates the top chain joint, changes &#39;_Guide&#39; to &#39;_Jnt&#39; in the name, and renames all children plus parent to the world.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			input (str): The input joint(s) to duplicate. If empty, selects the first item from the current selection.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			list: A list of duplicated joint objects.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		This function duplicates the specified joint(s) and modifies the name of the duplicated joint(s) by replacing the &#39;_Guide&#39;</span>
+<span class="sd">		suffix with &#39;_Jnt&#39;. It also removes specific attributes and re-parents the joints to the world space.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">			This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">			duplicate_and_remove_stellar_guides(input=&#39;joint_01_Guide&#39;)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="nb">input</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+			<span class="nb">input</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+		<span class="c1">#duplicate the joints</span>
+		<span class="c1">#clean_joints = cmds.duplicate(input , to = True, n = input.replace(self.nc[&#39;guide&#39;], self.nc[&#39;joint&#39;]), rc=True)</span>
+		<span class="n">clean_joints</span><span class="o">=</span><span class="p">[]</span>
+		<span class="n">dirt_jnts</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(</span><span class="nb">input</span> <span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">clean_joint</span> <span class="ow">in</span> <span class="n">dirt_jnts</span><span class="p">:</span>
+			<span class="n">jnt</span> <span class="o">=</span> <span class="n">Joint</span><span class="p">(</span><span class="n">clean_joint</span><span class="p">)</span>
+			<span class="n">jnt_ni</span> <span class="o">=</span> <span class="n">jnt</span><span class="o">.</span><span class="n">name_info</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">node_type</span> <span class="o">=</span> <span class="n">sself</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint&#39;</span><span class="p">])</span>
+			<span class="n">jnt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">jnt_ni</span><span class="p">)</span>
+
+			<span class="k">if</span> <span class="n">sself</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;guide&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">jnt</span><span class="p">):</span>
+				<span class="n">jnt</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">jnt</span><span class="p">,</span> <span class="n">jnt</span><span class="o">.</span><span class="n">name_info</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">node_type</span><span class="o">=</span><span class="n">sself</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint&#39;</span><span class="p">]))</span>
+
+				<span class="k">try</span><span class="p">:</span><span class="n">cmds</span><span class="o">.</span><span class="n">deleteAttr</span><span class="p">(</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.Helper&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jnt</span><span class="p">)</span> <span class="p">)</span>
+				<span class="k">except</span><span class="p">:</span><span class="k">pass</span>
+
+			<span class="c1">#REMOVED THIS IF.</span>
+			<span class="c1">#if jnt.endswith(&#39;1&#39;):</span>
+			<span class="c1">#	jnt =cmds.rename(jnt, jnt.replace(&#39;1&#39;, &#39;&#39;))</span>
+
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">parent</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">jnt</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">jnt</span><span class="p">,</span><span class="n">w</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+				<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span> <span class="n">jnt</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+			<span class="k">except</span><span class="p">:</span><span class="k">pass</span>
+
+			<span class="n">clean_joints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">jnt</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">clean_joints</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">w</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">clean_joints</span></div>
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.build_baseA">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.build_baseA">[docs]</a>
+	<span class="k">def</span> <span class="nf">build_baseA</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Asset_Name&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Creates the base structure for any kind of rig with the same base structure.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			name (str): The name of the asset. Default is &#39;Asset_Name&#39;.</span>
+<span class="sd">			size (float): The size of the base controllers. Default is 1.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			tuple: A tuple containing the global controller, mover controller, and gimbal controller.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		This function creates the base structure for a rig, including main groups, base groups, geometry groups, and rig groups.</span>
+<span class="sd">		It also creates base controllers such as the global controller, mover controller, and gimbal controller. Various attributes</span>
+<span class="sd">		are added to the controllers for control visibility, playback, and geometry visibility.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">			This function relies on other methods such as &#39;curve&#39;, &#39;root_grp&#39;, &#39;new_enum&#39;, &#39;new_attr&#39;, &#39;hide_attr&#39;, and specific</span>
+<span class="sd">			attributes and naming conventions defined in the &#39;setup&#39; attribute.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">			build_baseA(name=&#39;MyCharacter&#39;, size=1.5)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1">#main grp</span>
+		<span class="n">main_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span>  <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+
+		<span class="c1">#create base Groups</span>
+		<span class="n">base_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;base_groups&#39;</span><span class="p">]</span> 
+		<span class="nb">print</span> <span class="p">(</span><span class="n">base_groups</span><span class="p">)</span>
+
+		<span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">base_groups</span><span class="p">:</span>
+			<span class="n">base_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">base_groups</span><span class="p">[</span><span class="n">grp</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">base_grp</span><span class="p">,</span> <span class="n">main_grp</span><span class="p">)</span>
+		
+		<span class="n">geo_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;geo_groups&#39;</span><span class="p">]</span>
+		<span class="nb">print</span> <span class="p">(</span><span class="n">geo_groups</span><span class="p">)</span>		
+		<span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">geo_groups</span><span class="p">:</span>
+			<span class="n">geo_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">geo_groups</span><span class="p">[</span><span class="n">grp</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">geo_grp</span><span class="p">,</span> <span class="n">base_groups</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>		
+				
+		<span class="n">rig_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;rig_groups&#39;</span><span class="p">]</span>
+		<span class="nb">print</span> <span class="p">(</span><span class="n">rig_groups</span><span class="p">)</span>		
+		<span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">rig_groups</span><span class="p">:</span>
+			<span class="n">rig_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">rig_groups</span><span class="p">[</span><span class="n">grp</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">rig_grp</span><span class="p">,</span> <span class="n">base_groups</span><span class="p">[</span><span class="s1">&#39;rig&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>	
+
+		
+		<span class="c1">#create the base controllers</span>
+
+		<span class="n">global_ctrl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Global&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">],</span> <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">playback</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+		<span class="n">global_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_grp</span><span class="p">()</span>
+
+		<span class="c1">#Add Attrs</span>
+		<span class="n">ctrls_vis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_enum</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">global_ctrl</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;CtrlVis&#39;</span><span class="p">,</span> <span class="n">enums</span> <span class="o">=</span> <span class="s1">&#39;Default:Inherit:Proximity&#39;</span><span class="p">)</span>
+		<span class="n">hide_on_vis_attr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_enum</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">global_ctrl</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;CtrlPlayback&#39;</span><span class="p">,</span> <span class="n">enums</span><span class="o">=</span><span class="s1">&#39;Show:Hide&#39;</span><span class="p">)</span>
+		<span class="n">geo_vis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_enum</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">global_ctrl</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Geo&#39;</span><span class="p">,</span> <span class="n">enums</span> <span class="o">=</span> <span class="s1">&#39;Normal:Template:Reference&#39;</span><span class="p">)</span>
+		<span class="n">geo_vis_toggle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_enum</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">global_ctrl</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;GeoVis&#39;</span><span class="p">,</span> <span class="n">enums</span> <span class="o">=</span> <span class="s1">&#39;Hide:Show&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keyable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">geo_vis_toggle</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">hide_on_vis_attr</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">hide_on_vis_attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">global_ctrl</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.hideOnPlayback&#39;</span><span class="p">)</span>
+
+		<span class="n">mover_ctrl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;mover&#39;</span><span class="p">,</span> <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Mover&#39;</span>  <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">],</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">)</span>
+		<span class="n">mover_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_grp</span><span class="p">()</span>
+		<span class="n">gimbal_ctrl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;mover&#39;</span><span class="p">,</span> <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Mover&#39;</span>  <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;gimbal_ctrl&#39;</span><span class="p">],</span> <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="o">*</span><span class="mf">0.9</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">gimbal_ctrl</span><span class="p">,</span> <span class="n">mover_ctrl</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">mover_offset</span><span class="p">,</span> <span class="n">global_ctrl</span><span class="p">)</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">global_offset</span><span class="p">,</span> <span class="s1">&#39;Ctrl_Grp&#39;</span><span class="p">)</span>
+
+		<span class="n">vis_Attr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_attr</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span> <span class="n">mover_ctrl</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Gimbal&#39;</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> 
+		<span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">vis_Attr</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">gimbal_ctrl</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;.v&#39;</span><span class="p">)</span>
+
+		<span class="c1">#group for ctrls inside the gimal</span>
+		<span class="n">main_ctrl_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;main_ctrl_grp&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+		<span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">main_ctrl_grp</span><span class="p">,</span> <span class="n">gimbal_ctrl</span><span class="p">)</span>
+
+		<span class="c1">#clean</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">hide_attr</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">mover_ctrl</span> <span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">hide_attr</span><span class="p">(</span><span class="nb">input</span> <span class="o">=</span> <span class="n">gimbal_ctrl</span> <span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+		<span class="k">return</span><span class="p">(</span><span class="n">global_ctrl</span><span class="p">,</span> <span class="n">mover_ctrl</span><span class="p">,</span> <span class="n">gimbal_ctrl</span><span class="p">)</span></div>
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.check_is_there_is_base">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.check_is_there_is_base">[docs]</a>
+	<span class="k">def</span> <span class="nf">check_is_there_is_base</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span> <span class="o">=</span> <span class="s1">&#39;BaseA&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Checks if the base structure exists and creates it if not.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			base (str): The name of the base structure. Default is &#39;BaseA&#39;.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		This function is intended to be placed at the start of all the modules. It checks if the specified base structure exists,</span>
+<span class="sd">		and if not, it creates one. It also remembers the previous selection and restores it after the build.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">			This function relies on the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">			check_is_there_is_base(base=&#39;BaseA&#39;)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="c1">#this will remember previews selection so it wont affect any build</span>
+
+		<span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="s1">&#39;BaseA&#39;</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="s1">&#39;Rig_Grp&#39;</span><span class="p">):</span>
+				<span class="k">pass</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_baseA</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Mutant_Tools&#39;</span><span class="p">)</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BaseA Created Successfully&#39;</span><span class="p">)</span>
+
+		<span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">sel</span><span class="p">)</span><span class="c1">#return to previews selection after the build</span></div>
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.Mutant_logger">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.Mutant_logger">[docs]</a>
+	<span class="k">def</span> <span class="nf">Mutant_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;create&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Manages the Mutant logger for scriptEditor history.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			mode (str): The mode of operation for the logger. Default is &#39;create&#39;.</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			str or None: The path to the Mutant log file if mode is not &#39;create&#39;, otherwise None.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		This function manages the Mutant logger, which controls the scriptEditor history. It can be used to create, stop, or clear</span>
+<span class="sd">		the logger. When mode is set to &#39;create&#39;, it creates the log file and enables scriptEditor history logging. When mode is</span>
+<span class="sd">		set to &#39;stop&#39;, it disables scriptEditor history logging. When mode is set to &#39;clear&#39;, it clears the contents of the log</span>
+<span class="sd">		file. If mode is not one of the specified options, it returns the path to the Mutant log file.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">			This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">			Mutant_logger(mode=&#39;create&#39;)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="n">log_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;Mutant_log.txt&#39;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;create&#39;</span><span class="p">:</span> 
+			<span class="nb">print</span> <span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">scriptEditorInfo</span><span class="p">(</span><span class="n">historyFilename</span><span class="o">=</span><span class="n">log_file</span><span class="p">,</span> <span class="n">writeHistory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;stop&#39;</span><span class="p">:</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">scriptEditorInfo</span><span class="p">(</span><span class="n">writeHistory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+		<span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;clear&#39;</span><span class="p">:</span>
+			<span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">log_file</span></div>
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.update_icons">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.update_icons">[docs]</a>
+	<span class="k">def</span> <span class="nf">update_icons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	   Updates the icons of Mutant build blocks.</span>
+
+<span class="sd">	   Args:</span>
+<span class="sd">		   None</span>
+
+<span class="sd">	   Returns:</span>
+<span class="sd">		   None</span>
+
+<span class="sd">	   Raises:</span>
+<span class="sd">		   None</span>
+
+<span class="sd">	   This function updates the icons of Mutant build blocks. It assumes the existence of a folder named &#39;Icons&#39; within the</span>
+<span class="sd">	   project directory. If the &#39;Mutant_Build&#39; object does not exist, the function returns without performing any changes.</span>
+<span class="sd">	   It retrieves the current icon of each block, extracts the filename, and constructs the path to the corresponding icon</span>
+<span class="sd">	   file within the &#39;Icons&#39; folder. Finally, it sets the &#39;iconName&#39; attribute of each block to the new icon path.</span>
+
+<span class="sd">	   Note:</span>
+<span class="sd">		   This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software.</span>
+
+<span class="sd">	   Example:</span>
+<span class="sd">		   update_icons()</span>
+<span class="sd">		   &quot;&quot;&quot;</span>
+
+		<span class="n">ICON_FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;Icons&#39;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="s1">&#39;Mutant_Build&#39;</span><span class="p">):</span>
+			<span class="k">return</span>
+
+		<span class="n">blocks</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="s1">&#39;Mutant_Build&#39;</span><span class="p">,</span> <span class="n">ad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">blocks</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+				<span class="k">try</span><span class="p">:</span>
+					<span class="n">current_icon</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.iconName&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">),</span> <span class="n">asString</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+					<span class="n">current_icon</span> <span class="o">=</span> <span class="n">current_icon</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+					<span class="n">icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Utils&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="s1">&#39;Icons&#39;</span><span class="p">,</span> <span class="n">current_icon</span><span class="p">)</span>
+					<span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.iconName&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">block</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ICON_FOLDER</span><span class="p">,</span> <span class="n">icon</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
+				<span class="k">except</span><span class="p">:</span><span class="k">pass</span></div>
+
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.check_dev_mode">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.check_dev_mode">[docs]</a>
+	<span class="k">def</span> <span class="nf">check_dev_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Checks if the Mutant Tools is in development mode.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">			bool: True if the Mutant Tools is in development mode, False otherwise.</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">			None</span>
+
+<span class="sd">		This function checks if the Mutant Tools is in development mode. It reads the &#39;version.json&#39; file located in the &#39;config&#39;</span>
+<span class="sd">		folder within the project directory to retrieve the current version information. If the &#39;dev_mode&#39; key in the version file</span>
+<span class="sd">		is set to &#39;On&#39;, the function returns True indicating that the Mutant Tools is in development mode.</span>
+
+<span class="sd">		If the &#39;dev_mode&#39; key is not set to &#39;On&#39;, the function attempts to import the &#39;Mutant_Tools&#39; module and reloads the &#39;helpers&#39;</span>
+<span class="sd">		module from the &#39;Mutant_Tools.Utils.Helpers&#39; package. It then creates an instance of the &#39;Helpers&#39; class and checks for the</span>
+<span class="sd">		&#39;dev_mode&#39; key in the &#39;MutantTools.settings&#39; JSON file. If the &#39;dev_mode&#39; key is present and set to True, the function returns</span>
+<span class="sd">		True indicating that the Mutant Tools is in development mode.</span>
+
+<span class="sd">		If any exceptions occur during the process, the function returns False indicating that the Mutant Tools is not in development mode.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">			This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software, as well as the &#39;json&#39;</span>
+<span class="sd">			module for JSON file handling.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">			check_dev_mode()</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">VERSION_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s1">&#39;version.json&#39;</span><span class="p">)</span>
+		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">VERSION_FILE</span><span class="p">)</span> <span class="k">as</span> <span class="n">version_file</span><span class="p">:</span>
+			<span class="n">version</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">version_file</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;dev_mode&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">:</span>
+			<span class="k">return</span> <span class="kc">True</span>
+
+		<span class="c1">#------------------------------------------------------------------------</span>
+		<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+		<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Helpers</span> <span class="kn">import</span> <span class="n">helpers</span>
+		<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Helpers</span><span class="o">.</span><span class="n">helpers</span><span class="p">)</span>
+		<span class="n">mh</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">Helpers</span><span class="p">()</span>
+
+		<span class="n">settings</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="n">settings</span><span class="p">[</span><span class="s1">&#39;dev_mode&#39;</span><span class="p">]</span><span class="o">=</span><span class="kc">True</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">settings</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span><span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;MutantTools.settings&#39;</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="n">mh</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span><span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;MutantTools.settings&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">settings</span><span class="p">)</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s1">&#39;dev_mode&#39;</span><span class="p">]:</span>
+				<span class="k">return</span> <span class="kc">True</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">return</span> <span class="kc">False</span>
+
+		<span class="k">return</span> <span class="kc">False</span></div>
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Modules_class.toggle_dev_mode">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Rigging.html#Mutant_Tools.Utils.Rigging.modules.Modules_class.toggle_dev_mode">[docs]</a>
+	<span class="k">def</span> <span class="nf">toggle_dev_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Toggles the Mutant Tools development mode.</span>
+
+<span class="sd">		Args:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		Returns:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		Raises:</span>
+<span class="sd">		    None</span>
+
+<span class="sd">		This function toggles the Mutant Tools development mode. It attempts to import the &#39;Mutant_Tools&#39; module and reloads the</span>
+<span class="sd">		&#39;helpers&#39; module from the &#39;Mutant_Tools.Utils.Helpers&#39; package. It then creates an instance of the &#39;Helpers&#39; class and</span>
+<span class="sd">		reads the &#39;MutantTools.settings&#39; JSON file located in the &#39;cmds.internalVar(usd=True)&#39; path. If the file does not exist,</span>
+<span class="sd">		it creates the file with a default &#39;dev_mode&#39; value of False.</span>
+
+<span class="sd">		If the &#39;dev_mode&#39; key in the JSON file is currently set to True, the function updates the value to False and displays a</span>
+<span class="sd">		confirmation dialog indicating that the development mode is now turned off. If the &#39;dev_mode&#39; key is currently set to</span>
+<span class="sd">		False, the function updates the value to True and displays a confirmation dialog indicating that the development mode is</span>
+<span class="sd">		now turned on.</span>
+
+<span class="sd">		Note:</span>
+<span class="sd">		    This function assumes the use of the &#39;cmds&#39; module from Autodesk Maya or a similar 3D software, as well as the &#39;json&#39;</span>
+<span class="sd">		    module for JSON file handling.</span>
+
+<span class="sd">		Example:</span>
+<span class="sd">		    toggle_dev_mode()</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+		<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Helpers</span> <span class="kn">import</span> <span class="n">helpers</span>
+		<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Helpers</span><span class="o">.</span><span class="n">helpers</span><span class="p">)</span>
+		<span class="n">mh</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">Helpers</span><span class="p">()</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">settings</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span><span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;MutantTools.settings&#39;</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="n">mh</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span><span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;MutantTools.settings&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dev_mode&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+			<span class="n">settings</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span><span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;MutantTools.settings&#39;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">settings</span><span class="p">[</span><span class="s1">&#39;dev_mode&#39;</span><span class="p">]:</span>
+			<span class="n">mh</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;MutantTools.settings&#39;</span><span class="p">,</span>
+						  <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;dev_mode&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">confirmDialog</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="s1">&#39;Dev Mode is now Off&#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">mh</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">internalVar</span><span class="p">(</span><span class="n">usd</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="n">json_file</span><span class="o">=</span><span class="s1">&#39;MutantTools.settings&#39;</span><span class="p">,</span>
+						  <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;dev_mode&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+			<span class="n">cmds</span><span class="o">.</span><span class="n">confirmDialog</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="s1">&#39;Dev Mode is now On&#39;</span><span class="p">)</span></div>
+</div>
+
+
+	<span class="c1">#----------------------------------------------------------------------------------------------------------------</span>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

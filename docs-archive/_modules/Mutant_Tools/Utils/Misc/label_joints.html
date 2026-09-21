@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.Misc.label_joints &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.Misc.label_joints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.Misc.label_joints</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span>
+
+<span class="sd">&quot;&quot;&quot;   </span>
+<span class="sd">--------------------------LABEL JOINTS---------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="mass_label_joints">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Misc.html#Mutant_Tools.Utils.Misc.label_joints.mass_label_joints">[docs]</a>
+<span class="k">def</span> <span class="nf">mass_label_joints</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    #Description :</span>
+<span class="sd">        Label joints based on selection. </span>
+
+<span class="sd">    #Instructions:</span>
+<span class="sd">        Select either the specific joints you wish to label, the group they are under and run script. If nothing is selected</span>
+<span class="sd">        it will look for Mutant&#39;s &quot;Bind_Joints_Grp&quot; and label every joint in there; if the group doesn&#39;t exist then it will error. </span>
+
+<span class="sd">    # Return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="c1">#Defining possible sufixes.</span>
+    <span class="n">joint_naming_ends</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;BND&quot;</span><span class="p">,</span> <span class="s2">&quot;SKIN&quot;</span><span class="p">,</span> <span class="s2">&quot;SKN&quot;</span><span class="p">,</span> <span class="s2">&quot;JNT&quot;</span><span class="p">]</span>
+
+    <span class="c1">#Defining possible prefixes.</span>
+    <span class="n">L_joint_prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;LF&quot;</span><span class="p">,</span> <span class="s2">&quot;LB&quot;</span><span class="p">,</span> <span class="s2">&quot;LC&quot;</span><span class="p">]</span>
+    <span class="n">R_joint_prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;RF&quot;</span><span class="p">,</span> <span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="s2">&quot;RC&quot;</span><span class="p">]</span>
+    <span class="n">skirt_prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SKIRT&quot;</span><span class="p">,</span> <span class="s2">&quot;COAT&quot;</span><span class="p">,</span> <span class="s2">&quot;CAPE&quot;</span><span class="p">,</span> <span class="s2">&quot;DRESS&quot;</span><span class="p">,</span> <span class="s2">&quot;JACKET&quot;</span><span class="p">,</span> <span class="s2">&quot;FLAPS&quot;</span><span class="p">,</span> <span class="s2">&quot;SWEATER&quot;</span><span class="p">]</span>
+
+
+    <span class="c1">###DEFINING LIST SCENARIOS BASED ON SELECTION###</span>
+    <span class="n">bind_joint_sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#Check if selection has only one element.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bind_joint_sel</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        
+        <span class="c1">##If element is joint run as normal.</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objectType</span><span class="p">(</span><span class="n">bind_joint_sel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;joint&quot;</span><span class="p">:</span>
+            <span class="n">bind_joint_sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;joint&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List contains one joint.&quot;</span><span class="p">)</span>
+
+        <span class="c1">#If element is transform take all children joints.</span>
+        <span class="k">elif</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objectType</span><span class="p">(</span><span class="n">bind_joint_sel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;transform&quot;</span><span class="p">:</span>
+            <span class="n">bind_joint_sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">bind_joint_sel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;joint&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List contains one transform node. Taking all children joints.&quot;</span><span class="p">)</span>
+
+    <span class="c1">#Check if selection has more than one element. If yes, take only the joints.</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">bind_joint_sel</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">bind_joint_sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;joint&quot;</span><span class="p">)</span>
+
+    <span class="c1">#When nothing is selected look for the mutant &quot;Bind_Joints_Grp&quot; and apply it to all it&#39;s children.          </span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bind_joint_sel</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="s2">&quot;Bind_Joints_Grp&quot;</span><span class="p">,</span> <span class="n">allDescendents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;joint&quot;</span><span class="p">)</span>
+
+    <span class="c1">#If the mutant &quot;Bind_Joints_Grp&quot; does not exist then ask for a selection. </span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bind_joint_sel</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No Mutant Bind_Joints_Grp found. Please select the joints you wish to add labels to.&quot;</span><span class="p">)</span>
+
+
+    <span class="c1">#Setting the naming on the joints.</span>
+    <span class="k">for</span> <span class="n">bind_joint</span> <span class="ow">in</span> <span class="n">bind_joint_sel</span><span class="p">:</span>
+        
+        <span class="c1">#Dividing name in parts to analize it.</span>
+        <span class="n">bind_joint_names</span> <span class="o">=</span> <span class="n">bind_joint</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+        
+        <span class="c1">#Determining Label side based on initial letter.</span>
+        <span class="k">if</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">L_joint_prefixes</span> <span class="ow">or</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;LEFT&quot;</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.side&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bind_joint</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>   
+        <span class="k">elif</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">R_joint_prefixes</span> <span class="ow">or</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;RIGHT&quot;</span><span class="p">):</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.side&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bind_joint</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        
+        <span class="c1">#Creating scenario for skirt setup variants.</span>
+        <span class="k">elif</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">skirt_prefixes</span><span class="p">:</span>
+            
+            <span class="c1">#Setting label side based on second split instead of first one. </span>
+            <span class="k">if</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">L_joint_prefixes</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.side&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bind_joint</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">R_joint_prefixes</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.side&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bind_joint</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.side&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bind_joint</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        
+        <span class="c1">#If no letter and no exception as first split, set as center.             </span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.side&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bind_joint</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+            
+        <span class="c1">#Setting type to &quot;Other&quot; for costume name.</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.type&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bind_joint</span><span class="p">),</span> <span class="mi">18</span><span class="p">)</span>
+<span class="w">        </span>
+<span class="w">        </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        #Idea to remove joint suffix. Not needed but will keep just in case.</span>
+<span class="sd">        #Determining what name to write in label box.</span>
+<span class="sd">        if bind_joint_names[-1].upper() in joint_naming_ends:</span>
+<span class="sd">            print(&quot;JOINT HAS SUFFIX&quot;)</span>
+<span class="sd">            </span>
+<span class="sd">            if bind_joint_names[0].upper() in L_joint_prefixes or bind_joint_names[0] in R_joint_prefixes:</span>
+<span class="sd">                label_name = &quot;_&quot;.join(bind_joint_names[1:-1])</span>
+<span class="sd">                print(&quot;JOINT HAS PREFIX&quot;)</span>
+<span class="sd">            else:</span>
+<span class="sd">                label_name = &quot;_&quot;.join(bind_joint_names[0:-1])</span>
+<span class="sd">                print(&quot;JOINT HAS NO PREFIX&quot;)</span>
+<span class="sd">        else:</span>
+<span class="sd">            print(&quot;JOINT HAS NO SUFFIX&quot;)</span>
+<span class="sd">            if bind_joint_names[0].upper() in L_joint_prefixes or bind_joint_names[0] in R_joint_prefixes:</span>
+<span class="sd">                label_name = &quot;_&quot;.join(bind_joint_names[1:])</span>
+<span class="sd">                print(&quot;JOINT HAS PREFIX&quot;)</span>
+<span class="sd">                </span>
+<span class="sd">            </span>
+<span class="sd">            else:</span>
+<span class="sd">                label_name = &quot;_&quot;.join(bind_joint_names)</span>
+<span class="sd">                print(&quot;JOINT HAS NO PREFIX&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1">#Determining what name to write in label box.</span>
+        <span class="k">if</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">L_joint_prefixes</span> <span class="ow">or</span> <span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">R_joint_prefixes</span><span class="p">:</span>
+            <span class="n">label_name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+            
+        <span class="k">elif</span> <span class="n">bind_joint</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;LEFT&quot;</span><span class="p">):</span>
+            <span class="n">label_name</span> <span class="o">=</span> <span class="n">bind_joint</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Left&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            
+        <span class="k">elif</span> <span class="n">bind_joint</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;RIGHT&quot;</span><span class="p">):</span>
+            <span class="n">label_name</span> <span class="o">=</span> <span class="n">bind_joint</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Right&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">label_name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bind_joint_names</span><span class="p">[</span><span class="mi">0</span><span class="p">:])</span>        
+        
+
+        <span class="c1">#Setting the label name on the joint</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.otherType&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bind_joint</span><span class="p">),</span> <span class="n">label_name</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>  
+        
+    <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Joints have been labeled without error. Thank you.&quot;</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

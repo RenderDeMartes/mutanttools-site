@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutant_Tools.Utils.Toon.toon_libs &mdash; Mutant_Tools 1.20 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=1382df98"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mutant_Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">Mutant_Tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mutant_Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Mutant_Tools.Utils.Toon.toon_libs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Mutant_Tools.Utils.Toon.toon_libs</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">Libs to crete toon lines and expression lines</span>
+
+<span class="sd">from rigging.Mutant_Tools.Utils.Toon import toon_libs</span>
+<span class="sd">import imp</span>
+<span class="sd">imp.reload(toon_libs)</span>
+
+
+<span class="sd">cmds.select(&#39;curve1&#39;)</span>
+<span class="sd">toon_libs.convert_curve_to_pe(curve=&#39;curve1&#39;)</span>
+<span class="sd">toon_libs.create_curve_rig(curve=&#39;curve1&#39;)</span>
+<span class="sd">toon_libs.connect_pe_to_ribbon(stroke=&#39;curve1_Stroke&#39;)</span>
+
+<span class="sd">toon_node, toon_shape = toon_libs.create_toon_outline(&#39;tRex&#39;)</span>
+<span class="sd">toon_libs.convert_outline_to_curves(toon_shape)</span>
+
+<span class="sd">exmpale use:</span>
+<span class="sd">from Mutant_Tools.Utils.Toon import toon_libs</span>
+<span class="sd">import imp</span>
+<span class="sd">imp.reload(toon_libs)</span>
+
+
+<span class="sd">curves = cmds.listRelatives(&#39;curvesFace1&#39;, c=True)</span>
+
+<span class="sd">for curve in curves:</span>
+<span class="sd">    stroke = toon_libs.convert_curve_to_pe(curve=curve)</span>
+<span class="sd">    toon_libs.connect_stroke_to_render(stroke=stroke, curve=curve)</span>
+<span class="sd">    toon_libs.create_curve_rig(curve=curve, size = 0.5)</span>
+<span class="sd">    toon_libs.connect_pe_to_ribbon(stroke=stroke)</span>
+
+<span class="sd">face_geo = &#39;C_Head_hi&#39;</span>
+
+<span class="sd">toon_node, toon_shape = toon_libs.create_toon_outline(face_geo)</span>
+<span class="sd">#toon_libs.convert_outline_to_curves(toon_shape)</span>
+<span class="sd">toon_libs.convert_outline_to_geo(toon_shape)</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">#Notes</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">require preset for paint effects</span>
+<span class="sd">require preset for ramp</span>
+
+<span class="sd">controllers aim axis are not good</span>
+<span class="sd">limitation in big shapes as in forehead</span>
+<span class="sd">limit in circular shapes</span>
+<span class="sd">limit in start and end attrs( need to find a diferent way)</span>
+<span class="sd">pipeline, modelling or rigging should implement this</span>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">maya</span> <span class="kn">import</span> <span class="n">cmds</span><span class="p">,</span> <span class="n">mel</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">importlib</span><span class="p">;</span><span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">imp</span><span class="p">;</span><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">Mutant_Tools</span>
+<span class="kn">import</span> <span class="nn">Mutant_Tools.Utils.Rigging</span>
+<span class="kn">from</span> <span class="nn">Mutant_Tools.Utils.Rigging</span> <span class="kn">import</span> <span class="n">main_mutant</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">Mutant_Tools</span><span class="o">.</span><span class="n">Utils</span><span class="o">.</span><span class="n">Rigging</span><span class="o">.</span><span class="n">main_mutant</span><span class="p">)</span>
+
+<span class="n">mt</span> <span class="o">=</span> <span class="n">main_mutant</span><span class="o">.</span><span class="n">Mutant</span><span class="p">()</span>
+<span class="n">nc</span><span class="p">,</span> <span class="n">curve_data</span><span class="p">,</span> <span class="n">setup</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">import_configs</span><span class="p">()</span>
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="create_curve_rig">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.create_curve_rig">[docs]</a>
+<span class="k">def</span> <span class="nf">create_curve_rig</span><span class="p">(</span><span class="n">curve</span><span class="p">,</span> <span class="n">tweeks</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightBlue&#39;</span><span class="p">):</span>
+
+    <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="o">/</span><span class="mi">3</span>
+
+    <span class="n">joints_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">curve</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint&#39;</span><span class="p">]</span><span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+    <span class="n">main_ctrls_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">curve</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Main&#39;</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+    <span class="n">tweeks_ctrls_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">curve</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Tweeks&#39;</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+    <span class="n">ctrls_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">curve</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">tweeks_ctrls_grp</span><span class="p">,</span> <span class="n">ctrls_grp</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">main_ctrls_grp</span><span class="p">,</span> <span class="n">ctrls_grp</span><span class="p">)</span>
+    <span class="n">misc_group</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">em</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">curve</span> <span class="o">+</span> <span class="s1">&#39;_Misc&#39;</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+
+    <span class="c1">#duplciate curve to convert to nurbs to add folls</span>
+    <span class="n">ribbon_surface</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">bevel</span><span class="p">(</span><span class="n">curve</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">ed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ct</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bst</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">curve</span><span class="o">+</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;nurb&#39;</span><span class="p">],</span> <span class="n">js</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ribbon_surface</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rebuildSurface</span><span class="p">(</span><span class="n">ribbon_surface</span><span class="p">,</span> <span class="n">ch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">du</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">su</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sv</span><span class="o">=</span><span class="n">tweeks</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">ribbon_surface</span><span class="p">,</span> <span class="n">misc_group</span><span class="p">)</span>
+    <span class="c1">#cmds.parent(curve, misc_group)</span>
+
+    <span class="c1"># Create follicles</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">ribbon_surface</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;U&#39;</span><span class="p">:</span>
+        <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;createHair </span><span class="si">{}</span><span class="s2"> 1 10 0 0 0 0 5 0 1 2 1;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tweeks</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;createHair 1 </span><span class="si">{}</span><span class="s2"> 10 0 0 0 0 5 0 1 2 1;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tweeks</span><span class="p">))</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;hairSystem1&#39;</span><span class="p">,</span> <span class="s1">&#39;pfxHair1&#39;</span><span class="p">,</span> <span class="s1">&#39;nucleus1&#39;</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">ribbon_surface</span> <span class="o">+</span> <span class="s1">&#39;.inheritsTransform&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">fol_grp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;hairSystem1Follicles&#39;</span><span class="p">,</span> <span class="n">curve</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;follicle&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">])</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">fol_grp</span><span class="p">,</span> <span class="n">misc_group</span><span class="p">)</span>
+    <span class="n">follicles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="n">fol</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">fol_grp</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+        <span class="n">gc</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">fol</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">fol</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">fol</span><span class="p">,</span>  <span class="n">curve</span><span class="o">+</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;follicle&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+        <span class="n">follicles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fol</span><span class="p">)</span>
+
+    <span class="c1">#add joints to follicles</span>
+    <span class="n">fol_joints</span> <span class="o">=</span><span class="p">[]</span>
+    <span class="n">tweek_ctrls</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="n">fol</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">follicles</span><span class="p">):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">fol_joint</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">joint</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">_</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">curve</span><span class="p">,</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;follicle&#39;</span><span class="p">]</span> <span class="p">,</span><span class="n">num</span><span class="p">,</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint&#39;</span><span class="p">]))</span>
+        <span class="n">fol_joints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fol_joint</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">fol</span><span class="p">,</span> <span class="n">fol_joint</span><span class="p">))</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">fol_joint</span><span class="p">,</span> <span class="n">fol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;U&#39;</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.parameterV&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fol</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.parameterU&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fol</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+
+
+        <span class="c1">#ctrls</span>
+        <span class="n">ctrl</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span>  <span class="nb">input</span><span class="o">=</span><span class="n">fol_joint</span><span class="p">,</span>
+                          <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span>
+                          <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">name</span><span class="o">=</span><span class="n">fol_joint</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint&#39;</span><span class="p">],</span> <span class="s1">&#39;_Tweek&#39;</span><span class="o">+</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]),</span>
+                          <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+
+        <span class="n">mt</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">root_grp</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">root_grp</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">mt</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">root_grp</span><span class="p">,</span> <span class="n">fol_joint</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1">#put in borders first and last</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.parameter</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fol</span><span class="p">,</span> <span class="n">direction</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="n">tweeks</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.parameter</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fol</span><span class="p">,</span> <span class="n">direction</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">#constraint</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">fol_joint</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">scaleConstraint</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">fol_joint</span><span class="p">)</span>
+        <span class="n">tweek_ctrls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">fol</span><span class="p">,</span> <span class="n">root_grp</span><span class="p">,</span> <span class="n">mo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">root_grp</span><span class="p">,</span> <span class="n">tweeks_ctrls_grp</span><span class="p">)</span>
+
+
+    <span class="c1">#skin tweeks joints to curve</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">skinCluster</span><span class="p">(</span><span class="n">fol_joints</span><span class="p">,</span> <span class="n">curve</span><span class="p">,</span> <span class="n">tsb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#Main ctrls</span>
+    <span class="n">ctrl_joints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">main_ctrls</span> <span class="o">=</span><span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="n">fol</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">follicles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">follicles</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">follicles</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">follicles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ctrl_joint</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">joint</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">_</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">curve</span><span class="p">,</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;follicle&#39;</span><span class="p">]</span> <span class="p">,</span><span class="n">num</span><span class="p">,</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint_ctrl&#39;</span><span class="p">]))</span>
+        <span class="n">mt</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">ctrl_joint</span><span class="p">,</span> <span class="n">fol</span><span class="p">)</span>
+        <span class="n">ctrl_joints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ctrl_joint</span><span class="p">)</span>
+
+        <span class="c1"># ctrls</span>
+        <span class="n">ctrl</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">ctrl_joint</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span>
+                        <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">ctrl_joint</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;joint_ctrl&#39;</span><span class="p">],</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]),</span>
+                        <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="o">*</span><span class="mf">1.5</span><span class="p">)</span>
+
+        <span class="n">mt</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">root_grp</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">root_grp</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">mt</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">root_grp</span><span class="p">,</span> <span class="n">ctrl_joint</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">mt</span><span class="o">.</span><span class="n">hide_attr</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">ctrl_joint</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">scaleConstraint</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">ctrl_joint</span><span class="p">)</span>
+        <span class="n">main_ctrls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">root_grp</span><span class="p">,</span> <span class="n">main_ctrls_grp</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">ctrl_joint</span><span class="p">,</span> <span class="n">joints_grp</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">skinCluster</span><span class="p">(</span><span class="n">ctrl_joints</span><span class="p">,</span> <span class="n">ribbon_surface</span><span class="p">,</span> <span class="n">tsb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#Create center and main controller</span>
+
+    <span class="n">center_ctrl</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">ctrl_joint</span><span class="p">,</span>
+                         <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;square&#39;</span><span class="p">,</span>
+                         <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">name</span><span class="o">=</span><span class="n">curve</span> <span class="o">+</span> <span class="s1">&#39;_Center&#39;</span> <span class="o">+</span> <span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">],</span>
+                         <span class="n">size</span><span class="o">=</span><span class="n">size</span> <span class="o">*</span> <span class="mf">2.5</span><span class="p">)</span>
+
+    <span class="n">mt</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">center_root_grp</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">root_grp</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mt</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">center_root_grp</span><span class="p">,</span> <span class="n">main_ctrls</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">center_root_grp</span><span class="p">,</span> <span class="n">ctrls_grp</span><span class="p">)</span>
+
+    <span class="c1">#make center ctrl aim to center</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parentConstraint</span><span class="p">(</span><span class="n">center_ctrl</span><span class="p">,</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">main_ctrls</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#cmds.aimConstraint(center_ctrl, cmds.listRelatives(main_ctrls[0], p=True)[0], aimVector=(0, 1, 0), upVector=(-1, 0, 0), mo=True)</span>
+    <span class="c1">#cmds.aimConstraint(center_ctrl, cmds.listRelatives(main_ctrls[-1], p=True)[0], aimVector=(0, -1, 0), upVector=(-1, 0, 0), mo=True)</span>
+
+    <span class="c1">#Crate mover controllers</span>
+    <span class="n">main_ctrl</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">ctrl_joint</span><span class="p">,</span>
+                            <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mover&#39;</span><span class="p">,</span>
+                            <span class="n">rename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">custom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="n">curve</span> <span class="o">+</span> <span class="s1">&#39;_Main&#39;</span><span class="o">+</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">],</span>
+                            <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">mt</span><span class="o">.</span><span class="n">assign_color</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">offset_grp</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">root_grp</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">root</span><span class="p">,</span> <span class="n">auto</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">root_grp</span><span class="p">(</span><span class="n">main_ctrl</span><span class="p">,</span> <span class="n">autoRoot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mt</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">offset_grp</span><span class="p">,</span> <span class="n">main_ctrls</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">offset_grp</span><span class="p">,</span> <span class="n">ctrls_grp</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">main_ctrls_grp</span><span class="p">,</span> <span class="n">main_ctrl</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">tweeks_ctrls_grp</span><span class="p">,</span> <span class="n">main_ctrl</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">center_root_grp</span><span class="p">,</span> <span class="n">main_ctrl</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{}</span></div>
+
+
+<span class="c1">#create_curve_rig(curve=&#39;curve1&#39;)</span>
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="convert_curve_to_pe">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.convert_curve_to_pe">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_curve_to_pe</span><span class="p">(</span><span class="n">curve</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">make_pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">resolution</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    convert a curve to pe</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">curve</span><span class="p">)</span>
+    <span class="c1"># attach paint effect to curve</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;source &quot;/usr/autodesk/maya2022/Examples/Paint_Effects/Airbrush/defaultPaint.mel&quot;;&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">AttachBrushToCurves</span><span class="p">()</span>
+    <span class="n">stroke_transform</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">stroke_transform</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">stroke_transform</span><span class="p">,</span> <span class="n">curve</span><span class="o">+</span><span class="s1">&#39;_Stroke&#39;</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">pickWalk</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">)</span>
+    <span class="n">stroke_shape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1">#mel.eval(&#39;applyPresetToNode &quot;|{}|{}&quot; &quot;&quot; &quot;&quot; &quot;Brows&quot; 1;&#39;.format(stroke_transform, stroke_shape))</span>
+    <span class="n">brush</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listConnections</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.brush&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureMap1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">make_pretty</span><span class="p">:</span>
+        <span class="c1">#make it pretty</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[0].pressureScale_Interp&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[0].pressureScale_Position&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[0].pressureScale_FloatValue&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[1].pressureScale_Interp&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[1].pressureScale_Position&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[1].pressureScale_FloatValue&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mf">0.9</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[2].pressureScale_Interp&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[2].pressureScale_Position&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[2].pressureScale_FloatValue&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.tubeSections&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">brush</span><span class="p">),</span> <span class="n">resolution</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.sampleDensity&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">stroke_transform</span></div>
+
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="connect_pe_to_ribbon">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.connect_pe_to_ribbon">[docs]</a>
+<span class="k">def</span> <span class="nf">connect_pe_to_ribbon</span><span class="p">(</span><span class="n">stroke</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">stroke</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;We need a stroke&#39;</span><span class="p">)</span>
+
+    <span class="n">main_ctrl</span> <span class="o">=</span> <span class="n">stroke</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_Stroke&#39;</span><span class="p">,</span> <span class="s1">&#39;_Main&#39;</span><span class="o">+</span><span class="n">nc</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">main_ctrl</span><span class="p">):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;no main control matches naming: stroke.replace(&#39;_Stroke&#39;, &#39;_Main&#39;+nc[&#39;ctrl&#39;])&quot;</span><span class="p">)</span>
+
+    <span class="c1">#connections to brush</span>
+
+
+    <span class="c1">#connections to paint effect</span>
+    <span class="c1">#attrs in stroke shape</span>
+    <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;minClip&#39;</span><span class="p">:[</span><span class="s1">&#39;topLenght&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1">#max length 1 full</span>
+             <span class="s1">&#39;maxClip&#39;</span><span class="p">:[</span><span class="s1">&#39;bottomLenght&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="c1">#min lenght 0 full</span>
+             <span class="s1">&#39;sampleDensity&#39;</span><span class="p">:[</span><span class="s1">&#39;smooth&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="c1">#amount of loops 1 is one to 1, 2 is smooth 0 is linear</span>
+             <span class="s1">&#39;line&#39;</span><span class="p">:</span><span class="s1">&#39;Thickness&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;pressureScale[0].pressureScale_FloatValue&#39;</span><span class="p">:[</span><span class="s1">&#39;startThickness&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="c1">#0 to be thin 1 to be normal 2 to be tick</span>
+             <span class="s1">&#39;pressureScale[1].pressureScale_FloatValue&#39;</span><span class="p">:[</span><span class="s1">&#39;midThickness&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span> <span class="c1">#0 to be thin 1 to be normal 2 to be tick</span>
+             <span class="s1">&#39;pressureScale[2].pressureScale_FloatValue&#39;</span><span class="p">:[</span><span class="s1">&#39;endThickness&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span> <span class="c1">#0 to be thin 1 to be normal 2 to be tick</span>
+             <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;line&#39;</span><span class="p">:</span>
+            <span class="n">mt</span><span class="o">.</span><span class="n">line_attr</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">ctrl_attr</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+            <span class="k">continue</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">min</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">max</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">attr</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">ctrl_attr</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">new_attr</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">main_ctrl</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
+        <span class="c1">#auto_attr = mt.new_attr(input=cmds.listRelatives(main_ctrl, p=True)[0], name=&#39;Auto&#39;+name, min=min, max=max, default=0)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="n">ctrl_attr</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span></div>
+
+
+
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="create_toon_outline">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.create_toon_outline">[docs]</a>
+<span class="k">def</span> <span class="nf">create_toon_outline</span><span class="p">(</span><span class="n">geometry</span><span class="p">):</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
+    <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;AssignNewPfxToon;&#39;</span><span class="p">)</span>
+    <span class="n">toon_shape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">pickWalk</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">)</span>
+    <span class="n">toon_node</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">toon_node</span><span class="p">,</span> <span class="n">toon_shape</span></div>
+
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="convert_outline_to_curves">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.convert_outline_to_curves">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_outline_to_curves</span><span class="p">(</span><span class="n">toon_node_shape</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">toon_node_shape</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No toon_node&#39;</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">toon_node_shape</span><span class="p">)</span>
+    <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;doPaintEffectsToCurve( 0);&#39;</span><span class="p">)</span>
+    <span class="n">curves_grp</span> <span class="o">=</span> <span class="n">toon_node_shape</span> <span class="o">+</span> <span class="s1">&#39;Curves&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cmds</span><span class="o">.</span><span class="n">objExists</span><span class="p">(</span><span class="n">curves_grp</span><span class="p">):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Need to input shape node to get curves folder. We are currently getting: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">fromat</span><span class="p">(</span><span class="n">curves_grp</span><span class="p">))</span>
+
+    <span class="c1">#clean_grp = cmds.group(em=True, n=toon_node_shape+&#39;_Strokes&#39;+nc[&#39;group&#39;])</span>
+
+    <span class="c1"># for cruve in cmds.listRelatives(curves_grp, c=True):</span>
+    <span class="c1">#     stroke = convert_curve_to_pe(curve=cruve, make_pretty=True)</span>
+    <span class="c1">#     cmds.parent(stroke, clean_grp)</span>
+
+    <span class="k">return</span> <span class="n">curves_grp</span></div>
+
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="convert_outline_to_geo">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.convert_outline_to_geo">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_outline_to_geo</span><span class="p">(</span><span class="n">toon_node_shape</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">toon_node_shape</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No toon_node&#39;</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">toon_node_shape</span><span class="p">)</span>
+    <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;ConvertPaintEffectsToPoly;&#39;</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="create_camara_based_curve">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.create_camara_based_curve">[docs]</a>
+<span class="k">def</span> <span class="nf">create_camara_based_curve</span><span class="p">():</span>
+    <span class="s1">&#39;&#39;</span></div>
+
+
+<span class="c1"># -----------------------------------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="connect_stroke_to_render">
+<a class="viewcode-back" href="../../../../Mutant_Tools.Utils.Toon.html#Mutant_Tools.Utils.Toon.toon_libs.connect_stroke_to_render">[docs]</a>
+<span class="k">def</span> <span class="nf">connect_stroke_to_render</span><span class="p">(</span><span class="n">stroke</span><span class="p">,</span> <span class="n">curve</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+
+    <span class="n">curve_shapes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">curve</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">stroke_shape</span> <span class="o">=</span> <span class="n">stroke</span><span class="o">+</span><span class="s1">&#39;Shape&#39;</span>
+
+    <span class="n">ramp</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s1">&#39;ramp&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">curve</span><span class="o">+</span><span class="s1">&#39;Render_Remap&#39;</span><span class="p">)</span>
+
+    <span class="c1">#connect output</span>
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">curve_shapes</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.outColorR&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ramp</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.aiCurveWidth&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">cmds</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">curve</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">pickWalk</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="s1">&#39;Down&#39;</span><span class="p">)</span>
+    <span class="n">forced_shape</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.outColorR&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ramp</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.aiCurveWidth&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">forced_shape</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+
+        <span class="n">float_math</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">createNode</span><span class="p">(</span><span class="s1">&#39;floatMath&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">curve</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;FloatMath&#39;</span><span class="p">)</span>
+
+        <span class="c1"># cmds.connectAttr(&#39;{}.pressureScale[{}].pressureScale_Position&#39;.format(stroke_shape, num),</span>
+        <span class="c1">#                  &#39;{}.floatA&#39;.format(float_math), f=True)</span>
+        <span class="c1"># cmds.connectAttr(&#39;{}.outFloat&#39;.format(float_math),</span>
+        <span class="c1">#                  &#39;{}.colorEntryList[{}].position&#39;.format(ramp, num), f=True)</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[</span><span class="si">{}</span><span class="s1">].pressureScale_Position&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">,</span> <span class="n">num</span><span class="p">),</span>
+                         <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.colorEntryList[</span><span class="si">{}</span><span class="s1">].position&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ramp</span><span class="p">,</span> <span class="n">num</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1">#connect ramps</span>
+
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[</span><span class="si">{}</span><span class="s1">].pressureScale_FloatValue&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">,</span> <span class="n">num</span><span class="p">),</span>
+                 <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.colorEntryList[</span><span class="si">{}</span><span class="s1">].color.colorR&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ramp</span><span class="p">,</span> <span class="n">num</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[</span><span class="si">{}</span><span class="s1">].pressureScale_FloatValue&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">,</span> <span class="n">num</span><span class="p">),</span>
+                 <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.colorEntryList[</span><span class="si">{}</span><span class="s1">].color.colorG&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ramp</span><span class="p">,</span> <span class="n">num</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">connectAttr</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pressureScale[</span><span class="si">{}</span><span class="s1">].pressureScale_FloatValue&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stroke_shape</span><span class="p">,</span> <span class="n">num</span><span class="p">),</span>
+                 <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.colorEntryList[</span><span class="si">{}</span><span class="s1">].color.colorB&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ramp</span><span class="p">,</span> <span class="n">num</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        
+        <span class="c1">#apply marvel preset:</span>
+        <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;applyPresetToNode &quot;</span><span class="si">{}</span><span class="s1">&quot; &quot;&quot; &quot;&quot; &quot;MarvelRamp&quot; 1;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ramp</span><span class="p">))</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Esteban Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
