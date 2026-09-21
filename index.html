@@ -91,6 +91,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <meta name="msapplication-TileImage" content="/assets/img/LogoWhite03-300x300.png" />
 
 
+
 <style id="mt-docs">
 :root{
   --mt-ink:#140B06; --mt-panel:#1C0D0A; --mt-panel-2:#241310;
@@ -126,8 +127,13 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 .mt-stats span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mt-dim)}
 
 /* ---- layout ---- */
+/* minmax(0,...) on every track, and min-width:0 on the children. A bare `1fr`
+   floors at the widest child's min-content, so one long unbreakable line in a
+   <pre> or a table blows the column past the container - which it did on mobile,
+   clipping ~127px of every page that has a contents rail. */
 .mt-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:3.5rem;margin-top:3rem}
-@media(max-width:940px){.mt-layout{grid-template-columns:1fr;gap:0}}
+.mt-layout>*{min-width:0}
+@media(max-width:940px){.mt-layout{grid-template-columns:minmax(0,1fr);gap:0}}
 .mt-toc{position:sticky;top:90px;align-self:start;max-height:calc(100vh - 120px);
   overflow-y:auto;font-size:.86rem;padding-right:.5rem}
 @media(max-width:940px){.mt-toc{position:static;max-height:none;margin-bottom:2.5rem;
