@@ -1,0 +1,2209 @@
+{
+ "000_Presets": [
+  {
+   "folder": "001_ToonTemplate",
+   "name": "ToonTemplate",
+   "desc": "Will import the Toon Template ",
+   "icon": "Sausage.png",
+   "enable": "True",
+   "build": "exec_toonTemplate_v001.build_toonTemplate_block()",
+   "create": "exec_toonTemplate_v001.create_toonTemplate_block()",
+   "pyfile": "exec_toonTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "002_ToonFaceTemplate",
+   "name": "toonTemplate",
+   "desc": "Will import the toon Face Template ",
+   "icon": "SausageFace.png",
+   "enable": "True",
+   "build": "exec_toonFaceTemplate_v001.build_toonFaceTemplate_block()",
+   "create": "exec_toonFaceTemplate_v001.create_toonFaceTemplate_block()",
+   "pyfile": "exec_toonFaceTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "003_HumanBodyTemplate",
+   "name": "humanBodyTemplate",
+   "desc": "Will import the human Body Template ",
+   "icon": "Hero.png",
+   "enable": "True",
+   "build": "exec_humanBodyTemplate_v001.build_humanBodyTemplate_block()",
+   "create": "exec_humanBodyTemplate_v001.create_humanBodyTemplate_block()",
+   "pyfile": "exec_humanBodyTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "003_HumanGameTemplate",
+   "name": "humanBodyTemplate",
+   "desc": "Will import the Human  Template to work on Game Engines",
+   "icon": "HumanGame.png",
+   "enable": "True",
+   "build": "exec_humanGameTemplate_v001.build_humanGameTemplate_block()",
+   "create": "exec_humanGameTemplate_v001.create_humanGameTemplate_block()",
+   "pyfile": "exec_humanGameTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "003_HumanSimpleBodyTemplate",
+   "name": "humanBodyTemplate",
+   "desc": "Will import the Human Body Simple Template ",
+   "icon": "StickFigure.png",
+   "enable": "True",
+   "build": "exec_humanSimpleBodyTemplate_v001.build_humanSimpleBodyTemplate_block()",
+   "create": "exec_humanSimpleBodyTemplate_v001.create_humanSimpleBodyTemplate_block()",
+   "pyfile": "exec_humanSimpleBodyTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "003_HumanUnrealGameTemplate",
+   "name": "humanUnrealGameTemplate",
+   "desc": "Will import the Human Unreal Game Template to work on Game Engines",
+   "icon": "HumanGameUnreal.png",
+   "enable": "True",
+   "build": "exec_humanUnrealGameTemplate_v001.build_humanUnrealGameTemplate_block()",
+   "create": "exec_humanUnrealGameTemplate_v001.create_humanUnrealGameTemplate_block()",
+   "pyfile": "exec_humanUnrealGameTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "004_HumanFaceTemplate",
+   "name": "humanBodyTemplate",
+   "desc": "Will import the human Body Template ",
+   "icon": "Face.png",
+   "enable": "True",
+   "build": "exec_humanFaceTemplate_v001.build_humanFaceTemplate_block()",
+   "create": "exec_humanFaceTemplate_v001.create_humanFaceTemplate_block()",
+   "pyfile": "exec_humanFaceTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "004_HumanSimpleFaceTemplate",
+   "name": "humanBodyTemplate",
+   "desc": "Will import the Human Face Simple Template ",
+   "icon": "StickFigureFace.png",
+   "enable": "True",
+   "build": "exec_humanSimpleFaceTemplate_v001.build_humanSimpleFaceTemplate_block()",
+   "create": "exec_humanSimpleFaceTemplate_v001.create_humanSimpleFaceTemplate_block()",
+   "pyfile": "exec_humanSimpleFaceTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "005_minotaurTemplate",
+   "name": "SausageTemplate",
+   "desc": "Will import the Minotaur Template ",
+   "icon": "Minotaur.png",
+   "enable": "True",
+   "build": "exec_minotaurTemplate_v001.build_minotaurTemplate_block()",
+   "create": "exec_minotaurTemplate_v001.create_minotaurTemplate_block()",
+   "pyfile": "exec_minotaurTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "006_QuadTemplate",
+   "name": "PropTemplate",
+   "desc": "Create Quad Template",
+   "icon": "Quad.png",
+   "enable": "True",
+   "build": "exec_quad_template_v001.build_quad_template_block()",
+   "create": "exec_quad_template_v001.create_quad_template_block()",
+   "pyfile": "exec_quad_template_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "007_CarTemplate",
+   "name": "CarTemplate",
+   "desc": "Will Import the Car template",
+   "icon": "Car.png",
+   "enable": "True",
+   "build": "exec_carTemplate_v001.build_cartemplate_block()",
+   "create": "exec_carTemplate_v001.create_cartemplate_block()",
+   "pyfile": "exec_carTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "008_SeagullTemplate",
+   "name": "seagullTemplate",
+   "desc": "Will Import the seagull template",
+   "icon": "Seagull.png",
+   "enable": "True",
+   "build": "exec_seagullTemplate_v001.build_seagulltemplate_block()",
+   "create": "exec_seagullTemplate_v001.create_seagulltemplate_block()",
+   "pyfile": "exec_seagullTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "009_PropTemplate",
+   "name": "PropTemplate",
+   "desc": "Create props guides",
+   "icon": "PropTemplate.png",
+   "enable": "True",
+   "build": "exec_prop_template_v001.build_prop_template_block()",
+   "create": "exec_prop_template_v001.create_prop_template_block()",
+   "pyfile": "exec_prop_template_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "010_HeroPropTemplate",
+   "name": "PropTemplate",
+   "desc": "Create hero props guides",
+   "icon": "HeroPropTemplate.png",
+   "enable": "True",
+   "build": "exec_heroprop_template_v001.build_prop_template_block()",
+   "create": "exec_heroprop_template_v001.create_prop_template_block()",
+   "pyfile": "exec_heroprop_template_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "011_ChamaleonTemplate",
+   "name": "chamaleonTemplate",
+   "desc": "Will Import the chamaleon template",
+   "icon": "Chamaleon.png",
+   "enable": "True",
+   "build": "exec_chamaleonTemplate_v001.build_chamaleontemplate_block()",
+   "create": "exec_chamaleonTemplate_v001.create_chamaleontemplate_block()",
+   "pyfile": "exec_chamaleonTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "012_TortoiseTemplate",
+   "name": "tortoiseTemplate",
+   "desc": "Will Import the tortoise template",
+   "icon": "Tortoise.png",
+   "enable": "True",
+   "build": "exec_tortoiseTemplate_v001.build_tortoisetemplate_block()",
+   "create": "exec_tortoiseTemplate_v001.create_tortoisetemplate_block()",
+   "pyfile": "exec_tortoiseTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "013_PigTemplate",
+   "name": "pigTemplate",
+   "desc": "Will Import the pig template",
+   "icon": "Pig.png",
+   "enable": "True",
+   "build": "exec_pigTemplate_v001.build_pigtemplate_block()",
+   "create": "exec_pigTemplate_v001.create_pigtemplate_block()",
+   "pyfile": "exec_pigTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "013_SlothTemplate",
+   "name": "slothTemplate",
+   "desc": "Will Import the sloth template",
+   "icon": "Sloth.png",
+   "enable": "True",
+   "build": "exec_slothTemplate_v001.build_slothtemplate_block()",
+   "create": "exec_slothTemplate_v001.create_slothtemplate_block()",
+   "pyfile": "exec_slothTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "014_BirdTemplate",
+   "name": "birdTemplate",
+   "desc": "Will Import the bird template",
+   "icon": "Bird.png",
+   "enable": "True",
+   "build": "exec_birdTemplate_v001.build_birdtemplate_block()",
+   "create": "exec_birdTemplate_v001.create_birdtemplate_block()",
+   "pyfile": "exec_birdTemplate_v001.py",
+   "attrs": {},
+   "help": ""
+  }
+ ],
+ "001_Studio": [
+  {
+   "folder": "02_Human_Fixes",
+   "name": "Human_Fixes",
+   "desc": "Fixes for Human Template",
+   "icon": "letter-a.png",
+   "enable": "True",
+   "build": "exec_human_fixes_v001.build_human_fixes_block()",
+   "create": "exec_human_fixes_v001.create_human_fixes_block()",
+   "pyfile": "exec_human_fixes_v001.py",
+   "attrs": {},
+   "help": "Overview:\n  Fixes for Human Template.\n\nHow To Use:\n  usually you can build directly with defaults, then adjust if needed."
+  },
+  {
+   "folder": "03_Toon_Fixes",
+   "name": "Toon_Fixes",
+   "desc": "Fixes for Toon Chars",
+   "icon": "letter-b.png",
+   "enable": "True",
+   "build": "exec_toon_fixes_v001.build_toon_fixes_block()",
+   "create": "exec_toon_fixes_v001.create_toon_fixes_block()",
+   "pyfile": "exec_toon_fixes_v001.py",
+   "attrs": {},
+   "help": "Overview:\n  Fixes for Toon Chars.\n\nHow To Use:\n  usually you can build directly with defaults, then adjust if needed."
+  },
+  {
+   "folder": "04_Custom_Biped_Orients",
+   "name": "Custom_Biped_Orients",
+   "desc": "Custom biped controller orient fixes",
+   "icon": "Custom_Biped_Orients.png",
+   "enable": "True",
+   "build": "exec_custom_biped_orients_v001.build_custom_biped_orients_block()",
+   "create": "exec_custom_biped_orients_v001.create_custom_biped_orients_block()",
+   "pyfile": "exec_custom_biped_orients_v001.py",
+   "attrs": {
+    "FixArms_bool": "True",
+    "FixClavicles_bool": "True",
+    "FixPelvis_bool": "True",
+    "FixLegs_bool": "True",
+    "FixToes_bool": "True",
+    "FixFingers_bool": "True",
+    "FixMisc_bool": "True"
+   },
+   "help": "Overview:\n  Custom biped controller orient fixes.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- FixArms: turn this ON/OFF depending on whether you want that feature.\n- FixClavicles: turn this ON/OFF depending on whether you want that feature.\n- FixPelvis: turn this ON/OFF depending on whether you want that feature.\n- FixLegs: turn this ON/OFF depending on whether you want that feature.\n- FixToes: turn this ON/OFF depending on whether you want that feature.\n- FixFingers: turn this ON/OFF depending on whether you want that feature.\n- FixMisc: turn this ON/OFF depending on whether you want that feature.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "05_Custom_Biped_Rotate_Orders",
+   "name": "Custom_Biped_Rotate_Orders",
+   "desc": "Custom biped controller rotate order setup",
+   "icon": "Custom_Biped_Rotate_Orders.png",
+   "enable": "True",
+   "build": "exec_custom_biped_rotate_orders_v001.build_custom_biped_rotate_orders_block()",
+   "create": "exec_custom_biped_rotate_orders_v001.create_custom_biped_rotate_orders_block()",
+   "pyfile": "exec_custom_biped_rotate_orders_v001.py",
+   "attrs": {},
+   "help": "Overview:\n  Applies biped rotate orders to existing controllers.\n\nHow To Use:\n  Build this block after your rig ctrls exist.\n\nBehavior:\n- No per-part toggles.\n- Applies configured rotate order where controller exists.\n- Auto-applies to R_ when L_ controller is listed."
+  },
+  {
+   "folder": "06_Orient_Offset",
+   "name": "OrientOffset",
+   "desc": "Applies a matrix orient offset setup to a list of custom controls.",
+   "icon": "OrientOffset.png",
+   "enable": "True",
+   "build": "exec_orient_offset_v001.build_orient_offset_block()",
+   "create": "exec_orient_offset_v001.create_orient_offset_block()",
+   "pyfile": "exec_orient_offset_v001.py",
+   "attrs": {
+    "SetControlsList_string": "",
+    "AutoParentChildren_bool": "True",
+    "RemapScaleConnections_bool": "True",
+    "HideOrientAttrs_bool": "False",
+    "LockOrientAttrs_bool": "False"
+   },
+   "help": "Overview:\n  Applies the matrix orient offset setup to a custom list of controls.\n\nHow To Use:\n  Select the controls in the scene and click 'Add Selected' below. Then click build.\n\nFields:\n- SetControlsList: List of controls to process.\n- AutoParentChildren: If true, existing children of the controls will be reparented under the new _Driven groups automatically.\n- RemapScaleConnections: If true, detects direct scale connections going out of the control (e.g. multiplyDivide nodes from ScaleTweakCtrls) and remaps them through the orient rotation so scale axes match the new visual orientation.\n- HideOrientAttrs: If true, the proxy orient attributes on the control will be hidden on build.\n- LockOrientAttrs: If true, the proxy orient attributes on the control will be locked on build."
+  },
+  {
+   "folder": "07_Scale_Isolate",
+   "name": "ScaleIsolate",
+   "desc": "Isolates scale for selected controls by driving a sibling node via matrix and reparenting children.",
+   "icon": "ScaleIsolate.png",
+   "enable": "True",
+   "build": "exec_scale_isolate_v001.build_scale_isolate_block()",
+   "create": "exec_scale_isolate_v001.create_scale_isolate_block()",
+   "pyfile": "exec_scale_isolate_v001.py",
+   "attrs": {
+    "SetControlsList_string": "",
+    "AutoParentChildren_bool": "True"
+   },
+   "help": "Overview:\n  Prevents the scale of specified controls from affecting their children.\n\nHow To Use:\n  Select the controls in the scene and click 'Add Selected' below. Then click build.\n\nFields:\n- SetControlsList: List of controls to process.\n- AutoParentChildren: If true, existing children of the controls will be reparented under the new _ScaleIsolated groups automatically."
+  },
+  {
+   "folder": "08_World_Orient",
+   "name": "WorldOrient",
+   "desc": "Isolates rotation for selected controls by driving a sibling node via inverse matrix, locking their orientation to world space.",
+   "icon": "WorldOrient.png",
+   "enable": "True",
+   "build": "exec_world_orient_v001.build_world_orient_block()",
+   "create": "exec_world_orient_v001.create_world_orient_block()",
+   "pyfile": "exec_world_orient_v001.py",
+   "attrs": {
+    "SetControlsList_string": ""
+   },
+   "help": "Overview:\n  Forces the selected controls to always orient to the world (Z forward, Y up, X right), completely ignoring their parent's rotation.\n\nHow To Use:\n  Select the controls in the scene and click 'Add Selected' below. Then click build.\n\nFields:\n- SetControlsList: List of controls to process."
+  },
+  {
+   "folder": "09_MirrorNodeEachSide",
+   "name": "MirrorNodeEachSide",
+   "desc": "Finds Mirror_Grp nodes on one side and creates matching mirror groups on the opposite side",
+   "icon": "MirrorNodeEachSide.png",
+   "enable": "True",
+   "build": "exec_mirror_node_each_side_v001.build_mirror_node_each_side_block()",
+   "create": "exec_mirror_node_each_side_v001.create_mirror_node_each_side_block()",
+   "pyfile": "exec_mirror_node_each_side_v001.py",
+   "attrs": {
+    "RunAfterBuild_bool": "False"
+   },
+   "help": "Overview:\n  Finds all nodes ending with Mirror_Grp and creates matching mirror groups on the opposite side.\n\nHow It Works:\n  1. Searches the scene for any node ending with Mirror_Grp (e.g. R_Antenna_A_Ctrl_Offset_GrpMirror_Grp).\n  2. Strips the Mirror_Grp suffix to get the base name (R_Antenna_A_Ctrl_Offset_Grp).\n  3. Swaps the R_ prefix to L_ (or vice versa) to find the opposite-side node.\n  4. Creates a new group (L_Antenna_A_Ctrl_Offset_GrpMirror_Grp) at the origin.\n  5. Inserts it above the opposite-side node so it becomes a child of the new group.\n\nFields:\n- RunAfterBuild: Check True to defer execution until after the full build finishes (recommended if the Mirror_Grp nodes are generated by later blocks).\n\nTips:\n- Build this block after all mirrored rig components are in place.\n- The new mirror groups are created with identity transforms (at origin)."
+  },
+  {
+   "folder": "10_Hide",
+   "name": "Hide",
+   "desc": "Hides the specified nodes by setting their visibility to 0.",
+   "icon": "Hide.png",
+   "enable": "True",
+   "build": "exec_hide_v001.build_hide_block()",
+   "create": "exec_hide_v001.create_hide_block()",
+   "pyfile": "exec_hide_v001.py",
+   "attrs": {
+    "SetNodeList_string": ""
+   },
+   "help": "Overview:\n  Hides specified nodes by setting their visibility to 0.\n\nHow To Use:\n  Select the nodes in the scene and click 'Add Selected' below. Then click build.\n\nFields:\n- SetNodeList: List of nodes to hide."
+  },
+  {
+   "folder": "11_ToonEye",
+   "name": "ToonEye",
+   "desc": "Imports a toon eye rig from an external file, positions it at a locator guide, and optionally mirrors to the other side with L_/R_ prefixes.",
+   "icon": "ToonEye.png",
+   "enable": "True",
+   "build": "exec_tooneye_v001.build_tooneye_block()",
+   "create": "exec_tooneye_v001.create_tooneye_block()",
+   "pyfile": "exec_tooneye_v001.py",
+   "attrs": {
+    "SetCtrlParent_Hierarchy_string": "Rig_Ctrl_Grp",
+    "Mirror_enum": "True:False",
+    "EyeFile_string": "S:/shows/SN_FrogFight/assets/prop/eye/WIP/eyerig.ma"
+   },
+   "help": "Overview:\n  Imports a toon eye rig from an external Maya file and positions it at the locator guide.\n\nHow To Use:\n  1. Create the block and position the locator where you want the eye.\n  2. Set Mirror to True if you want both L_ and R_ eyes.\n  3. Click Build.\n\nFields:\n- SetCtrlParent: Parent destination for the eye group in the rig hierarchy.\n- Mirror: False builds a single eye. True builds both L_ and R_ sides (R_ is mirrored in X).\n- EyeFile: Path to the Maya file containing the eye rig to import."
+  },
+  {
+   "folder": "12_SetDefaults",
+   "name": "SetDefaults",
+   "desc": "Captures selected channel box attributes and their values, then restores them on build.",
+   "icon": "SetDefaults.png",
+   "enable": "True",
+   "build": "exec_set_defaults_v001.build_set_defaults_block()",
+   "create": "exec_set_defaults_v001.create_set_defaults_block()",
+   "pyfile": "exec_set_defaults_v001.py",
+   "attrs": {
+    "RunAfterBuild_bool": "False",
+    "SetDefaultsList_string": ""
+   },
+   "help": "Overview:\n  Captures selected channel box attributes and their current values, storing them for rebuild.\n\nHow To Use:\n  1. Create the block (no selection needed).\n  2. Select objects in the viewport and highlight attributes in the Channel Box.\n  3. Click Add to store those attribute values.\n  4. Select entries and click Remove to delete them.\n  5. On Build, those stored values will be set back on the controls.\n\nFields:\n- RunAfterBuild: Check True to defer execution until after the full build finishes (recommended if attributes are built by later blocks).\n- SetDefaultsList: List of node.attr = value entries.\n\nTips:\n- Each entry is stored as node.attr = value.\n- Supports any numeric attribute (float, int, bool, enum).\n- You can add from multiple objects across multiple Add actions."
+  },
+  {
+   "folder": "13_AnimCtrlRename",
+   "name": "AnimCtrlRename",
+   "desc": "Renames animation controls and all their related nodes (shapes, constraints, offset groups, etc.) based on a search-and-replace list.",
+   "icon": "Rename.png",
+   "enable": "True",
+   "build": "exec_anim_ctrl_rename_v001.build_animctrlrename_block()",
+   "create": "exec_anim_ctrl_rename_v001.create_animctrlrename_block()",
+   "pyfile": "exec_anim_ctrl_rename_v001.py",
+   "attrs": {
+    "RunBeforeBuild_bool": "False",
+    "RunAfterBuild_bool": "False",
+    "Revert_bool": "False",
+    "RenameList_string": ""
+   },
+   "help": "Overview:\n  Renames animation controls and all their related nodes (shapes, constraints, offset groups, etc.) based on a search-and-replace list.\n\nHow To Use:\n  1. Create the block.\n  2. Paste a two-column spreadsheet (old_name and new_name) or select controls and click Add Selected.\n  3. Double-click any entry in the list to edit it manually if needed.\n  4. When you click Build, all controls and their related constraints/shapes will be renamed safely.\n\nFields:\n- RunBeforeBuild: Check True to run renaming before the main build begins.\n- RunAfterBuild: Check True to defer execution until after the full build finishes (so shape files and skins are loaded first before renaming).\n- Revert: Check True to reverse the renaming direction (e.g. for entry old = new, 'new' will be renamed to 'old').\n- RenameList: List of old_name = new_name entries."
+  },
+  {
+   "folder": "14_VisAttrs",
+   "name": "VisAttrs",
+   "desc": "Creates visibility attributes (Off/On enum) on a target control and connects them to the visibility of specified nodes.",
+   "icon": "VisAttrs.png",
+   "enable": "True",
+   "build": "exec_vis_attrs_v001.build_vis_attrs_block()",
+   "create": "exec_vis_attrs_v001.create_vis_attrs_block()",
+   "pyfile": "exec_vis_attrs_v001.py",
+   "attrs": {
+    "SetTargetCtrl_string": "",
+    "VisAttrsList_string": "",
+    "DefaultOn_bool": "True"
+   },
+   "help": "Overview:\n  Creates visibility enum attributes (Off/On) on a target control and connects them to the visibility of specified nodes.\n\nHow To Use:\n  1. Create the block.\n  2. Select the control that will hold the visibility attributes, and click 'Add Selected' or type its name in SetTargetCtrl.\n  3. In VisAttrsList, specify the attribute name and the driven nodes in the format:\n     AttrName = Node1, Node2\n     Example:\n     Hair = L_Hair_Geo, R_Hair_Geo\n     Jacket = Jacket_Geo\n  4. When you click Build, the attributes will be added to the target control and connected to the nodes' visibility.\n\nFields:\n- SetTargetCtrl: The control that will hold the visibility attributes.\n- VisAttrsList: List of entries in the format: AttrName = Node1, Node2\n- DefaultOn: If True, attributes will default to On. If False, they will default to Off."
+  },
+  {
+   "folder": "15_Pickwalk",
+   "name": "Pickwalk",
+   "desc": "Imports pickwalk attributes from a JSON file and applies quickPick direction links to rig controls.",
+   "icon": "pickwalk.png",
+   "enable": "True",
+   "build": "exec_pickwalk_v001.build_pickwalk_block()",
+   "create": "exec_pickwalk_v001.create_pickwalk_block()",
+   "pyfile": "exec_pickwalk_v001.py",
+   "attrs": {
+    "RunBeforeBuild_bool": "False",
+    "RunAfterBuild_bool": "False",
+    "PickwalkFile_string": ""
+   },
+   "help": "Overview:\n  Imports pickwalk (quickPick) direction attributes from a JSON file and applies them to rig controls.\n\nHow To Use:\n  1. Create the block.\n  2. Set the PickwalkFile field to the path of your pickwalk JSON file, or click Browse to select one.\n  3. Click Build to import and apply the pickwalk attributes.\n\nFields:\n- PickwalkFile: Path to the pickwalk JSON file containing quickPick direction attributes.\n\nJSON Format:\n  The file should contain a dictionary of control names mapped to their quickPick attributes:\n  { \"Ctrl_Name\": { \"quickPick_left\": \"Other_Ctrl\", \"quickPick_right\": \"Another_Ctrl\" } }\n\nTips:\n- Use the pickwalk export tools to generate the JSON file from an existing rig.\n- Attributes are created if they don't exist, or updated if they do."
+  },
+  {
+   "folder": "16_SculptDeformer",
+   "name": "SculptDeformer",
+   "desc": "Sculpt Deformer with control and mirror support",
+   "icon": "SculptDeformer.png",
+   "enable": "True",
+   "build": "exec_sculpt_deformer_v001.build_sculpt_deformer_block()",
+   "create": "exec_sculpt_deformer_v001.create_sculpt_deformer_block()",
+   "pyfile": "exec_sculpt_deformer_v001.py",
+   "attrs": {
+    "SetGeo_string": "",
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "False:True:Right_Only",
+    "CtrlSize_float": "1",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey",
+    "RunAfterBuild_bool": "False",
+    "Scale_string": "10,1,10"
+   },
+   "help": "Overview:\n  Sculpt Deformer with control, two locators (sculptor + stretch origin), and mirror support.\n\nHow To Use:\n  Fill in the fields below then build.\n\nFields:\n- SetGeo: comma-separated list of target geometry names.\n- SetParent: parent node for the built rig. If left as 'new_locator', a placeholder locator is created.\n- Mirror: False builds as-is. True builds both L_ and R_ sides (auto-prefixes L_ if needed). Right_Only builds only the R_ side mirrored from the guide.\n- CtrlSize: size of the control curve (default 1).\n- CtrlColor: color of the control curve.\n- Scale: comma-separated XYZ scale for the sculpt deformer (default 10,1,10 for flattening).\n\nTips:\n- When Mirror is True, R_ side SetGeo names are auto-derived by replacing L_ with R_.\n- The sculptor locator drives the deformer position; the stretch origin sets the sculpt stretch origin.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt."
+  },
+  {
+   "folder": "17_sn_lips",
+   "name": "sn_lips",
+   "desc": "Will create mouth system (sn_lips version)",
+   "icon": "Lips.png",
+   "enable": "True",
+   "build": "exec_sn_lips_v001.build_sn_lips_block()",
+   "create": "exec_sn_lips_v001.create_sn_lips_block()",
+   "pyfile": "exec_sn_lips_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "SetupOption_enum": "Curve:Bezier",
+    "SetUpperEdge_string": "",
+    "SetLowerEdge_string": "",
+    "CtrlSize_float": 4
+   },
+   "help": "Overview:\n  Will create mouth system (sn_lips version).\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- SetupOption: choose one option (for example: Curve, Bezier).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- SetUpperEdge: set the node/object name this block should use.\n- Template parent examples: Jaw_Jnt, Head_Jnt, Head_Ctrl.\n- Template attrs-position examples: Lips_Center_Ctrl, Vis_Ctrl, Mouth_Jaw_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "custom_finger_scales",
+   "name": "Custom_Finger_Scales",
+   "desc": "Custom finger scaling system for independent phalange scaling. Parents all finger joints to Palm_Jnt and removes scale constraints for both L_ and R_ hands.",
+   "icon": "FingersScale.png",
+   "enable": "True",
+   "build": "exec_custom_finger_scales_v001.build_custom_finger_scales_block()",
+   "create": "exec_custom_finger_scales_v001.create_custom_finger_scales_block()",
+   "pyfile": "exec_custom_finger_scales_v001.py",
+   "attrs": {},
+   "help": "Overview:\n  Creates a system to scale each finger phalange independently.\n\nHow To Use:\n  Build this block after your rig hand joints and controls exist.\n\nBehavior:\n- Parents all finger joints to Palm_Jnt for both L_ and R_.\n- Removes all scale constraints from finger joints.\n- Connects control scale attributes to joint scale with axis remap.\n- Allows per-phalanx scaling for animation and rigging flexibility."
+  }
+ ],
+ "002_Biped": [
+  {
+   "folder": "001_SimpleSpine",
+   "name": "Spine",
+   "desc": "This will create a Simpler IK FK Spine System",
+   "icon": "SimpleSpine.png",
+   "enable": "True",
+   "build": "exec_simple_spine.build_spine_block()",
+   "create": "exec_simple_spine.create_spine_block()",
+   "pyfile": "exec_spine_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "CtrlSize_float": "4",
+    "SetGameParent_string": ""
+   },
+   "help": "Overview:\n  This will create a Simpler IK FK Spine System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- SetGameParent: set the node/object name this block should use.\n- Template parent examples: Spine_End_Jnt, Spine_Inv_Jnt, Spine_F_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "001_Spine",
+   "name": "Spine",
+   "desc": "This will create a IK FK Spine System",
+   "icon": "Spine.png",
+   "enable": "True",
+   "build": "exec_spine_v001.build_spine_block()",
+   "create": "exec_spine_v001.create_spine_block()",
+   "pyfile": "exec_spine_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "CtrlSize_float": "4",
+    "SetGameParent_string": "",
+    "Breath_bool": "False",
+    "OrientToWorld_bool": "True"
+   },
+   "help": "Overview:\n  This will create a IK FK Spine System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- Breath: turn this ON/OFF depending on whether you want that feature.\n- OrientToWorld: turn this ON/OFF depending on whether you want that feature.\n- SetGameParent: set the node/object name this block should use.\n- Template parent examples: Spine_End_Jnt, Spine_Inv_Jnt, Spine_F_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "002_Clavicle",
+   "name": "L_Clavicle",
+   "desc": "This will create a Clavicle system.",
+   "icon": "Clavicle.png",
+   "enable": "True",
+   "build": "exec_clavicle_v001.build_clavicle_block()",
+   "create": "exec_clavicle_v001.create_clavicle_block()",
+   "pyfile": "exec_clavicle_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "CtrlType_enum": "square:sphere:cube:octagon:hexagon:pringle:feet:hand:circleY:circleX:circleZ:3dArrow:2dArrow:mover:2dArrow:root:cog",
+    "CtrlSize_float": "4",
+    "SetGameParent_string": ""
+   },
+   "help": "Overview:\n  This will create a Clavicle system.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlType: choose one option (for example: square, sphere, cube, octagon).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- SetGameParent: set the node/object name this block should use.\n- Template parent examples: L_Clavicle_Jnt, L_Clavicle_Ctrl, StellarClavicle.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "003_Pelvis",
+   "name": "L_Pelvis",
+   "desc": "This will create a Pelvis System to connect your legs",
+   "icon": "Pelvis.png",
+   "enable": "True",
+   "build": "exec_pelvis_v001.build_pelvis_block()",
+   "create": "exec_pelvis_v001.create_pelvis_block()",
+   "pyfile": "exec_pelvis_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "CtrlType_enum": "hexagon:sphere:cube:square:octagon:pringle:feet:hand:circleY:circleX:circleZ:3dArrow:2dArrow:mover:2dArrow:root:cog",
+    "CtrlSize_float": "4",
+    "SetGameParent_string": ""
+   },
+   "help": "Overview:\n  This will create a Pelvis System to connect your legs.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlType: choose one option (for example: hexagon, sphere, cube, square).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- SetGameParent: set the node/object name this block should use.\n- Template parent examples: L_Pelvis_Jnt, L_Pelvis_Ctrl, L_LegSlideSlideDriver_Loc.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "004_Limb",
+   "name": "L_Shoulder,L_Elbow,L_Wrist",
+   "desc": "This will create a Limb System",
+   "icon": "Limb.png",
+   "enable": "True",
+   "build": "exec_limb_v001.build_limb_block()",
+   "create": "exec_limb_v001.create_limb_block()",
+   "pyfile": "exec_limb_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "Ribbons_bool": "True",
+    "ScaleTweakCtrls_bool": "False",
+    "ForceIkWorld_bool": "False",
+    "CtrlSize_float": "4",
+    "TwistAmount_float": "4",
+    "IkCtrlType_enum": "cube:sphere",
+    "PVCtrlType_enum": "sphere:cube",
+    "IkTopCtrlType_enum": "pin_cube:cube:sphere:circleY:circleX:circleY",
+    "FKCtrlType_enum": "bounding_cube:circleY:circleX:circleY:pin_cube",
+    "SetGameParent_string": ""
+   },
+   "help": "Overview:\n  This will create a Limb System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- Ribbons: turn this ON/OFF depending on whether you want that feature.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- TwistAmount: numeric value that controls size/amount/intensity (default 4).\n- IkCtrlType: choose one option (for example: cube, sphere).\n- Template parent examples: L_Wrist_Jnt, L_Elbow_Bnd_2_Bnd, R_Elbow_Bnd_2_Bnd.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "004_SimpleLimb",
+   "name": "L_Shoulder,L_Elbow,L_Wrist",
+   "desc": "This will create a simple Limb System",
+   "icon": "SimpleLimb.png",
+   "enable": "True",
+   "build": "exec_simplelimb_v001.build_limb_block()",
+   "create": "exec_simplelimb_v001.create_limb_block()",
+   "pyfile": "exec_simplelimb_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "Ribbons_bool": "True",
+    "CtrlSize_float": "4",
+    "TwistAmount_float": "3",
+    "RibbonCtrls_float": "3",
+    "IkCtrlType_enum": "cube:sphere",
+    "PVCtrlType_enum": "sphere:cube",
+    "IkTopCtrlType_enum": "pin_cube:cube:sphere:circleY:circleX:circleY",
+    "FKCtrlType_enum": "bounding_cube:circleY:circleX:circleY:pin_cube",
+    "SetGameParent_string": ""
+   },
+   "help": "Overview:\n  This will create a simple Limb System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- Ribbons: turn this ON/OFF depending on whether you want that feature.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- TwistAmount: numeric value that controls size/amount/intensity (default 3).\n- RibbonCtrls: numeric value that controls size/amount/intensity (default 3).\n- Template parent examples: L_Wrist_Jnt, L_Elbow_Bnd_2_Bnd, R_Elbow_Bnd_2_Bnd.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "005_Head",
+   "name": "Neck,Head",
+   "desc": "This will create a Neck and a Head System",
+   "icon": "HeadNeck.png",
+   "enable": "True",
+   "build": "exec_head_v001.build_head_block()",
+   "create": "exec_head_v001.create_head_block()",
+   "pyfile": "exec_head_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "HeadCtrlType_enum": "octagon:hexagon:square:sphere:cube:pringle:feet:hand:circleY:circleX:circleZ:3dArrow:2dArrow:mover:2dArrow:root:cog",
+    "Ribbon_bool": "True",
+    "SecundaryRibbon_float": "3",
+    "CtrlSize_float": "4",
+    "CtrlColor_enum": "yellow:lightBlue:blue:white:purple:green:red:grey",
+    "SetGameParent_string": ""
+   },
+   "help": "Overview:\n  This will create a Neck and a Head System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- HeadCtrlType: choose one option (for example: octagon, hexagon, square, sphere).\n- Ribbon: turn this ON/OFF depending on whether you want that feature.\n- SecundaryRibbon: numeric value that controls size/amount/intensity (default 3).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlColor: choose one option (for example: yellow, lightBlue, blue, white).\n- Template parent examples: Head_Jnt, L_Hand_Ankle_Jnt, Head_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "006_Hand",
+   "name": "L_Hand",
+   "desc": "Hand Block with 5 fingers or less",
+   "icon": "Hand.png",
+   "enable": "True",
+   "build": "exec_hand_v001.build_hand_block()",
+   "create": "exec_hand_v001.create_hand_block()",
+   "pyfile": "exec_hand_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsCtrl_string": "new_ctrl",
+    "CreateFingersAttrs_bool": "True",
+    "SetVisAttr_string": "",
+    "SetCtrlAttrsParent_string": "L_Hand_Palm_Jnt",
+    "CtrlSize_float": "4",
+    "CtrlType_enum": "circleX:circleY:circleZ:bounding_cube:pin_cube",
+    "Mirror_enum": "True:False:Right_Only",
+    "SetGameParent_string": ""
+   },
+   "help": "Overview:\n  Hand Block with 5 fingers or less.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsCtrl: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CreateFingersAttrs: turn this ON/OFF depending on whether you want that feature.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlType: choose one option (for example: circleX, circleY, circleZ, bounding_cube).\n- Mirror: choose one option (for example: True, False, Right_Only).\n- Template parent examples: L_Hand_Ankle_Jnt, L_Hand_Palm_Jnt, Spine_End_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "007_Foot",
+   "name": "L_Foot",
+   "desc": "This will create a Foot System for FK and IK Legs",
+   "icon": "Foot.png",
+   "enable": "True",
+   "build": "exec_foot_v001.build_foot_block()",
+   "create": "exec_foot_v001.create_foot_block()",
+   "pyfile": "exec_foot_v001.py",
+   "attrs": {
+    "SetIKCtrl_string": "new_locator",
+    "SetFKCtrl_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "SwitchIKFKAttr_string": "new_attr",
+    "IkAttrsPosition_string": "new_locator",
+    "IKLeg_string": "new_locator",
+    "CtrlSize_float": "1",
+    "SetGameParent_string": "",
+    "ParallelToFloor_bool": false
+   },
+   "help": "Overview:\n  This will create a Foot System for FK and IK Legs.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlSize: numeric value that controls size/amount/intensity (default 1).\n- SetIKCtrl: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetFKCtrl: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SwitchIKFKAttr: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- IkAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- ParallelToFloor: if checked, the L_Foot_Toes_Ctrl will be oriented parallel to the floor (custom code required in Python).\n- Template parent examples: L_Hand_Ankle_Jnt, L_Foot_Ankle_Jnt, L_LegSlideSlideDriver_Loc.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "008_Eyes",
+   "name": "L_Eyes",
+   "desc": "Will create eyes aim system",
+   "icon": "Eyes.png",
+   "enable": "True",
+   "build": "exec_eyes_v001.build_eyes_block()",
+   "create": "exec_eyes_v001.create_eyes_block()",
+   "pyfile": "exec_eyes_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "EyesAmount_enum": "Two:One",
+    "CtrlSize_float": "4"
+   },
+   "help": "Overview:\n  Will create eyes aim system.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- EyesAmount: choose one option (for example: Two, One).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "009_Smart_RFL",
+   "name": "Smart_RFL",
+   "desc": "Will create a fancy RFL system for current Feet",
+   "icon": "RFL.png",
+   "enable": "True",
+   "build": "exec_smart_rfl_v001.build_smart_rfl_block()",
+   "create": "exec_smart_rfl_v001.create_smart_rfl_block()",
+   "pyfile": "exec_smart_rfl_v001.py",
+   "attrs": {
+    "SetRFLAttrsPosition_string": "L_Ankle_Ik_Ctrl",
+    "AltMode_enum": "Original:SCL:SN",
+    "TransferAttrs_bool": "True",
+    "SetFootBlockName_string": ""
+   },
+   "help": "Overview:\n  Will create a fancy RFL system for current Feet.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- AltMode: choose Original, SCL, or SN. Original keeps the classic Smart RFL behavior, SCL matches the legacy Alt Mode, and SN uses the alternate setup with RY behaving like PivotBallFloor.\n- TransferAttrs: turn this ON/OFF depending on whether you want that feature.\n- SetRFLAttrsPosition: set the node/object name this block should use.\n- SetFootBlockName: set the foot block base name this block should use for SCL and SN.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "010_FootBox",
+   "name": "L_FootBox",
+   "desc": "Create foot boxes geos for the foot block",
+   "icon": "FootBox.png",
+   "enable": "True",
+   "build": "exec_footbox_v001.build_footbox_block()",
+   "create": "exec_footbox_v001.create_footbox_block()",
+   "pyfile": "exec_footbox_v001.py",
+   "attrs": {
+    "SetToes_string": "",
+    "SetBallFloor_string": "",
+    "SetHeel_string": "",
+    "SetIn_string": "",
+    "SetOut_string": "",
+    "SetBallParent_string": "",
+    "SetHeelParent_string": "",
+    "Mirror_bool": "True",
+    "Color_enum": "pink:orange:blue:light_blue:red:green:purple:yellow:cyan:gray:brown",
+    "SetAttrsPosition_string": "new_locator",
+    "ForceYZero_bool": "True"
+   },
+   "help": "Overview:\n  Create foot boxes geos for the foot block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: turn this ON/OFF depending on whether you want that feature.\n- Color: choose one option (for example: pink, orange, blue, light_blue).\n- ForceYZero: turn this ON/OFF depending on whether you want that feature.\n- SetToes: set the node/object name this block should use.\n- SetBallFloor: set the node/object name this block should use.\n- Template parent examples: L_Foot_Ankle_Jnt, Spine_End_Jnt, Head_Jnt.\n- Template attrs-position examples: Vis_Ctrl, L_Eyelids_Scale_Ctrl, L_Brow_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "011_Hair",
+   "name": "Hair",
+   "desc": "Will create multiple FK chains for a hair setup.",
+   "icon": "Hair.png",
+   "enable": "True",
+   "build": "exec_hair_v001.build_hair_block()",
+   "create": "exec_hair_v001.create_hair_block()",
+   "pyfile": "exec_hair_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_bool": "False",
+    "AutoRotate_bool": "False",
+    "SubAutoRotate_bool": "False",
+    "CtrlSize_float": "1",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey",
+    "CtrlType_enum": "circleY:circleX:circleZ:square:sphere:cube:octagon:hexagon:pringle:feet:hand:3dArrow:2dArrow:mover:2dArrow:root:cog",
+    "TwistAxis_enum": "X:Y:Z",
+    "SetLockPin_string": "",
+    "SetLockGuides_string": "",
+    "SetLockAttrs_string": ""
+   },
+   "help": "Overview:\n  Will create multiple FK chains for a hair setup.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: turn this ON/OFF depending on whether you want that feature.\n- AutoRotate: turn this ON/OFF depending on whether you want that feature.\n- SubAutoRotate: turn this ON/OFF depending on whether you want that feature.\n- CtrlSize: numeric value that controls size/amount/intensity (default 1).\n- CtrlColor: choose one option (for example: lightBlue, blue, white, purple).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "012_AutoClavicle",
+   "name": "AutoClavicle",
+   "desc": "This will create an automatic clavicle reader system.",
+   "icon": "AutoClavicle.png",
+   "enable": "True",
+   "build": "exec_autoclavicle_v001.build_auto_clavicle_block()",
+   "create": "exec_autoclavicle_v001.create_auto_clavicle_block()",
+   "pyfile": "exec_autoclavicle_v001.py",
+   "attrs": {
+    "ClavicleCtrl_string": "L_Clavicle_Ctrl",
+    "FKShoulderCtrl_string": "L_Shoulder_FK_Ctrl",
+    "Mirror_enum": "True:False"
+   },
+   "help": "Overview:\n  This will create an automatic clavicle reader system.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- ClavicleCtrl: set the clavicle control name.\n- FKShoulderCtrl: set the FK shoulder controller name.\n- Mirror: choose one option (for example: True, False, Right_Only).\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "013_LegSoftIK",
+   "name": "LegSoftIK",
+   "desc": "Creates a utility Soft IK setup for existing biped legs.",
+   "icon": "softIkLeg.png",
+   "enable": "True",
+   "build": "exec_leg_softik_v001.build_leg_softik_block()",
+   "create": "exec_leg_softik_v001.create_leg_softik_block()",
+   "pyfile": "exec_leg_softik_v001.py",
+   "attrs": {
+    "Mirror_enum": "True:False:Right_Only",
+    "LeftAnkleCtrl_string": "L_Ankle_Ik_Ctrl",
+    "LeftSoftIkAttrHolder_string": "L_Hip_Jnt_Switch_Loc",
+    "LeftSoftAttrHolder_string": "L_Ankle_Ik_Ctrl",
+    "LeftAnkleRFLGroup_string": "L_Foot_Ankle_RFL_Grp",
+    "LeftPelvisCtrl_string": "L_Pelvis_Ctrl",
+    "LeftIKHandle_string": "L_Ankle_Ik_IKrp",
+    "LeftKneeIkJoint_string": "L_Knee_Ik_Jnt",
+    "LeftStretchAttr_string": "L_KneeMid_Bendy_Ctrl|L_Hip_Jnt_Switch_Loc.Stretch_On",
+    "LeftPinAttr_string": "L_KneeMid_Bendy_Ctrl|L_Hip_Jnt_Switch_Loc.Pole_Vector_Lock",
+    "GlobalScaleAttr_string": "Global_Ctrl.size",
+    "MoverScaleAttr_string": "Mover_Ctrl.size"
+   },
+   "help": "Overview:\n  Creates a utility Soft IK setup for existing biped legs.\n\nHow To Use:\n  build the leg and foot first, then select this block and run Build.\n\nFields:\n- Mirror: build left only, right only, or both sides from the left-side names below.\n- LeftAnkleCtrl: IK ankle control used by the leg Soft IK setup.\n- LeftSoftIkAttrHolder: node that will receive the SoftIk attr and drive Soft IK amount. Right side is mirrored automatically.\n- LeftSoftAttrHolder: deprecated legacy holder for compatibility.\n- LeftAnkleRFLGroup: reverse foot ankle group that will own the Soft IK offset groups.\n- LeftPelvisCtrl: pelvis or hip control used as the upper distance target.\n- LeftIKHandle: ankle IK handle to offset with Soft IK.\n- LeftKneeIkJoint: knee IK joint driven through plusMinusAverage.\n- LeftStretchAttr: stretch enable attr path used by the expression.\n- LeftPinAttr: pole vector pin attr path used by the expression.\n- GlobalScaleAttr: normalized global size attr path.\n- MoverScaleAttr: normalized mover size attr path.\n\nTips:\n- Default values assume the standard biped limb and foot naming.\n- DistanceDimension nodes are parented under the misc rig group.\n- Rebuild after changing any of the paths above."
+  },
+  {
+   "folder": "01_SmartHand",
+   "name": "SmartHand",
+   "desc": "Control Fingers in a smarter way.",
+   "icon": "SmartHand.png",
+   "enable": "True",
+   "build": "exec_smarthand_v001.build_smarthand_block()",
+   "create": "exec_smarthand_v001.create_smarthand_block()",
+   "pyfile": "exec_smarthand_v001.py",
+   "attrs": {
+    "HandBlock_string": "L_Hand",
+    "Mode_enum": "A:B"
+   },
+   "help": "Overview:\n  Control Fingers in a smarter way.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- HandBlock: set the node/object name this block should use.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "02_ClavicleAdvance",
+   "name": "ClavicleAdvance",
+   "desc": "This will create a Clavicle Advance system",
+   "icon": "ClavicleAdvance.png",
+   "enable": "True",
+   "build": "exec_clavicleadvance_v001.build_clavicleadvance_block()",
+   "create": "exec_clavicleadvance_v001.create_clavicleadvance_block()",
+   "pyfile": "exec_clavicleadvance_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "TwistAmount_float": "4",
+    "Ribbon_bool": "True",
+    "SetGameParent_string": ""
+   },
+   "help": "Overview:\n  This will create a Clavicle Advance system.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- TwistAmount: numeric value that controls size/amount/intensity (default 4).\n- Ribbon: turn this ON/OFF depending on whether you want that feature.\n- SetGameParent: set the node/object name this block should use.\n- Template parent examples: L_Clavicle_Jnt, L_Clavicle_Ctrl, StellarClavicle.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  }
+ ],
+ "003_Facial": [
+  {
+   "folder": "001_Skull",
+   "name": "Skull",
+   "desc": "Create base structure for head rig",
+   "icon": "Skull.png",
+   "enable": "True",
+   "build": "exec_skull_v001.build_skull_block()",
+   "create": "exec_skull_v001.create_skull_block()",
+   "pyfile": "exec_skull_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "CtrlType_enum": "cube:square:circleX:circleY:circleZ",
+    "CtrlSize_float": "4",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey"
+   },
+   "help": "Overview:\n  Create base structure for head rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlType: choose one option (for example: cube, square, circleX, circleY).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlColor: choose one option (for example: lightBlue, blue, white, purple).\n- Template parent examples: Head_Jnt, Head_Ctrl, Spine_End_Jnt.\n- Template attrs-position examples: Nose_Base_Ctrl, Vis_Ctrl, L_Brow_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "002_Jaw",
+   "name": "Jaw",
+   "desc": "Will create jaw rig",
+   "icon": "Jaw.png",
+   "enable": "True",
+   "build": "exec_jaw_v001.build_jaw_block()",
+   "create": "exec_jaw_v001.create_jaw_block()",
+   "pyfile": "exec_jaw_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "CtrlType_enum": "circleY:circleX:circleZ:square",
+    "CtrlSize_float": "4",
+    "GameMode_bool": "False"
+   },
+   "help": "Overview:\n  Will create jaw rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlType: choose one option (for example: circleY, circleX, circleZ, square).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- GameMode: turn this ON/OFF depending on whether you want that feature.\n- Template parent examples: Jaw_Jnt, Head_Jnt, Head_Ctrl.\n- Template attrs-position examples: Vis_Ctrl, Jaw_Ctrl, Lips_Center_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "003_Mouth",
+   "name": "Lips",
+   "desc": "Will create mouth system",
+   "icon": "Lips.png",
+   "enable": "True",
+   "build": "exec_mouth_v001.build_mouth_block()",
+   "create": "exec_mouth_v001.create_mouth_block()",
+   "pyfile": "exec_mouth_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "SetupOption_enum": "Curve:Bezier",
+    "SetUpperEdge_string": "",
+    "SetLowerEdge_string": "",
+    "CtrlSize_float": 4
+   },
+   "help": "Overview:\n  Will create mouth system.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- SetupOption: choose one option (for example: Curve, Bezier).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- SetUpperEdge: set the node/object name this block should use.\n- Template parent examples: Jaw_Jnt, Head_Jnt, Head_Ctrl.\n- Template attrs-position examples: Lips_Center_Ctrl, Vis_Ctrl, Mouth_Jaw_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "003_MouthGames",
+   "name": "Mouth",
+   "desc": "Create JaW and Lips System for Games",
+   "icon": "MouthGames.png",
+   "enable": "True",
+   "build": "exec_mouthgames_v001.build_mouthgames_block()",
+   "create": "exec_mouthgames_v001.create_mouthgames_block()",
+   "pyfile": "exec_mouthgames_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "SetUpperEdge_string": "",
+    "SetLowerEdge_string": "",
+    "TweakCtrlsAmount_float": 7,
+    "MidCtrlsAmount_float": 5,
+    "CtrlSize_float": 4
+   },
+   "help": "Overview:\n  Create JaW and Lips System for Games.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- TweakCtrlsAmount: numeric value that controls size/amount/intensity (default 7).\n- MidCtrlsAmount: numeric value that controls size/amount/intensity (default 5).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- SetUpperEdge: set the node/object name this block should use.\n- Template parent examples: Jaw_Jnt, Head_Jnt, Head_Ctrl.\n- Template attrs-position examples: Lips_Center_Ctrl, Vis_Ctrl, Mouth_Jaw_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "003_RibbonMouth",
+   "name": "Lips",
+   "desc": "Will create ribbons mouth system",
+   "icon": "RibbonLips.png",
+   "enable": "True",
+   "build": "exec_ribbon_mouth_v001.build_mouth_block()",
+   "create": "exec_ribbon_mouth_v001.create_mouth_block()",
+   "pyfile": "exec_ribbon_mouth_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "SetUpperEdge_string": "",
+    "SetLowerEdge_string": "",
+    "CtrlSize_float": 4
+   },
+   "help": "Overview:\n  Will create ribbons mouth system.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- SetUpperEdge: set the node/object name this block should use.\n- SetLowerEdge: set the node/object name this block should use.\n- Template parent examples: Jaw_Jnt, Head_Jnt, Head_Ctrl.\n- Template attrs-position examples: Lips_Center_Ctrl, Vis_Ctrl, Mouth_Jaw_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "004_Eyelids",
+   "name": "L_Eyelids",
+   "desc": "Eyelids Setup by Marco Giordano video\n",
+   "icon": "Eyes.png",
+   "enable": "True",
+   "build": "exec_eyelids_v001.build_eyelids_block()",
+   "create": "exec_eyelids_v001.create_eyelids_block()",
+   "pyfile": "exec_eyelids_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "SetUpperEdge_string": "",
+    "SetLowerEdge_string": "",
+    "SetEyePivot_string": "",
+    "CtrlSize_float": 4,
+    "LimitCtrl_bool": "True",
+    "GameMode_bool": "False",
+    "BindJoints_enum": "PerVtx:3:1"
+   },
+   "help": "Overview:\n  Eyelids Setup by Marco Giordano video.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- LimitCtrl: turn this ON/OFF depending on whether you want that feature.\n- GameMode: turn this ON/OFF depending on whether you want that feature.\n- Template parent examples: Head_Jnt, Head_Ctrl, Spine_End_Jnt.\n- Template attrs-position examples: L_Eyelids_Scale_Ctrl, Vis_Ctrl, L_Brow_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "005_Nose",
+   "name": "Nose",
+   "desc": "Will create a local nose rig",
+   "icon": "Nose.png",
+   "enable": "True",
+   "build": "exec_nose_v001.build_nose_block()",
+   "create": "exec_nose_v001.create_nose_block()",
+   "pyfile": "exec_nose_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "CtrlSize_float": "4"
+   },
+   "help": "Overview:\n  Will create a local nose rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- Template parent examples: Head_Jnt, Head_Ctrl, Jaw_Jnt.\n- Template attrs-position examples: Nose_Base_Ctrl, Vis_Ctrl, L_Brow_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "006_Cheeks",
+   "name": "L_Cheecks",
+   "desc": "Will create a local Cheeck rig",
+   "icon": "Cheeks.png",
+   "enable": "True",
+   "build": "exec_cheeks_v001.build_cheek_block()",
+   "create": "exec_cheeks_v001.create_cheek_block()",
+   "pyfile": "exec_cheeks_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "CtrlSize_float": "4"
+   },
+   "help": "Overview:\n  Will create a local Cheeck rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- Template parent examples: Head_Jnt, Head_Ctrl, Spine_End_Jnt.\n- Template attrs-position examples: L_Cheecks_Main_Ctrl, Vis_Ctrl, L_Brow_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "007_CheeksAdvance",
+   "name": "L_Cheecks",
+   "desc": "Will create a local Cheeck rig",
+   "icon": "CheeksAdvance.png",
+   "enable": "True",
+   "build": "exec_cheeks_advance_v001.build_cheek_block()",
+   "create": "exec_cheeks_advance_v001.create_cheek_block()",
+   "pyfile": "exec_cheeks_advance_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "CtrlSize_float": "4"
+   },
+   "help": "Overview:\n  Will create a local Cheeck rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- Template parent examples: Head_Jnt, Head_Ctrl, Spine_End_Jnt.\n- Template attrs-position examples: L_Cheecks_Main_Ctrl, Vis_Ctrl, L_Brow_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "008_Brows",
+   "name": "L_Brow",
+   "desc": "Will create a local Brows rig",
+   "icon": "Brows.png",
+   "enable": "True",
+   "build": "exec_brows_v001.build_brows_block()",
+   "create": "exec_brows_v001.create_brows_block()",
+   "pyfile": "exec_brows_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "SetAttrsPosition_string": "new_locator",
+    "CtrlSize_float": "4",
+    "GameMode_bool": "False"
+   },
+   "help": "Overview:\n  Will create a local Brows rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- GameMode: turn this ON/OFF depending on whether you want that feature.\n- Template parent examples: Head_Jnt, Head_Ctrl, Spine_End_Jnt.\n- Template attrs-position examples: L_Brow_Ctrl, Vis_Ctrl, L_Eyelids_Scale_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "009_BrowsAdvance",
+   "name": "L_Brow",
+   "desc": "Will create a local Advance Brows Rig",
+   "icon": "BrowsAdvance.png",
+   "enable": "True",
+   "build": "exec_brows_advance_v001.build_brows_advance_block()",
+   "create": "exec_brows_advance_v001.create_brows_advance_block()",
+   "pyfile": "exec_brows_advance_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "SetAttrsPosition_string": "new_locator",
+    "CtrlSize_float": "4"
+   },
+   "help": "Overview:\n  Will create a local Advance Brows Rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- Template parent examples: Head_Jnt, Head_Ctrl, Spine_End_Jnt.\n- Template attrs-position examples: L_Brow_Ctrl, Vis_Ctrl, L_Eyelids_Scale_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "010_Tongue",
+   "name": "Tongue",
+   "desc": "create Tongue system",
+   "icon": "Tongue.png",
+   "enable": "True",
+   "build": "exec_tongue_v001.build_tongue_block()",
+   "create": "exec_tongue_v001.create_tongue_block()",
+   "pyfile": "exec_tongue_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "CtrlSize_float": "4",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey"
+   },
+   "help": "Overview:\n  create Tongue system.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlColor: choose one option (for example: lightBlue, blue, white, purple).\n- Template parent examples: Jaw_Jnt, Head_Jnt, Head_Ctrl.\n- Template attrs-position examples: Vis_Ctrl, Lips_Center_Ctrl, Jaw_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "011_Teeth",
+   "name": "Teeth",
+   "desc": "Will Create Teeth System",
+   "icon": "Teeth.png",
+   "enable": "True",
+   "build": "exec_teeth_v001.build_teeth_block()",
+   "create": "exec_teeth_v001.create_teeth_block()",
+   "pyfile": "exec_teeth_v001.py",
+   "attrs": {
+    "SetUprParent_string": "new_locator",
+    "SetLwrParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "SetJawJnt_string": "",
+    "UprTeeth_bool": "True",
+    "LwrTeeth_bool": "True",
+    "CtrlSize_float": "4"
+   },
+   "help": "Overview:\n  Will Create Teeth System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- UprTeeth: turn this ON/OFF depending on whether you want that feature.\n- LwrTeeth: turn this ON/OFF depending on whether you want that feature.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- SetUprParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetLwrParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Jaw_Jnt, Head_Jnt, Head_Ctrl.\n- Template attrs-position examples: Vis_Ctrl, Lips_Center_Ctrl, Jaw_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "012_Commissures",
+   "name": "Commissures",
+   "desc": "This will create a commissures systeam for the lips blendshapes",
+   "icon": "Commissures.png",
+   "enable": "True",
+   "build": "exec_commissures_v001.build_commissures_block()",
+   "create": "exec_commissures_v001.create_commissures_block()",
+   "pyfile": "exec_commissures_v001.py",
+   "attrs": {
+    "LeftCornerCtrl_string": "new_locator",
+    "RightCornerCtrl_string": "new_locator"
+   },
+   "help": "Overview:\n  This will create a commissures systeam for the lips blendshapes.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- LeftCornerCtrl: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- RightCornerCtrl: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "013_Orbicularis",
+   "name": "L_Orbicularis",
+   "desc": "Will create Orbicularis Outside Eyelids Rig",
+   "icon": "Orbicularis.png",
+   "enable": "True",
+   "build": "exec_orbicularis_v001.build_orbicularis_block()",
+   "create": "exec_orbicularis_v001.create_orbicularis_block()",
+   "pyfile": "exec_orbicularis_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetGeo_string": ""
+   },
+   "help": "Overview:\n  Will create Orbicularis Outside Eyelids Rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetGeo: set the node/object name this block should use.\n- Template parent examples: Head_Jnt, Head_Ctrl, Spine_End_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "014_MouthPostBuilds",
+   "name": "MouthPostBuilds",
+   "desc": "WIll Improve current Mouth Systems",
+   "icon": "LipsPost.png",
+   "enable": "True",
+   "build": "exec_mouthpostbuilds_v001.build_mouthpostbuilds_block()",
+   "create": "exec_mouthpostbuilds_v001.create_mouthpostbuilds_block()",
+   "pyfile": "exec_mouthpostbuilds_v001.py",
+   "attrs": {
+    "name_string": "Lips"
+   },
+   "help": "Overview:\n  WIll Improve current Mouth Systems.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- name: set the node/object name this block should use.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "015_VisAttrs",
+   "name": "VisAttrs",
+   "desc": "This will create a ctrl to hold vis attrs",
+   "icon": "VisAttrs.png",
+   "enable": "True",
+   "build": "exec_visattrs_v001.build_visattrs_block()",
+   "create": "exec_visattrs_v001.create_visattrs_block()",
+   "pyfile": "exec_visattrs_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  This will create a ctrl to hold vis attrs.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Head_Ctrl, Head_Jnt, Spine_End_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "016_StickyLips",
+   "name": "StickyLips",
+   "desc": "StickyLips System",
+   "icon": "Sticky.png",
+   "enable": "True",
+   "build": "exec_stickylips_v001.build_stickylips_block()",
+   "create": "exec_stickylips_v001.create_stickylips_block()",
+   "pyfile": "exec_stickylips_v001.py",
+   "attrs": {
+    "SetJawBone_string": "",
+    "SetNotJawBone_string": "",
+    "SetLeftMouthCtrl_string": "new_locator",
+    "SetMouthEdge_string": "",
+    "SetFaceGeo_string": ""
+   },
+   "help": "Overview:\n  StickyLips System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetJawBone: set the node/object name this block should use.\n- SetNotJawBone: set the node/object name this block should use.\n- SetLeftMouthCtrl: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetMouthEdge: set the node/object name this block should use.\n- SetFaceGeo: set the node/object name this block should use.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "017_PupilDilation",
+   "name": "L_PupilDilation",
+   "desc": "Will create pupil dilation system",
+   "icon": "Pupil.png",
+   "enable": "True",
+   "build": "exec_pupil_dilation_v001.build_pupil_dilation_block()",
+   "create": "exec_pupil_dilation_v001.create_pupil_dilation_block()",
+   "pyfile": "exec_pupil_dilation_v001.py",
+   "attrs": {
+    "SetEyeMesh_string": "",
+    "SetEyeEdgeRing_string": "",
+    "SetIrisEdgeLoop_string": "",
+    "SetBlendShapeNode_string": "new_blendshape_node",
+    "SetTargetCtrl_string": "",
+    "Mirror_bool": "True"
+   },
+   "help": "Overview:\n  Will create pupil dilation system.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetTargetCtrl: set the node/object name this block should use.\n- Mirror: turn this ON/OFF depending on whether you want that feature.\n- SetEyeMesh: set the node/object name this block should use.\n- SetEyeEdgeRing: set the node/object name this block should use.\n- SetIrisEdgeLoop: set the node/object name this block should use.\n- SetBlendShapeNode: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template target ctrl examples: Eyes_Main_Ctrl, Head_Ctrl, Neck_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "018_Eyelashes",
+   "name": "Eyelashes",
+   "desc": "This will create an eyelash system over the eye block",
+   "icon": "Eyelashes.png",
+   "enable": "True",
+   "build": "exec_eyelashes_v001.build_eyelashes_block()",
+   "create": "exec_eyelashes_v001.create_eyelashes_block()",
+   "pyfile": "exec_eyelashes_v001.py",
+   "attrs": {
+    "EyeName_string": "L_Eyelids",
+    "SetAttrsPosition_string": "new_locator"
+   },
+   "help": "Overview:\n  This will create an eyelash system over the eye block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- EyeName: set the node/object name this block should use.\n- Template attrs-position examples: Vis_Ctrl, L_Brow_Ctrl, L_Eyelids_Scale_Ctrl.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  }
+ ],
+ "004_Animals": [
+  {
+   "folder": "01_WingModule",
+   "name": "L_WingExtra",
+   "desc": "Will Create single Wing Module",
+   "icon": "WingModule.png",
+   "enable": "True",
+   "build": "exec_wingmodule_v001.build_wingmodule_block()",
+   "create": "exec_wingmodule_v001.create_wingmodule_block()",
+   "pyfile": "exec_wingmodule_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Amount_float": "5",
+    "Mirror_bool": "True"
+   },
+   "help": "Overview:\n  Will Create single Wing Module.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Amount: numeric value that controls size/amount/intensity (default 5).\n- Mirror: turn this ON/OFF depending on whether you want that feature.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "01_Wings",
+   "name": "Wings",
+   "desc": "Create Wings System RdM Wings",
+   "icon": "Wing.png",
+   "enable": "True",
+   "build": "exec_wings_v001.build_wings_block()",
+   "create": "exec_wings_v001.create_wings_block()",
+   "pyfile": "exec_wings_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Create Wings System RdM Wings.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "02_AntLeg",
+   "name": "L_Front_AntLeg",
+   "desc": "This will create a AntLeg System",
+   "icon": "AntLeg.png",
+   "enable": "True",
+   "build": "exec_antleg_v001.build_antleg_block()",
+   "create": "exec_antleg_v001.create_antleg_block()",
+   "pyfile": "exec_antleg_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only"
+   },
+   "help": "Overview:\n  This will create a AntLeg System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- Template parent examples: L_FrontDoor_Ctrl, Spine_End_Jnt, Head_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "02_Tail",
+   "name": "Tail",
+   "desc": "Create IK/FK Tail System",
+   "icon": "Tail.png",
+   "enable": "True",
+   "build": "exec_tail_v001.build_tail_block()",
+   "create": "exec_tail_v001.create_tail_block()",
+   "pyfile": "exec_tail_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "FkCtrls_float": "5",
+    "Joints_float": "10"
+   },
+   "help": "Overview:\n  Create IK/FK Tail System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- FkCtrls: numeric value that controls size/amount/intensity (default 5).\n- Joints: numeric value that controls size/amount/intensity (default 10).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "03_QuadLimb",
+   "name": "L_Hip,L_Knee,L_Ankle,L_Ball",
+   "desc": "Create a Quadruped Leg",
+   "icon": "Quad_Limb.png",
+   "enable": "True",
+   "build": "exec_quadlimb_v001.build_quadlimb_block()",
+   "create": "exec_quadlimb_v001.create_quadlimb_block()",
+   "pyfile": "exec_quadlimb_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "DogMode_enum": "Back:Front",
+    "ForcePoleVectorDistance_enum": "Off:Leg_Distance:Half_Leg_Distance:Third_Leg_Distance:Double_Leg_Distance:Positive_1_5",
+    "CtrlSize_float": "4",
+    "TwistAmount_float": "4",
+    "CreateRibbons_bool": "True",
+    "AutoOrient_bool": "True",
+    "IkOrient_enum": "World:FootY"
+   },
+   "help": "Overview:\n  Create a Quadruped Leg.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- DogMode: choose one option (for example: Back, Front).\n- ForcePoleVectorDistance: choose one option (Off, Leg_Distance, Half_Leg_Distance, Third_Leg_Distance, Double_Leg_Distance, Positive_1_5). Off = default pole vector distance; Leg/Half/Third/Double force the pole vector locator to a distance based on the leg's own length, direction auto-flipped by DogMode (Front = Z+, Back = Z-) to keep the IK pole vector stable; Positive_1_5 forces a fixed Z+1.5 regardless of DogMode.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- TwistAmount: numeric value that controls size/amount/intensity (default 4).\n- CreateRibbons: turn this ON/OFF depending on whether you want that feature.\n- Template parent examples: L_Hand_Ankle_Jnt, L_Foot_Ankle_Jnt, L_FrAnkle_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "04_Snake",
+   "name": "Snake",
+   "desc": "Will create a Snake System",
+   "icon": "Snake.png",
+   "enable": "True",
+   "build": "exec_snake_v001.build_snake_block()",
+   "create": "exec_snake_v001.create_snake_block()",
+   "pyfile": "exec_snake_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Will create a Snake System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "05_QuadSpine",
+   "name": "QuadSpine",
+   "desc": "This will create a QuadSpine System",
+   "icon": "QuadSpine.png",
+   "enable": "True",
+   "build": "exec_quadspine_v001.build_quadspine_block()",
+   "create": "exec_quadspine_v001.create_quadspine_block()",
+   "pyfile": "exec_quadspine_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "CtrlSize_float": "4"
+   },
+   "help": "Overview:\n  This will create a QuadSpine System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "06_AnimalMouth",
+   "name": "Lips",
+   "desc": "Animal Lips System",
+   "icon": "AnimalMouth.png",
+   "enable": "True",
+   "build": "exec_animalmouth_v001.build_animalmouth_block()",
+   "create": "exec_animalmouth_v001.create_animalmouth_block()",
+   "pyfile": "exec_animalmouth_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetGeo_string": ""
+   },
+   "help": "Overview:\n  Animal Lips System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetGeo: set the node/object name this block should use.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  }
+ ],
+ "005_Clothes": [
+  {
+   "folder": "01_Cap",
+   "name": "Cap",
+   "desc": "Create a Cap System",
+   "icon": "Cap.png",
+   "enable": "False",
+   "build": "exec_cap_v001.build_cap_block()",
+   "create": "exec_cap_v001.create_cap_block()",
+   "pyfile": "exec_cap_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Create a Cap System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "03_Pin",
+   "name": "Pin",
+   "desc": "Create a Pin System",
+   "icon": "Pin.png",
+   "enable": "False",
+   "build": "exec_pin_v001.build_pin_block()",
+   "create": "exec_pin_v001.create_pin_block()",
+   "pyfile": "exec_pin_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Create a Pin System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Spine_End_Jnt, Spine_Inv_Jnt, Spine_F_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "04_Skirt",
+   "name": "Skirt",
+   "desc": "Create a Skirt System",
+   "icon": "Skirt.png",
+   "enable": "True",
+   "build": "exec_skirt_v001.build_skirt_block()",
+   "create": "exec_skirt_v001.create_skirt_block()",
+   "pyfile": "exec_skirt_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Create a Skirt System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "05_Tie",
+   "name": "Tie",
+   "desc": "Create a Tie System",
+   "icon": "Tie.png",
+   "enable": "False",
+   "build": "exec_tie_v001.build_tie_block()",
+   "create": "exec_tie_v001.create_tie_block()",
+   "pyfile": "exec_tie_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Create a Tie System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "06_Shirt",
+   "name": "Shirt",
+   "desc": "Create a Shirt System",
+   "icon": "Shirt.png",
+   "enable": "True",
+   "build": "exec_shirt_v001.build_shirt_block()",
+   "create": "exec_shirt_v001.create_shirt_block()",
+   "pyfile": "exec_shirt_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetGeo_string": "new_cube",
+    "WireDropoff_float": "10"
+   },
+   "help": "Overview:\n  Create a Shirt System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetGeo: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- WireDropoff: numeric value that controls size/amount/intensity (default 10).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "07_Cape",
+   "name": "Cape",
+   "desc": "Will create a Cape System",
+   "icon": "Cape.png",
+   "enable": "True",
+   "build": "exec_cape_v001.build_cape_block()",
+   "create": "exec_cape_v001.create_cape_block()",
+   "pyfile": "exec_cape_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Will create a Cape System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  }
+ ],
+ "006_Vehicles": [
+  {
+   "folder": "01_SideMirror",
+   "name": "L_SideMirror",
+   "desc": "This will create side mirror controllers",
+   "icon": "SideMirror.png",
+   "enable": "True",
+   "build": "exec_side_mirror_v001.build_side_mirror_block()",
+   "create": "exec_side_mirror_v001.create_side_mirror_block()",
+   "pyfile": "exec_side_mirror_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False:Right_Only",
+    "CtrlSize_float": "4",
+    "CtrlType_enum": "circleX:bounding_cube"
+   },
+   "help": "Overview:\n  This will create side mirror controllers.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False, Right_Only).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlType: choose one option (for example: circleX, bounding_cube).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "02_SteeringWheel",
+   "name": "C_SteeringWheel",
+   "desc": "This will create a steering wheel controller",
+   "icon": "SteeringWheel.png",
+   "enable": "True",
+   "build": "exec_steering_wheel_v001.build_steering_wheel_block()",
+   "create": "exec_steering_wheel_v001.create_steering_wheel_block()",
+   "pyfile": "exec_steering_wheel_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "CtrlSize_float": "4",
+    "CtrlType_enum": "circleX:bounding_cube",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey"
+   },
+   "help": "Overview:\n  This will create a steering wheel controller.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlType: choose one option (for example: circleX, bounding_cube).\n- CtrlColor: choose one option (for example: lightBlue, blue, white, purple).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "03_Wheel",
+   "name": "Wheel",
+   "desc": "Wheel Block",
+   "icon": "Wheel.png",
+   "enable": "True",
+   "build": "exec_wheel_v001.build_wheel_block()",
+   "create": "exec_wheel_v001.create_wheel_block()",
+   "pyfile": "exec_wheel_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False",
+    "SetManualRotationAttPos_string": ""
+   },
+   "help": "Overview:\n  Wheel Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False).\n- SetManualRotationAttPos: set the node/object name this block should use.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "04_Chasis",
+   "name": "Chasis",
+   "desc": "Chasis Block",
+   "icon": "Chasis.png",
+   "enable": "True",
+   "build": "exec_chasis_v001.build_chasis_block()",
+   "create": "exec_chasis_v001.create_chasis_block()",
+   "pyfile": "exec_chasis_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Chasis Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Chasis_Center_Suspension_Ctrl, Chasis_Center_Ctrl, Spine_End_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "05_Seat",
+   "name": "Seat",
+   "desc": "Seat Block",
+   "icon": "Seat.png",
+   "enable": "True",
+   "build": "exec_seat_v001.build_seat_block()",
+   "create": "exec_seat_v001.create_seat_block()",
+   "pyfile": "exec_seat_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False"
+   },
+   "help": "Overview:\n  Seat Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "06_Trunk",
+   "name": "Trunk",
+   "desc": "Trunk Block",
+   "icon": "Trunk.png",
+   "enable": "True",
+   "build": "exec_trunk_v001.build_trunk_block()",
+   "create": "exec_trunk_v001.create_trunk_block()",
+   "pyfile": "exec_trunk_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator"
+   },
+   "help": "Overview:\n  Trunk Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "08_Drift",
+   "name": "Drift",
+   "desc": "Drift Block",
+   "icon": "Drift.png",
+   "enable": "True",
+   "build": "exec_drift_v001.build_drift_block()",
+   "create": "exec_drift_v001.create_drift_block()",
+   "pyfile": "exec_drift_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetFrontDrift_string": "",
+    "SetBackDrift_string": ""
+   },
+   "help": "Overview:\n  Drift Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetFrontDrift: set the node/object name this block should use.\n- SetBackDrift: set the node/object name this block should use.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "09_Window",
+   "name": "Window",
+   "desc": "Window Block",
+   "icon": "Window.png",
+   "enable": "True",
+   "build": "exec_window_v001.build_window_block()",
+   "create": "exec_window_v001.create_window_block()",
+   "pyfile": "exec_window_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False"
+   },
+   "help": "Overview:\n  Window Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "10_AutoWheel",
+   "name": "AutoWheel",
+   "desc": "AutoWheel Block",
+   "icon": "AutoWheel.png",
+   "enable": "True",
+   "build": "exec_autowheel_v001.build_autowheel_block()",
+   "create": "exec_autowheel_v001.create_autowheel_block()",
+   "pyfile": "exec_autowheel_v001.py",
+   "attrs": {
+    "SetMoverCtrls_string": "",
+    "SetWheelsName_string": ""
+   },
+   "help": "Overview:\n  AutoWheel Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetMoverCtrls: set the node/object name this block should use.\n- SetWheelsName: set the node/object name this block should use.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "11_Door",
+   "name": "Door",
+   "desc": "Door Block",
+   "icon": "Door.png",
+   "enable": "True",
+   "build": "exec_door_v001.build_door_block()",
+   "create": "exec_door_v001.create_door_block()",
+   "pyfile": "exec_door_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "True:False"
+   },
+   "help": "Overview:\n  Door Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: choose one option (for example: True, False).\n- Template parent examples: L_FrontDoor_Ctrl, Spine_End_Jnt, Head_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "13_Push",
+   "name": "Push",
+   "desc": "Push Block",
+   "icon": "Push.png",
+   "enable": "True",
+   "build": "exec_push_v001.build_push_block()",
+   "create": "exec_push_v001.create_push_block()",
+   "pyfile": "exec_push_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetWheelGeo_string": ""
+   },
+   "help": "Overview:\n  Push Block.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetWheelGeo: set the node/object name this block should use.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  }
+ ],
+ "007_Games": [
+  {
+   "folder": "001_Root",
+   "name": "Root",
+   "desc": "Create root joint at 0,0,0",
+   "icon": "Root.png",
+   "enable": "True",
+   "build": "exec_root_v001.build_root_block()",
+   "create": "exec_root_v001.create_root_block()",
+   "pyfile": "exec_root_v001.py",
+   "attrs": {
+    "SetParent_string": "Bind_Joints_Grp"
+   },
+   "help": ""
+  },
+  {
+   "folder": "002_ConvertBody",
+   "name": "ConvertBody",
+   "desc": "Will convert Mutant Body Template to Games",
+   "icon": "BodyGames.png",
+   "enable": "True",
+   "build": "exec_convertbody_v001.build_convertbody_block()",
+   "create": "exec_convertbody_v001.create_convertbody_block()",
+   "pyfile": "exec_convertbody_v001.py",
+   "attrs": {
+    "Engine_enum": "unity:unreal",
+    "scale_enum": "None:Direct:Constraints"
+   },
+   "help": "Overview:\n  Will convert Mutant Body Template to Games.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- Engine: choose one option (for example: unity, unreal).\n- scale: choose one option (for example: None, Direct, Constraints).\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "01_SlidePushCorrectives",
+   "name": "SlidePushCorrectives",
+   "desc": "Block dedicated to create Slide Push Correctives System ",
+   "icon": "PushCorrectives.png",
+   "enable": "True",
+   "build": "exec_slidepushcorrectives_v001.build_slidepushcorrectives_block()",
+   "create": "exec_slidepushcorrectives_v001.create_slidepushcorrectives_block()",
+   "pyfile": "exec_slidepushcorrectives_v001.py",
+   "attrs": {
+    "SetParent_string": "Spine_Base_Bnd",
+    "Direction_string": "front,back,inner,outer"
+   },
+   "help": "Overview:\n  Block dedicated to create Slide Push Correctives System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the node/object name this block should use.\n- Direction: enter names separated by commas (example format: nameA,nameB,nameC).\n- Template parent examples: L_ArmSlideSlideDriver_Loc, L_LegSlideSlideDriver_Loc, Spine_End_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  }
+ ],
+ "008_Props": [
+  {
+   "folder": "01_Rivet",
+   "name": "Rivet",
+   "desc": "Will Create a Rivet on Selecter Faces",
+   "icon": "Rivet.png",
+   "enable": "True",
+   "build": "exec_rivet_v001.build_rivet_block()",
+   "create": "exec_rivet_v001.create_rivet_block()",
+   "pyfile": "exec_rivet_v001.py",
+   "attrs": {
+    "SetFaces_string": ""
+   },
+   "help": "Overview:\n  Will Create a Rivet on Selecter Faces.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetFaces: set the node/object name this block should use.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "01_Single_FK",
+   "name": "Single_FK",
+   "desc": "This will create a Single FK Ctrl + Joint, Like for COG or Single Needs",
+   "icon": "Bone.png",
+   "enable": "True",
+   "build": "exec_single_fk_v001.build_single_fk_block()",
+   "create": "exec_single_fk_v001.create_single_fk_block()",
+   "pyfile": "exec_single_fk_v001.py",
+   "attrs": {
+    "SetCtrlParentHierarchy_string": "Ctrl_Grp",
+    "CtrlType_enum": "sphere:cube:square:octagon:hexagon:pringle:feet:hand:circleX:circleY:circleZ:3dArrow:2dArrow:mover:2dArrow:root:cog",
+    "CtrlSize_float": "4",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey",
+    "Mirror_enum": "False:True:Right_Only",
+    "Gimbal_bool": "True",
+    "CtrlOrientOffset_bool": "False",
+    "ShowOrientAttrs_bool": "True",
+    "CreateJoint_bool": "True",
+    "SetJointParentHierarchy_string": "Miscellaneous_Grp"
+   },
+   "help": "Overview:\n  This will create a Single FK Ctrl + Joint, Like for COG or Single Needs.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- CtrlType: choose one option (for example: sphere, cube, square, octagon).\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlColor: choose one option (for example: lightBlue, blue, white, purple).\n- Mirror: False builds as-is. True builds both L_ and R_ sides (auto-prefixes L_ if needed). Right_Only mirrors to the right side only.\n- Gimbal: turn this ON/OFF depending on whether you want that feature.\n- CtrlOrientOffset: adds an offset transform above the control so you can dynamically change the control orientation without affecting the zero pose.\n- ShowOrientAttrs: when ON, the orient proxy attrs (orientTranslate/Rotate/Scale) are visible on the ctrl channel box. Turn OFF to hide them for delivery.\n- CreateJoint: turn this ON/OFF depending on whether you want that feature.\n- SetCtrlParent_Hierarchy: set the node/object name this block should use.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "02_Slide",
+   "name": "Slide",
+   "desc": "Slide System in Nurbs",
+   "icon": "Slide.png",
+   "enable": "True",
+   "build": "exec_slide_v001.build_slide_block()",
+   "create": "exec_slide_v001.create_slide_block()",
+   "pyfile": "exec_slide_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "False:True:Right_Only",
+    "AxisMode_enum": "Blend:Constraint",
+    "SetSlideNurb_string": "new_plane",
+    "CtrlSize_float": "4",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey"
+   },
+   "help": "Overview:\n  Slide System in Nurbs.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: True builds both L_ and R_ sides (auto-prefixes L_ if needed). Right_Only builds only the R_ side mirrored from the guide. False builds as-is.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlColor: choose one option (for example: lightBlue, blue, white, purple).\n- SetSlideNurb: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Template parent examples: L_ArmSlideSlideDriver_Loc, L_LegSlideSlideDriver_Loc, Spine_End_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly.\n- When Mirror is True, R_ side SetParent and SetSlideNurb are auto-derived by replacing L_ with R_."
+  },
+  {
+   "folder": "03_Locals",
+   "name": "Locals",
+   "desc": "Create Local Duplicates for Main Geo and Atach via BlendShape",
+   "icon": "Locals.png",
+   "enable": "True",
+   "build": "exec_locals_v001.build_locals_block()",
+   "create": "exec_locals_v001.create_locals_block()",
+   "pyfile": "exec_locals_v001.py",
+   "attrs": {
+    "SetGeo_string": "",
+    "SetExtraGeos_string": "",
+    "NewNames_string": "LocalA,LocalB,LocalC"
+   },
+   "help": "Overview:\n  Create Local Duplicates for Main Geo and Atach via BlendShape.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetGeo: set the node/object name this block should use.\n- SetExtraGeos: set the node/object name this block should use.\n- NewNames: enter names separated by commas (example format: nameA,nameB,nameC).\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "04_Blendshape",
+   "name": "BlendShape",
+   "desc": "This will create blendshapes for the selected geo",
+   "icon": "Blendshape.png",
+   "enable": "True",
+   "build": "exec_blendshape_v001.build_blendshape_block()",
+   "create": "exec_blendshape_v001.create_blendshape_block()",
+   "pyfile": "exec_blendshape_v001.py",
+   "attrs": {
+    "SetGeo_string": "",
+    "NewNames_string": "ShapeA,ShapeB,ShapeC"
+   },
+   "help": "Overview:\n  This will create blendshapes for the selected geo.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetGeo: set the node/object name this block should use.\n- NewNames: enter names separated by commas (example format: nameA,nameB,nameC).\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "05_Lattice",
+   "name": "Lattice",
+   "desc": "Lattice Local Rig",
+   "icon": "Lattice.png",
+   "enable": "True",
+   "build": "exec_lattice_v001.build_lattice_block()",
+   "create": "exec_lattice_v001.create_lattice_block()",
+   "pyfile": "exec_lattice_v001.py",
+   "attrs": {
+    "SetGeo_string": "new_cube",
+    "SetParent_string": "new_locator",
+    "SetAttrsPosition_string": "new_locator",
+    "Local_bool": "False",
+    "Divisions_float": "3",
+    "CtrlSize_float": "4",
+    "CtrlColor_enum": "purple:lightBlue:blue:white:green:red:yellow:grey"
+   },
+   "help": "Overview:\n  Lattice Local Rig.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetGeo: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetAttrsPosition: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Local: turn this ON/OFF depending on whether you want that feature.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlColor: choose one option (for example: purple, lightBlue, blue, white).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n- Template attrs-position examples: Vis_Ctrl, L_Eyelids_Scale_Ctrl, L_Brow_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "06_Squash",
+   "name": "Squash",
+   "desc": "Create a Local Squash System",
+   "icon": "Squash.png",
+   "enable": "True",
+   "build": "exec_squash_v001.build_squash_block()",
+   "create": "exec_squash_v001.create_squash_block()",
+   "pyfile": "exec_squash_v001.py",
+   "attrs": {
+    "Squash_bool": "True",
+    "Bend_bool": "True",
+    "SquashMult_string": "0.01",
+    "SquashFactor_string": "0.0",
+    "SquashLowBound_string": "0.0",
+    "SquashHighBound_string": "2.0",
+    "BendFrontMult_string": "1.0",
+    "BendFrontCurvature_string": "0.0",
+    "BendFrontLowBound_string": "0.0",
+    "BendFrontHighBound_string": "2.0",
+    "BendSideMult_string": "1.0",
+    "BendSideCurvature_string": "0.0",
+    "BendSideLowBound_string": "0.0",
+    "BendSideHighBound_string": "2.0",
+    "LockSecondaryAttrs_bool": "True",
+    "UseCustomPivots_bool": "False",
+    "SetParent_string": "new_locator",
+    "SetGeo_string": ""
+   },
+   "help": "Overview:\n  Create a Local Squash System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- Squash: Enable or disable creation of the squash deformer.\n- Bend: Enable or disable creation of the bend deformers.\n- UseCustomPivots: Show guides to independently position the deformers.\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- SetGeo: set the node/object name this block should use.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "07_Ribbonizer",
+   "name": "Ribbon",
+   "desc": "Creates a ribbon, Copyright (C) 2018 Orkhan Ashrafov\n",
+   "icon": "Ribbon.png",
+   "enable": "True",
+   "build": "exec_ribbonizer_v001.build_ribbonizer_block()",
+   "create": "exec_ribbonizer_v001.create_ribbonizer_block()",
+   "pyfile": "exec_ribbonizer_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_enum": "False:True:Right_Only",
+    "Equal_bool": "True",
+    "Ctrls_float": "5",
+    "Joints_float": "5",
+    "Constraint_bool": "True",
+    "AddFk_bool": "True",
+    "FkOnLast_bool": "False",
+    "Wire_bool": "False",
+    "CtrlScales_bool": "False",
+    "JointOrient_bool": "False",
+    "MiddleCtrlPosition_enum": "Original:Start:End",
+    "CtrlOrientation_enum": "SurfaceNormal:WorldForward",
+    "Gimbal_bool": "False"
+   },
+   "help": "Overview:\n  Creates a ribbon, Copyright (C) 2018 Orkhan Ashrafov.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: True builds both L_ and R_ sides (auto-prefixes L_ if needed). Right_Only mirrors to the right side only. False builds as-is.\n- Equal: evenly spaces controls and joints along the ribbon. When OFF, spacing follows the surface parameterization.\n- Ctrls: number of IK controls along the ribbon (default 5).\n- Joints: number of bind joints along the ribbon (default 5).\n- Constraint: ON uses parentConstraint/scaleConstraint to link IK controls to their joints (supports offsets, more flexible). OFF uses direct attribute connections (lighter, no constraint overhead).\n- AddFk: adds an FK control chain on top of the IK controls for layered animation.\n- FkOnLast: when ON (and AddFk is ON), adds an FK control on the final IK control as well. Default is OFF, which skips the last control.\n- Wire: uses a wire deformer instead of a skinCluster to drive the ribbon surface. Needs at least 2 controls.\n- CtrlScales: when ON, unlocks scale attributes on the IK controls and connects them to the bind joints.\n- JointOrient: when ON, bind joints orient to the nearest control joint instead of the follicle surface normal.\n- MiddleCtrlPosition: where the main control is placed. Original uses the surface bounding box center. Start/End places it at the first/last bind joint.\n- CtrlOrientation: SurfaceNormal keeps the default follicle orientation (Z follows surface normal). WorldForward orients controls and joints so Z faces world-forward and Y faces world-up.\n- Gimbal: adds a nested gimbal control under the Ribbon Main Control for clean rotations.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "08_Chain",
+   "name": "Chain",
+   "desc": "Create a FK Chain",
+   "icon": "Chain.png",
+   "enable": "True",
+   "build": "exec_chain_v001.build_chain_block()",
+   "create": "exec_chain_v001.create_chain_block()",
+   "pyfile": "exec_chain_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_bool": "False",
+    "AutoRotate_bool": "False",
+    "SegScaleCompensate_bool": "True",
+    "IndependentScale_bool": "False",
+    "CtrlSize_float": "1",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey",
+    "CtrlType_enum": "square:sphere:cube:octagon:hexagon:pringle:feet:hand:circleY:circleX:circleZ:3dArrow:2dArrow:mover:2dArrow:root:cog",
+    "TwistAxis_enum": "X:Y:Z"
+   },
+   "help": "Overview:\n  Create a FK Chain.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- Mirror: turn this ON/OFF depending on whether you want that feature.\n- AutoRotate: turn this ON/OFF depending on whether you want that feature.\n- SegScaleCompensate: turn this ON/OFF to enable or disable segmentScaleCompensate on all joints (FK + bind). Default is ON.\n- CtrlSize: numeric value that controls size/amount/intensity (default 1).\n- CtrlColor: choose one option (for example: lightBlue, blue, white, purple).\n- CtrlType: choose one option (for example: square, sphere, cube, octagon).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "09_DinamicScale",
+   "name": "DinamicScale",
+   "desc": "Add Size Attrs and Extra Scale to Base",
+   "icon": "ExtraScales.png",
+   "enable": "True",
+   "build": "exec_dinamic_scale_v001.build_dinamic_scale_block()",
+   "create": "exec_dinamic_scale_v001.create_dinamic_scale_block()",
+   "pyfile": "exec_dinamic_scale_v001.py",
+   "attrs": {},
+   "help": "Overview:\n  Add Size Attrs and Extra Scale to Base.\n\nHow To Use:\n  usually you can build directly with defaults, then adjust if needed."
+  },
+  {
+   "folder": "10_MultiBone",
+   "name": "MultiBone",
+   "desc": "Will create multiple bones with controllers",
+   "icon": "MultiBone.png",
+   "enable": "True",
+   "build": "exec_multibone_v001.build_multibone_block()",
+   "create": "exec_multibone_v001.create_multibone_block()",
+   "pyfile": "exec_multibone_v001.py",
+   "attrs": {
+    "SetParents_string": "new_locator_each",
+    "CtrlSize_float": "4",
+    "CtrlColor_enum": "yellow:lightBlue:blue:white:purple:green:red:grey",
+    "CtrlType_enum": "sphere:square:cube:octagon:hexagon:pringle:feet:hand:circleY:circleX:circleZ:3dArrow:2dArrow:mover:2dArrow:root:cog"
+   },
+   "help": "Overview:\n  Will create multiple bones with controllers.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParents: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- CtrlColor: choose one option (for example: yellow, lightBlue, blue, white).\n- CtrlType: choose one option (for example: sphere, square, cube, octagon).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "11_ReverseFk",
+   "name": "ReverseFk",
+   "desc": "Create a Bidirectional FK Chain - Forward and Reverse control simultaneously",
+   "icon": "ReverseFk.png",
+   "enable": "True",
+   "build": "exec_reverse_fk_v001.build_reverse_fk_block()",
+   "create": "exec_reverse_fk_v001.create_reverse_fk_block()",
+   "pyfile": "exec_reverse_fk_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Mirror_bool": "False",
+    "CtrlSize_float": "1",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey",
+    "CtrlType_enum": "square:sphere:cube:octagon:hexagon:pringle:feet:hand:circleY:circleX:circleZ:3dArrow:2dArrow:mover:2dArrow:root:cog",
+    "TwistAxis_enum": "X:Y:Z"
+   },
+   "help": "Overview:\n  Create a Bidirectional FK Chain with Forward and Reverse controls active simultaneously.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- Mirror: turn this ON/OFF depending on whether you want that feature.\n- CtrlSize: numeric value that controls size (default 1).\n- CtrlColor: choose one option (lightBlue, blue, white, purple, etc).\n- CtrlType: choose one option (square, sphere, cube, octagon, etc).\n- TwistAxis: rotation axis for FK controls.\n\nFeatures:\n- Forward FK: Control from root down the chain (full size).\n- Reverse FK: Control from tip back up (85% size for distinction).\n- FK_Direction slider (0-1): Blend between forward and reverse control influence.\n- 0.5 default = equal influence from both systems."
+  },
+  {
+   "folder": "12_ReverseSpline",
+   "name": "ReverseSpline",
+   "desc": "This will create a ReverseSpline System",
+   "icon": "ReverseSpline.png",
+   "enable": "True",
+   "build": "exec_reverse_spline_v001.build_reverse_spline_block()",
+   "create": "exec_reverse_spline_v001.create_reverse_spline_block()",
+   "pyfile": "exec_reverse_spline_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "CtrlSize_float": "4"
+   },
+   "help": "Overview:\n  This will create a ReverseSpline System.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlSize: numeric value that controls size/amount/intensity (default 4).\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nCreate Step:\n- After creating the block, you will be prompted for the amount of joints.\n- This block enforces odd values only (5, 7, 9, 11, ...).\n- Maximum supported amount is 25 joints.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "13_RibbonTweakers",
+   "name": "RibbonTweakers",
+   "desc": "Creates a smart follicle-based ribbon tweaker layer with controls, rig joints, and bind joints.",
+   "icon": "RibbonTweakers.png",
+   "enable": "True",
+   "build": "exec_ribbon_tweakers_v001.build_ribbon_tweakers_block()",
+   "create": "exec_ribbon_tweakers_v001.create_ribbon_tweakers_block()",
+   "pyfile": "exec_ribbon_tweakers_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "Joints_float": "16",
+    "WalkAxis_enum": "V:U",
+    "CtrlType_enum": "circleY:square:sphere:cube",
+    "CtrlSize_float": "1",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey",
+    "CustomNames_string": "",
+    "FlipRight_bool": "False",
+    "OrientXToWorld_bool": "False",
+    "OrientYToWorld_bool": "False",
+    "OrientZToWorld_bool": "False"
+   },
+   "help": "Overview:\n  Builds a simple ribbon tweaker layer.\n\nHow To Use:\n  1) Create block and set guide sides in popup.\n  2) Keep the generated NURBS cylinder guide, or parent another NURBS under the block.\n  3) Build.\n\nFields:\n- SetParent: parent target for controls.\n- Joints: amount of tweaker chains to create.\n- WalkAxis: V or U distribution over the ribbon.\n- CtrlType: mt.curve control shape.\n- CtrlSize: control size.\n- CtrlColor: control color.\n- CustomNames: comma-separated names for each tweaker ctrl (e.g. Spine,Chest,Neck). If fewer names than joints, the last name is suffixed with 1,2,3... to fill the rest.\n- OrientXToWorld/OrientYToWorld/OrientZToWorld: if True, zeroes that rotate axis on the ctrl root so it stays aligned to world on that axis instead of following the follicle."
+  },
+  {
+   "folder": "14_CtrlOnSelection",
+   "name": "CtrlOnSelection",
+   "desc": "Creates controllers on selected joints/objects with desired shape, color and scale. Works on multiple objects at once. Supports direct connect and constraints.",
+   "icon": "CtrlOnSelection.png",
+   "enable": "True",
+   "build": "exec_ctrl_on_selection_v001.build_ctrl_on_selection_block()",
+   "create": "exec_ctrl_on_selection_v001.create_ctrl_on_selection_block()",
+   "pyfile": "exec_ctrl_on_selection_v001.py",
+   "attrs": {
+    "SetJoints_string": "",
+    "SetParent_string": "Ctrl_Grp",
+    "Shape_enum": "cube:sphere:circle:circleX:circleY:circleZ:square:cubePlus:rectangle:triangle:octagon:hexagon:pringle:pringle_point:circle_point:sun:feet:hand:halfCircle:3dArrow:2dArrow:curveArrow:cross:gear:pin_cube:mover:root:cog:vis:wheel:trapezoid:chair:squareSmooth:cylinder:happyFace:squarePointUp:circlePointUp:circlePointIn:circlePointOut:circleDoublePointIn:circleDoublePointOut:WrapperThing:CircleDoubleArrow:locator",
+    "Color_enum": "yellow:red:blue:green:white:purple:lightBlue:pink:grey:orange",
+    "Scale_float": "1",
+    "Connection_enum": "DirectConnect:ParentConstraint:ScaleConnect:ParentAndScale:None",
+    "StripJointSuffix_bool": "True"
+   },
+   "help": "Overview:\n  Creates controllers positioned on selected joints or objects.\n  Works on multiple objects at once.\n\nHow To Use:\n  Select joints in scene, click 'Add Selected' to populate SetJoints.\n  Set desired shape, color and scale, then click Build.\n\nFields:\n- SetJoints: Comma-separated list of joints/objects to create controllers on.\n- SetParent: Node the ctrl offset group will follow via parentConstraint (mo=True).\n  Default is Ctrl_Grp. Leave empty to skip the constraint.\n- Shape: Curve shape for the controller.\n- Color: Override color for the controller.\n- Scale: Size multiplier (1-20).\n- Connection: How to connect the ctrl to the joint.\n  * DirectConnect: connectAttr ctrl.t/r/s -> joint.t/r/s.\n  * ParentConstraint: joint follows ctrl via parentConstraint (mo=True).\n  * ScaleConnect: joint scale follows ctrl scale via connectAttr.\n  * ParentAndScale: parentConstraint + scale connectAttr.\n  * None: no connection, ctrl is just positioned at the joint.\n- StripJointSuffix: strips _Jnt suffix before adding _Ctrl.\n  Example: L_Arm_Jnt -> L_Arm_Ctrl. If False: L_Arm_Jnt_Ctrl.\n\nTips:\n- DirectConnect is the default and most direct wiring.\n- ParentAndScale is preferred when you need mo offset flexibility."
+  }
+ ],
+ "009_Data": [
+  {
+   "folder": "01_Load_Skin",
+   "name": "Load_Skin",
+   "desc": "Load SKin Cluster Data",
+   "icon": "Skin.png",
+   "enable": "True",
+   "build": "exec_load_skin_v001.build_load_skin_block()",
+   "create": "exec_load_skin_v001.create_load_skin_block()",
+   "pyfile": "exec_load_skin_v001.py",
+   "attrs": {
+    "Path_string": ""
+   },
+   "help": "Overview:\n  Load SKin Cluster Data.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- Path: enter the file/folder path to the data you want to load.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "02_Load_Ctrls",
+   "name": "Load_Ctrls",
+   "desc": "Load Ctrls Data from File",
+   "icon": "Controller.png",
+   "enable": "True",
+   "build": "exec_load_ctrls_v001.build_load_ctrls_block()",
+   "create": "exec_load_ctrls_v001.create_load_ctrls_block()",
+   "pyfile": "exec_load_ctrls_v001.py",
+   "attrs": {
+    "File_string": ""
+   },
+   "help": "Overview:\n  Load Ctrls Data from File.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- File: enter the file/folder path to the data you want to load, or type a preset name (AG, SP, Quad, Simple, Game, Pig, Shot, Neat, Bird).\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  }
+ ],
+ "010_Other": [
+  {
+   "folder": "001_BaseA",
+   "name": "BaseA",
+   "desc": "This will create a Base to hold the rig (type A)",
+   "icon": "BaseA.png",
+   "enable": "True",
+   "build": "exec_baseA_v001.build_baseA_block()",
+   "create": "exec_baseA_v001.create_BaseA()",
+   "pyfile": "exec_baseA_v001.py",
+   "attrs": {
+    "Name_string": "Mutant_Tools",
+    "CtrlScale_float": "4",
+    "CtrlColor_enum": "lightBlue:blue:white:purple:green:red:yellow:grey"
+   },
+   "help": ""
+  },
+  {
+   "folder": "002_Code",
+   "name": "Code",
+   "desc": "Execute custom code",
+   "icon": "CODE.png",
+   "enable": "True",
+   "build": "exec_code_v001.build_code_block()",
+   "create": "exec_code_v001.create_code_block()",
+   "pyfile": "exec_code_v001.py",
+   "attrs": {
+    "Exec_enum": "Python:Mel",
+    "RunBeforeBuild_bool": "False",
+    "RunAfterBuild_bool": "False",
+    "Code_string": ""
+   },
+   "help": ""
+  },
+  {
+   "folder": "003_Stop",
+   "name": "Stop",
+   "desc": "This will stop the build when building to this block.",
+   "icon": "Stop.png",
+   "enable": "True",
+   "build": "exec_stop_v001.build_stop_block()",
+   "create": "exec_stop_v001.create_stop_block()",
+   "pyfile": "exec_stop_v001.py",
+   "attrs": {},
+   "help": ""
+  },
+  {
+   "folder": "004_Rename",
+   "name": "Rename",
+   "desc": "Rename nodes",
+   "icon": "Rename.png",
+   "enable": "True",
+   "build": "exec_rename_v001.build_rename_block()",
+   "create": "exec_rename_v001.create_rename_block()",
+   "pyfile": "exec_rename_v001.py",
+   "attrs": {
+    "RenameA_string": "from,to",
+    "RenameB_string": "",
+    "RenameC_string": "",
+    "RenameD_string": "",
+    "RenameE_string": "",
+    "RenameF_string": "",
+    "RenameG_string": "",
+    "RenameH_string": "",
+    "RenameI_string": "",
+    "RenameJ_string": ""
+   },
+   "help": ""
+  },
+  {
+   "folder": "005_Unselectable",
+   "name": "Unselectable",
+   "desc": "Make transforms Unselectable",
+   "icon": "Unselectable.png",
+   "enable": "True",
+   "build": "exec_unselectable_v001.build_unselectable_block()",
+   "create": "exec_unselectable_v001.create_unselectable_block()",
+   "pyfile": "exec_unselectable_v001.py",
+   "attrs": {
+    "SetGeo_string": "",
+    "LockAttr_string": "Global_Ctrl.Geo"
+   },
+   "help": ""
+  },
+  {
+   "folder": "006_Skin",
+   "name": "Skin",
+   "desc": "Will skin joints to geos",
+   "icon": "Skin.png",
+   "enable": "True",
+   "build": "exec_skin_v001.build_skin_block()",
+   "create": "exec_skin_v001.create_skin_block()",
+   "pyfile": "exec_skin_v001.py",
+   "attrs": {
+    "SetGeo_string": "",
+    "SetJoints_string": "*_Bnd"
+   },
+   "help": "Overview:\n  Will skin joints to geos.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetGeo: set the node/object name this block should use.\n- SetJoints: node name or pattern.\n- You can use * as a wildcard when useful.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "007_Proxy_Attr",
+   "name": "Proxy_Attr",
+   "desc": "Will duplicate and connect all proxy attrs from desire transform",
+   "icon": "ProxyAttr.png",
+   "enable": "True",
+   "build": "exec_proxy_attr_v001.build_proxy_attr_block()",
+   "create": "exec_proxy_attr_v001.create_proxy_attr_block()",
+   "pyfile": "exec_proxy_attr_v001.py",
+   "attrs": {
+    "SetParent_string": "new_locator",
+    "SetCopyAttrsFrom_string": "",
+    "CtrlShape_enum": "cross:gear:hexagon:octagon:square:2dArrow"
+   },
+   "help": "Overview:\n  Will duplicate and connect all proxy attrs from desire transform.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetParent: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- CtrlShape: choose one option (for example: cross, gear, hexagon, octagon).\n- SetCopyAttrsFrom: set the node/object name this block should use.\n- Template parent examples: L_Hand_Ankle_Jnt, L_Hand_Palm_Jnt, Spine_End_Jnt.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "008_Setter",
+   "name": "Setter",
+   "desc": "WIll set attrs",
+   "icon": "Pose.png",
+   "enable": "True",
+   "build": "exec_setter_v001.build_setter_block()",
+   "create": "exec_setter_v001.create_setter_block()",
+   "pyfile": "exec_setter_v001.py",
+   "attrs": {
+    "Pose0_string": "node,tx,ty,tz,rx,ry,rz,sx,sy,sz",
+    "Pose1_string": "",
+    "Pose2_string": "",
+    "Pose3_string": "",
+    "Pose4_string": "",
+    "Pose5_string": "",
+    "Pose6_string": "",
+    "Pose7_string": "",
+    "Pose8_string": ""
+   },
+   "help": "Overview:\n  WIll set attrs.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- Pose0: enter names separated by commas (example format: nameA,nameB,nameC).\n- Pose1: set the node/object name this block should use.\n- Pose2: set the node/object name this block should use.\n- Pose3: set the node/object name this block should use.\n- Pose4: set the node/object name this block should use.\n- Pose5: set the node/object name this block should use.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "009_Anim_To_Attr",
+   "name": "PoseToAttr",
+   "desc": "Will save current pose to an attr via SDK",
+   "icon": "AnimToAttr.png",
+   "enable": "True",
+   "build": "exec_anim_to_attr_v001.build_animtoattr_block()",
+   "create": "exec_anim_to_attr_v001.create_animtoattr_block()",
+   "pyfile": "exec_anim_to_attr_v001.py",
+   "attrs": {
+    "SetObject_string": "",
+    "NewAttrName_string": "Pose",
+    "SetNewAttrNode_string": "new_locator",
+    "AnimStep_string": "0.5"
+   },
+   "help": "Overview:\n  Will save current pose to an attr via SDK.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetObject: set the node/object name this block should use.\n- NewAttrName: set the node/object name this block should use.\n- SetNewAttrNode: set the target node name.\n- If left as default, the tool uses placeholder behavior for setup.\n- AnimStep: set the node/object name this block should use.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "010_Change_Colors",
+   "name": "ChangeColors",
+   "desc": "Change Colors",
+   "icon": "ChangeColors.png",
+   "enable": "True",
+   "build": "exec_change_colors_v001.build_change_colors_block()",
+   "create": "exec_change_colors_v001.create_change_colors_block()",
+   "pyfile": "exec_change_colors_v001.py",
+   "attrs": {
+    "ChangeColors1_string": "",
+    "ChangeColors2_string": "",
+    "ChangeColors3_string": "",
+    "ChangeColors4_string": "",
+    "ChangeColors5_string": "",
+    "ChangeColors6_string": "",
+    "ChangeColors7_string": "",
+    "ChangeColors8_string": "",
+    "ChangeColors9_string": ""
+   },
+   "help": "Overview:\n  Change Colors.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- ChangeColors1: set the node/object name this block should use.\n- ChangeColors2: set the node/object name this block should use.\n- ChangeColors3: set the node/object name this block should use.\n- ChangeColors4: set the node/object name this block should use.\n- ChangeColors5: set the node/object name this block should use.\n- ChangeColors6: set the node/object name this block should use.\n\nTips:\n- start with defaults, build once, then tweak only the fields you need."
+  },
+  {
+   "folder": "010_SpaceSwitches",
+   "name": "SpaceSwitches",
+   "desc": "This will add space switches to the target ctrl",
+   "icon": "SpaceSwitch.png",
+   "enable": "True",
+   "build": "exec_spaceSwitches_v001.build_spaceSwitches_block()",
+   "create": "exec_spaceSwitches_v001.create_spaceSwitches_block()",
+   "pyfile": "exec_spaceSwitches_v001.py",
+   "attrs": {
+    "SetTargetCtrl_string": "",
+    "SetAttrsHolder_string": "",
+    "Translate_bool": "True",
+    "Animbot_bool": "True",
+    "Rotate_bool": "True",
+    "MaintainOffset_bool": "True",
+    "Spaces_string": "Mutant_Tools_Grp, Mover_Gimbal_Ctrl",
+    "CustomNames_string": "",
+    "Mirror_bool": "False",
+    "AttrName_string": "Follow",
+    "SplitTranslateRotate_bool": "False",
+    "RunAfterBuild_bool": "False"
+   },
+   "help": "Overview:\n  This will add space switches to the target ctrl.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetTargetCtrl: set the node/object name this block should use.\n- SetAttrsHolder: set the node/object name this block should use.\n- Spaces: enter names separated by commas (example format: nameA,nameB,nameC).\n- CustomNames: optional display names for the enum, same count as Spaces (example: World,Global,Body). Leave empty to use defaults.\n- Translate: turn this ON/OFF depending on whether you want that feature.\n- Animbot: turn this ON/OFF depending on whether you want that feature.\n- Rotate: turn this ON/OFF depending on whether you want that feature.\n- MaintainOffset: turn this ON/OFF to enable/disable maintain offset on constraints (default: ON).\n- AttrName: custom name for the space switch attribute (default: Follow).\n- SplitTranslateRotate: when ON, creates separate Translate and Rotate space switch attributes instead of one combined attr.\n- RunAfterBuild: Check True to defer execution until after the full build finishes (recommended if target controllers or space references are generated by later blocks).\n- Template target ctrl examples: Tail_1_Main_Ctrl, Eyes_Main_Ctrl, Head_Ctrl.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "011_SoftMod",
+   "name": "SoftMod",
+   "desc": "This will add a soft mod to a given vertex",
+   "icon": "SoftMod.png",
+   "enable": "True",
+   "build": "exec_softMod_v001.build_softMod_block()",
+   "create": "exec_softMod_v001.create_softMod_block()",
+   "pyfile": "exec_softMod_v001.py",
+   "attrs": {
+    "SetTargetVertex_string": "",
+    "SetControlParent_string": "Ctrl_Grp",
+    "Mirror_bool": "False"
+   },
+   "help": "Overview:\n  This will add a soft mod to a given vertex.\n\nHow To Use:\n  fill the key fields below before build.\n\nFields:\n- SetTargetVertex: set the node/object name this block should use.\n- Mirror: turn this ON/OFF depending on whether you want that feature.\n- SetControlParent: set the node/object name this block should use.\n- Template parent examples: Spine_End_Jnt, Head_Jnt, L_Wrist_Jnt.\n\nTips:\n- if a field says left/right or mirror, use it to generate the opposite side quickly."
+  },
+  {
+   "folder": "012_Label_Joints",
+   "name": "LabelJoints",
+   "desc": "Find all joints in the scene and label them.",
+   "icon": "Label.png",
+   "enable": "True",
+   "build": "exec_label_joints_v001.build_label_joints_block()",
+   "create": "exec_label_joints_v001.create_label_joints_block()",
+   "pyfile": "exec_label_joints_v001.py",
+   "attrs": {},
+   "help": "Overview:\n  Labels every joint in the scene using smart side/name parsing.\n\nHow To Use:\n  Create this block and run Build.\n\nBehavior:\n- Processes all joints in scene (selection is ignored).\n- Sets joint side as Left/Right/Center.\n- Sets type to Other and writes clean label text into otherType.\n\nNaming Support:\n- Prefix side: L_*, R_*, Left*, Right*.\n- Suffix side: *_l, *_r, *_L, *_R (Unreal style).\n- Strips common tail tokens like Bnd, Skl, Jnt, Bind, Guide, JntCtrl."
+  },
+  {
+   "folder": "013_WIP_Complete",
+   "name": "WIP_Complete",
+   "desc": "Set the rig scene to WIP or Complete mode",
+   "icon": "WIP_Complete.png",
+   "enable": "True",
+   "build": "exec_wip_complete_v001.build_wip_complete_block()",
+   "create": "exec_wip_complete_v001.create_wip_complete_block()",
+   "pyfile": "exec_wip_complete_v001.py",
+   "attrs": {
+    "Mode_enum": "WIP:COMPLETE",
+    "Geometry_Group_string": "geo"
+   },
+   "help": "Overview:\n  Sets the rig scene to WIP or Complete mode, mirroring the Helpers UI buttons.\n\nHow To Use:\n  Set Mode to WIP or COMPLETE then build the block.\n\nFields:\n- Mode: WIP keeps the rig editable and visible. COMPLETE finalises the rig hierarchy, locks geo, tags controllers and hides internal groups.\n- Geometry Group: The name of the geometry group to lock/unlock/hide/show (defaults to 'geo').\n\nTips:\n- WIP mode is useful during rigging iterations.\n- COMPLETE mode prepares the rig for delivery/animation."
+  },
+  {
+   "folder": "014_SurfaceConstraint",
+   "name": "SurfaceConstraint",
+   "desc": "Create surface constraints from vertex skinning data",
+   "icon": "SurfaceConstraint.png",
+   "enable": "True",
+   "build": "exec_surface_constraint_v001.build_surface_constraint_block()",
+   "create": "exec_surface_constraint_v001.create_surface_constraint_block()",
+   "pyfile": "exec_surface_constraint_v001.py",
+   "attrs": {
+    "SetNodeList_string": "",
+    "SetControls_string": "",
+    "MinWeight_float": 0.01
+   },
+   "help": "Overview:\n  Create surface constraints on controls or groups based on vertex skinning influences.\n\nHow To Use:\n  1. Select the vertices you want to use in Maya and click 'Add Selected' in the Vertices list to add them in order ONE BY ONE.\n  2. Add the target controls/groups to the Controls list in the same order you want them to be constrained.\n  3. Each vertex will drive the corresponding control/group in the same position in the lists.\n  4. Constraints will be created on offset groups (not directly on the input controls).\n  5. Adjust MinWeight to filter influences. Number gets divided by 100 (default 1 = 0.01).\n\nFields:\n- Vertices (SetNodeList): list of vertex components (mesh.vtx[index] format) added in selection order.\n- Controls (SetControls): list of control/group names to constrain.\n- MinWeight: minimum influence weight threshold to keep.\n\nTips:\n- Use the Add Selected button to append vertices in the order you select them.\n- Use the Add Selected button in the Controls list to add controls/groups in the order you want them to match the vertices.\n- Ensure all geometry is properly skinned before building.\n- Controls/groups must exist in the scene."
+  }
+ ]
+}

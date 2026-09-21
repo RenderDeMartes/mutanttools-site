@@ -1,0 +1,895 @@
+{
+ "Tools_class": {
+  "file": "tools.py",
+  "bases": [
+   "object"
+  ],
+  "methods": [
+   [
+    "__init__",
+    "",
+    "",
+    95,
+    ""
+   ],
+   [
+    "import_configs",
+    "",
+    "",
+    102,
+    ""
+   ],
+   [
+    "check_input",
+    "func='', print_input=False",
+    "if input is empty uses selection instead, i used to use this but stop becouse != usefull... sorry :)",
+    107,
+    "if input is empty uses selection instead, i used to use this but stop becouse != usefull... sorry :)\n\nArgs:\n        func: string: name of the function\n        print_input: bool\n\nReturns: None"
+   ],
+   [
+    "root_grp",
+    "input='', custom=False, custom_name='customName', autoRoot=False, replace_nc=False",
+    "Create groups.",
+    132,
+    "Create groups.\n\nArgs:\n        input (str): Input string representing the selection. If not specified, the current selection will be used.\n        custom (bool): Specify if the new group should have a custom name.\n        custom_name (str): Name of the custom group (requires `custom` to be True).\n        autoRoot (bool): If True, create two groups instead of one: Root Grp and Auto Grp.\n        replace_nc (bool): Try to replace the namespace to match the groups' namespace.\n\nReturns:\n        list: List of strings representing the new groups.\n\nNotes:\n        - This method creates groups based on the specified arguments.\n        - It can create either one group or two groups (Root Grp and Auto Grp).\n        - If `custom` is True, the group(s) will have a custom name specified by `custom_name`.\n        - The method handles parenting and constraints to create the groups.\n        - If `replace_nc` is True, it will attempt to replace the namespace with the groups' namespace.\n\nExamples:\n        # Create a single group using the current selection\n        root_grp()\n\n        # Create a single group with a custom name\n        root_grp(custom=True, custom_name='MyGroup')\n\n        # Create two groups (Root Grp and Auto Grp) using the current selection\n        root_grp(autoRoot=True)\n\n        # Create two groups with a custom name\n        root_grp(custom=True, custom_name='MyGroup', autoRoot=True)\n\n        # Create groups and replace the namespace\n        root_grp(replace_nc=True)"
+   ],
+   [
+    "replace_name",
+    "input='', search='', replace='', hi=False",
+    "Replace names in the selection. Works nicely to change names in hierarchies.",
+    225,
+    "Replace names in the selection. Works nicely to change names in hierarchies.\n\nArgs:\n        input (str): Input string representing the selection. If not specified, the current selection will be used.\n        search (str): String to search for in the names.\n        replace (str): String to replace the matched search string with.\n        hi (bool): True if the change should be applied to the entire hierarchy.\n\nReturns:\n        list: List of new names.\n\nNotes:\n        - This function replaces occurrences of the `search` string with the `replace` string in the selection.\n        - If `input` != specified, it will use the current selection.\n        - If `hi` is True, the replacement will be applied to the entire hierarchy under each selected item.\n\nExamples:\n        # Replace 'old' with 'new' in the current selection\n        replace_name(search='old', replace='new')\n\n        # Replace 'old' with 'new' in a specific item\n        replace_name(input='item1', search='old', replace='new')\n\n        # Replace 'old' with 'new' in the entire hierarchy under each selected item\n        replace_name(search='old', replace='new', hi=True)"
+   ],
+   [
+    "assign_color",
+    "input='', color='lightBlue'",
+    "Assign a color to the desired transform.",
+    267,
+    "Assign a color to the desired transform.\n\nArgs:\n        input (str): Input string representing the selection. If not specified, the current selection will be used.\n        color (str): Name of the color to assign. Available colors are: 'red', 'blue', 'white', 'purple', 'green',\n                                 'lightBlue', 'yellow', 'pink', 'grey', and 'orange'.\n\nReturns:\n        None\n\nNotes:\n        - This function assigns a color to the transform(s) specified in the input.\n        - If `input` != specified, it will use the current selection.\n        - The `color` parameter should be a string representing the color name.\n        - The available colors and their corresponding values are defined in the `colors` dictionary.\n\nExamples:\n        # Example 1: Assign the color 'red' to the current selection\n        assign_color()\n\n        # Example 2: Assign the color 'green' to a specific transform\n        assign_color(input='transform1', color='green')\n\n        # Example 3: Assign the color 'lightBlue' to multiple transforms\n        assign_color(input=['transform1', 'transform2'], color='lightBlue')"
+   ],
+   [
+    "assign_color_rgb",
+    "input='', color=[1, 1, 1], hsv=False",
+    "Assign an RGB color or HSV color to the desired transform(s).",
+    323,
+    "Assign an RGB color or HSV color to the desired transform(s).\n\nArgs:\n        input (str or list): Input string or list representing the selection. If not specified, the current selection\n                                                 will be used.\n        color (list): List of RGB or HSV values representing the color to assign.\n        hsv (bool): True if the color values are in HSV format, False if they are in RGB format.\n\nReturns:\n        None\n\nNotes:\n        - This function assigns an RGB or HSV color to the transform(s) specified in the input.\n        - If `input` != specified, it will use the current selection.\n        - The `color` parameter should be a list of three values representing the color channels (R, G, B or H, S, V).\n        - If `hsv` is True, the `color` parameter is interpreted as HSV values. Otherwise, it is interpreted as RGB values.\n\nExamples:\n        # Example 1: Assign an RGB color to the current selection\n        assign_color(color=[1, 0, 0])\n\n        # Example 2: Assign an HSV color to a specific transform\n        assign_color(input='transform1', color=[0.5, 1, 1], hsv=True)\n\n        # Example 3: Assign an RGB color to multiple transforms\n        assign_color(input=['transform1', 'transform2'], color=[0, 1, 0.5])"
+   ],
+   [
+    "smart_assign_color",
+    "input=''",
+    "Smartly assign predefined colors based on the input.",
+    371,
+    "Smartly assign predefined colors based on the input.\n\nArgs:\n        input (str or list): Input string or list representing the selection. If not specified, the current selection\n                                                 will be used.\n\nReturns:\n        None\n\nNotes:\n        - This function automatically assigns predefined colors based on the input string.\n        - If `input` != specified, it will use the current selection.\n        - The color assignment is determined based on the prefix of the input string.\n        - If the input starts with the left prefix, it will assign the left color.\n        - If the input starts with the right prefix, it will assign the right color.\n        - Otherwise, it will assign the main color.\n\nExamples:\n        # Example 1: Smartly assign color to the current selection\n        smart_assign_color()\n\n        # Example 2: Smartly assign color to a specific transform\n        smart_assign_color(input='transform1')"
+   ],
+   [
+    "hide_attr",
+    "input='', t=False, r=False, s=False, v=False, rotate_order=False, show=False",
+    "Hide selected attributes or display all attributes if show is True.",
+    411,
+    "Hide selected attributes or display all attributes if show is True.\n\nArgs:\n        input (str): Input string representing the selection. If not specified, the current selection will be used.\n        t (bool): True to hide translate attributes.\n        r (bool): True to hide rotate attributes.\n        s (bool): True to hide scale attributes.\n        v (bool): True to hide visibility attribute.\n        rotate_order (bool): True to hide rotate order attribute.\n        show (bool): True to show all attributes.\n\nReturns:\n        None\n\nNotes:\n        - This function hides or displays selected attributes for the specified transform(s).\n        - If `input` != specified, it will use the current selection.\n        - Set the corresponding flag to True for each attribute you want to hide.\n        - If `show` is True, all attributes will be shown and unlocked.\n\nExamples:\n        # Example 1: Hide translate and scale attributes for the current selection\n        hide_attr(t=True, s=True)\n\n        # Example 2: Hide rotate order attribute for a specific transform\n        hide_attr(input='transform1', rotate_order=True)\n\n        # Example 3: Show all attributes for multiple transforms\n        hide_attr(input=['transform1', 'transform2'], show=True)"
+   ],
+   [
+    "curve",
+    "input='', type='cube', rename=True, custom_name=False, name='', size=1, tag=True, playback=True",
+    "For Controllers this is legacy, use mt.controller",
+    498,
+    "For Controllers this is legacy, use mt.controller\nWill create a curve on the position of the selected input.\n(see curves.json in config for more details of available shapes)\n\nArgs:\n        input: if not specified, it will use the selection; otherwise, specify the string\n        type: string name of the shape (default: 'cube')\n        rename: bool to replace namespaces at the end (default: True)\n        custom_name: True if you want to assign a new name, False if you want to use the same as the selection (default: False)\n        name: string custom name (default: '')\n        size: int size (default: 1)\n        tag: bool to tag the curve as a controller (default: True)\n        playback: bool to hide the curve during playback (default: True)\n\nReturns:\n        string ctrl\n\nExamples:\n        # Example 1: Create a curve using the default shape type ('cube') and rename it using the namespace of the selected input\n        curve()\n\n        # Example 2: Create a curve using the shape type 'circle' and assign a custom name\n        curve(type='circle', custom_name=True, name='myCurve')\n\n        # Example 3: Create a curve with a larger size (scale) of 2\n        curve(size=2)\n\n        # Example 4: Create a curve and tag it as a controller\n        curve(tag=True)\n\n        # Example 5: Create a curve and hide it during playback\n        curve(playback=True)\n\nTypes:"
+   ],
+   [
+    "build_all_curves",
+    "",
+    "Create all curves to generate icons or images quickly.",
+    625,
+    "Create all curves to generate icons or images quickly.\n\nArgs:\n        None\n\nReturns:\n        None\n\nNotes:\n        - This function iterates over the `curve_data` list to create all the curves.\n        - Each curve is created using the `curve` function with the specified type.\n        - The curve is then renamed to match its type.\n\nExamples:\n        # Creates all the curves specified in the `curve_data` list.\n        build_all_curves()"
+   ],
+   [
+    "change_curve_shape",
+    "input='', new_shape='', size=1",
+    "Change the shape of a curve.",
+    651,
+    "Change the shape of a curve.\n\nArgs:\n        input (str): Name of the curve object to modify. If not provided, the currently selected object will be used.\n        new_shape (str): The new shape type to be applied to the curve.\n        size (float): Size of the new shape.\n\nReturns:\n        bool: False if the new shape or input != specified or if the shapes cannot be retrieved.\n        bool: True if the curve shape is successfully changed.\n\nRaises:\n        None\n\nNotes:\n        - This function changes the shape of a curve by creating a new curve with the specified `new_shape` and `size`.\n        - The original curve's shape is replaced with the new shape.\n        - The `input` parameter specifies the name of the curve object to modify. If not provided, the currently selected object is used.\n        - The `new_shape` parameter specifies the type of shape to be applied to the curve.\n        - The `size` parameter specifies the size of the new shape.\n\nExamples:\n        # Change the shape of the selected curve to a cube shape with a size of 1.\n        change_curve_shape(new_shape='cube', size=1)\n\n        # Change the shape of the curve named 'curve1' to a circle shape with a size of 0.5.\n        change_curve_shape(input='curve1', new_shape='circle', size=0.5)"
+   ],
+   [
+    "controller",
+    "input='', name='', shape='cube', color=setup['main_color'], size=1, gimbal=True, world=True",
+    "Create a controller.",
+    713,
+    "Create a controller.\n\nArgs:\n        input (str): Name of the input object. If None, the controller will be created in the world.\n        name (str): Desired name for the controller. If None, the input name will be used.\n        shape (str): Desired shape of the controller. See curves.json in the config for available shapes.\n        color (str): Desired color of the controller.\n        size (int): Desired size of the controller.\n        gimbal (bool): If True, creates a gimbal controller under the main controller.\n        world (bool): If True, creates a world control oriented to the world.\n\nReturns:\n        dict: Dictionary containing the created controllers:\n                - 'ctrl': Main controller\n                - 'root': Root group\n                - 'world': World controller (if world is True)\n                - 'gimbal': Gimbal controller (if gimbal is True)\n\nNotes:\n        - This function creates a controller with the specified parameters.\n        - The 'input' parameter specifies the name of the object where the controller will be created. If None, it will be created in the world.\n        - The 'name' parameter specifies the desired name for the controller. If None, the input name will be used.\n        - The 'shape' parameter specifies the desired shape of the controller.\n        - The 'color' parameter specifies the desired color of the controller.\n        - The 'size' parameter specifies the desired size of the controller.\n        - The 'gimbal' parameter determines whether a gimbal controller should be created under the main controller.\n        - The 'world' parameter determines whether a world controller should be created oriented to the world.\n\nExamples:\n        # Create a cube-shaped controller named 'ctrl1' with the default color, size of 1, and gimbal and world controllers.\n        controller(input='object1', name='ctrl1', shape='cube', color=setup['main_color'], size=1, gimbal=True, world=True)\n\n        # Create a sphere-shaped controller in the world with the default color, size of 2, and no gimbal or world controllers.\n        controller(shape='sphere', color=setup['main_color'], size=2, gimbal=False, world=False)"
+   ],
+   [
+    "match",
+    "this='', that='', t=True, r=True, s=True",
+    "Match two transforms with desired transform, rotate, or scale.",
+    819,
+    "Match two transforms with desired transform, rotate, or scale.\n\nArgs:\n        this (str): Item to move.\n        that (str): Item with desired position.\n        t (bool): Match translate if True.\n        r (bool): Match rotate if True.\n        s (bool): Match scale if True.\n\nReturns:\n        None\n\nNotes:\n        - This function moves the 'this' transform to match the position, rotation, and scale of the 'that' transform.\n        - The 't' parameter controls whether translation is matched.\n        - The 'r' parameter controls whether rotation is matched.\n        - The 's' parameter controls whether scale is matched.\n\nExamples:\n        # Match the position and rotation of transform 'obj2' to transform 'obj1'.\n        match(this='obj1', that='obj2', t=True, r=True, s=False)\n\n        # Match the scale of transform 'obj3' to transform 'obj4'.\n        match(this='obj4', that='obj3', t=False, r=False, s=True)"
+   ],
+   [
+    "switch_constraints",
+    "this='', that='', main='', attr=''",
+    "Create a switch between 3 chains for IK/FK setups.",
+    856,
+    "Create a switch between 3 chains for IK/FK setups.\n\nArgs:\n        this (str): IK joint (can be any transform).\n        that (str): FK joint (can be any transform).\n        main (str): Main joint that switches between.\n        attr (str): Attribute to use as a switch parent.\n\nReturns:\n        None\n\nNotes:\n        - This function creates a switch between IK and FK chains in an IK/FK setup.\n        - The 'this' parameter represents the IK joint.\n        - The 'that' parameter represents the FK joint.\n        - The 'main' parameter represents the IK main joint that switches between IK and FK.\n        - The 'attr' parameter specifies the attribute to use as a switch parent.\n        - The function creates a parent constraint and a scale constraint for the 'main' joint, and connects them to the switch attribute.\n        - It also creates a reverse node to invert the switch attribute's value for the parent constraint.\n        - The resulting setup allows switching between IK and FK by controlling the 'attr' attribute.\n\nExamples:\n        # Create a switch between IK and FK chains using 'switchAttr' as the switch parent attribute.\n        switch_constraints(this='ikJoint', that='fkJoint', main='ikMainJoint', attr='switchAttr')"
+   ],
+   [
+    "switch_blend_colors",
+    "this='', that='', main='', attr=''",
+    "Create a switch between 3 chains for IK/FK setups using color blending.",
+    909,
+    "Create a switch between 3 chains for IK/FK setups using color blending.\n\nArgs:\n        this (str): IK joint (can be any transform).\n        that (str): FK joint (can be any transform).\n        main (str): Main joint that switches between.\n        attr (str): Attribute to use as a switch parent.\n\nReturns:\n        None\n\nNotes:\n        - This function creates a switch between IK and FK chains in an IK/FK setup using color blending.\n        - The 'this' parameter represents the IK joint.\n        - The 'that' parameter represents the FK joint.\n        - The 'main' parameter represents the IK main joint that switches between IK and FK.\n        - The 'attr' parameter specifies the attribute to use as a switch parent.\n        - The function creates blendColors nodes to blend the transform attributes of 'this' and 'that' based on the switch attribute.\n        - It connects the blended color outputs to the corresponding transform attributes of the 'main' joint.\n        - The resulting setup allows switching between IK and FK by controlling the 'attr' attribute.\n\nExamples:\n        # Create a switch between IK and FK chains using 'switchAttr' as the switch parent attribute.\n        switch_blend_colors(this='ikJoint', that='fkJoint', main='MainJoint', attr='switchAttr')"
+   ],
+   [
+    "new_attr",
+    "input='', name='switch', min=0, max=1, default=0, keyable=True",
+    "Create a new double attribute on a transform.",
+    961,
+    "Create a new double attribute on a transform.\n\nArgs:\n        input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.\n        name (str): Name of the new attribute.\n        min (int/False): Minimum value for the attribute (inclusive). Use False for no minimum.\n        max (int/False): Maximum value for the attribute (inclusive). Use False for no maximum.\n        default (int): Default value for the attribute.\n\nReturns:\n        str: Name of the created attribute.\n\nNotes:\n        - This function adds a new double attribute to the specified transform.\n        - If 'input' != specified, the function will use the currently selected object.\n        - The 'name' parameter specifies the name of the new attribute.\n        - The 'min' and 'max' parameters define the range of values for the attribute.\n        - The 'default' parameter sets the default value of the attribute.\n        - The function sets the added attribute as keyable.\n        - Pass min=False and/or max=False to create an unclamped attribute.\n\nExamples:\n        # Create a new double attribute named 'switch' with a range of 0 to 1 and a default value of 0.\n        new_attr(input='myObject', name='switch', min=0, max=1, default=0)"
+   ],
+   [
+    "new_attr_interger",
+    "input='', name='switch', min=0, max=1, default=0",
+    "Create a new integer attribute on a transform.",
+    1000,
+    "Create a new integer attribute on a transform.\n\nArgs:\n        input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.\n        name (str): Name of the new attribute.\n        min (int): Minimum value for the attribute (inclusive).\n        max (int): Maximum value for the attribute (inclusive).\n        default (int): Default value for the attribute.\n\nReturns:\n        str: Name of the created attribute.\n\nNotes:\n        - This function adds a new long (integer) attribute to the specified transform.\n        - If 'input' != specified, the function will use the currently selected object.\n        - The 'name' parameter specifies the name of the new attribute.\n        - The 'min' and 'max' parameters define the range of values for the attribute.\n        - The 'default' parameter sets the default value of the attribute.\n        - The function sets the added attribute as keyable.\n\nExamples:\n        # Create a new integer attribute named 'switch' with a range of 0 to 1 and a default value of 0.\n        new_attr_interger(input='myObject', name='switch', min=0, max=1, default=0)"
+   ],
+   [
+    "new_enum",
+    "input='', name='switch', enums='Hide:Show', keyable=True, long_name=False, default=0",
+    "Create a new enum attribute on a transform.",
+    1034,
+    "Create a new enum attribute on a transform.\n\nArgs:\n        input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.\n        name (str): Name of the new attribute.\n        enums (str): Enumerated values separated by a colon (':').\n        keyable (bool): Specifies if the attribute should be keyable (True by default).\n        long_name (bool): Specifies if the attribute name should include the full path (False by default).\n        default: Default value for the attribute.\n\nReturns:\n        str: Name of the created attribute.\n\nNotes:\n        - This function adds a new enum attribute to the specified transform.\n        - If 'input' != specified, the function will use the currently selected object.\n        - The 'name' parameter specifies the name of the new attribute.\n        - The 'enums' parameter defines the enumerated values for the attribute, separated by a colon (':').\n        - The 'keyable' parameter determines if the attribute is keyable or not.\n        - The 'long_name' parameter specifies if the attribute name should include the full path or not.\n        - The 'default' parameter sets the default value of the attribute.\n        - The function sets the added attribute as a channel box attribute.\n        - If 'keyable' is set to True, the attribute is also set as keyable.\n\nExamples:\n        # Create a new enum attribute named 'switch' with values 'Hide' and 'Show'.\n        new_enum(input='myObject', name='switch', enums='Hide:Show')\n\n        # Create a new enum attribute named 'status' with values 'Pending', 'Processing', and 'Completed',\n        # and make it keyable and a long name attribute.\n        new_enum(input='myObject', name='status', enums='Pending:Processing:Completed', keyable=True, long_name=True)"
+   ],
+   [
+    "new_boolean",
+    "input='', name='bool', dv='True'",
+    "Create a new boolean attribute on a transform.",
+    1086,
+    "Create a new boolean attribute on a transform.\n\nArgs:\n        input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.\n        name (str): Name of the new attribute.\n        dv (bool): Default value for the attribute (True by default).\n\nReturns:\n        str: Name of the created attribute.\n\nNotes:\n        - This function adds a new boolean attribute to the specified transform.\n        - If 'input' != specified, the function will use the currently selected object.\n        - The 'name' parameter specifies the name of the new attribute.\n        - The 'dv' parameter sets the default value of the attribute.\n        - The function sets the added attribute as a channel box attribute.\n\nExamples:\n        # Create a new boolean attribute named 'bool' with a default value of True.\n        new_boolean(input='myObject', name='bool', dv=True)\n\n        # Create a new boolean attribute named 'visibility' with a default value of False.\n        new_boolean(input='myObject', name='visibility', dv=False)"
+   ],
+   [
+    "line_attr",
+    "input='', name='name', lines=10",
+    "Create a line attribute with a header. _____________ [Name]",
+    1123,
+    "Create a line attribute with a header. _____________ [Name]\n\nArgs:\n        input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.\n        name (str): Name of the attribute.\n        lines (int): Number of lines to create in the attribute's header.\n\nReturns:\n        str: Name of the created attribute.\n\nNotes:\n        - This function creates a line attribute with a header that consists of a series of dashes followed by the attribute name in brackets.\n        - If 'input' != specified, the function will use the currently selected object.\n        - The 'name' parameter specifies the name of the attribute.\n        - The 'lines' parameter determines the number of lines in the header. If the specified number of lines exceeds the maximum available space, the function will reduce it to fit.\n        - The function returns the name of the created attribute.\n\nExamples:\n        # Create a line attribute named 'name' with a header of 10 lines.\n        line_attr(input='myObject', name='name', lines=10)\n\n        # Create a line attribute named 'description' with a header of 5 lines.\n        line_attr(input='myObject', name='description', lines=5)"
+   ],
+   [
+    "string_attr",
+    "input='', name='name', string='string'",
+    "Create a string attribute to store information.",
+    1160,
+    "Create a string attribute to store information.\n\nArgs:\n        input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.\n        name (str): Name of the attribute.\n        string (str): Initial string value for the attribute.\n\nReturns:\n        str: Name of the created attribute.\n\nNotes:\n        - This function creates a string attribute that can be used to store information.\n        - If 'input' != specified, the function will use the currently selected object.\n        - The 'name' parameter specifies the name of the attribute.\n        - The 'string' parameter sets the initial string value for the attribute.\n        - The function returns the name of the created attribute.\n\nExamples:\n        # Create a string attribute named 'name' with the initial value 'John'.\n        string_attr(input='myObject', name='name', string='John')\n\n        # Create a string attribute named 'description' with the initial value 'Object description'.\n        string_attr(input='myObject', name='description', string='Object description')"
+   ],
+   [
+    "connect_rotate_order",
+    "input='', object='controller'",
+    "Connect the rotate order attribute of the input object(s) to an attribute in the controller object.",
+    1193,
+    "Connect the rotate order attribute of the input object(s) to an attribute in the controller object.\n\nArgs:\n        input (str or list): Name of the transform(s) to connect the rotate order attribute. If not specified, it will use the currently selected object(s).\n        object (str): Name of the controller object where the rotate order attribute will be connected.\n\nReturns:\n        str: Name of the rotate order attribute in the controller object.\n\nNotes:\n        - This function connects the rotate order attribute of the input object(s) to an attribute in the controller object.\n        - If 'input' != specified, the function will use the currently selected object(s).\n        - The 'object' parameter specifies the name of the controller object where the rotate order attribute will be connected.\n        - If the rotate order attribute already exists in the controller object, it will be made keyable.\n        - If the rotate order attribute doesn't exist in the controller object, it will be created as an enum attribute with the rotate order values.\n        - The function returns the name of the rotate order attribute in the controller object.\n\nExamples:\n        # Connect the rotate order attribute of 'object1' to the 'RotateOrder' attribute of 'controller'.\n        connect_rotate_order(input='object1', object='controller')\n\n        # Connect the rotate order attribute of multiple objects to the 'RotationOrder' attribute of 'controller'.\n        connect_rotate_order(input=['object1', 'object2', 'object3'], object='controller')"
+   ],
+   [
+    "duplicate_change_names",
+    "input='', hi=True, search='_Jnt', replace='_dup', remove_end_number=True",
+    "Duplicate the hierarchy with clean names, ensuring no duplicated names in the duplicated hierarchy.",
+    1249,
+    "Duplicate the hierarchy with clean names, ensuring no duplicated names in the duplicated hierarchy.\n\nArgs:\n        input (str or list): Name of the transform(s) to duplicate. If not specified, it will use the currently selected object(s).\n        hi (bool): If True, duplicate the entire hierarchy. If False, duplicate only the selected object(s).\n        search (str): String to search for in the names of the duplicated objects.\n        replace (str): String to replace the search string with in the names of the duplicated objects.\n\nReturns:\n        str: Name of the duplicated[0] transform.\n\nNotes:\n        - This function duplicates the specified hierarchy or selected objects.\n        - The duplicated objects have their names cleaned to ensure no duplicated names in the duplicated hierarchy.\n        - The 'input' parameter specifies the name of the transform(s) to duplicate. If not specified, it will use the currently selected object(s).\n        - The 'hi' parameter controls whether to duplicate the entire hierarchy (hi=True) or only the selected objects (hi=False).\n        - The 'search' parameter is used to find the string to be replaced in the names of the duplicated objects.\n        - The 'replace' parameter is the string that will replace the search string in the names of the duplicated objects.\n        - The function returns the name of the duplicated[0] transform.\n\nExamples:\n        # Duplicate the hierarchy with clean names, replacing '_Jnt' with '_dup'.\n        duplicate_change_names(input='rootJoint', hi=True, search='_Jnt', replace='_dup')\n\n        # Duplicate the selected objects with clean names, replacing '_Ctrl' with '_Copy'.\n        duplicate_change_names(input=['ctrl1', 'ctrl2', 'ctrl3'], hi=False, search='_Ctrl', replace='_Copy')"
+   ],
+   [
+    "bounding_cube",
+    "input='', size=1, name='', axis=setup['twist_axis']",
+    "Create a control cube with coverage for the full limb, resembling a bounding box in length.",
+    1321,
+    "Create a control cube with coverage for the full limb, resembling a bounding box in length.\n\nArgs:\n        input (str or list): Name of the transform(s) to use as input. If not specified, it will use the currently selected object(s).\n        size (float): Size of the control cube.\n        name (str): Name of the cube. If not specified, a default name will be used.\n        axis (str): Axis to aim the control cube towards. Valid values are 'X', 'Y', or 'Z'. By default, it reads the value from the setup dictionary.\n\nReturns:\n        str: Name of the created control cube.\n\nNotes:\n        - This function creates a control cube that covers the full limb.\n        - The 'input' parameter specifies the name of the transform(s) to use as input. If not specified, it will use the currently selected object(s).\n        - The 'size' parameter controls the size of the control cube.\n        - The 'name' parameter allows specifying a custom name for the control cube. If not specified, a default name will be used.\n        - The 'axis' parameter determines the axis to aim the control cube towards. Valid values are 'X', 'Y', or 'Z'. By default, it reads the value from the setup dictionary.\n        - The function returns the name of the created control cube.\n\nExamples:\n        # Create a control cube with a size of 2, aiming towards the Y axis.\n        bounding_cube(input='limb_1', size=2, axis='Y')\n\n        # Create a control cube with the default size, aiming towards the Z axis.\n        bounding_cube(input='limb_2', axis='Z')"
+   ],
+   [
+    "shape_with_attr",
+    "input='', obj_name='Switch', attr_name='Switch'",
+    "Create a shape with an attribute and place it inside all the input transforms.",
+    1409,
+    "Create a shape with an attribute and place it inside all the input transforms.\n\nThis function is used to have an IK/FK switch on all the controls by adding a shape with the specified attribute.\n\nArgs:\n        input (str or list): Name of the transform(s) to use as input. If not specified, it will use the currently selected object(s).\n        obj_name (str): Name of the transform to put the shape in.\n        attr_name (str): Name of the attribute.\n\nReturns:\n        str: Name of the created attribute.\n\nNotes:\n        - This function creates a shape with the specified attribute and places it inside all the input transforms.\n        - The 'input' parameter specifies the name of the transform(s) to use as input. If not specified, it will use the currently selected object(s).\n        - The 'obj_name' parameter determines the name of the transform to put the shape in.\n        - The 'attr_name' parameter specifies the name of the attribute to create.\n        - If the shape already has the attribute, it will not be created again.\n        - The function returns the name of the created attribute.\n\nExamples:\n        # Create a shape with the 'Switch' attribute and place it inside the 'ctrl' transform.\n        shape_with_attr(input='limb_1', obj_name='ctrl', attr_name='Switch')\n\n        # Create a shape with the default attribute name and place it inside the selected transforms.\n        shape_with_attr()"
+   ],
+   [
+    "text_curves",
+    "name_text='Name', font='Arial', color=setup['main_color']",
+    "Create text curves.",
+    1492,
+    "Create text curves.\n\nThis function creates text curves based on the specified parameters.\n\nArgs:\n        name_text (str): Text to be curved.\n        font (str): Desired font.\n        color (str): Color of the curves.\n\nReturns:\n        str: Name of the created curve.\n\nNotes:\n        - The 'name_text' parameter specifies the text to be curved.\n        - The 'font' parameter determines the desired font.\n        - The 'color' parameter specifies the color of the curves.\n        - The function returns the name of the created curve.\n\nExamples:\n        # Create text curves with the specified name, font, and color.\n        text_curves(name_text='Hello', font='Arial', color='red')\n\n        # Create text curves with default parameters.\n        text_curves()"
+   ],
+   [
+    "curve_between",
+    "start, end",
+    "Create a 1D curve between two transforms.",
+    1592,
+    "Create a 1D curve between two transforms.\n\nThis function creates a linear curve between two transforms.\n\nArgs:\n        start (str): Name of the first transform.\n        end (str): Name of the second transform.\n\nReturns:\n        str: Name of the created curve.\n\nNotes:\n        - The created curve is a linear curve with two control points.\n        - The curve is created in world space.\n\nExamples:\n        # Create a curve between two transforms.\n        curve_between('joint1', 'joint2')"
+   ],
+   [
+    "nurbs_between",
+    "start, end",
+    "Create a NURBS plane between two transforms.",
+    1624,
+    "Create a NURBS plane between two transforms.\n\nThis function creates a NURBS plane between two transforms.\n\nArgs:\n        start (str): Name of the start transform.\n        end (str): Name of the end transform.\n\nReturns:\n        str: Name of the created NURBS plane.\n\nNotes:\n        - The created NURBS plane is a single-span surface.\n        - The NURBS plane is created with a degree of 1 (linear).\n        - The surface is created without construction history.\n        - Two clusters are created to control the surface CVs and are positioned on the start and end transforms.\n\nExamples:\n        # Create a NURBS plane between two transforms.\n        nurbs_between('joint1', 'joint2')"
+   ],
+   [
+    "nurbs_between_trio",
+    "start, mid, end",
+    "Create a NURBS plane between three transforms.",
+    1663,
+    "Create a NURBS plane between three transforms.\n\nThis function creates a NURBS plane between three transforms.\n\nArgs:\n        start (str): Name of the start transform.\n        mid (str): Name of the mid transform.\n        end (str): Name of the end transform.\n\nReturns:\n        str: Name of the created NURBS plane.\n\nNotes:\n        - The created NURBS plane is a single-span surface.\n        - The NURBS plane is created with a degree of 1 (linear).\n        - The surface is created without construction history.\n        - Three clusters are created to control the surface CVs, positioned on the start, mid, and end transforms.\n\nExamples:\n        # Create a NURBS plane between three transforms.\n        nurbs_between_trio('joint1', 'joint2', 'joint3')"
+   ],
+   [
+    "create_ik_spline_twist",
+    "start, end, curve",
+    "Create an IK spline based on two joints and one curve.",
+    1703,
+    "Create an IK spline based on two joints and one curve.\n\nThis function creates an IK spline handle using the specified start and end joints\nand a curve as the spline shape.\n\nArgs:\n        start (str): Name of the first joint.\n        end (str): Name of the last joint.\n        curve (str): Name of the curve to be used as the spline shape.\n\nReturns:\n        dict: A dictionary containing the names of the IK handle, effector, and curve.\n\nNotes:\n        - The IK handle is created using the 'ikSplineSolver' solver type.\n        - The created IK handle, effector, and curve are renamed using the specified naming conventions.\n\nExamples:\n        # Create an IK spline handle between two joints using a curve.\n        create_ik_spline_twist('joint1', 'joint2', 'curve1')"
+   ],
+   [
+    "connect_md_node",
+    "in_x1='', in_x2=1.0, out_x='', mode='mult', name='', force=False, vector=False",
+    "Create a multiplyDivide node to connect inputs and outputs.",
+    1743,
+    "Create a multiplyDivide node to connect inputs and outputs.\n\nThis function creates a multiplyDivide node and connects the specified input attributes\nto the input1 and input2 of the node. It also connects the output of the node to the\nspecified output attribute.\n\nArgs:\n        in_x1 (str or int or float): Attribute or value to connect to input1X.\n        in_x2 (str or int or float): Attribute or value to connect to input2X.\n        out_x (str): Attribute to connect the multiplyDivide output.\n        mode (str): Operation mode of the multiplyDivide node ('mult', 'divide', or 'power').\n        name (str): Name of the node (optional).\n        force (bool): Force the connection if needed (default: False).\n        vector (bool): Connect input and output attributes as vector (default: False).\n\nReturns:\n        str: Name of the created multiplyDivide node.\n\nNotes:\n        - The created multiplyDivide node can perform multiplication, division, or power operations.\n        - The input and output connections can be forced if specified.\n        - If `vector` is True, the input and output connections will be treated as vector attributes.\n\nExamples:\n        # Create a multiplyDivide node and connect attributes.\n        connect_md_node('attr1.attr', 'attr2.attr', 'result.attr', 'mult')\n\n        # Create a multiplyDivide node with constant values and connect attributes.\n        connect_md_node(2.0, 0.5, 'result.attr', 'mult')\n\n        # Create a multiplyDivide node with a vector attribute and connect attributes.\n        connect_md_node('vector1.attr', 'vector2.attr', 'result.attr', 'mult', vector=True)"
+   ],
+   [
+    "transform_on_sel",
+    "transform='', name='Temp'",
+    "Position a transform node based on the selection.",
+    1852,
+    "Position a transform node based on the selection.\n\nThis function positions a transform node based on the selected objects.\nIf no transform node is specified, it will create a joint.\n\nArgs:\n        transform (str): Name of the transform node to position (optional).\n        name (str): Name of the transform node or joint (default: 'Temp').\n\nReturns:\n        None\n\nNotes:\n        - If no transform node is specified, it will create a joint with the given name.\n        - The transform node will be positioned based on the selected objects."
+   ],
+   [
+    "connect_with_line",
+    "start='', end=''",
+    "Create a non-selectable curve between two objects (Pole Vectors Lines).",
+    1884,
+    "Create a non-selectable curve between two objects (Pole Vectors Lines).\n\nThis function creates a curve between two objects, commonly used for pole vectors lines.\nIf no start and end transforms are provided, it will use the currently selected objects.\n\nArgs:\n        start (str): Name of the start transform (optional).\n        end (str): Name of the end transform (optional).\n\nReturns:\n        List[str]: List of created assets (curve and clusters).\n\nNotes:\n        - If no start and end transforms are provided, it will use the currently selected objects.\n        - The curve is created using the `curve_between` function.\n        - Clusters are created on CVs 0 and 1 of the curve.\n        - Parent constraints are applied to the clusters to attach them to the start and end transforms.\n        - The CVs and clusters are cleaned and hidden for a cleaner display.\n\nExample:\n        # Create a curve between two transforms\n        connect_with_line('joint1', 'joint2')"
+   ],
+   [
+    "lock_node",
+    "input='', unlock=False",
+    "Lock or unlock nodes.",
+    1944,
+    "Lock or unlock nodes.\n\nThis function allows you to lock or unlock nodes. If no input is specified, it will use the currently selected nodes.\n\nArgs:\n        input (str or List[str]): Node or list of nodes to lock or unlock (optional).\n        unlock (bool): True to unlock nodes, False to lock nodes.\n\nReturns:\n        None\n\nNotes:\n        - If no input is specified, it will use the currently selected nodes.\n        - When unlocking nodes, the `lockNode` command is called with `lock=False`.\n        - When locking nodes, the `lockNode` command is called with `lock=True`.\n\nExample:\n        # Lock selected nodes\n        lock_node()\n\n        # Unlock specified nodes\n        lock_node(['node1', 'node2'], unlock=True)"
+   ],
+   [
+    "create_add_double_linear",
+    "name=None",
+    "Create an add node compatible with multiple Maya versions.",
+    1980,
+    "Create an add node compatible with multiple Maya versions.\n\nReturns:\n        str: The created node name."
+   ],
+   [
+    "get_add_double_linear_attrs",
+    "node",
+    "Return input/output attr names for the add node type.",
+    2000,
+    "Return input/output attr names for the add node type."
+   ],
+   [
+    "replace_connection_with_doublelinear",
+    "input='', attr='', name='DoubleLinear'",
+    "Add a double linear node between two nodes.",
+    2012,
+    "Add a double linear node between two nodes.\n\nThis function adds a double linear node between two nodes to replace an existing connection.\n\nArgs:\n        input (str): Node or attribute to replace the connection (optional).\n        attr (str): Attribute to connect the double linear node (optional).\n        name (str): Name of the double linear node (optional).\n\nReturns:\n        str: Name of the double linear node.\n\nNotes:\n        - If no input is specified, it will use the selection.\n        - The function creates a double linear node using the 'addDoubleLinear' shading node.\n        - It retrieves the connection to replace based on the input node and attribute.\n        - The connection is established between the retrieved connection and the input of the double linear node.\n        - The output of the double linear node is connected to the specified attribute of the input node.\n        - The double linear node is added to the rig container.\n\nExample:\n        # Replace connection with a double linear node\n        replace_connection_with_doublelinear()\n\n        # Replace connection with a double linear node on a specific attribute\n        replace_connection_with_doublelinear(input='node1', attr='translateX', name='DLNode')"
+   ],
+   [
+    "write_json",
+    "path, json_file, data",
+    "Write data to a JSON file.",
+    2053,
+    "Write data to a JSON file.\n\nThis function writes the specified data to a JSON file.\n\nArgs:\n        path (str): Path to the folder where the JSON file will be located (use '\\' to define folders).\n        json_file (str): Name of the JSON file.\n        data (dict): Data to be saved in the JSON file.\n\nReturns:\n        str: Full path of the JSON file.\n\nNotes:\n        - The function uses the `os.path.join()` function to construct the full path of the JSON file.\n        - The data is written to the file using the `json.dump()` function.\n        - The `ensure_ascii`, `indent`, and `sort_keys` parameters are set to `False`, `4`, and `False` respectively\n          for better formatting and readability of the JSON file.\n        - The full path of the JSON file is returned.\n\nExample:\n        # Write data to a JSON file\n        write_json(\"C:\\data\", \"output.json\", {\"name\": \"John\", \"age\": 30})"
+   ],
+   [
+    "read_json",
+    "path, json_file",
+    "Read data from a JSON file.",
+    2087,
+    "Read data from a JSON file.\n\nThis function reads the data from the specified JSON file and returns it as a dictionary.\n\nArgs:\n        path (str): Path to the folder where the JSON file is located (use '\\' to define folders).\n        json_file (str): Name of the JSON file.\n\nReturns:\n        dict: Dictionary with the data from the JSON file.\n\nNotes:\n        - The function uses the `os.path.join()` function to construct the full path of the JSON file.\n        - The data is read from the file using the `json.load()` function.\n        - The dictionary with the data is returned.\n\nExample:\n        # Read data from a JSON file\n        data = read_json(\"C:\\data\", \"input.json\")"
+   ],
+   [
+    "change_default",
+    "atrr, default",
+    "Change the default value of an attribute.",
+    2118,
+    "Change the default value of an attribute.\n\nThis function changes the default value of the specified attribute to the given value.\n\nArgs:\n        attr (str): Name of the attribute to change.\n        default: New default value for the attribute.\n\nReturns:\n        None\n\nNotes:\n        - The function uses the `cmds.addAttr()` command with the `e` flag to modify the attribute.\n        - The `dv` flag is used to set the new default value for the attribute.\n\nExample:\n        # Change the default value of an attribute\n        change_default('myNode.myAttribute', 10.0)"
+   ],
+   [
+    "put_inside_rig_container",
+    "inputs=[]",
+    "Put nodes inside a rig container.",
+    2142,
+    "Put nodes inside a rig container.\n\nThis function adds the specified nodes to a rig container called \"Mutant_Rig\". If the container does not exist, it will be created.\n\nArgs:\n        inputs (list): List of nodes to add to the rig container.\n\nReturns:\n        None\n\nNotes:\n        - The function checks if the \"Mutant_Rig\" container exists. If it doesn't, a new container is created using the `cmds.container()` command with the \"dagContainer\" type.\n        - The `addNode` flag of the `cmds.container()` command is used to add the specified nodes to the container.\n        - The `iconName` attribute of the container is set to a specific icon path.\n\nExample:\n        # Put nodes inside a rig container\n        put_inside_rig_container(['node1', 'node2', 'node3'])"
+   ],
+   [
+    "connect_remap_value",
+    "input_value, output_value, value=0",
+    "Connect a remapValue node to remap an input value to an output value.",
+    2178,
+    "Connect a remapValue node to remap an input value to an output value.\n\nThis function creates a remapValue node and connects it between the input value and output value. It allows you to remap the input value to a desired output value range.\n\nArgs:\n        input_value (str): Input value attribute to connect.\n        output_value (str): Output value attribute to connect.\n        value (float): Default output value.\n\nReturns:\n        str: Name of the remapValue node.\n\nExample:\n        # Connect remapValue node\n        remap_node = connect_remap_value('input.value', 'output.value', value=0)"
+   ],
+   [
+    "create_proxy_attr",
+    "original_attr, output_node, line_on_top=False, line_name='', new_name=False, name=''",
+    "Create a proxy attribute from a source node to a target node.",
+    2204,
+    "Create a proxy attribute from a source node to a target node.\n\nThis function copies an attribute from a source node to a target node and creates a proxy attribute that mirrors the source attribute's behavior.\n\nArgs:\n        original_attr (str): Original attribute to copy.\n        output_node (str): Node where the new attribute will be created.\n        line_on_top (bool, optional): Add a line before the new attribute. Defaults to False.\n        line_name (str, optional): Name of the line attribute. Defaults to ''.\n        new_name (bool, optional): Rename the new attribute. Defaults to False.\n        name (str, optional): Name for the new attribute. Defaults to ''.\n\nReturns:\n        str: Name of the new attribute.\n\nNotes:\n        - The function creates a proxy attribute by copying the attribute from the source node to the output node.\n        - If line_on_top is set to True, a line attribute will be added before the new attribute.\n        - If new_name is set to True, the new attribute will be renamed using the specified name. Otherwise, it will retain the original attribute name.\n        - The attribute type, minimum and maximum values, and enumeration options (if applicable) will be preserved in the proxy attribute.\n\nExamples:\n        1. Copying an attribute without renaming:\n                create_proxy_attr(original_attr='L_Shoulder_Jnt_Switch_Loc.FK_Arms', output_node='L_Shoulder_Fk_Ctrl')\n\n        2. Copying an attribute and renaming:\n                create_proxy_attr(original_attr='L_Shoulder_Jnt_Switch_Loc.FK_Arms', output_node='L_Shoulder_Fk_Ctrl', new_name=True, name='Follow')\n\n        3. Copying an attribute with a line attribute on top:\n                create_proxy_attr(original_attr='L_Shoulder_Jnt_Switch_Loc.FK_Arms', output_node='L_Shoulder_Fk_Ctrl', line_on_top=True, line_name='LineAttr')"
+   ],
+   [
+    "create_softmod",
+    "vertex, name='soft_mod'",
+    "Creates a softMod deformer and adds a custom control structure for controlling the strength, radius, and falloff directions.",
+    2288,
+    "Creates a softMod deformer and adds a custom control structure for controlling the strength, radius, and falloff directions.\n\nArgs:\n        vertex (str): Vertex that the softMod will be created on.\n        name (str, optional): Name for the softMod. Defaults to 'soft_mod'.\n\nReturns:\n        list: SoftMod, SoftMod handle, control, pivot control offset.\n\nNotes:\n        - The softMod deformer is created on the specified vertex.\n        - A custom control structure is added to control the softMod's attributes.\n        - The control structure includes a main control, a pivot control, and a locator.\n        - Additional attributes are added to the main control to control the strength, radius, and falloff directions.\n\nExamples:\n        1. Create a basic softMod:\n                soft_mod, soft_mod_handle, ctrl, pivot_ctrl_offset = create_softmod(\"pSphere1.vtx[0]\", name=\"sphere_softMod\")\n\n        2. Create a softMod with custom attributes:\n                soft_mod, soft_mod_handle, ctrl, pivot_ctrl_offset = create_softmod(\"pSphere1.vtx[0]\", name=\"sphere_softMod\")\n                # Add custom attributes\n                self.new_attr(ctrl, 'customAttr1', 0, 1, 1)\n                self.new_attr(ctrl, 'customAttr2', -10, 10, 0)\n                self.new_boolean(ctrl, 'customAttr3', 'True')"
+   ],
+   [
+    "get_dag_path",
+    "obj",
+    "Returns the DAG path of the specified object.",
+    2369,
+    "Returns the DAG path of the specified object.\n\nArgs:\n        obj (str): Name of the object.\n\nReturns:\n        om2.MDagPath or None: The DAG path of the object if it exists, None otherwise.\n\nExample:\n        dag_path = get_dag_path('pSphere1')"
+   ],
+   [
+    "get_closest_vertex",
+    "mesh_fn, point",
+    "Returns the closest vertex index on the given mesh to the specified point.",
+    2389,
+    "Returns the closest vertex index on the given mesh to the specified point.\n\nArgs:\n        mesh_fn (om2.MFnMesh): Mesh function set.\n        point (om2.MPoint): Point in world space.\n\nReturns:\n        int: Index of the closest vertex.\n\nExample:\n        # Get closest vertex on a mesh\n        mesh_fn = om2.MFnMesh(get_dag_path('pSphere1'))\n        point = om2.MPoint(1, 2, 3)\n        closest_vertex = get_closest_vertex(mesh_fn, point)"
+   ],
+   [
+    "get_position",
+    "obj",
+    "Returns the world space position of the specified object.",
+    2412,
+    "Returns the world space position of the specified object.\n\nArgs:\n        obj (str): Name of the object.\n\nReturns:\n        list: List of three float values representing the x, y, and z coordinates.\n\nExample:\n        position = get_position('pSphere1')"
+   ],
+   [
+    "get_orient",
+    "obj",
+    "Returns the world space orientation of the specified object.",
+    2426,
+    "Returns the world space orientation of the specified object.\n\nArgs:\n        obj (str): Name of the object.\n\nReturns:\n        list: List of three float values representing the x, y, and z rotation angles in degrees.\n\nExample:\n        orientation = get_orient('pSphere1')"
+   ],
+   [
+    "get_scale",
+    "obj",
+    "Returns the world space scale of the specified object.",
+    2440,
+    "Returns the world space scale of the specified object.\n\nArgs:\n        obj (str): Name of the object.\n\nReturns:\n        list: List of three float values representing the x, y, and z scale values.\n\nExample:\n        scale = get_scale('pSphere1')"
+   ],
+   [
+    "rotate_shape",
+    "input=None, x=0, y=0, z=0",
+    "Rotates the control vertices of the shape nodes of the specified object.",
+    2454,
+    "Rotates the control vertices of the shape nodes of the specified object.\n\nArgs:\n        input (str): Name of the object.\n        x (float): Rotation angle in degrees around the X-axis.\n        y (float): Rotation angle in degrees around the Y-axis.\n        z (float): Rotation angle in degrees around the Z-axis.\n\nReturns:\n        bool: True if successful, False otherwise.\n\nExample:\n        # Rotate the shape of a sphere\n        rotate_shape('pSphere1', x=45, y=0, z=0)"
+   ],
+   [
+    "scale_shape",
+    "input=None, x=1, y=1, z=1",
+    "Scales the control vertices of the shape nodes of the specified object.",
+    2483,
+    "Scales the control vertices of the shape nodes of the specified object.\n\nArgs:\n        input (str): Name of the object.\n        x (float): Scale factor along the X-axis.\n        y (float): Scale factor along the Y-axis.\n        z (float): Scale factor along the Z-axis.\n\nReturns:\n        bool: True if successful, False otherwise.\n\nExample:\n        # Scale the shape of a sphere\n        scale_shape('pSphere1', x=2, y=1, z=1)"
+   ],
+   [
+    "translate_shape",
+    "input=None, x=0, y=0, z=0",
+    "Translates the control vertices of the shape nodes of the specified object.",
+    2512,
+    "Translates the control vertices of the shape nodes of the specified object.\n\nArgs:\n        input (str): Name of the object.\n        x (float): Translation distance along the X-axis.\n        y (float): Translation distance along the Y-axis.\n        z (float): Translation distance along the Z-axis.\n\nReturns:\n        bool: True if successful, False otherwise.\n\nExample:\n        # Translate the shape of a sphere\n        translate_shape('pSphere1', x=1, y=0, z=0)"
+   ],
+   [
+    "calculate_bounding_box_diagonal",
+    "geo",
+    "Calculates the diagonal length of the bounding box of the specified geometry.",
+    2541,
+    "Calculates the diagonal length of the bounding box of the specified geometry.\n\nArgs:\n        geo (str): Name of the geometry.\n\nReturns:\n        tuple: A tuple containing the name of the bounding box and the diagonal length.\n\nExample:\n        bbox, diagonal_length = calculate_bounding_box_diagonal('pSphere1')"
+   ],
+   [
+    "rivet_constraint",
+    "faces=None",
+    "Applies a rivet constraint to the specified faces.",
+    2564,
+    "Applies a rivet constraint to the specified faces.\n\nArgs:\n        faces (list[str]): Optional. The faces to which the rivet constraint should be applied.\n                If not specified, an error is raised.\n\nReturns:\n        list[str]: A list of the rivets objects after applying the rivet constraint.\n\nRaises:\n        RuntimeError: If no faces are provided.\n\nNotes:\n        This function applies a rivet constraint to the specified faces in Maya. It uses the\n        Maya internal nodes and the uvpin.node_interface module to create the rivet.\n\nExample:\n        >>> rivet_constraint(['pCube1.f[0]', 'pCube1.f[1]'])\n        ['pCube1.f[0]', 'pCube1.f[1]']"
+   ],
+   [
+    "find_closest_joint",
+    "joint, target_list",
+    "Find the closest joint in the target_list to the given joint.",
+    2594,
+    "Find the closest joint in the target_list to the given joint.\n\nArgs:\n        joint (str): The name of the joint to which distances are measured.\n        target_list (list[str]): List of joint names to compare distances with.\n\nReturns:\n        str: The name of the closest joint from the target_list.\n\nNotes:\n        This function calculates the distance between the specified joint and a list of target joints.\n        It returns the name of the joint in the target_list that is closest to the given joint.\n\nExample:\n        self.find_closest_joint('joint1', ['joint2', 'joint3', 'joint4'])\n        'joint2'"
+   ],
+   [
+    "connect_object_to_offsets",
+    "driver_ctrl='', driven_ctrls=[], offset_name='', auto_root=True, rotation=True, translation=False, scaling=False",
+    "Description:",
+    2635,
+    "Description:\nConnect the transformations (rotation, translation, scaling) of a driver controller to multiple driven controllers.\n\nArgs:\n        driver_ctrl (str): The controller whose transformations will be used as the source.\n        driven_ctrls (list): List of controllers to connect to the driver controller.\n        offset_name (str): Custom name for the offset groups created for each driven controller.\n        rotation (bool): Flag to determine whether to connect rotation attributes.\n        translation (bool): Flag to determine whether to connect translation attributes.\n        scaling (bool): Flag to determine whether to connect scaling attributes.\n\nReturns:\n        list: A list of offset groups created for each driven controller.\n\nExample:\n        connect_object_to_offsets(driver_ctrl=\"source_ctrl\", driven_ctrls=[\"driven_ctrl_1\", \"driven_ctrl_2\"], offset_name=\"offset_grp\", rotation=True, translation=True, scaling=False)"
+   ],
+   [
+    "create_quad_locator",
+    "locator, push_joint_name, locator_size=0.5, color='green'",
+    "Creates a secondary locator (quad) to receive clean rotation data using euler-quaternion conversion.",
+    2680,
+    "Creates a secondary locator (quad) to receive clean rotation data using euler-quaternion conversion.\n\nThis process improves rotational interpolation by converting from euler to quaternion and back.\n\nArgs:\n    locator (str): The name of the locator to base the quad on (usually the reader).\n    push_joint_name (str): Base name used to name the utility nodes and quad locator.\n\nReturns:\n    str: The name of the created quad locator."
+   ],
+   [
+    "create_joint_reader",
+    "joint, push_joint_name, return_all=False, locator_size=0.5, color='green'",
+    "Creates a reader locator for a given joint and organizes it under a reader group.",
+    2717,
+    "Creates a reader locator for a given joint and organizes it under a reader group.\n\nThis function sets up a locator to track a joint’s motion. It creates a root/auto hierarchy\nusing `self.root_grp`, constraints it to the joint, and optionally creates a quad locator for\nrotation smoothing.\n\nArgs:\n    joint (str): The name of the joint to read motion from.\n    push_joint_name (str): The base name used to name the reader locator and group.\n\nReturns:\n    str: The name of the created reader locator."
+   ],
+   [
+    "create_push_joint",
+    "joint_parent=None, reader=None, push_joint_name='Test', custom_position=None",
+    "Creates a push driver system consisting of:",
+    2754,
+    "Creates a push driver system consisting of:\n  - a control object,\n  - a driver joint with root/auto hierarchy,\n  - and a bind (skl) joint.\n\nThese are aligned to a reader locator and optionally positioned using a custom transform.\n\nArgs:\n    joint_parent (str, optional): The parent joint for the bind joint. If None, it's parented to world.\n    reader (str, optional): The name of the reader locator used for positioning. Required.\n    push_joint_name (str, optional): Base name for naming the joints. Default is 'Test'.\n    custom_position (str, optional): An object to use for custom positioning. Overrides the reader if provided.\n\nReturns:\n    tuple: A tuple containing the control name, driver joint name, and bind joint name."
+   ],
+   [
+    "create_push_connections",
+    "driver_attr, driven, start_val, end_val, start_t=(0, 0, 0), end_t=(0, 0, 0), start_r=(0, 0, 0), end_r=(0, 0, 0), start_s=(1, 1, 1), end_s=(1, 1, 1), attrs_position=None",
+    "Creates a matrix-based blending system to drive translation, rotation, and scale",
+    2818,
+    "Creates a matrix-based blending system to drive translation, rotation, and scale\nof a target object based on an input driver attribute (e.g., rotation).\n\nA remapValue normalizes the input driver range (start_val to end_val) to 0-1,\nand uses that to blend between two sets of transform values using blendMatrix.\n\nArgs:\n    driver_attr (str): Full attribute name (e.g., \"Some_Ctrl.rotateZ\") to drive the blend.\n    driven (str): The object to apply the blended transform to.\n    start_val (float): The driver value at which to apply the start transform.\n    end_val (float): The driver value at which to apply the end transform.\n    start_t (tuple): Translation at start_val as (x, y, z).\n    end_t (tuple): Translation at end_val as (x, y, z).\n    start_r (tuple): Rotation at start_val as (x, y, z).\n    end_r (tuple): Rotation at end_val as (x, y, z).\n    start_s (tuple): Scale at start_val as (x, y, z).\n    end_s (tuple): Scale at end_val as (x, y, z).\n    attrs_position (str, optional): Object (typically a locator) where control attributes\n        for start/end transforms will be stored. If None, a new locator is created.\n\nReturns:\n    dict: A dictionary of created node names for reference."
+   ],
+   [
+    "connect_compose_matrix",
+    "ctrl, comp_node, prefix",
+    "Connects control object attributes (e.g., start_translateX) to a composeMatrix node.",
+    2920,
+    "Connects control object attributes (e.g., start_translateX) to a composeMatrix node.\n\nArgs:\n    ctrl (str): The control object containing the attributes.\n    comp_node (str): The name of the composeMatrix node to connect to.\n    prefix (str): Either \"start\" or \"end\" — determines attribute naming."
+   ]
+  ]
+ },
+ "Kinematics_class": {
+  "file": "kinematics.py",
+  "bases": [
+   "tools.Tools_class"
+  ],
+  "methods": [
+   [
+    "__init__",
+    "",
+    "",
+    90,
+    ""
+   ],
+   [
+    "fk_chain",
+    "input='', size=1, color=setup['main_color'], curve_type=setup['fk_ctrl'], scale=True, twist_axis=setup['twist_axis'], world_orient=False, direct_connect=False, direct_scale=False",
+    "Create a FK Chain with selected joints.",
+    93,
+    "Create a FK Chain with selected joints.\n\nArgs:\n        input (str): The input joint or a string representing the selection. If not specified, it will use the selected joints.\n        size (int): The size of the FK controllers.\n        color (str): The color of the controllers.\n        curve_type (str): The type of curve used for the controllers.\n        scale (bool): Whether to add a scale constraint to the controllers.\n        twist_axis (str): The aim axis of the joints for creating bounding cubes.\n        world_orient (bool): Whether to perform world orientation on the controllers.\n        direct_connect (bool): Whether to directly connect the controllers to the joints.\n\nReturns:\n        list: A list of FK controllers.\n\nRaises:\n        None\n\nThis function creates a FK (Forward Kinematics) chain with the selected joints. The settings for the chain can be customized in the setup\nJSON file.\n\nThe `input` parameter allows specifying the input joint or using the selected joints by leaving it empty. The `size` parameter determines\nthe size of the FK controllers. The `color` parameter sets the color of the controllers. The `curve_type` parameter determines the type of\ncurve used for the controllers, which can be customized in the setup JSON file.\n\nThe `scale` parameter controls whether a scale constraint is added to the controllers. The `twist_axis` parameter specifies the aim axis\nof the joints when creating bounding cubes. The `world_orient` parameter determines whether to perform world orientation on the\ncontrollers.\n\nIf `direct_connect` is set to `True`, the controllers will be directly connected to the joints. Otherwise, they will be parented using\nconstraints.\n\nThe function returns a list of FK controllers created.\n\nNote:\n        This function assumes the existence of other helper methods such as `check_input`, `bounding_cube`, `curve`, `root_grp`, `assign_color`,\n        and `hide_attr`. Please ensure that these methods are implemented and correctly handle their respective functionalities."
+   ],
+   [
+    "pole_vector_placement",
+    "bone_one='', bone_two='', bone_three='', back_distance=1",
+    "Get the perfect Polevector position.",
+    207,
+    "Get the perfect Polevector position.\n\nArgs:\n        bone_one (str): The first joint in the chain.\n        bone_two (str): The second joint in the chain.\n        bone_three (str): The third joint in the chain.\n        back_distance (float): The distance to move the pole vector position backward.\n\nReturns:\n        str: The name of the temporary locator.\n\nRaises:\n        None\n\nThis function calculates and returns the perfect position for the Polevector in a joint chain. The positions of the three joints are\nspecified using the `bone_one`, `bone_two`, and `bone_three` parameters. Alternatively, if no parameters are provided, the function will\nuse the currently selected joints.\n\nThe function calculates the Polevector position based on the positions of the three joints. It uses vector math and algorithms to find\nthe most suitable position. The calculated position is then used to create a temporary locator that can be used for visual reference.\n\nThe `back_distance` parameter allows adjusting the position backward, which can be useful for animators.\n\nThe function returns the name of the temporary locator created.\n\nNote:\n        This function relies on the OpenMaya module for vector calculations and transformations. Please ensure that the module is available and\n        properly imported before using this function."
+   ],
+   [
+    "streatchy_ik",
+    "ik='', ik_ctrl='', top_ctrl='', pv_ctrl='', attrs_location='', name='', axis='Y'",
+    "Generate all the nodes necessary to create an IK stretching system.",
+    302,
+    "Generate all the nodes necessary to create an IK stretching system.\n\nArgs:\n        ik (string): Name of the IK on the limb.\n        ik_ctrl (string): Name of the IK Ctrl.\n        top_ctrl (string): Name of the Top IK Ctrl.\n        pv_ctrl (string): Name of the PV Ctrl.\n        attrs_location (string): Location where to put the attributes.\n        name (string): Name of the system.\n        axis (string): Name of the twist axis to obtain correct lengths.\n\nReturns:\n        tuple: A tuple containing the following nodes and locators:\n                - ik_grp: The top-level group node that contains all the created nodes.\n                - normalize_loc: The locator used for normalizing the stretch.\n                - start_loc: Locator positioned at the base joint of the IK chain.\n                - end_loc: Locator positioned at the end joint of the IK chain.\n                - pv_loc: Locator positioned at the pole vector control.\n                - distance: Distance dimension node representing the length of the IK chain.\n                - top_distance: Distance dimension node representing the length between the base joint and the pole vector.\n                - ik_distance: Distance dimension node representing the length between the end joint and the pole vector.\n\nNotes:\n        - This function generates nodes and connections for a stretchy IK system.\n        - The function assumes that the IK chain is already set up and the necessary controls and joints are passed as arguments.\n        - The function creates locators to represent the start, end, and pole vector positions of the IK chain.\n        - It also creates distance dimension nodes to measure the lengths of different segments.\n        - The stretchy math is calculated based on the distances and joint scales.\n        - Additional attributes for controlling the system, such as stretchiness, pole vector lock, and volume preservation, are created.\n        - The function organizes all the nodes under a top-level group node and returns the necessary nodes and locators.\n\nUsage:\n        # Example usage with default arguments\n        ik_grp, normalize_loc, start_loc, end_loc, pv_loc, distance, top_distance, ik_distance = streatchy_ik()\n\n        # Example usage with custom arguments\n        ik_grp, normalize_loc, start_loc, end_loc, pv_loc, distance, top_distance, ik_distance = streatchy_ik(\n                ik='left_arm_ik',\n                ik_ctrl='left_arm_ik_ctrl',\n                top_ctrl='left_arm_top_ctrl',\n                pv_ctrl='left_arm_pv_ctrl',\n                attrs_location='left_arm_attrs',\n                name='left_arm_stretchy',\n                axis='Y'\n        )"
+   ],
+   [
+    "simple_ik_chain",
+    "start='', end='', size=1, color=setup['main_color'], ik_curve=setup['ik_ctrl'], pv_curve=setup['pv_ctrl'], pv=True, top_curve=setup['top_ik_ctrl']",
+    "Create a simple IK chain between two joints with controllers.",
+    511,
+    "Create a simple IK chain between two joints with controllers.\n\nArgs:\n        start (string): Name of the first joint. If empty, the currently selected joint will be used.\n        end (string): Name of the last joint. If empty, the last selected joint will be used.\n        size (string): Size of the controller.\n        color (string): Name of the color for the controllers.\n        ik_curve (string): Type of controller based on curves.json.\n        pv_curve (string): Type of pole vector controller based on curves.json.\n        pv (bool): True if pole vector controller should be created.\n        top_curve (string): Type of top controller based on curves.json.\n\nReturns:\n        list: A list containing the following elements:\n                - ik_ctrl: Name of the IK controller.\n                - pv_ctrl: Name of the pole vector controller (if created).\n                - top_ctrl: Name of the top controller.\n                - ik_handle: Name of the IK handle.\n                - line: Name of the line connecting the pole vector controller to the end joint.\n\nNotes:\n        - This function creates an IK chain between two joints and generates controllers for IK, pole vector, and top control.\n        - The function assumes that the necessary arguments for joints, sizes, colors, and curve types are provided.\n        - If the 'start' and 'end' arguments are empty, the function will use the currently selected joints.\n        - The function creates an IK handle and renames it accordingly.\n        - It creates an IK controller with an offset group and clean attributes.\n        - The IK controller is aligned with the end joint and can be oriented based on the twist axis.\n        - The function creates an IK group and orients the end joint to the IK controller.\n        - The IK handle is parent-constrained to the IK controller.\n        - If the 'pv' argument is True, a pole vector controller is created.\n        - The pole vector controller is positioned correctly and connected to the IK handle.\n        - The pole vector controller is cleaned up, and a line is created to connect it to the end joint.\n        - A top controller is created and parent-constrained to the start joint.\n        - The function organizes all the nodes and controllers under an IK group and assigns colors to the controllers.\n        - The function returns a list of the IK system components.\n\nUsage:\n        # Example usage with default arguments\n        ik_system = simple_ik_chain()\n\n        # Example usage with custom arguments\n        ik_system = simple_ik_chain(\n                start='joint1',\n                end='joint2',\n                size='small',\n                color='blue',\n                ik_curve='curve_type1',\n                pv_curve='curve_type2',\n                pv=True,\n                top_curve='curve_type3'\n        )"
+   ],
+   [
+    "joints_middle",
+    "start='', end='', axis=setup['twist_axis'], amount=4, name='Twist'",
+    "Create joints in between a joint chain.",
+    661,
+    "Create joints in between a joint chain.\n\nArgs:\n        start (str): Name of the first joint. If empty, the currently selected joint will be used.\n        end (str): Name of the last joint. If empty, the last selected joint will be used.\n        axis (str): Twist axis.\n        amount (int): Number of joints to create in between.\n        name (str): Name prefix for the created joints.\n\nReturns:\n        list: A list containing the names of the newly created joints.\n\nNotes:\n        - This function creates a series of joints in between a joint chain.\n        - The function assumes that the necessary arguments for the start and end joints, twist axis, amount, and name are provided.\n        - If the 'start' and 'end' arguments are empty, the function will use the currently selected joints.\n        - The function duplicates the start joint and deletes its children to create the middle joints.\n        - The names of the middle joints follow the pattern: \"startName_nameIndex_joint\".\n        - The middle joints are parented to each other in order.\n        - The function positions the middle joints in the correct spot along the twist axis.\n        - The function returns a list of the names of the newly created middle joints.\n\nUsage:\n        # Example usage with default arguments\n        middle_joints = joints_middle()\n\n        # Example usage with custom arguments\n        middle_joints = joints_middle(\n                start='joint1',\n                end='joint2',\n                axis='x',\n                amount=3,\n                name='TwistChain'\n        )"
+   ],
+   [
+    "joints_middle_no_chain",
+    "start='', end='', axis=setup['twist_axis'], amount=3, name='Mid'",
+    "Create joints in the middle of two selected objects but without a hierarchy.",
+    734,
+    "Create joints in the middle of two selected objects but without a hierarchy.\n\nArgs:\n        start (str): Name of the first object. If empty, the first selected object will be used.\n        end (str): Name of the second object. If empty, the last selected object will be used.\n        axis (str): Twist axis.\n        amount (int): Number of joints to create in between.\n        name (str): Name prefix for the created joints.\n\nReturns:\n        list: A list containing the names of the newly created joints.\n\nNotes:\n        - This function creates a series of joints in between two selected objects without creating a hierarchy.\n        - The function assumes that the necessary arguments for the start and end objects, twist axis, amount, and name are provided.\n        - If the 'start' and 'end' arguments are empty, the function will use the first and last selected objects, respectively.\n        - The function temporarily parents the end object under the start object to create the middle joints.\n        - The names of the middle joints follow the pattern: \"startName_MidIndex_joint\".\n        - The middle joints are created using the 'joints_middle' function.\n        - After creating the middle joints, the end object is restored to its original parent.\n        - The function returns a list of the names of the newly created middle joints.\n\nUsage:\n        # Example usage with default arguments\n        middle_joints = joints_middle_no_chain()\n\n        # Example usage with custom arguments\n        middle_joints = joints_middle_no_chain(\n                start='object1',\n                end='object2',\n                axis='x',\n                amount=3,\n                name='MidJoints'\n        )"
+   ],
+   [
+    "twist",
+    "start='', end='', axis=setup['twist_axis'], amount=4, mode='down'",
+    "Create a twist setup for limbs using an old method.",
+    796,
+    "Create a twist setup for limbs using an old method.\nOld way of creating twist for limbs, i use this one on RdM Tools v2, recommend to use the new advance one\n\nArgs:\n        start (str): Name of the first joint in the limb. If empty, the first selected joint will be used.\n        end (str): Name of the last joint in the limb. If empty, the last selected joint will be used.\n        axis (str): Twist axis.\n        amount (int): Number of twist joints to create in between the start and end joints.\n        mode (str): Twist mode. Possible values: 'up' or 'down'.\n\nReturns:\n        list: A list containing the names of the twist joints.\n\nNotes:\n        - This function creates a twist setup for limbs using an old method.\n        - The function assumes that the necessary arguments for the start and end joints, twist axis, amount, and mode are provided.\n        - If the 'start' and 'end' arguments are empty, the function will use the first and last selected joints, respectively.\n        - The twist joints are created using the 'joints_middle' function.\n        - The function parents the twist joints to the upnode in the hierarchy if possible.\n        - It sets up an IK handle and a pole vector constraint.\n        - It creates a locator and positions it based on the specified mode ('up' or 'down').\n        - The twist rotation is connected to the twist joints using a multiplyDivide node.\n        - The function returns a list of the names of the twist joints.\n\nUsage:\n        # Example usage with default arguments\n        twist_joints = twist()\n\n        # Example usage with custom arguments\n        twist_joints = twist(\n                start='joint1',\n                end='joint2',\n                axis='x',\n                amount=4,\n                mode='up'\n        )"
+   ],
+   [
+    "twist_rotate_info",
+    "start='', end='', axis=setup['twist_axis'], driver=False",
+    "Create a system to correctly read the twist information for the desired joint.",
+    898,
+    "Create a system to correctly read the twist information for the desired joint.\n\nArgs:\n        start (str): Name of the first joint in the chain. If empty, the first selected joint will be used.\n        end (str): Name of the last joint in the chain. If empty, the last selected joint will be used.\n        axis (str): Twist axis.\n        driver (bool): Flag indicating whether to use a driver joint as the parent of the twist group.\n\nReturns:\n        dict: A dictionary containing information about the created twist setup:\n                - 'ik': Name of the IK handle.\n                - 'twist_grp': Name of the twist group.\n                - 'locator': Name of the locator.\n                - 'joint': Name of the twist root joint.\n                - 'offset': Name of the offset group.\n\nNotes:\n        - This function creates a system to correctly read the twist information for the desired joint.\n        - The function assumes that the necessary arguments for the start and end joints, twist axis, and driver are provided.\n        - If the 'start' and 'end' arguments are empty, the function will use the first and last selected joints, respectively.\n        - It creates a twist setup by adding a root joint, tip joint, twist group, and a locator.\n        - The twist group and locator are positioned along the chain using parent constraints.\n        - If the 'driver' flag is set to True, a parent constraint is applied between the driver joint and the twist group.\n        - An IK handle is created to make the locator follow the orientation of the twist chain.\n        - Offset groups are created using the 'root_grp' method.\n        - The function returns a dictionary containing information about the created twist setup.\n\nUsage:\n        # Example usage with default arguments\n        twist_info = twist_rotate_info()\n\n        # Example usage with custom arguments\n        twist_info = twist_rotate_info(\n                start='joint1',\n                end='joint2',\n                axis='x',\n                driver=True\n        )"
+   ],
+   [
+    "advance_twist",
+    "start='', end='', axis=setup['twist_axis'], amount=4, mode='up', driver='', inverse=False",
+    "Create a twist system for the chain.",
+    1001,
+    "Create a twist system for the chain.\n\nArgs:\n        start (str): Name of the first joint in the chain. If empty, the first selected joint will be used.\n        end (str): Name of the last joint in the chain. If empty, the last selected joint will be used.\n        axis (str): Twist axis.\n        amount (int): Number of twist joints to create.\n        mode (str): Twist mode. Options: 'up' (default), 'down'.\n        driver (str): Name of the driver joint for twisting correctly. If empty, no driver will be used.\n        inverse (bool): Flag indicating whether to invert the twist direction.\n\nReturns:\n        dict: A dictionary containing information about the created twist system:\n                - 'twist_grp': Name of the twist group.\n                - 'no_twist_grp': Name of the no_twist group.\n                - 'joints': List of twist joints.\n                - 'curve': Name of the created curve.\n\nNotes:\n        - This function creates a twist system for a joint chain.\n        - The function assumes that the necessary arguments for the start and end joints, twist axis, and mode are provided.\n        - If the 'start' and 'end' arguments are empty, the function will use the first and last selected joints, respectively.\n        - The 'amount' argument determines the number of twist joints to create between the start and end joints.\n        - The 'mode' argument determines the direction of the twist system. Options: 'up' (default), 'down'.\n        - The 'driver' argument specifies the name of the driver joint for twisting correctly. If empty, no driver will be used.\n        - The 'inverse' flag can be set to True to invert the twist direction.\n        - The function creates twist joints in the middle of the chain using the 'joints_middle' method.\n        - It connects the twist locator to the joints using the IK spline twist attribute.\n        - A curve is created between the start and end joints using the 'curve_between' method.\n        - An IK spline twist setup is created using the 'create_ik_spline_twist' method.\n        - The twist rotation is controlled by a multiply-divide node connected to the twist locator's rotation attribute.\n        - The twist group's visibility is set to 0.\n        - The function returns a dictionary containing information about the created twist system.\n\nUsage:\n        # Example usage with default arguments\n        twist_system = advance_twist()\n\n        # Example usage with custom arguments\n        twist_system = advance_twist(\n                start='joint1',\n                end='joint2',\n                axis='x',\n                amount=4,\n                mode='up',\n                driver='driver_joint',\n                inverse=False\n        )"
+   ],
+   [
+    "spline_twist",
+    "start='', end='', axis=setup['twist_axis'], amount=4, mode='up', right_side=False",
+    "Create a spline twist system for the chain.",
+    1104,
+    "Create a spline twist system for the chain.\n\nArgs:\n        start (str): Name of the first joint in the chain. If empty, the first selected joint will be used.\n        end (str): Name of the last joint in the chain. If empty, the last selected joint will be used.\n        axis (str): Twist axis.\n        amount (int): Number of twist joints to create.\n        mode (str): Twist mode. Options: 'up' (default), 'down'.\n        right_side (bool): Flag indicating whether to set Advance Attrs differently.\n\nReturns:\n        dict: A dictionary containing information about the created spline twist system:\n                - 'twist_grp': Name of the twist group.\n                - 'joints': List of twist joints.\n                - 'curve': Name of the created spline curve.\n                - 'ik_spline': Name of the IK spline handle.\n\nNotes:\n        - This function creates a spline twist system for a joint chain.\n        - The function assumes that the necessary arguments for the start and end joints, twist axis, and mode are provided.\n        - If the 'start' and 'end' arguments are empty, the function will use the first and last selected joints, respectively.\n        - The 'amount' argument determines the number of twist joints to create between the start and end joints.\n        - The 'mode' argument determines the direction of the twist system. Options: 'up' (default), 'down'.\n        - The 'right_side' flag can be set to True to indicate a right-side setup with different attributes.\n        - The function creates twist joints in the middle of the chain using the 'joints_middle' method.\n        - It creates twist start and end joints for the twist setup.\n        - The twist start joint is positioned at the start joint using a parent constraint.\n        - The twist end joint is positioned at the end joint using a parent constraint.\n        - A spline curve is created between the twist start and end joints using the 'ikHandle' command.\n        - The spline curve is rebuilt using the 'rebuildCurve' command.\n        - The twist setup is skinned to the spline curve using the 'skinCluster' command.\n        - The twist rotation is controlled by enabling twist control and setting up the world up vectors.\n        - The twist group is created and all relevant nodes are grouped under it.\n        - The function returns a dictionary containing information about the created spline twist system.\n\nUsage:\n        # Example usage with default arguments\n        twist_system = spline_twist()\n\n        # Example usage with custom arguments\n        twist_system = spline_twist(\n                start='joint1',\n                end='joint2',\n                axis='x',\n                amount=4,\n                mode='up',\n                right_side=False\n        )"
+   ],
+   [
+    "simple_fk_ik",
+    "start='', mid='', end='', size=1, color=setup['main_color'], mode=setup['ik_fk_method'], twist_axis=setup['twist_axis'], use_shared_loc=True",
+    "Create an FK/IK chain with a switch for 3 joints.",
+    1285,
+    "Create an FK/IK chain with a switch for 3 joints.\n\nArgs:\n        start (str): Name of the start joint. If not provided, the first selected joint will be used.\n        mid (str): Name of the middle joint. If not provided, the second selected joint will be used.\n        end (str): Name of the end joint. If not provided, the third selected joint will be used.\n        size (float): Size of the controls.\n        color (tuple): Color of the controls in RGB format.\n        mode (str): IK/FK blending mode. Can be 'blend' or 'constraints'.\n        twist_axis (str): Twist axis for the IK chain. Can be 'X', 'Y', or 'Z'.\n\nReturns:\n        tuple: A tuple containing the main joints, IK joints, FK joints, FK system, IK system, and return groups.\n\nNotes:\n        - This function creates an FK/IK chain with controls and a switch to blend between the two.\n        - The FK controls drive the joints directly, while the IK controls use an IK solver.\n        - The switch attribute determines the influence of the IK and FK controls on the joints.\n        - The visibility of the FK and IK controls is controlled by the switch attribute.\n\nExamples:\n        # Example 1: Create an FK/IK chain with default settings\n        main_joints, ik_joints, fk_joints, fk_system, ik_system, return_groups = simple_fk_ik()\n\n        # Example 2: Create an FK/IK chain with custom joint names and size\n        main_joints, ik_joints, fk_joints, fk_system, ik_system, return_groups = simple_fk_ik(start='arm_01_joint', mid='arm_02_joint', end='arm_03_joint', size=0.5)\n\n        # Example 3: Create an FK/IK chain with custom color and IK/FK blending mode\n        main_joints, ik_joints, fk_joints, fk_system, ik_system, return_groups = simple_fk_ik(color=(1, 0.5, 0), mode='constraints')"
+   ],
+   [
+    "twist_fk_ik",
+    "start='', mid='', end='', size=1, color=setup['main_color'], mode=setup['ik_fk_method'], twist_axis=setup['twist_axis'], twist_amount=6, use_shared_loc=True",
+    "Create an FK/IK chain with a switch for 3 joints and add twist functionality for a full limb module.",
+    1464,
+    "Create an FK/IK chain with a switch for 3 joints and add twist functionality for a full limb module.\n\nArgs:\n        start (str): Name of the start joint. If not provided, the first selected joint will be used.\n        mid (str): Name of the middle joint. If not provided, the second selected joint will be used.\n        end (str): Name of the end joint. If not provided, the third selected joint will be used.\n        size (float): Size of the controls.\n        color (tuple): Color of the controls in RGB format.\n        mode (str): IK/FK blending mode. Can be 'blend' or 'constraints'.\n        twist_axis (str): Twist axis for the IK chain. Can be 'X', 'Y', or 'Z'.\n        twist_amount (int): Number of twist joints to create for each section of the limb.\n\nReturns:\n        dict: A dictionary containing the IK/FK system and the upper and lower twist information.\n\nNotes:\n        - This function extends the functionality of the simple_fk_ik function by adding twist joints to the limb.\n        - The twist joints allow for smoother deformation during twisting motions.\n        - The upper_twist and lower_twist dictionaries contain information about the twist joints created.\n        - The scale of the twist joints is connected to the scale of the corresponding main joints.\n\nExamples:\n        # Example 1: Create a twist FK/IK chain with default settings\n        result = twist_fk_ik()\n\n        # Example 2: Create a twist FK/IK chain with custom joint names and size\n        result = twist_fk_ik(start='arm_01_joint', mid='arm_02_joint', end='arm_03_joint', size=0.5)\n\n        # Example 3: Create a twist FK/IK chain with custom color and twist axis\n        result = twist_fk_ik(color=(1, 0.5, 0), twist_axis='Y', twist_amount=8)"
+   ],
+   [
+    "base_spline",
+    "start='', end='', size=1, name='Spine', twist_axis=setup['twist_axis'], amount=5",
+    "Select the start and end joints and create an IK/FK spline for a character's spine.",
+    1534,
+    "Select the start and end joints and create an IK/FK spline for a character's spine.\n\nArgs:\n        start (str): Name of the start joint. If not provided, the first selected joint will be used.\n        end (str): Name of the end joint. If not provided, the last selected joint will be used.\n        size (float): Size of the controls.\n        name (str): Name prefix for the spline controls.\n        twist_axis (str): Twist axis for the spline. Can be 'X', 'Y', or 'Z'.\n        amount (int): Number of joints to create for the spline.\n\nReturns:\n        tuple: A tuple containing lists of FK and IK controllers created for the spline.\n\nNotes:\n        - If no start and end joint names are provided, the function assumes that the first and last selected joints are the start and end joints, respectively.\n        - The main_joints list contains all the joints in the spline chain.\n        - The spline_curve variable represents the spline curve created for the IK handle.\n        - The effector_spline variable represents the IK spline effector.\n        - The twist_ik_joints list contains the joints used for twisting the IK chain.\n        - The ik_joints list contains the joints used for controlling the IK chain.\n        - The ik_controllers list contains the IK controllers created.\n        - The fk_controllers list contains the FK controllers created.\n        - The skinCluster function is used to bind the IK joints to the spline curve.\n\nExamples:\n        # Example 1: Create a spine IK/FK spline with default settings\n        fk_controllers, ik_controllers = base_spline()\n\n        # Example 2: Create a spine IK/FK spline with custom joint names and size\n        fk_controllers, ik_controllers = base_spline(start='spine1_joint', end='spine3_joint', size=0.5)\n\n        # Example 3: Create a spine IK/FK spline with a custom name prefix and twist axis\n        fk_controllers, ik_controllers = base_spline(name='Character_Spine', twist_axis='Y', amount=8)"
+   ],
+   [
+    "mirror_group",
+    "input='', world=True",
+    "Create a mirrored group for a specified object or the currently selected object.",
+    1660,
+    "Create a mirrored group for a specified object or the currently selected object.\n\nArgs:\n        input (str): Name of the object to mirror. If not provided, the first selected object will be used.\n        world (bool): Specifies whether to mirror the group in world space or maintain the original position.\n\nReturns:\n        str: Name of the mirrored group.\n\nNotes:\n        - If no input object name is provided, the function assumes that the first selected object is the input.\n        - The mirror_grp variable represents the created mirrored group.\n        - If world is set to False, the original position of the input object is maintained.\n        - If world is set to True, the mirrored group is aligned to the world origin.\n        - The scaleX, scaleY, and scaleZ attributes of the mirror_grp are set to -1 to mirror the object.\n        - The rotateX attribute of the mirror_grp is set to 180 to rotate the mirrored object.\n\nExamples:\n        # Example 1: Create a mirrored group for the selected object using the default settings\n        mirrored_group = mirror_group()\n\n        # Example 2: Create a mirrored group for a specific object with world mirroring disabled\n        mirrored_group = mirror_group(input='object1', world=False)\n\n        # Example 3: Create a mirrored group for the selected object with world mirroring enabled\n        mirrored_group = mirror_group(world=True)"
+   ],
+   [
+    "basic_ribbon",
+    "start='', end='', divisions=5, name='Ribbon', ctrl_type='circleY', size=1, world_orient=False, start_end_joints=False, orient_like=False",
+    "Create a basic ribbon rig between two objects using a plane and follicles.",
+    1712,
+    "Create a basic ribbon rig between two objects using a plane and follicles.\n\nArgs:\n        start (str): Name of the start object. If not provided, the first selected object will be used.\n        end (str): Name of the end object. If not provided, the second selected object will be used.\n        divisions (int): Number of divisions or follicles along the ribbon.\n        name (str): Name prefix for the ribbon elements.\n        ctrl_type (str): Type of control shapes to create for the controllers.\n        size (float): Size scale factor for the control shapes.\n        world_orient (bool): Specifies whether to set the controllers' rotation to world orientation.\n\nReturns:\n        dict: A dictionary containing the created ribbon elements.\n\nNotes:\n        - If no start and end object names are provided, the function assumes that the first and second selected\n          objects are the start and end objects, respectively.\n        - The surface variable represents the created NURBS plane between the start and end objects.\n        - The follicles variable contains a list of the created follicles along the ribbon.\n        - The fol_joints variable contains a list of joints created for binding to the follicles.\n        - The ctrl_joints variable contains a list of joints created as control joints.\n        - The controllers variable contains a list of created control shapes.\n        - The controllers_grp variable represents the group containing the control shapes.\n        - The created ribbon rig includes skinning the surface to the control joints and positioning the controllers.\n        - If world_orient is set to True, the controllers' rotation is set to world orientation.\n        - The function returns a dictionary with the created ribbon elements.\n\nExamples:\n        # Example 1: Create a basic ribbon rig between the first and second selected objects using default settings\n        ribbon_elements = basic_ribbon()\n\n        # Example 2: Create a basic ribbon rig with custom settings\n        ribbon_elements = basic_ribbon(start='object1', end='object2', divisions=7, name='MyRibbon',\n                                                                   ctrl_type='cube', size=2.0, world_orient=True)"
+   ],
+   [
+    "ribbon_between",
+    "start='', end='', divisions=5, name='Ribbon', ctrl_type='circleY', size=1, world_orient=False, orient_like=False",
+    "Create a ribbon rig between two objects using a NURBS plane and follicles.",
+    1839,
+    "Create a ribbon rig between two objects using a NURBS plane and follicles.\n\nArgs:\n        start (str): Name of the start object. If not provided, the first selected object will be used.\n        end (str): Name of the end object. If not provided, the second selected object will be used.\n        divisions (int): Number of divisions or follicles along the ribbon.\n        name (str): Name prefix for the ribbon elements.\n        ctrl_type (str): Type of control shapes to create for the controllers.\n        size (float): Size scale factor for the control shapes.\n        world_orient (bool): Specifies whether to set the controllers' rotation to world orientation.\n\nReturns:\n        dict: A dictionary containing the created ribbon elements.\n\nNotes:\n        - If no start and end object names are provided, the function assumes that the first and second selected\n          objects are the start and end objects, respectively.\n        - The basic_ribbon function is used to create the initial ribbon rig.\n        - The ctrl_surface variable represents a duplicate of the original surface to drive the control joints.\n        - The function creates follicles on the ctrl_surface and parents them to the control joints.\n        - The ctrl_fol_grp variable represents the group containing the follicles and control joints.\n        - The ribbon rig is bound to the ctrl_surface using skinning.\n        - The function returns a dictionary with the created ribbon elements, including the surface, follicles,\n          control joints, controllers, and their respective groups.\n\nExamples:\n        # Example 1: Create a ribbon rig between the first and second selected objects using default settings\n        ribbon_elements = ribbon_between()\n\n        # Example 2: Create a ribbon rig with custom settings\n        ribbon_elements = ribbon_between(start='object1', end='object2', divisions=7, name='MyRibbon',\n                                                                         ctrl_type='cube', size=2.0, world_orient=True)"
+   ],
+   [
+    "blend_between",
+    "ctrl=None, blends='', attr_position='ctrl', attr_name='Blends'",
+    "Create blend groups and locators for controlling blends.",
+    1927,
+    "Create blend groups and locators for controlling blends.\n\nArgs:\n        ctrl (str): Name of the main control.\n        blends (str): Comma-separated string of blend names.\n        attr_position (str): Position to create the blend attributes. Default is 'ctrl'.\n        attr_name (str): Name of the blend attributes. Default is 'Blends'.\n\nReturns:\n        None\n\nNotes:\n        - The function creates a blend group and locators for each blend.\n        - The blends are specified as a comma-separated string.\n        - The blend group and locators are parented under a 'Blends' group in the 'misc' rig group.\n        - If the blend group or 'Blends' group already exists, the function uses the existing groups.\n        - The blend group is created as a child of the main control's blend group.\n        - Locators are created for each blend and parent-constrained to the respective blend.\n        - The blend attributes are created on the specified position (either the main control or a separate group).\n        - The blend attributes are named based on the specified attribute name.\n        - If no control or blends are provided, an error is raised.\n\nExamples:\n        # Example 1: Create blend groups and locators for blends on the main control\n        blend_between(ctrl='MainCtrl', blends='Blend1,Blend2,Blend3')\n\n        # Example 2: Create blend groups and locators for blends on a separate group\n        blend_between(ctrl='MainCtrl', blends='Blend1,Blend2,Blend3', attr_position='BlendsGroup')\n\n        # Example 3: Create blend groups and locators with custom attribute name\n        blend_between(ctrl='MainCtrl', blends='Blend1,Blend2,Blend3', attr_name='MyBlends')"
+   ],
+   [
+    "parent_matrix",
+    "this=None, that=None, translate=True, rotate=True, scale=True, offset=True",
+    "Parent matrix between two objects, allowing control over translation, rotation, and scale.",
+    2008,
+    "Parent matrix between two objects, allowing control over translation, rotation, and scale.\n\nArgs:\n        this (str): Name of the source object.\n        that (str): Name of the target object.\n        translate (bool): Whether to connect translation. Default is True.\n        rotate (bool): Whether to connect rotation. Default is True.\n        scale (bool): Whether to connect scale. Default is True.\n        offset (bool): Whether to create an offset matrix for the connection. Default is True.\n\nReturns:\n        bool: True if successful.\n\nNotes:\n        - If the 'this' and 'that' arguments are not provided, the function will use the selected objects.\n        - If 'offset' is True, an offset matrix is created to preserve the relative transform between the objects.\n        - The offset matrix is calculated by multiplying the world matrices of 'this' and 'that'.\n        - The resulting matrix is stored in a network node and connected to the 'matrixIn' attribute of the multMatrix node.\n        - The multMatrix node combines the world matrix of 'this' with the inverse of the parent matrix of 'that',\n          resulting in a new world matrix for 'that'.\n        - The 'translate', 'rotate', and 'scale' arguments determine which attributes are connected.\n        - The decomposeMatrix node extracts the translation, rotation, and scale values from the new world matrix.\n        - If the 'offset' argument is True, the offset matrix is connected to the main multMatrix node.\n        - The function also puts the created nodes inside the rig container.\n\nExamples:\n        # Example 1: Parent matrix with translation, rotation, and scale\n        parent_matrix(this='Source', that='Target', translate=True, rotate=True, scale=True, offset=True)\n\n        # Example 2: Parent matrix with translation only\n        parent_matrix(this='Source', that='Target', translate=True, rotate=False, scale=False, offset=False)"
+   ],
+   [
+    "rivets_ctrls",
+    "geometry=None, selection_ctrls=None",
+    "Create a rivet system for the controllers to follow geometry on the rigs.",
+    2088,
+    "Create a rivet system for the controllers to follow geometry on the rigs.\n\nArgs:\n        geometry (str): Name of the geometry to attach the controllers to.\n        selection_ctrls (list): List of names of the controllers.\n\nReturns:\n        None\n\nExample:\n        import Mutant_Tools\n        from Mutant_Tools.Utils.Rigging import main_mutant\n        import imp\n        imp.reload(Mutant_Tools.Utils.Rigging.main_mutant)\n        mt = main_mutant.Mutant()\n        # Select the controllers, then the geometry\n        mt.rivets_ctrls()"
+   ],
+   [
+    "remove_rivets_ctrls",
+    "selection_ctrls=None",
+    "Remove the rivet system from the specified controllers.",
+    2182,
+    "Remove the rivet system from the specified controllers.\n\nArgs:\n        selection_ctrls (list): List of names of the controllers.\n\nReturns:\n        None\n\nNotes:\n        If no controllers are specified, the function searches for controllers\n        with names ending in \"Ctrl_Inverse_Grp\" and removes the rivet system\n        from them.\n\nExamples:\n        # Remove rivet system from selected controllers\n        remove_rivets_ctrls()\n\n        # Remove rivet system from specific controllers\n        remove_rivets_ctrls(['Ctrl1', 'Ctrl2', 'Ctrl3'])"
+   ],
+   [
+    "curve_to_ribbon",
+    "curve, amount=5, direction='V', size=1, color='lightBlue'",
+    "Create a ribbon system along the given curve.",
+    2225,
+    "Create a ribbon system along the given curve.\n\nArgs:\n        curve (str): Name of the curve to create the ribbon on.\n        amount (int): Number of follicles/hairs to generate along the curve.\n        direction (str): Direction of the ribbon ('U' or 'V').\n        size (float): Size of the main and tweak controls.\n        color (str): Color of the controls.\n\nReturns:\n        None\n\nNotes:\n        - This function creates a ribbon system along the specified curve using follicles and joints.\n        - The ribbon surface is created by converting the curve to a NURBS surface using the `bevel` command.\n        - Follicles are then created on the ribbon surface, and joints and controls are attached to them.\n        - The main controls are placed at the start, middle, and end of the ribbon.\n        - The tweak controls are placed on each follicle.\n\nExamples:\n        # Create a ribbon system on the selected curve with default settings\n        curve_to_ribbon('curve1')\n\n        # Create a ribbon system on a specific curve with custom settings\n        curve_to_ribbon('curve2', amount=8, direction='U', size=1.5, color='red')"
+   ],
+   [
+    "create_mdl_compat",
+    "name",
+    "",
+    2358,
+    ""
+   ],
+   [
+    "create_add_compat",
+    "name",
+    "",
+    2370,
+    ""
+   ],
+   [
+    "bend_and_squash_head",
+    "geo, parent_grp",
+    "Add squash and bend deformers to the specified geometry.",
+    2382,
+    "Add squash and bend deformers to the specified geometry.\n\nArgs:\n   geo (str): Name of the geometry to apply the deformers on.\n   parent_grp (str): Name of the parent group for the deformers.\n\nReturns:\n   None\n\nNotes:\n   - This function adds squash and bend deformers to the specified geometry.\n   - It creates control objects for controlling the deformers.\n   - The deformers are applied to the geometry using non-linear deformers.\n   - The control objects are parented to the specified parent group.\n   - The deformers are connected to the control objects to control their attributes.\n\nExamples:\n   # Apply bend and squash deformers to the geometry with default settings\n   bend_and_squash_head('head_geo', 'head_grp')\n\n   # Apply bend and squash deformers to the geometry with custom settings\n   bend_and_squash_head('head_geo', 'head_grp')"
+   ],
+   [
+    "bend_and_squash",
+    "name='SnS', geo=None, parent_grp=None, squash_enabled=True, bend_enabled=True, ctrl_guide=None, bend_guide=None, squash_guide=None",
+    "",
+    2458,
+    ""
+   ],
+   [
+    "create_lods_containers",
+    "lods=['High']",
+    "Create LOD (Level of Detail) containers.",
+    2641,
+    "Create LOD (Level of Detail) containers.\n\nArgs:\n        lods (list): List of LOD names.\n\nReturns:\n        list: List of LOD nodes.\n\nNotes:\n        - This function creates LOD containers for the specified LODs.\n        - Each container is named 'Mutant_{lod}'.\n        - The function checks if the container already exists before creating it.\n        - The function sets the 'iconName' attribute of each container to a specified icon path.\n        - If a 'Miscellaneous_Grp' exists, the containers are parented under it.\n        - The function returns a list of the created LOD nodes.\n\nExample:\n        # Create LOD containers for 'High' and 'Medium' LODs\n        lods_created = create_lods_containers(['High', 'Medium'])"
+   ],
+   [
+    "put_inside_lod",
+    "nodes=[], lod='High'",
+    "Put nodes inside an LOD (Level of Detail) container.",
+    2687,
+    "Put nodes inside an LOD (Level of Detail) container.\n\nArgs:\n        nodes (list): List of nodes to put inside the container.\n        lod (str): LOD name.\n\nReturns:\n        str: LOD container name.\n\nNotes:\n        - This function puts the specified nodes inside the LOD container.\n        - If the LOD container doesn't exist, it creates it using the 'create_lods_containers' function.\n        - The function expects a list of nodes to be provided.\n        - If 'nodes' != a list, it converts it to a list.\n        - The function adds each node to the LOD container using the 'container' command.\n        - The function returns the name of the LOD container.\n\nExample:\n        # Put selected nodes inside the 'High' LOD container\n        lod_container = put_inside_lod(cmds.ls(sl=True), 'High')"
+   ],
+   [
+    "create_wire_system",
+    "geo, curve, name='Wire', dropoff=100, axis='Y', scale=1",
+    "Creates a wire system that can be used to control the shape of a mesh.",
+    2729,
+    "Creates a wire system that can be used to control the shape of a mesh.\n\nArgs:\n        geo (str): The name of the mesh that the wire system will be applied to.\n        curve (str): The name of the curve that will be used to control the wire system.\n        name (str): The prefix for the names of the created objects. Defaults to 'Wire'.\n        dropoff (int): The distance from the curve that the wire system will affect the mesh. Defaults to 100.\n        axis (str): The axis that the wire system will be aligned to. Defaults to 'Y'.\n        scale (float): The scale of the created objects. Defaults to 1.\n\nReturns:\n        dict: A dictionary containing the created objects. The keys are:\n                'main_ctrl': The main control object for the wire system.\n                'ctrls': A list of control objects for the wire system.\n                'ctrsl_grp': The group containing the control objects for the wire system.\n                'joints': A list of joints that are used to control the wire system.\n                'joints_grp': The group containing the joints for the wire system.\n                'wireBase': The base object for the wire system.\n\nNotes:\n        - The function creates a wire deformer using the specified geometry and curve.\n        - It sets the dropoff distance for the wire deformer.\n        - It creates control objects for each CV (control vertex) of the curve and assigns them to joints.\n        - The control objects are parented under a main control object that acts as the root of the wire system.\n        - The function creates a skin cluster to bind the joints to the curve.\n        - It returns a dictionary containing the created objects for further manipulation.\n\nExample:\n        # Create a wire system with a mesh and a curve\n        wire_system = create_wire_system('mesh1', 'curve1')"
+   ],
+   [
+    "get_distance_between",
+    "start_node, end_node",
+    "Calculates the distance between two nodes in 3D space.",
+    2833,
+    "Calculates the distance between two nodes in 3D space.\n\nArgs:\n        start_node (str): The name of the starting node.\n        end_node (str): The name of the ending node.\n\nReturns:\n        float: The distance between the two nodes.\n\nNotes:\n        - The function uses the xform command to get the world space translation values of the nodes.\n        - It creates MVector objects from the translation values.\n        - It subtracts the vectors to get the vector between the two nodes.\n        - The length of the vector represents the distance between the nodes.\n        - The function returns the distance as a float value.\n\nExample:\n        # Calculate the distance between two nodes\n        distance = get_distance_between('node1', 'node2')"
+   ],
+   [
+    "proxy_this_attrs",
+    "attrs_from=None, attrs_to=None, attrs_to_proxy=[], line_at_end=True, line_at_start=True",
+    "Proxies attributes from one object to another.",
+    2864,
+    "Proxies attributes from one object to another.\n\nArgs:\n        attrs_from (str): The source object from which to copy attributes.\n        attrs_to (str): The destination object to which the attributes will be copied.\n        attrs_to_proxy (list): A list of attributes to proxy from the source object to the destination object.\n        line_at_end (bool): Whether to add a separator line attribute at the end. Defaults to True.\n        line_at_start (bool): Whether to add a separator line attribute at the start. Defaults to True.\n\nNotes:\n        - The function checks if the necessary arguments are provided.\n        - It retrieves the user-defined attributes (UDAs) from the source object.\n        - For each attribute, it checks if it is in the list of attributes to proxy.\n        - If the attribute != in the list, it skips to the next attribute.\n        - It gets the attribute type using `cmds.getAttr`.\n        - If the attribute type is 'double', it adds a double attribute to the destination object and proxies the attribute value.\n        - If the attribute type is 'enum', it adds an enum attribute to the destination object and proxies the attribute value.\n        - The minimum and maximum values are also copied for double attributes.\n        - If `line_at_end` is True, a separator line attribute is added at the end.\n\nExample:\n        # Proxy selected attributes from one object to another\n        mt.proxy_this_attrs(attrs_from='|L_Hip_Jnt_Switch_Loc', attrs_to='L_Ankle_Ik_Ctrl', attrs_to_proxy=['HipBend', 'Switch_IK_FK'])"
+   ],
+   [
+    "dinamic_pivot",
+    "input, size=1",
+    "Creates a dynamic pivot point for an object in Maya.",
+    2949,
+    "Creates a dynamic pivot point for an object in Maya.\n\nParameters:\n        input (str): The name of the object that the rotate pivot will be connected to.\n        size (float): The size of the created cube curve. Defaults to 1.\n\nReturns:\n        str: The name of the created cube curve.\n\nNotes:\n        - This function creates a cube curve and renames it with a specific naming convention.\n        - It creates a group object and moves/orientates the group object to match the position and orientation of the curve.\n        - The curve is parented to the group object.\n        - It connects the translate attribute of the curve to the rotate pivot of the input object.\n\nExample:\n        dinamic_pivot(\"pCube1\")"
+   ],
+   [
+    "create_auto_rotate_fk",
+    "fk_root_ctrl=None, fk_root_ctrl_offset=None, size=1",
+    "Creates an auto-rotate FK setup for a chain of controls in Maya.",
+    2986,
+    "Creates an auto-rotate FK setup for a chain of controls in Maya.\n\nParameters:\n        fk_root_ctrl (str): The name of the root FK control.\n        fk_root_ctrl_offset (str): The name of the offset group for the root FK control.\n\nReturns:\n        None\n\nNotes:\n        - This function assumes that the chain of controls is connected through parent relationships.\n        - It creates a sphere curve as the rotator control.\n        - It positions and orients the rotator control's offset group to match the last control in the chain.\n        - It parents the rotator control's offset group under the root FK control's offset group.\n        - It creates a group for each control in the chain and positions/orients it to match the control.\n        - It parents each control under its corresponding group.\n        - It connects the rotation attributes of the rotator control to the rotation attributes of each group in the chain.\n\nExample:\n        # Without attributes\n        create_auto_rotate_fk(\"FK_Root_Ctrl\", \"FK_Root_Ctrl_Offset\")\n\n        # With attributes\n        create_auto_rotate_fk(\"FK_Root_Ctrl\", \"FK_Root_Ctrl_Offset\")"
+   ],
+   [
+    "create_mid_ribbons",
+    "name, first_joint, last_joint, twist_joints, aim, twist_amount, ctrl_size, sec_color, switch_locator",
+    "Creates mid ribbons with bendy functionality.",
+    3027,
+    "Creates mid ribbons with bendy functionality.\n\nArgs:\n        name (str): Name prefix for the ribbons and controls.\n        first_joint (str): Name of the first joint in the chain.\n        last_joint (str): Name of the last joint in the chain.\n        twist_joints (list): List of joint names to be included in the twist deformation.\n        aim (str): Aim direction for the ribbon controls ('X', 'Y', or 'Z').\n        twist_amount (int): Number of subdivisions/twist joints on the ribbon.\n        ctrl_size (float): Size of the control objects.\n        sec_color (str): Secondary color for the control objects.\n        switch_locator (str): Name of the switch locator object.\n\nNotes:\n        - This method creates mid ribbons with bendy functionality by creating NURBS planes and follicles.\n        - The ribbons are controlled by twist joints and IK handles.\n        - The method also creates control objects for tweaking the ribbons and handles for pinning the ribbons.\n\nExamples:\n        # Create mid ribbons with bendy functionality\n        create_mid_ribbons('arm', 'shoulder', 'wrist', ['elbow1', 'elbow2', 'elbow3'], 'X', 5, 1.0, 'blue', 'switch_locator')"
+   ],
+   [
+    "copy_skin_values",
+    "vertex_selection",
+    "to be used with: self.create_rivet_skin_constraint",
+    3344,
+    "to be used with: self.create_rivet_skin_constraint\nCopy skinning values from a selected vertex.\n\nArgs:\n        vertex_selection (list): A list containing the name of a single vertex to copy skinning from.\n\nReturns:\n        tuple: A tuple containing two lists - relevant_values and relevant_joints.\n\nNotes:\n- This function takes a list with a single vertex name as input.\n- It retrieves the skinCluster associated with the vertex and collects skinning information.\n- The skinning information is filtered to include only joints with significant influence (value > 0.01).\n\nUsage:\nrelevant_values, relevant_joints = copy_skin_values([\"pSphere1.vtx[10]\"])"
+   ],
+   [
+    "create_rivet_skin_constraint",
+    "",
+    "Create a parent constraint to skinning for selected elements.",
+    3384,
+    "Create a parent constraint to skinning for selected elements.\n\nNotes:\n- This function is designed to be used in Autodesk Maya.\n- It assumes you have selected mesh elements (vertices or other components).\n- It creates joints at the selected elements' positions and applies a parent constraint with relevant skinning weights.\n\nUsage:\n- Select the mesh elements you want to create constraints for.\n- Run create_rivet_skin_constraint().\n\nExample:\ncreate_rivet_skin_constraint()"
+   ],
+   [
+    "create_dynamic_fk",
+    "joints=[]",
+    "",
+    3422,
+    ""
+   ]
+  ]
+ },
+ "Modules_class": {
+  "file": "modules.py",
+  "bases": [
+   "kinematics.Kinematics_class"
+  ],
+  "methods": [
+   [
+    "__init__",
+    "",
+    "",
+    87,
+    ""
+   ],
+   [
+    "create_block",
+    "name='Mutant', icon='Limb', attrs={'attrs': 'something'}, build_command='print(\"Test\")', import_command='print(\"Test2\")'",
+    "Creates a block with specified attributes and commands.",
+    92,
+    "Creates a block with specified attributes and commands.\n\nArgs:\n    name (str): The name of the block to create. Defaults to 'Mutant'.\n    icon (str): The name of the icon to use for the block. Defaults to 'Limb'.\n    attrs (dict): A dictionary containing the attributes to add to the block. Defaults to {'attrs': 'something'}.\n    build_command (str): The build command associated with the block. Defaults to 'print(\"Test\")'.\n    import_command (str): The import command associated with the block. Defaults to 'print(\"Test2\")'.\n\nReturns:\n    tuple: A tuple containing the block and the configuration network node.\n\nRaises:\n    None\n\nThis function creates a block with the specified name and icon. It also adds attributes to the block based on the provided 'attrs' dictionary.\nThe build and import commands are associated with the block as well.\n\nThe function starts by constructing the path to the icon file using the 'os.path.join' function and the provided 'icon' name.\n\nIt then creates an empty container object using the 'container' command and assigns it the specified name with the appropriate naming\nconvention. The icon for the container is set using the 'setAttr' command.\n\nThe function calls 'hide_attr' to hide transformation attributes of the block.\n\nIf the 'Mutant_Build' group does not exist, the function creates it using the 'group' command.\n\nA network node is created using the 'createNode' command, and the necessary connections between the network node and the container are\nestablished using the 'connectAttr' command.\n\nNext, the function creates various attributes based on the provided 'attrs' dictionary. String attributes are created using the 'string_attr'\nfunction, enum attributes using the 'new_enum' function, float attributes using the 'new_attr_interger' function, and boolean attributes\nusing the 'new_boolean' function.\n\nFinally, the function creates a 'precode' and 'postcode' attribute using the 'string_attr' function and returns the block and configuration\nnetwork node as a tuple.\n\nNote:\n    This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software."
+   ],
+   [
+    "move_outliner",
+    "input='', up=False, down=False",
+    "Moves the specified object or objects in the outliner hierarchy.",
+    178,
+    "Moves the specified object or objects in the outliner hierarchy.\n\nArgs:\n    input (str or list): The name or list of names of the object(s) to move in the outliner hierarchy. Defaults to an empty string, which\n                         selects the currently selected objects in the scene.\n    up (bool): Specifies whether to move the object(s) up in the outliner hierarchy. Defaults to False.\n    down (bool): Specifies whether to move the object(s) down in the outliner hierarchy. Defaults to False.\n\nReturns:\n    None\n\nRaises:\n    None\n\nThis function allows moving an object or a list of objects in the outliner hierarchy. The objects to move can be specified by name or by using\nthe currently selected objects in the scene.\n\nThe function first checks if the 'input' argument is empty. If it is empty, it selects the currently selected objects in the scene.\n\nThe function then retrieves the parent of the input object(s) using the 'listRelatives' command and stores it in the 'parent' variable. It also\nretrieves the list of children of the parent object using the 'listRelatives' command and stores it in the 'brothers' variable.\n\nIf the 'up' argument is True, the function checks if the input object(s) is the first child in the 'brothers' list. If it is, it prints a\nmessage indicating that the object(s) is already at the top. Otherwise, it uses the 'reorder' command to move the object(s) up by one\nposition in the outliner hierarchy.\n\nIf the 'down' argument is True, the function checks if the input object(s) is the last child in the 'brothers' list. If it is, it prints a\nmessage indicating that the object(s) is already at the bottom. Otherwise, it uses the 'reorder' command to move the object(s) down by one\nposition in the outliner hierarchy.\n\nIf both 'up' and 'down' arguments are False, the function does nothing.\n\nNote:\n    This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software."
+   ],
+   [
+    "create_joint_guide",
+    "name='Guide'",
+    "Creates a joint guide with the specified name.",
+    246,
+    "Creates a joint guide with the specified name.\n\nArgs:\n        name (str): The name of the joint guide. Defaults to 'Guide'.\n\nReturns:\n        str: The name of the created joint guide.\n\nRaises:\n        None\n\nThis function creates a joint guide consisting of a joint, a 2D arrow, a sphere, an arrow axis, and an arrow front. The joint guide is\nnamed using the specified name and the naming convention for guides.\n\nThe function uses the 'cmds.joint' command to create the joint. It then creates the 2D arrow, sphere, arrow axis, and arrow front using the\n'curve' function with the respective types.\n\nThe function assigns colors to the components of the joint guide using the 'assign_color' function.\n\nAn enumeration attribute called 'Helper' is created on the joint, which can be used to turn on or off the visibility of the joint guide\ncomponents. The visibility of each component is connected to this enumeration attribute using the 'connectAttr' function.\n\nThe visibility of the joint guide components is controlled based on the value of the 'axis_helper' setup attribute. If 'axis_helper' is set\nto 'True', the visibility of the joint guide components is turned on. Otherwise, it is turned off.\n\nThe joint guide components are parented under the joint using the 'parent' command.\n\nThe sphere, arrow, arrow axis, and arrow front components are deleted after parenting.\n\nFinally, the created joint is selected, and its name is returned.\n\nNote:\n        This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software."
+   ],
+   [
+    "create_stellar_joint_guide",
+    "name=stellar_guide",
+    "Creates a stellar joint guide with the specified name.",
+    321,
+    "Creates a stellar joint guide with the specified name.\n\nArgs:\n    name (str): The name of the stellar joint guide. Defaults to 'stellar_guide'.\n\nReturns:\n    str: The name of the created joint guide.\n\nRaises:\n    None\n\nThis function creates a stellar joint guide consisting of a joint, a 2D arrow, a sphere, an arrow axis, and an arrow front. The joint guide is\nnamed using the specified name and the naming convention for guides.\n\nThe function uses the 'Joint.create' method (assuming it exists) or the 'cmds.joint' command to create the joint. It then creates the 2D arrow,\nsphere, arrow axis, and arrow front using the 'curve' function with the respective types.\n\nThe function assigns colors to the components of the joint guide using the 'assign_color' function.\n\nAn enumeration attribute called 'Helper' is created on the joint, which can be used to turn on or off the visibility of the joint guide\ncomponents. The visibility of each component is connected to this enumeration attribute using the 'connectAttr' function.\n\nThe visibility of the joint guide components is controlled based on the value of the 'axis_helper' setup attribute. If 'axis_helper' is set\nto 'True', the visibility of the joint guide components is turned on. Otherwise, it is turned off.\n\nThe joint guide components are parented under the joint using the 'parent' command.\n\nThe sphere, arrow, arrow axis, and arrow front components are deleted after parenting.\n\nFinally, the created joint is selected, and its name is returned.\n\nNote:\n    This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software."
+   ],
+   [
+    "orient_joint",
+    "input=''",
+    "Orients a joint based on the specified input.",
+    400,
+    "Orients a joint based on the specified input.\n\nArgs:\n    input (str): The name of the joint to orient. If not provided, the currently selected joint is used. Defaults to an empty string.\n\nReturns:\n    None\n\nRaises:\n    None\n\nThis function orients a joint by applying identity transformation, including translation, rotation, and scale. It then adjusts the joint's\norientation based on the specified twist axis and secondary axis orientation.\n\nIf the 'input' parameter != provided, the function uses the currently selected joint as the input.\n\nThe function uses the 'makeIdentity' function to reset the joint's transformations. It then uses the 'joint' function with the appropriate\n'oj' (orient joint) flag and 'secondaryAxisOrient' parameter to orient the joint based on the specified twist axis and secondary axis orientation.\n\nIf an error occurs during the joint orientation process, an error message is printed.\n\nNote:\n    This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software.\n\nExample:\n    orient_joint(input='joint1')"
+   ],
+   [
+    "ask_name",
+    "text='', ask_for='Name', check_split=False, popup=True, allow_name_exists=False",
+    "Asks the user for a block name.",
+    445,
+    "Asks the user for a block name.\n\nArgs:\n    text (str): The initial text displayed in the prompt dialog. Defaults to an empty string.\n    ask_for (str): The message displayed in the prompt dialog, specifying what the name is asked for. Defaults to 'Name'.\n    check_split (bool): Specifies whether to check for name existence after splitting the input at a comma. Defaults to False.\n    popup (bool): Specifies whether to display a popup dialog for errors and warnings. Defaults to True.\n        allow_name_exists (bool) : Allow names in case is used not for a block creation\n\nReturns:\n    str or None: The entered block name if the user clicked 'OK' and the name doesn't exist, or None if the user clicked 'Cancel'\n                or didn't enter a name.\n\nRaises:\n    None\n\nThis function displays a prompt dialog with a given title and message, allowing the user to enter a block name. The dialog\nhas 'OK' and 'Cancel' buttons. If the user clicks 'OK', the function checks if the entered name already exists as an object\nin the scene. If the name already exists, an error message is printed and a confirmation dialog is displayed indicating the\nname already exists.\n\nIf the 'check_split' parameter is set to True, the function also checks for name existence after splitting the entered name\nat a comma (','). If the split name already exists, an error message is printed and a confirmation dialog is displayed.\n\nThe function returns the entered block name if the user clicked 'OK' and the name doesn't exist. If the user clicked 'Cancel'\nor didn't enter a name, None is returned.\n\nIf the 'popup' parameter is set to True, warning messages are displayed using the 'cmds.warning' function. Otherwise, the\nwarning messages are printed to the console.\n\nNote:\n    This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software.\n\nExample:\n    name = ask_name(text='Enter block name:', ask_for='Block Name', check_split=True, popup=True)\n    if name != None:\n        print(f\"Entered block name: {name}\")"
+   ],
+   [
+    "duplicate_and_remove_guides",
+    "input=''",
+    "Duplicates the top chain joint and changes '_Guide' to '_Jnt' in the name.",
+    523,
+    "Duplicates the top chain joint and changes '_Guide' to '_Jnt' in the name.\nRenames all children and parent to the world.\n\nArgs:\n        input (str): The input joint(s) to duplicate. If empty, selects the first item from the current selection.\n\nReturns:\n        str: The name of the duplicated joint.\n\nRaises:\n        None\n\nThis function duplicates the specified joint(s) and modifies the name of the duplicated joint(s) by replacing the '_Guide'\nsuffix with '_Jnt'. It also removes specific attributes and re-parents the joints to the world space.\n\nNote:\n        This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software.\n\nExample:\n        duplicate_and_remove_guides(input='joint_01_Guide')"
+   ],
+   [
+    "duplicate_and_remove_stellar_guides",
+    "input=''",
+    "Duplicates the top chain joint, changes '_Guide' to '_Jnt' in the name, and renames all children plus parent to the world.",
+    572,
+    "Duplicates the top chain joint, changes '_Guide' to '_Jnt' in the name, and renames all children plus parent to the world.\n\nArgs:\n        input (str): The input joint(s) to duplicate. If empty, selects the first item from the current selection.\n\nReturns:\n        list: A list of duplicated joint objects.\n\nRaises:\n        None\n\nThis function duplicates the specified joint(s) and modifies the name of the duplicated joint(s) by replacing the '_Guide'\nsuffix with '_Jnt'. It also removes specific attributes and re-parents the joints to the world space.\n\nNote:\n        This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software.\n\nExample:\n        duplicate_and_remove_stellar_guides(input='joint_01_Guide')"
+   ],
+   [
+    "build_baseA",
+    "name='Asset_Name', size=1",
+    "Creates the base structure for any kind of rig with the same base structure.",
+    630,
+    "Creates the base structure for any kind of rig with the same base structure.\n\nArgs:\n        name (str): The name of the asset. Default is 'Asset_Name'.\n        size (float): The size of the base controllers. Default is 1.\n\nReturns:\n        tuple: A tuple containing the global controller, mover controller, and gimbal controller.\n\nRaises:\n        None\n\nThis function creates the base structure for a rig, including main groups, base groups, geometry groups, and rig groups.\nIt also creates base controllers such as the global controller, mover controller, and gimbal controller. Various attributes\nare added to the controllers for control visibility, playback, and geometry visibility.\n\nNote:\n        This function relies on other methods such as 'curve', 'root_grp', 'new_enum', 'new_attr', 'hide_attr', and specific\n        attributes and naming conventions defined in the 'setup' attribute.\n\nExample:\n        build_baseA(name='MyCharacter', size=1.5)"
+   ],
+   [
+    "check_is_there_is_base",
+    "base='BaseA'",
+    "Checks if the base structure exists and creates it if not.",
+    717,
+    "Checks if the base structure exists and creates it if not.\n\nArgs:\n        base (str): The name of the base structure. Default is 'BaseA'.\n\nReturns:\n        None\n\nRaises:\n        None\n\nThis function is intended to be placed at the start of all the modules. It checks if the specified base structure exists,\nand if not, it creates one. It also remembers the previous selection and restores it after the build.\n\nNote:\n        This function relies on the 'cmds' module from Autodesk Maya or a similar 3D software.\n\nExample:\n        check_is_there_is_base(base='BaseA')"
+   ],
+   [
+    "Mutant_logger",
+    "mode='create'",
+    "Manages the Mutant logger for scriptEditor history.",
+    752,
+    "Manages the Mutant logger for scriptEditor history.\n\nArgs:\n        mode (str): The mode of operation for the logger. Default is 'create'.\n\nReturns:\n        str or None: The path to the Mutant log file if mode != 'create', otherwise None.\n\nRaises:\n        None\n\nThis function manages the Mutant logger, which controls the scriptEditor history. It can be used to create, stop, or clear\nthe logger. When mode is set to 'create', it creates the log file and enables scriptEditor history logging. When mode is\nset to 'stop', it disables scriptEditor history logging. When mode is set to 'clear', it clears the contents of the log\nfile. If mode != one of the specified options, it returns the path to the Mutant log file.\n\nNote:\n        This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software.\n\nExample:\n        Mutant_logger(mode='create')"
+   ],
+   [
+    "update_icons",
+    "",
+    "Updates the icons of Mutant build blocks.",
+    791,
+    "Updates the icons of Mutant build blocks.\n\nArgs:\n        None\n\nReturns:\n        None\n\nRaises:\n        None\n\nThis function updates the icons of Mutant build blocks. It assumes the existence of a folder named 'Icons' within the\nproject directory. If the 'Mutant_Build' object does not exist, the function returns without performing any changes.\nIt retrieves the current icon of each block, extracts the filename, and constructs the path to the corresponding icon\nfile within the 'Icons' folder. Finally, it sets the 'iconName' attribute of each block to the new icon path.\n\nNote:\n        This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software.\n\nExample:\n        update_icons()"
+   ],
+   [
+    "check_dev_mode",
+    "",
+    "Checks if the Mutant Tools is in development mode.",
+    834,
+    "Checks if the Mutant Tools is in development mode.\n\nArgs:\n        None\n\nReturns:\n        bool: True if the Mutant Tools is in development mode, False otherwise.\n\nRaises:\n        None\n\nThis function checks if the Mutant Tools is in development mode. It reads the 'version.json' file located in the 'config'\nfolder within the project directory to retrieve the current version information. If the 'dev_mode' key in the version file\nis set to 'On', the function returns True indicating that the Mutant Tools is in development mode.\n\nIf the 'dev_mode' key != set to 'On', the function attempts to import the 'Mutant_Tools' module and reloads the 'helpers'\nmodule from the 'Mutant_Tools.Utils.Helpers' package. It then creates an instance of the 'Helpers' class and checks for the\n'dev_mode' key in the 'MutantTools.settings' JSON file. If the 'dev_mode' key is present and set to True, the function returns\nTrue indicating that the Mutant Tools is in development mode.\n\nIf any exceptions occur during the process, the function returns False indicating that the Mutant Tools != in development mode.\n\nNote:\n        This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software, as well as the 'json'\n        module for JSON file handling.\n\nExample:\n        check_dev_mode()"
+   ],
+   [
+    "toggle_dev_mode",
+    "",
+    "Toggles the Mutant Tools development mode.",
+    895,
+    "Toggles the Mutant Tools development mode.\n\nArgs:\n    None\n\nReturns:\n    None\n\nRaises:\n    None\n\nThis function toggles the Mutant Tools development mode. It attempts to import the 'Mutant_Tools' module and reloads the\n'helpers' module from the 'Mutant_Tools.Utils.Helpers' package. It then creates an instance of the 'Helpers' class and\nreads the 'MutantTools.settings' JSON file located in the 'cmds.internalVar(usd=True)' path. If the file does not exist,\nit creates the file with a default 'dev_mode' value of False.\n\nIf the 'dev_mode' key in the JSON file is currently set to True, the function updates the value to False and displays a\nconfirmation dialog indicating that the development mode is now turned off. If the 'dev_mode' key is currently set to\nFalse, the function updates the value to True and displays a confirmation dialog indicating that the development mode is\nnow turned on.\n\nNote:\n    This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software, as well as the 'json'\n    module for JSON file handling.\n\nExample:\n    toggle_dev_mode()"
+   ]
+  ]
+ },
+ "Mutant": {
+  "file": "main_mutant.py",
+  "bases": [
+   "modules.Modules_class"
+  ],
+  "methods": [
+   [
+    "__init__",
+    "",
+    "",
+    99,
+    ""
+   ],
+   [
+    "get_online_version",
+    "",
+    "Retrieves the online version of a tool from a specified URL.",
+    120,
+    "Retrieves the online version of a tool from a specified URL.\n\nReturns:\n    str or None: The online version of the tool if available, None otherwise.\n\nRaises:\n    None\n\nThis function retrieves the online version of a tool by scraping a specific URL. It starts by defining the URL where the version information is\nlocated. The 'urlopen' function from the 'urllib.request' module is used to open the URL and read its contents.\n\nThe function iterates over the lines read from the URL and searches for a line containing the keyword 'Version'. Once found, it extracts the version\ninformation from the line.\n\nThe extracted online version is then processed to remove any unwanted characters or formatting. If the online version is empty or cannot be\ndetermined, the function returns None. Otherwise, it returns the online version.\n\nNote:\n    This function relies on the 'urllib.request' module, so make sure it is imported before using this function."
+   ],
+   [
+    "get_local_version",
+    "",
+    "Retrieves the local version of the tool.",
+    164,
+    "Retrieves the local version of the tool.\n\nReturns:\n    str or None: The local version of the tool if available, None otherwise.\n\nRaises:\n    None\n\nThis function reads the local version of the tool from a JSON file. It starts by specifying the path to the JSON file containing the version\ninformation. The 'read_json' method is then used to read the contents of the file.\n\nThe function retrieves the version value from the JSON data and returns it. If the local version != available or cannot be determined, the\nfunction returns None.\n\nNote:\n    This function assumes that the 'read_json' method is implemented and correctly reads the version information from the JSON file."
+   ],
+   [
+    "compare_versions",
+    "",
+    "Compares the local version with the online version and displays a warning if an update is available.",
+    188,
+    "Compares the local version with the online version and displays a warning if an update is available.\n\nReturns:\n    None\n\nRaises:\n    None\n\nThis function compares the local version of the tool with the online version retrieved from the website. It first checks if the tool is in\ndevelopment mode based on the 'dev_mode' flag in the version data. If the tool is in development mode, the function prints a message and\nreturns without further checks.\n\nIf the tool != in development mode, the function retrieves the local version using the 'get_local_version' method and the online version\nusing the 'get_online_version' method. It then compares the two versions and displays a warning message if they are different.\n\nNote:\n    This function assumes that the 'get_online_version' and 'get_local_version' methods are implemented and correctly retrieve the online\n    and local versions, respectively."
+   ],
+   [
+    "get_github_latest_release",
+    "",
+    "Retrieves the latest release info from the Mutant_Tools GitHub repo's public API.",
+    229,
+    "Retrieves the latest release info from the Mutant_Tools GitHub repo's public API.\nWorks without any authentication (public repo), so it works on machines that\nare not logged into GitHub.\n\nReturns:\n        dict: The decoded JSON of the latest release (tag_name, zipball_url, html_url, etc.)"
+   ],
+   [
+    "_version_tuple",
+    "version_string",
+    "",
+    247,
+    ""
+   ],
+   [
+    "_is_newer_version",
+    "candidate, current",
+    "",
+    254,
+    ""
+   ],
+   [
+    "check_for_updates",
+    "silent=True",
+    "Compares the local version against the latest GitHub release. If a newer release",
+    264,
+    "Compares the local version against the latest GitHub release. If a newer release\nis available, asks the user if they want to download and install it automatically.\n\nArgs:\n        silent (bool): If False, also informs the user when no update is needed or the\n                check failed. If True (default, used on startup), stays quiet unless an\n                update is found."
+   ],
+   [
+    "install_github_release",
+    "release",
+    "Downloads a GitHub release's source zip and installs it over the current",
+    306,
+    "Downloads a GitHub release's source zip and installs it over the current\nMutant_Tools folder, mirroring the copy done by easy_install.py.\n\nArgs:\n        release (dict): A release dict as returned by get_github_latest_release()."
+   ]
+  ]
+ }
+}
