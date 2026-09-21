@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://mutanttools.com/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mutanttools.com/rigger/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mutanttools.com/developer/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mutanttools.com/learn/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mutanttools.com/free-assets/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mutanttools.com/contact/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mutanttools.com/docs/_build/html/index.html</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://mutanttools.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://mutanttools.com/maya-auto-rigger/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mutanttools.com/rigger/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/developer/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://mutanttools.com/wiki/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/wiki/commands/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/wiki/blocks/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/learn/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/free-assets/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/contact/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/docs/_build/html/index.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

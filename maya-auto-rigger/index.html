@@ -4,28 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 
-	<title>For Riggers — Mutant Tools</title>
-<meta name="description" content="Mutant Tools for riggers: modular blocks, guide placement, rebuilds that keep controllers and skins, and a workflow built for real deadlines.">
-<link rel="canonical" href="https://mutanttools.com/rigger/">
+	<title>Maya Auto Rigger - Free Modular Auto Rigging for Maya | Mutant Tools</title>
+<meta name="description" content="Mutant Tools is a free, open-source auto rigger for Autodesk Maya. 133 block-based modules for biped, facial, animal, vehicle and game rigs, with a full Python API.">
+<link rel="canonical" href="https://mutanttools.com/maya-auto-rigger/">
 <link rel="icon" href="/assets/img/LogoWhite03-74x74.png" sizes="any">
 <link rel="apple-touch-icon" href="/assets/img/LogoWhite03-300x300.png">
-<meta property="og:title" content="For Riggers — Mutant Tools">
-<meta property="og:description" content="Mutant Tools for riggers: modular blocks, guide placement, rebuilds that keep controllers and skins, and a workflow built for real deadlines.">
+<meta property="og:title" content="Maya Auto Rigger - Free Modular Auto Rigging for Maya | Mutant Tools">
+<meta property="og:description" content="Mutant Tools is a free, open-source auto rigger for Autodesk Maya. 133 block-based modules for biped, facial, animal, vehicle and game rigs, with a full Python API.">
 <meta property="og:image" content="https://mutanttools.com/assets/img/santa_render.png">
 <meta name="twitter:card" content="summary_large_image">
 
 <!-- SureRank Meta Data -->
-<link rel="canonical" href="/rigger/">
+<link rel="canonical" href="/developer/">
 <meta name="robots" content="index, follow">
-<meta property="og:url" content="/rigger/">
+<meta property="og:url" content="/developer/">
 <meta property="og:site_name" content="Mutant Tools">
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rigger - Mutant Tools">
-<meta property="article:published_time" content="2025-12-31T00:22:44+00:00">
-<meta property="article:modified_time" content="2025-12-31T23:52:09+00:00">
+<meta property="og:title" content="Developer - Mutant Tools">
+<meta property="og:image" content="/assets/img/code.png">
+<meta property="og:image:width" content="1918">
+<meta property="og:image:height" content="1008">
+<meta property="article:published_time" content="2025-12-31T00:42:26+00:00">
+<meta property="article:modified_time" content="2025-12-31T01:04:37+00:00">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Rigger - Mutant Tools">
+<meta name="twitter:title" content="Developer - Mutant Tools">
+<meta name="twitter:image" content="/assets/img/code.png">
 
 <!-- /SureRank Meta Data -->
 
@@ -76,14 +80,180 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 @font-face{font-family:Cardo;font-style:normal;font-weight:400;font-display:fallback;src:url('/assets/vendor/plugins/ultimate-addons-for-gutenberg/spectra-v3//assets/fonts/cardo_normal_400.woff2') format('woff2');}
 @font-face{font-family:Inter;font-style:normal;font-weight:300 900;font-display:fallback;src:url('/assets/vendor/plugins/ultimate-addons-for-gutenberg/spectra-v3//assets/fonts/Inter-VariableFont_slnt,wght.woff2') format('woff2');font-stretch:normal;}
 </style>
-<style id="uagb-style-conditional-extension">@media (min-width: 1025px){body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}@media (min-width: 768px) and (max-width: 1024px){body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}</style><style id="uagb-style-frontend-2570">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
+<style id="uagb-style-conditional-extension">@media (min-width: 1025px){body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}@media (min-width: 768px) and (max-width: 1024px){body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}</style><style id="uagb-style-frontend-2578">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
 </style><link rel="icon" href="/assets/img/LogoWhite03-74x74.png" sizes="32x32" />
 <link rel="icon" href="/assets/img/LogoWhite03-300x300.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="/assets/img/LogoWhite03-300x300.png" />
 <meta name="msapplication-TileImage" content="/assets/img/LogoWhite03-300x300.png" />
+
+<style id="mt-docs">
+:root{
+  --mt-ink:#140B06; --mt-panel:#1C0D0A; --mt-panel-2:#241310;
+  --mt-line:#3A241C; --mt-text:#FEF1E4; --mt-dim:#B79E92;
+  --mt-orange:#FF6210; --mt-orange-2:#F15808; --mt-code:#0E0805;
+  --mt-green:#7CD992; --mt-blue:#79C0FF; --mt-pink:#FF9BD2; --mt-yellow:#FFD479;
+}
+.mt-doc{background:var(--mt-ink);color:var(--mt-text);
+  font-family:'Montserrat',system-ui,sans-serif;line-height:1.7;
+  padding:0 0 6rem;overflow-x:clip}
+.mt-doc *{box-sizing:border-box}
+.mt-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---- hero ---- */
+.mt-hero{padding:5.5rem 0 3rem;border-bottom:1px solid var(--mt-line)}
+.mt-kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--mt-orange);font-weight:700;margin:0 0 1.1rem}
+.mt-hero h1{font-size:clamp(2.1rem,5.4vw,3.6rem);line-height:1.08;margin:0 0 1.2rem;
+  letter-spacing:-.02em;color:#fff}
+.mt-lede{font-size:clamp(1rem,2.1vw,1.2rem);color:var(--mt-dim);max-width:62ch;margin:0 0 2rem}
+.mt-stats{display:flex;flex-wrap:wrap;gap:2.4rem;margin:2.4rem 0 0;padding:0;list-style:none}
+.mt-stats b{display:block;font-size:1.9rem;color:var(--mt-orange);line-height:1}
+.mt-stats span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mt-dim)}
+
+/* ---- layout ---- */
+.mt-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:3.5rem;margin-top:3rem}
+@media(max-width:940px){.mt-layout{grid-template-columns:1fr;gap:0}}
+.mt-toc{position:sticky;top:90px;align-self:start;max-height:calc(100vh - 120px);
+  overflow-y:auto;font-size:.86rem;padding-right:.5rem}
+@media(max-width:940px){.mt-toc{position:static;max-height:none;margin-bottom:2.5rem;
+  border-bottom:1px solid var(--mt-line);padding-bottom:1.5rem}}
+.mt-toc h2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mt-dim);
+  margin:0 0 .9rem;font-weight:700}
+.mt-toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
+.mt-toc li{margin:0 0 .15rem}
+.mt-toc a{display:block;padding:.34rem .6rem;color:var(--mt-dim);text-decoration:none;
+  border-left:2px solid transparent;border-radius:0 4px 4px 0;transition:.15s}
+.mt-toc a:hover{color:var(--mt-text);background:var(--mt-panel)}
+.mt-toc a.is-on{color:var(--mt-orange);border-left-color:var(--mt-orange);background:var(--mt-panel)}
+
+/* ---- prose ---- */
+.mt-body h2{font-size:clamp(1.5rem,3.2vw,2.1rem);margin:3.6rem 0 1rem;color:#fff;
+  letter-spacing:-.015em;scroll-margin-top:90px}
+.mt-body h2:first-child{margin-top:0}
+.mt-body h3{font-size:1.16rem;margin:2.4rem 0 .8rem;color:var(--mt-orange);scroll-margin-top:90px}
+.mt-body h4{font-size:.98rem;margin:1.8rem 0 .6rem;color:var(--mt-text)}
+.mt-body p{margin:0 0 1.1rem;color:#E8D9CF}
+.mt-body ul,.mt-body ol{margin:0 0 1.2rem;padding-left:1.3rem;color:#E8D9CF}
+.mt-body li{margin:.34rem 0}
+.mt-body a{color:var(--mt-orange);text-decoration:none;border-bottom:1px solid rgba(255,98,16,.35)}
+.mt-body a:hover{color:var(--mt-orange-2);border-bottom-color:var(--mt-orange-2)}
+.mt-body strong{color:#fff}
+.mt-body hr{border:0;border-top:1px solid var(--mt-line);margin:3rem 0}
+
+/* ---- code ---- */
+.mt-body code{font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+  font-size:.86em;background:var(--mt-panel-2);color:var(--mt-yellow);
+  padding:.14em .42em;border-radius:4px;border:1px solid var(--mt-line)}
+.mt-body pre{background:var(--mt-code);border:1px solid var(--mt-line);border-radius:10px;
+  padding:1.15rem 1.25rem;overflow-x:auto;margin:0 0 1.4rem;font-size:.845rem;line-height:1.65}
+.mt-body pre code{background:none;border:0;padding:0;color:#E6DCD4;font-size:inherit}
+.mt-code-head{display:flex;align-items:center;gap:.6rem;background:var(--mt-panel-2);
+  border:1px solid var(--mt-line);border-bottom:0;border-radius:10px 10px 0 0;
+  padding:.5rem 1rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mt-dim);font-weight:700}
+.mt-code-head+pre{border-radius:0 0 10px 10px;margin-top:0}
+.mt-code-head .mt-dot{width:8px;height:8px;border-radius:50%;background:var(--mt-orange)}
+.tok-k{color:var(--mt-pink)}.tok-s{color:var(--mt-green)}.tok-c{color:#8A7568;font-style:italic}
+.tok-n{color:var(--mt-blue)}.tok-f{color:var(--mt-yellow)}
+
+/* ---- callouts ---- */
+.mt-note{border-left:3px solid var(--mt-orange);background:var(--mt-panel);
+  padding:1rem 1.2rem;border-radius:0 8px 8px 0;margin:0 0 1.4rem}
+.mt-note p:last-child{margin-bottom:0}
+.mt-note b.mt-tag{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mt-orange);margin-bottom:.4rem}
+.mt-warn{border-left-color:#FF4D4D}
+.mt-warn b.mt-tag{color:#FF7A7A}
+.mt-ok{border-left-color:var(--mt-green)}
+.mt-ok b.mt-tag{color:var(--mt-green)}
+
+/* ---- tables ---- */
+.mt-table-wrap{overflow-x:auto;margin:0 0 1.5rem;border:1px solid var(--mt-line);border-radius:10px}
+.mt-body table{width:100%;border-collapse:collapse;font-size:.855rem;margin:0}
+.mt-body th{text-align:left;background:var(--mt-panel-2);color:var(--mt-dim);
+  font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;padding:.7rem .9rem;
+  border-bottom:1px solid var(--mt-line);white-space:nowrap}
+.mt-body td{padding:.65rem .9rem;border-bottom:1px solid rgba(58,36,28,.6);
+  vertical-align:top;color:#E8D9CF}
+.mt-body tr:last-child td{border-bottom:0}
+.mt-body td code{white-space:nowrap}
+
+/* ---- cards ---- */
+.mt-grid{display:grid;gap:1rem;margin:0 0 1.6rem}
+.mt-grid--2{grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+.mt-grid--3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.mt-card{background:var(--mt-panel);border:1px solid var(--mt-line);border-radius:10px;padding:1.15rem 1.25rem}
+.mt-card h4{margin:0 0 .45rem;color:var(--mt-orange);font-size:.95rem}
+.mt-card p{margin:0;font-size:.875rem;color:var(--mt-dim)}
+.mt-card code{font-size:.8rem}
+
+/* ---- api entries ---- */
+.mt-api{border:1px solid var(--mt-line);border-radius:10px;margin:0 0 .75rem;background:var(--mt-panel);overflow:hidden}
+.mt-api>summary{cursor:pointer;padding:.8rem 1.1rem;list-style:none;display:flex;
+  gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.mt-api>summary::-webkit-details-marker{display:none}
+.mt-api>summary:hover{background:var(--mt-panel-2)}
+.mt-api .mt-sig{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;color:var(--mt-yellow)}
+.mt-api .mt-sig b{color:#fff;font-weight:700}
+.mt-api .mt-from{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mt-dim);margin-left:auto;white-space:nowrap}
+.mt-api-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--mt-line)}
+.mt-api-body p{margin:.9rem 0 .6rem;font-size:.9rem}
+.mt-api-body table{font-size:.82rem}
+.mt-doc{background:transparent!important;border:0!important;border-left:2px solid var(--mt-line)!important;
+  border-radius:0!important;padding:.2rem 0 .2rem 1rem!important;margin:1rem 0 0!important;
+  font-size:.79rem!important;color:#B79E92!important;white-space:pre-wrap;line-height:1.55}
+.mt-doc code{color:inherit!important}
+
+/* ---- search ---- */
+.mt-search{position:relative;margin:0 0 1.6rem}
+.mt-search input{width:100%;background:var(--mt-panel);border:1px solid var(--mt-line);
+  border-radius:9px;padding:.85rem 1rem .85rem 2.6rem;color:var(--mt-text);
+  font-family:inherit;font-size:.95rem}
+.mt-search input:focus{outline:2px solid var(--mt-orange);outline-offset:1px;border-color:transparent}
+.mt-search input::placeholder{color:#8A7568}
+.mt-search svg{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;fill:none;stroke:#8A7568;stroke-width:2}
+.mt-count{font-size:.78rem;color:var(--mt-dim);margin:0 0 1rem}
+.mt-hide{display:none!important}
+
+/* ---- pills ---- */
+.mt-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.6rem;padding:0;list-style:none}
+.mt-pill{background:var(--mt-panel);border:1px solid var(--mt-line);color:var(--mt-dim);
+  border-radius:999px;padding:.34rem .85rem;font-size:.76rem;cursor:pointer;
+  font-family:inherit;letter-spacing:.04em}
+.mt-pill:hover{color:var(--mt-text);border-color:var(--mt-orange)}
+.mt-pill[aria-pressed="true"]{background:var(--mt-orange);color:#180C07;border-color:var(--mt-orange);font-weight:700}
+
+/* ---- cta ---- */
+.mt-cta{background:linear-gradient(135deg,var(--mt-panel),var(--mt-panel-2));
+  border:1px solid var(--mt-line);border-radius:14px;padding:2.4rem;margin:3.5rem 0 0;text-align:center}
+.mt-cta h2{margin:0 0 .8rem!important;font-size:1.7rem}
+.mt-cta p{color:var(--mt-dim);max-width:52ch;margin:0 auto 1.6rem}
+.mt-btn{display:inline-block;background:var(--mt-orange);color:#180C07!important;
+  border:0;border-bottom:0!important;border-radius:999px;padding:.85rem 1.9rem;
+  font-weight:700;font-size:.85rem;letter-spacing:.07em;text-transform:uppercase;
+  text-decoration:none;margin:.3rem}
+.mt-btn:hover{background:var(--mt-orange-2);color:#180C07!important}
+.mt-btn--ghost{background:transparent;color:var(--mt-orange)!important;
+  box-shadow:inset 0 0 0 1px var(--mt-orange)}
+.mt-btn--ghost:hover{background:rgba(255,98,16,.12);color:var(--mt-orange)!important}
+
+/* ---- misc ---- */
+.mt-anchor{color:var(--mt-line);text-decoration:none!important;border:0!important;
+  margin-left:.4rem;font-weight:400;opacity:0}
+h2:hover .mt-anchor,h3:hover .mt-anchor{opacity:1}
+.mt-anchor:hover{color:var(--mt-orange)}
+.mt-updated{font-size:.75rem;color:#8A7568;margin-top:3rem;padding-top:1.4rem;
+  border-top:1px solid var(--mt-line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Mutant Tools", "applicationCategory": "DesignApplication", "applicationSubCategory": "3D rigging", "operatingSystem": "Windows, macOS, Linux", "softwareRequirements": "Autodesk Maya 2022 or newer", "description": "Free block-based auto rigger and modular rigging framework for Autodesk Maya. 133 rigging blocks covering biped, facial, animal, vehicle, prop and game rigs, with a documented Python API.", "url": "https://mutanttools.com/maya-auto-rigger/", "downloadUrl": "https://github.com/RenderDeMartes/Mutant_Tools", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "Blue Tape Rigging", "url": "https://bluetaperigging.com/"}, "featureList": ["Block-based modular rigging", "Non-destructive rebuilds from guides", "Biped, quadruped, bird, vehicle and prop templates", "Facial rigging modules", "Game-ready and Unreal Engine export", "Python API for pipeline integration"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Mutant Tools a free Maya auto rigger?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Mutant Tools is free to download and the full source is public on GitHub. There is no licence server, no node-locked key and no watermark on the rigs it produces. You can use it on commercial work."}}, {"@type": "Question", "name": "Which Maya versions does it support?", "acceptedAnswer": {"@type": "Answer", "text": "Maya 2022 and newer are recommended. The codebase keeps Python 2 and Python 3 compatibility patterns, so older Maya releases generally load, but the tested target is 2022+."}}, {"@type": "Question", "name": "Can I rig something other than a biped?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Alongside the human templates there are blocks for quadrupeds, birds and wings, snakes, tails, insect legs, vehicles, props and cloth. Because the system is modular you can also combine blocks to rig anatomy no template covers."}}, {"@type": "Question", "name": "Does the rig work in Unreal Engine or Unity?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. There are dedicated game blocks, a game-ready human template, a body converter and MetaHuman and DNA calibration utilities under the Unreal tools. Bind joints are kept as a clean, exportable hierarchy separate from the control rig."}}, {"@type": "Question", "name": "What happens when I need to change a rig after animation has started?", "acceptedAnswer": {"@type": "Answer", "text": "Blocks and guides are the source, the rig is the output. You change the guide or the block option and rebuild. Control shapes and skin weights can be saved and reapplied as part of the build through the data blocks, so a rebuild does not cost you that work."}}, {"@type": "Question", "name": "Is it an auto rigger or a rigging framework?", "acceptedAnswer": {"@type": "Answer", "text": "Both, and that is the point. Templates give you a complete character rig in a few clicks. Underneath, every block is a Python file calling a documented API, so a technical director can extend it or wire it into a pipeline instead of fighting a black box."}}, {"@type": "Question", "name": "Can I write my own modules?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. A block is a folder with a JSON file describing its options and a Python file with a create and a build function. Drop it into the Blocks folder and the auto rigger picks it up with no registration step. The developer guide walks through a complete example."}}, {"@type": "Question", "name": "Does it do facial rigging too?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. There are twenty facial blocks covering jaw, mouth, eyelids, brows, cheeks, nose, tongue, teeth, commissures, orbicularis, sticky lips and pupil dilation, plus face templates and a face install tool."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HowTo", "name": "How to auto rig a character in Maya with Mutant Tools", "totalTime": "PT10M", "tool": [{"@type": "HowToTool", "name": "Autodesk Maya 2022+"}, {"@type": "HowToTool", "name": "Mutant Tools"}], "step": [{"@type": "HowToStep", "position": 1, "name": "Install", "text": "Drag easy_install.py into a Maya viewport. It copies the tools into your scripts folder, installs the shelf and adds the Mutant-Tools menu so it loads on every start."}, {"@type": "HowToStep", "position": 2, "name": "Open the auto rigger", "text": "Mutant-Tools &rarr; Rigging &rarr; Open Autorigger."}, {"@type": "HowToStep", "position": 3, "name": "Drop a template", "text": "Pick a template - human, game-ready human, quadruped, bird, car, prop - and the whole block stack appears in the outliner."}, {"@type": "HowToStep", "position": 4, "name": "Place the guides", "text": "Move the guides onto your mesh. This is the only genuinely manual step, and it is the one that decides whether the rig is any good."}, {"@type": "HowToStep", "position": 5, "name": "Set the options", "text": "Each block has a config node: control shape and size, colour, mirror behaviour, twist count, ribbons on or off, what it parents to."}, {"@type": "HowToStep", "position": 6, "name": "Build", "text": "Press build. Blocks run top to bottom in outliner order and produce the rig."}, {"@type": "HowToStep", "position": 7, "name": "Iterate", "text": "Adjust a guide or an option and build again. The rig is disposable; the blocks are what you keep."}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mutant Tools", "item": "https://mutanttools.com/"}, {"@type": "ListItem", "position": 2, "name": "Maya auto rigger", "item": "https://mutanttools.com/maya-auto-rigger/"}]}</script>
 </head>
 
-<body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-2570 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.11.18 ast-single-post ast-mobile-inherit-site-logo ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header ast-full-width-primary-header">
+<body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-2578 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.11.18 ast-single-post ast-mobile-inherit-site-logo ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header ast-full-width-primary-header">
 
 <a
 	class="skip-link screen-reader-text"
@@ -109,8 +279,8 @@ class="hfeed site" id="page">
 								</div>
 																								<div class="site-header-primary-section-right site-header-section ast-flex ast-grid-right-section">
 										<div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item" data-section="section-hb-menu-1">
-			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-desktop" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto"><a href="/maya-auto-rigger/" class="menu-link">Auto Rigger</a></li>
-<li id="menu-item-2603" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2570 current_page_item menu-item-2603"><a href="/rigger/" aria-current="page" class="menu-link">Rigger</a></li>
+			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-desktop" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto current-menu-item current_page_item"><a href="/maya-auto-rigger/" aria-current="page" class="menu-link">Auto Rigger</a></li>
+<li id="menu-item-2603" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2603"><a href="/rigger/" class="menu-link">Rigger</a></li>
 <li id="menu-item-2602" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2602"><a href="/developer/" class="menu-link">Developer</a></li>
 <li id="menu-item-2604" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604"><a href="/wiki/" class="menu-link">Wiki</a></li>
 </ul></div></nav></div></div>		</div>
@@ -151,364 +321,88 @@ class="hfeed site" id="page">
 	</div>
 				<div class="ast-mobile-header-content content-align-flex-start ">
 						<div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item" data-section="section-hb-menu-1">
-			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-mobile" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1-mobile" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto"><a href="/maya-auto-rigger/" class="menu-link">Auto Rigger</a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2570 current_page_item menu-item-2603"><a href="/rigger/" aria-current="page" class="menu-link">Rigger</a></li>
+			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-mobile" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1-mobile" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto current-menu-item current_page_item"><a href="/maya-auto-rigger/" aria-current="page" class="menu-link">Auto Rigger</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2603"><a href="/rigger/" class="menu-link">Rigger</a></li>
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2602"><a href="/developer/" class="menu-link">Developer</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604"><a href="/wiki/" class="menu-link">Wiki</a></li>
 </ul></div></nav></div></div>		</div>
 					</div>
 			</div>
 		</header><!-- #masthead -->
-			<div id="content" class="site-content">
-		<div class="ast-container">
-		
-
-	<div id="primary" class="content-area primary">
-
-		
-					<main id="main" class="site-main">
-				<article
-class="post-2570 page type-page status-publish ast-article-single" id="post-2570" itemtype="https://schema.org/CreativeWork" itemscope="itemscope">
-	
-				<header class="entry-header ast-no-title ast-header-without-markup">
-							</header> <!-- .entry-header -->
-		
-<div class="entry-content clear"
-	data-ast-blocks-layout="true" itemprop="text">
-
-	
-	    <div class="alignfull wp-block-bplugins-custom-html" id='bPluginsCustomHtml-1'>
-    <!-- wp:html -->
-
-<style>
-:root {
-  --mt-accent: #ff6210;
-  --bg-main: #0b0d10;
-  --bg-card: #141821;
-  --text-main: #ffffff;
-  --text-muted: rgba(255,255,255,0.7);
-}
-
-/* =============================
-   SECTION
-============================= */
-
-.rigger-playlists {
-  width: 100%;
-  padding: 6rem 2rem;
-  background: var(--bg-main);
-  color: var(--text-main);
-}
-
-.rigger-playlists h1 {
-  text-align: center;
-  font-size: 2.8rem;
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-}
-
-.rigger-divider {
-  width: 56px;
-  height: 2px;
-  background: var(--mt-accent);
-  margin: 0 auto 3.5rem;
-  border-radius: 2px;
-}
-
-.rigger-playlists p.intro {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto 4rem;
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: var(--text-muted);
-}
-
-/* =============================
-   GRID
-============================= */
-
-.playlist-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 2.8rem;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-/* =============================
-   CARD
-============================= */
-
-.playlist-card {
-  background: var(--bg-card);
-  border-radius: 18px;
-  overflow: hidden;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-}
-
-.playlist-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-}
-
-/* =============================
-   VIDEO
-============================= */
-
-.playlist-video {
-  position: relative;
-  padding-top: 56.25%;
-  background: #000;
-}
-
-.playlist-video iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* =============================
-   CONTENT
-============================= */
-
-.playlist-content {
-  padding: 2rem 2.2rem 2.4rem;
-}
-
-.playlist-tag {
-  display: inline-block;
-  margin-bottom: 0.8rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--mt-accent);
-}
-
-.playlist-content h3 {
-  font-size: 1.35rem;
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-  line-height: 1.35;
-}
-
-.playlist-content p {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--text-muted);
-}
-
-/* =============================
-   BUTTON
-============================= */
-
-.playlist-button {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 1.4rem;
-  padding: 0.55rem 1.2rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--text-main);
-  border: 1px solid rgba(255,98,16,0.4);
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
-
-.playlist-button:hover {
-  background: rgba(255,98,16,0.12);
-  border-color: var(--mt-accent);
-}
-
-/* =============================
-   MOBILE
-============================= */
-
-@media (max-width: 768px) {
-  .rigger-playlists {
-    padding: 4rem 1.5rem;
-  }
-
-  .rigger-playlists h1 {
-    font-size: 2.2rem;
-  }
-}
-
-  /* FORCE TITLES TO WHITE */
-
-.rigger-playlists h1,
-.playlist-content h3 {
-  color: #ffffff !important;
-}
-  
-</style>
-
-<section class="rigger-playlists">
-
-  <h1>Rigging with Mutant Tools</h1>
-  <div class="rigger-divider"></div>
-  <p class="intro">
-    Practical learning paths focused on real production workflows
-    using Mutant Tools.
-  </p>
-
-  <div class="playlist-grid">
-
-    <!-- PLAYLIST 1 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPE-UA-D6i4aS_XmmQUXys-a"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Getting Started</span>
-        <h3>Mutant Tools &#038; Asset Browser – Installation Guide</h3>
-        <p>
-          Install Mutant Tools, configure the Asset Browser,
-          and prepare your Maya environment.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPE-UA-D6i4aS_XmmQUXys-a"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-
-    <!-- PLAYLIST 2 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPGiZymg5FpDA9_kbaUo1eC6"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Practical Rigging</span>
-        <h3>Rigging a Prop with Mutant Tools – Step by Step</h3>
-        <p>
-          A full prop rig built using Mutant Tools blocks
-          in a clean, repeatable workflow.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPGiZymg5FpDA9_kbaUo1eC6"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-
-    <!-- PLAYLIST 3 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPEwyeJM4Ez8duIS4wYzXenH"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Core System</span>
-        <h3>Mutant Tools Rigging System – Understanding All Blocks</h3>
-        <p>
-          A complete overview of the Mutant Tools rigging system
-          and every available block.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPEwyeJM4Ez8duIS4wYzXenH"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-
-    <!-- PLAYLIST 4 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPHqqycBQ1bW52B74H82FetZ"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Beginner Series</span>
-        <h3>Character Rigging 101 – Mutant Tools Biped</h3>
-        <p>
-          A complete beginner-friendly guide to character rigging,
-          covering the full biped workflow using Mutant Tools.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPHqqycBQ1bW52B74H82FetZ"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-    <!-- PLAYLIST 5 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPG2O4freXQ66X7TehlTsK8m"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Advanced Rigging</span>
-        <h3>Quadruped Rigging in Maya | Mutant Tools Tutorial</h3>
-        <p>
-          A complete step-by-step guide to rigging quadruped characters
-          using the Mutant Tools workflow in Maya.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPG2O4freXQ66X7TehlTsK8m"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- /wp:html -->
-    </div>
-    
-	
-	
-</div><!-- .entry-content .clear -->
-
-	
-	
-</article><!-- #post-## -->
-
-			</main><!-- #main -->
 			
-		
-	</div><!-- #primary -->
+<div id="content" class="site-content"><div class="mt-doc">
+<header class="mt-hero"><div class="mt-wrap"><p class="mt-kicker">Free &middot; Open source &middot; Maya 2022+</p><h1>A Maya auto rigger that does not box you in</h1><p class="mt-lede">Mutant Tools is a free, block-based auto rigger for Autodesk Maya. Drop a template, place the guides, press build. Then keep going &mdash; every one of the 133 blocks is a Python file you can read, change or replace.</p><p><a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Download free</a><a class="mt-btn mt-btn--ghost" href="#quickstart">See how it works</a></p><ul class="mt-stats"><li><b>133</b><span>rigging blocks</span></li><li><b>11</b><span>categories</span></li><li><b>117</b><span>python commands</span></li><li><b>$0</b><span>no licence</span></li></ul></div></header><div class="mt-wrap"><div class="mt-layout"><nav class="mt-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#what">What an auto rigger does</a></li><li><a href="#why-blocks">Why block-based</a></li><li><a href="#quickstart">Rig a character in 10 minutes</a></li><li><a href="#coverage">What it rigs</a></li><li><a href="#games">Games and Unreal</a></li><li><a href="#face">Facial rigging</a></li><li><a href="#python">Scriptable</a></li><li><a href="#compare">How it compares</a></li><li><a href="#requirements">Requirements</a></li><li><a href="#faq">FAQ</a></li></ol></nav>
+<article class="mt-body"><h2 id="what">What a Maya auto rigger actually does<a class="mt-anchor" href="#what" aria-label="Link to this section">#</a></h2>
+<p>Rigging a character by hand is the same few hundred operations every time: duplicate a joint chain for IK and FK, build the switch, place a pole vector, add twist joints, make controls, colour them by side, zero them out, mirror the whole thing, wire the stretch, hide the channels animators must not touch. None of it is interesting the second time.</p><p>An auto rigger does that work from a description of where the joints go. You position guides on the mesh; the tool produces the joints, controls, constraints and utility nodes. A good one does it <b>repeatably</b> &mdash; delete the rig, change one guide, build again, and you get the same rig with one thing different.</p><div class="mt-note"><b class="mt-tag">Note</b><p>That repeatability is the real feature. A rig you cannot rebuild is a rig you cannot fix once animation has started, which is exactly when the note arrives.</p></div>
+<h2 id="why-blocks">Why block-based beats one big button<a class="mt-anchor" href="#why-blocks" aria-label="Link to this section">#</a></h2>
+<p>Most auto riggers ship a fixed skeleton. They are quick until your character has a tail, four arms, a jaw that opens sideways or a wheel where a foot should be &mdash; and then you are outside the tool, hand-rigging the interesting part and hoping it survives the next rebuild.</p><p>Mutant Tools has no fixed skeleton. A rig is a stack of independent blocks, each owning one piece of anatomy:</p><div class="mt-code-head"><span class="mt-dot"></span>outliner</div>
+<pre><code>Mutant_Build
+|-- BaseA_Block          base hierarchy, global and gimbal controls
+|-- Spine_Block          IK/FK spline spine
+|-- L_Arm_Block          FK/IK limb, twist, ribbons
+|-- R_Arm_Block
+|-- L_Leg_Block
+|-- Head_Block
+|-- Jaw_Block
+`-- Tail_Block           because your character has one</code></pre>
+<p>Each block carries its own options on a config node and its own build function. They run top to bottom in outliner order, so reordering blocks reorders the build. Adding anatomy the authors never imagined means adding a block, not forking the tool.</p><div class="mt-grid mt-grid--2"><div class="mt-card"><h4>Non-destructive</h4><p>Guides and blocks are the source. The rig is output. Rebuild as often as the notes demand.</p></div><div class="mt-card"><h4>Composable</h4><p>Mix a biped spine with a quadruped limb and a vehicle wheel in one asset. Nothing forbids it.</p></div><div class="mt-card"><h4>Readable</h4><p>Every block is a Python file in a folder. Nothing is compiled, nothing is hidden, nothing phones home.</p></div><div class="mt-card"><h4>Extensible</h4><p>Write a block, drop it in the folder, it shows up in the UI. No plugin registration, no rebuild.</p></div></div>
+<h2 id="quickstart">Rig a character in 10 minutes<a class="mt-anchor" href="#quickstart" aria-label="Link to this section">#</a></h2>
+<ol><li><b>Install.</b> Drag <code>easy_install.py</code> into a Maya viewport. It copies the tools into your scripts folder, installs the shelf and adds the Mutant-Tools menu so it loads on every start.</li><li><b>Open the auto rigger.</b> Mutant-Tools &rarr; Rigging &rarr; Open Autorigger.</li><li><b>Drop a template.</b> Pick a template - human, game-ready human, quadruped, bird, car, prop - and the whole block stack appears in the outliner.</li><li><b>Place the guides.</b> Move the guides onto your mesh. This is the only genuinely manual step, and it is the one that decides whether the rig is any good.</li><li><b>Set the options.</b> Each block has a config node: control shape and size, colour, mirror behaviour, twist count, ribbons on or off, what it parents to.</li><li><b>Build.</b> Press build. Blocks run top to bottom in outliner order and produce the rig.</li><li><b>Iterate.</b> Adjust a guide or an option and build again. The rig is disposable; the blocks are what you keep.</li></ol><div class="mt-note"><b class="mt-tag">Note</b><p>Guide placement is where the craft is. The tool removes the typing, not the judgement &mdash; where the elbow actually bends and how the shoulder should behave is still your call, and it is still what separates a rig animators like from one they work around.</p></div>
+<h2 id="coverage">What it rigs<a class="mt-anchor" href="#coverage" aria-label="Link to this section">#</a></h2>
+<div class="mt-table-wrap"><table><thead><tr><th>Category</th><th>Blocks</th><th>Covers</th></tr></thead><tbody><tr><td>Presets</td><td>19</td><td>Whole-character templates: human, simple human, game human, Unreal game human, toon, toon face, minotaur, quadruped, seagull, bird, chameleon, tortoise, sloth, pig, car, prop, hero prop</td></tr><tr><td>Biped</td><td>17</td><td>Spine and simple spine, clavicle and auto clavicle, pelvis, limb and simple limb, head, hand and smart hand, foot and foot box, eyes, hair, soft-IK legs</td></tr><tr><td>Facial</td><td>20</td><td>Skull, jaw, mouth (standard, ribbon and games), eyelids, eyelashes, nose, cheeks, brows, tongue, teeth, commissures, orbicularis, sticky lips, pupil dilation</td></tr><tr><td>Animals</td><td>8</td><td>Quadruped limb and spine, wings, tail, ant leg, snake, animal mouth</td></tr><tr><td>Vehicles</td><td>11</td><td>Wheel and auto wheel, steering wheel, chassis, door, window, seat, trunk, side mirror, drift, push</td></tr><tr><td>Props</td><td>15</td><td>Single FK, chain, multi-bone, reverse FK, reverse spline, ribbonizer, ribbon tweakers, squash, lattice, blendshape, rivet, slide, locals, dynamic scale</td></tr><tr><td>Clothes</td><td>6</td><td>Cap, cape, shirt, skirt, tie, pin</td></tr><tr><td>Games</td><td>3</td><td>Game root, body converter, slide and push correctives</td></tr><tr><td>Data</td><td>2</td><td>Reapply saved skin weights and control shapes during the build</td></tr><tr><td>Studio</td><td>17</td><td>House conventions applied on every asset: orients, rotate orders, pickwalking, visibility attributes, colour changes, defaults, renaming</td></tr><tr><td>Other</td><td>15</td><td>Base rig, code and stop blocks, skinning, proxy attributes, space switches, soft mods, surface constraints, joint labelling</td></tr></tbody></table></div>
+<p><a href="/wiki/blocks/">Browse all 133 blocks and their options &rarr;</a></p><h2 id="games">Games and Unreal Engine<a class="mt-anchor" href="#games" aria-label="Link to this section">#</a></h2>
+<p>Game rigs have different rules: a clean joint hierarchy, a joint budget, no constraint spaghetti in the exported skeleton, and a control rig that never leaves Maya.</p><p>Mutant Tools keeps bind joints in their own group from the start, separate from the control rig, so the exportable skeleton is exactly what you want and nothing else. On top of that there are game-ready human templates, a body converter, corrective blocks for slide and push deformation, crowd tools, and MetaHuman and DNA calibration utilities under the Unreal side.</p><h2 id="face">Facial rigging<a class="mt-anchor" href="#face" aria-label="Link to this section">#</a></h2>
+<p>Twenty facial blocks, plus face templates and a dedicated face install tool. Jaw, mouth &mdash; standard, ribbon and a lighter games variant &mdash; eyelids, eyelashes, brows and advanced brows, cheeks and advanced cheeks, nose, tongue, teeth, commissures, orbicularis, sticky lips, pupil dilation, and post-build fixes.</p><p>Faces are where fixed-skeleton auto riggers fail hardest, because no two face designs agree. Blocks let you take the jaw and eyelid setups and leave the rest, or stack a ribbon mouth on a toon face without arguing with the tool.</p><h2 id="python">Scriptable all the way down<a class="mt-anchor" href="#python" aria-label="Link to this section">#</a></h2>
+<p>The UI is a thin layer. Everything it does is a call you can make yourself, which is what makes batch rebuilds, asset checks and pipeline integration possible.</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
+<pre><code><span class="tok-k">from</span> maya <span class="tok-k">import</span> <span class="tok-n">cmds</span>
+<span class="tok-k">from</span> Mutant_Tools.Utils.Rigging <span class="tok-k">import</span> main_mutant
 
-	</div> <!-- ast-container -->
-	</div><!-- #content -->
+<span class="tok-n">mt</span> = main_mutant.<span class="tok-f">Mutant</span>()
+<span class="tok-n">nc</span>, <span class="tok-n">curve_data</span>, <span class="tok-n">setup</span> = <span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()
+
+<span class="tok-c"># a full FK/IK limb with twist, in one call</span>
+<span class="tok-n">mt</span>.<span class="tok-f">twist_fk_ik</span>(start=<span class="tok-s">'L_Shoulder_Jnt'</span>,
+               mid=<span class="tok-s">'L_Elbow_Jnt'</span>,
+               end=<span class="tok-s">'L_Wrist_Jnt'</span>,
+               size=4,
+               twist_amount=6)</code></pre>
+<p>There are 117 documented commands on that object, covering controls and shapes, attributes, colour, FK and IK, twist, ribbons, spines, deformers, matrices, rivets, LODs and file IO.</p><p><a href="/developer/">Read the developer guide &rarr;</a> &middot; <a href="/wiki/commands/">Command reference &rarr;</a></p><h2 id="compare">How it compares<a class="mt-anchor" href="#compare" aria-label="Link to this section">#</a></h2>
+<div class="mt-table-wrap"><table><thead><tr><th></th><th>Fixed-skeleton auto rigger</th><th>Mutant Tools</th></tr></thead><tbody><tr><td>Non-standard anatomy</td><td>Rig it by hand outside the tool</td><td>Add or write a block</td></tr><tr><td>Changing a built rig</td><td>Often a manual patch</td><td>Change a guide or option, rebuild</td></tr><tr><td>Source code</td><td>Usually closed</td><td>Public, readable Python</td></tr><tr><td>Extending it</td><td>Plugin API if you are lucky</td><td>Drop a folder into <code>Blocks/</code></td></tr><tr><td>Pipeline integration</td><td>Whatever is exposed</td><td>Every command is public Python</td></tr><tr><td>Naming conventions</td><td>Usually fixed</td><td>JSON config, fork it per studio</td></tr><tr><td>Cost</td><td>Per-seat licence, commonly</td><td>Free, no licence server</td></tr></tbody></table></div>
+<div class="mt-note"><b class="mt-tag">Note</b><p>The honest trade: a fixed-skeleton rigger gets a standard biped standing up faster, because it asks fewer questions. Mutant Tools pays that back the first time a character is not standard, and on any show where rigs get rebuilt.</p></div>
+<h2 id="requirements">Requirements<a class="mt-anchor" href="#requirements" aria-label="Link to this section">#</a></h2>
+<div class="mt-table-wrap"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Host</td><td>Autodesk Maya 2022 or newer</td></tr><tr><td>Python</td><td>Python 3, with Python 2 compatibility retained in the codebase</td></tr><tr><td>OS</td><td>Windows, macOS, Linux &mdash; wherever Maya runs</td></tr><tr><td>Licence</td><td>Free, source public on GitHub</td></tr><tr><td>Optional</td><td>ngSkinTools v2, Brave Rabbit Shapes, Faceform Wrap &mdash; installable from the Mutant-Tools menu</td></tr></tbody></table></div>
+<h2 id="faq">Frequently asked questions<a class="mt-anchor" href="#faq" aria-label="Link to this section">#</a></h2>
+<h3 id="is-mutant-tools-a-free-maya-auto-rigger">Is Mutant Tools a free Maya auto rigger?<a class="mt-anchor" href="#is-mutant-tools-a-free-maya-auto-rigger" aria-label="Link to this section">#</a></h3>
+<p>Yes. Mutant Tools is free to download and the full source is public on GitHub. There is no licence server, no node-locked key and no watermark on the rigs it produces. You can use it on commercial work.</p><h3 id="which-maya-versions-does-it-support">Which Maya versions does it support?<a class="mt-anchor" href="#which-maya-versions-does-it-support" aria-label="Link to this section">#</a></h3>
+<p>Maya 2022 and newer are recommended. The codebase keeps Python 2 and Python 3 compatibility patterns, so older Maya releases generally load, but the tested target is 2022+.</p><h3 id="can-i-rig-something-other-than-a-biped">Can I rig something other than a biped?<a class="mt-anchor" href="#can-i-rig-something-other-than-a-biped" aria-label="Link to this section">#</a></h3>
+<p>Yes. Alongside the human templates there are blocks for quadrupeds, birds and wings, snakes, tails, insect legs, vehicles, props and cloth. Because the system is modular you can also combine blocks to rig anatomy no template covers.</p><h3 id="does-the-rig-work-in-unreal-engine-or-unity">Does the rig work in Unreal Engine or Unity?<a class="mt-anchor" href="#does-the-rig-work-in-unreal-engine-or-unity" aria-label="Link to this section">#</a></h3>
+<p>Yes. There are dedicated game blocks, a game-ready human template, a body converter and MetaHuman and DNA calibration utilities under the Unreal tools. Bind joints are kept as a clean, exportable hierarchy separate from the control rig.</p><h3 id="what-happens-when-i-need-to-change-a-rig-after-animation-has-started">What happens when I need to change a rig after animation has started?<a class="mt-anchor" href="#what-happens-when-i-need-to-change-a-rig-after-animation-has-started" aria-label="Link to this section">#</a></h3>
+<p>Blocks and guides are the source, the rig is the output. You change the guide or the block option and rebuild. Control shapes and skin weights can be saved and reapplied as part of the build through the data blocks, so a rebuild does not cost you that work.</p><h3 id="is-it-an-auto-rigger-or-a-rigging-framework">Is it an auto rigger or a rigging framework?<a class="mt-anchor" href="#is-it-an-auto-rigger-or-a-rigging-framework" aria-label="Link to this section">#</a></h3>
+<p>Both, and that is the point. Templates give you a complete character rig in a few clicks. Underneath, every block is a Python file calling a documented API, so a technical director can extend it or wire it into a pipeline instead of fighting a black box.</p><h3 id="can-i-write-my-own-modules">Can I write my own modules?<a class="mt-anchor" href="#can-i-write-my-own-modules" aria-label="Link to this section">#</a></h3>
+<p>Yes. A block is a folder with a JSON file describing its options and a Python file with a create and a build function. Drop it into the Blocks folder and the auto rigger picks it up with no registration step. The developer guide walks through a complete example.</p><h3 id="does-it-do-facial-rigging-too">Does it do facial rigging too?<a class="mt-anchor" href="#does-it-do-facial-rigging-too" aria-label="Link to this section">#</a></h3>
+<p>Yes. There are twenty facial blocks covering jaw, mouth, eyelids, brows, cheeks, nose, tongue, teeth, commissures, orbicularis, sticky lips and pupil dilation, plus face templates and a face install tool.</p><div class="mt-cta"><h2>Download Mutant Tools</h2><p>Free, open source, and installed by dragging one file into Maya. If you are rigging something the templates do not cover, that is the case it was built for.</p><a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Get it on GitHub</a><a class="mt-btn mt-btn--ghost" href="/rigger/">For riggers</a></div></article></div></div>
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.mt-toc a[href^="#"]'));
+  if(!links.length || !('IntersectionObserver' in window)) return;
+  var map = {};
+  links.forEach(function(a){
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    if(el) map[el.id] = a;
+  });
+  var seen = {};
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ seen[e.target.id] = e.isIntersecting; });
+    var current = null;
+    Object.keys(map).forEach(function(id){ if(seen[id] && !current) current = id; });
+    links.forEach(function(a){ a.classList.remove('is-on'); });
+    if(current && map[current]) map[current].classList.add('is-on');
+  }, {rootMargin: '-80px 0px -70% 0px'});
+  Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+})();
+</script>
+
+</div></div>
 <footer
 class="site-footer" id="colophon" itemtype="https://schema.org/WPFooter" itemscope="itemscope" itemid="#colophon">
 			<div class="site-below-footer-wrap ast-builder-grid-row-container site-footer-focus-item ast-builder-grid-row-2-equal ast-builder-grid-row-tablet-2-equal ast-builder-grid-row-mobile-full ast-footer-row-stack ast-footer-row-tablet-stack ast-footer-row-mobile-stack" data-section="section-below-footer-builder">

@@ -4,28 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 
-	<title>For Riggers — Mutant Tools</title>
-<meta name="description" content="Mutant Tools for riggers: modular blocks, guide placement, rebuilds that keep controllers and skins, and a workflow built for real deadlines.">
-<link rel="canonical" href="https://mutanttools.com/rigger/">
+	<title>Mutant Tools Wiki - mt Command &amp; Block Reference for Maya</title>
+<meta name="description" content="Searchable reference for Mutant Tools: every mt command with its real signature and every shipped rigging block with its options.">
+<link rel="canonical" href="https://mutanttools.com/wiki/">
 <link rel="icon" href="/assets/img/LogoWhite03-74x74.png" sizes="any">
 <link rel="apple-touch-icon" href="/assets/img/LogoWhite03-300x300.png">
-<meta property="og:title" content="For Riggers — Mutant Tools">
-<meta property="og:description" content="Mutant Tools for riggers: modular blocks, guide placement, rebuilds that keep controllers and skins, and a workflow built for real deadlines.">
+<meta property="og:title" content="Mutant Tools Wiki - mt Command &amp; Block Reference for Maya">
+<meta property="og:description" content="Searchable reference for Mutant Tools: every mt command with its real signature and every shipped rigging block with its options.">
 <meta property="og:image" content="https://mutanttools.com/assets/img/santa_render.png">
 <meta name="twitter:card" content="summary_large_image">
 
 <!-- SureRank Meta Data -->
-<link rel="canonical" href="/rigger/">
+<link rel="canonical" href="/developer/">
 <meta name="robots" content="index, follow">
-<meta property="og:url" content="/rigger/">
+<meta property="og:url" content="/developer/">
 <meta property="og:site_name" content="Mutant Tools">
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rigger - Mutant Tools">
-<meta property="article:published_time" content="2025-12-31T00:22:44+00:00">
-<meta property="article:modified_time" content="2025-12-31T23:52:09+00:00">
+<meta property="og:title" content="Developer - Mutant Tools">
+<meta property="og:image" content="/assets/img/code.png">
+<meta property="og:image:width" content="1918">
+<meta property="og:image:height" content="1008">
+<meta property="article:published_time" content="2025-12-31T00:42:26+00:00">
+<meta property="article:modified_time" content="2025-12-31T01:04:37+00:00">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Rigger - Mutant Tools">
+<meta name="twitter:title" content="Developer - Mutant Tools">
+<meta name="twitter:image" content="/assets/img/code.png">
 
 <!-- /SureRank Meta Data -->
 
@@ -76,14 +80,177 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 @font-face{font-family:Cardo;font-style:normal;font-weight:400;font-display:fallback;src:url('/assets/vendor/plugins/ultimate-addons-for-gutenberg/spectra-v3//assets/fonts/cardo_normal_400.woff2') format('woff2');}
 @font-face{font-family:Inter;font-style:normal;font-weight:300 900;font-display:fallback;src:url('/assets/vendor/plugins/ultimate-addons-for-gutenberg/spectra-v3//assets/fonts/Inter-VariableFont_slnt,wght.woff2') format('woff2');font-stretch:normal;}
 </style>
-<style id="uagb-style-conditional-extension">@media (min-width: 1025px){body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}@media (min-width: 768px) and (max-width: 1024px){body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}</style><style id="uagb-style-frontend-2570">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
+<style id="uagb-style-conditional-extension">@media (min-width: 1025px){body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none !important}}@media (min-width: 768px) and (max-width: 1024px){body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none !important}}@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none !important}}</style><style id="uagb-style-frontend-2578">.uag-blocks-common-selector{z-index:var(--z-index-desktop) !important}@media (max-width: 976px){.uag-blocks-common-selector{z-index:var(--z-index-tablet) !important}}@media (max-width: 767px){.uag-blocks-common-selector{z-index:var(--z-index-mobile) !important}}
 </style><link rel="icon" href="/assets/img/LogoWhite03-74x74.png" sizes="32x32" />
 <link rel="icon" href="/assets/img/LogoWhite03-300x300.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="/assets/img/LogoWhite03-300x300.png" />
 <meta name="msapplication-TileImage" content="/assets/img/LogoWhite03-300x300.png" />
+
+<style id="mt-docs">
+:root{
+  --mt-ink:#140B06; --mt-panel:#1C0D0A; --mt-panel-2:#241310;
+  --mt-line:#3A241C; --mt-text:#FEF1E4; --mt-dim:#B79E92;
+  --mt-orange:#FF6210; --mt-orange-2:#F15808; --mt-code:#0E0805;
+  --mt-green:#7CD992; --mt-blue:#79C0FF; --mt-pink:#FF9BD2; --mt-yellow:#FFD479;
+}
+.mt-doc{background:var(--mt-ink);color:var(--mt-text);
+  font-family:'Montserrat',system-ui,sans-serif;line-height:1.7;
+  padding:0 0 6rem;overflow-x:clip}
+.mt-doc *{box-sizing:border-box}
+.mt-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---- hero ---- */
+.mt-hero{padding:5.5rem 0 3rem;border-bottom:1px solid var(--mt-line)}
+.mt-kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--mt-orange);font-weight:700;margin:0 0 1.1rem}
+.mt-hero h1{font-size:clamp(2.1rem,5.4vw,3.6rem);line-height:1.08;margin:0 0 1.2rem;
+  letter-spacing:-.02em;color:#fff}
+.mt-lede{font-size:clamp(1rem,2.1vw,1.2rem);color:var(--mt-dim);max-width:62ch;margin:0 0 2rem}
+.mt-stats{display:flex;flex-wrap:wrap;gap:2.4rem;margin:2.4rem 0 0;padding:0;list-style:none}
+.mt-stats b{display:block;font-size:1.9rem;color:var(--mt-orange);line-height:1}
+.mt-stats span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mt-dim)}
+
+/* ---- layout ---- */
+.mt-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:3.5rem;margin-top:3rem}
+@media(max-width:940px){.mt-layout{grid-template-columns:1fr;gap:0}}
+.mt-toc{position:sticky;top:90px;align-self:start;max-height:calc(100vh - 120px);
+  overflow-y:auto;font-size:.86rem;padding-right:.5rem}
+@media(max-width:940px){.mt-toc{position:static;max-height:none;margin-bottom:2.5rem;
+  border-bottom:1px solid var(--mt-line);padding-bottom:1.5rem}}
+.mt-toc h2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mt-dim);
+  margin:0 0 .9rem;font-weight:700}
+.mt-toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
+.mt-toc li{margin:0 0 .15rem}
+.mt-toc a{display:block;padding:.34rem .6rem;color:var(--mt-dim);text-decoration:none;
+  border-left:2px solid transparent;border-radius:0 4px 4px 0;transition:.15s}
+.mt-toc a:hover{color:var(--mt-text);background:var(--mt-panel)}
+.mt-toc a.is-on{color:var(--mt-orange);border-left-color:var(--mt-orange);background:var(--mt-panel)}
+
+/* ---- prose ---- */
+.mt-body h2{font-size:clamp(1.5rem,3.2vw,2.1rem);margin:3.6rem 0 1rem;color:#fff;
+  letter-spacing:-.015em;scroll-margin-top:90px}
+.mt-body h2:first-child{margin-top:0}
+.mt-body h3{font-size:1.16rem;margin:2.4rem 0 .8rem;color:var(--mt-orange);scroll-margin-top:90px}
+.mt-body h4{font-size:.98rem;margin:1.8rem 0 .6rem;color:var(--mt-text)}
+.mt-body p{margin:0 0 1.1rem;color:#E8D9CF}
+.mt-body ul,.mt-body ol{margin:0 0 1.2rem;padding-left:1.3rem;color:#E8D9CF}
+.mt-body li{margin:.34rem 0}
+.mt-body a{color:var(--mt-orange);text-decoration:none;border-bottom:1px solid rgba(255,98,16,.35)}
+.mt-body a:hover{color:var(--mt-orange-2);border-bottom-color:var(--mt-orange-2)}
+.mt-body strong{color:#fff}
+.mt-body hr{border:0;border-top:1px solid var(--mt-line);margin:3rem 0}
+
+/* ---- code ---- */
+.mt-body code{font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+  font-size:.86em;background:var(--mt-panel-2);color:var(--mt-yellow);
+  padding:.14em .42em;border-radius:4px;border:1px solid var(--mt-line)}
+.mt-body pre{background:var(--mt-code);border:1px solid var(--mt-line);border-radius:10px;
+  padding:1.15rem 1.25rem;overflow-x:auto;margin:0 0 1.4rem;font-size:.845rem;line-height:1.65}
+.mt-body pre code{background:none;border:0;padding:0;color:#E6DCD4;font-size:inherit}
+.mt-code-head{display:flex;align-items:center;gap:.6rem;background:var(--mt-panel-2);
+  border:1px solid var(--mt-line);border-bottom:0;border-radius:10px 10px 0 0;
+  padding:.5rem 1rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mt-dim);font-weight:700}
+.mt-code-head+pre{border-radius:0 0 10px 10px;margin-top:0}
+.mt-code-head .mt-dot{width:8px;height:8px;border-radius:50%;background:var(--mt-orange)}
+.tok-k{color:var(--mt-pink)}.tok-s{color:var(--mt-green)}.tok-c{color:#8A7568;font-style:italic}
+.tok-n{color:var(--mt-blue)}.tok-f{color:var(--mt-yellow)}
+
+/* ---- callouts ---- */
+.mt-note{border-left:3px solid var(--mt-orange);background:var(--mt-panel);
+  padding:1rem 1.2rem;border-radius:0 8px 8px 0;margin:0 0 1.4rem}
+.mt-note p:last-child{margin-bottom:0}
+.mt-note b.mt-tag{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mt-orange);margin-bottom:.4rem}
+.mt-warn{border-left-color:#FF4D4D}
+.mt-warn b.mt-tag{color:#FF7A7A}
+.mt-ok{border-left-color:var(--mt-green)}
+.mt-ok b.mt-tag{color:var(--mt-green)}
+
+/* ---- tables ---- */
+.mt-table-wrap{overflow-x:auto;margin:0 0 1.5rem;border:1px solid var(--mt-line);border-radius:10px}
+.mt-body table{width:100%;border-collapse:collapse;font-size:.855rem;margin:0}
+.mt-body th{text-align:left;background:var(--mt-panel-2);color:var(--mt-dim);
+  font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;padding:.7rem .9rem;
+  border-bottom:1px solid var(--mt-line);white-space:nowrap}
+.mt-body td{padding:.65rem .9rem;border-bottom:1px solid rgba(58,36,28,.6);
+  vertical-align:top;color:#E8D9CF}
+.mt-body tr:last-child td{border-bottom:0}
+.mt-body td code{white-space:nowrap}
+
+/* ---- cards ---- */
+.mt-grid{display:grid;gap:1rem;margin:0 0 1.6rem}
+.mt-grid--2{grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+.mt-grid--3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.mt-card{background:var(--mt-panel);border:1px solid var(--mt-line);border-radius:10px;padding:1.15rem 1.25rem}
+.mt-card h4{margin:0 0 .45rem;color:var(--mt-orange);font-size:.95rem}
+.mt-card p{margin:0;font-size:.875rem;color:var(--mt-dim)}
+.mt-card code{font-size:.8rem}
+
+/* ---- api entries ---- */
+.mt-api{border:1px solid var(--mt-line);border-radius:10px;margin:0 0 .75rem;background:var(--mt-panel);overflow:hidden}
+.mt-api>summary{cursor:pointer;padding:.8rem 1.1rem;list-style:none;display:flex;
+  gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.mt-api>summary::-webkit-details-marker{display:none}
+.mt-api>summary:hover{background:var(--mt-panel-2)}
+.mt-api .mt-sig{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;color:var(--mt-yellow)}
+.mt-api .mt-sig b{color:#fff;font-weight:700}
+.mt-api .mt-from{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mt-dim);margin-left:auto;white-space:nowrap}
+.mt-api-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--mt-line)}
+.mt-api-body p{margin:.9rem 0 .6rem;font-size:.9rem}
+.mt-api-body table{font-size:.82rem}
+.mt-doc{background:transparent!important;border:0!important;border-left:2px solid var(--mt-line)!important;
+  border-radius:0!important;padding:.2rem 0 .2rem 1rem!important;margin:1rem 0 0!important;
+  font-size:.79rem!important;color:#B79E92!important;white-space:pre-wrap;line-height:1.55}
+.mt-doc code{color:inherit!important}
+
+/* ---- search ---- */
+.mt-search{position:relative;margin:0 0 1.6rem}
+.mt-search input{width:100%;background:var(--mt-panel);border:1px solid var(--mt-line);
+  border-radius:9px;padding:.85rem 1rem .85rem 2.6rem;color:var(--mt-text);
+  font-family:inherit;font-size:.95rem}
+.mt-search input:focus{outline:2px solid var(--mt-orange);outline-offset:1px;border-color:transparent}
+.mt-search input::placeholder{color:#8A7568}
+.mt-search svg{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;fill:none;stroke:#8A7568;stroke-width:2}
+.mt-count{font-size:.78rem;color:var(--mt-dim);margin:0 0 1rem}
+.mt-hide{display:none!important}
+
+/* ---- pills ---- */
+.mt-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.6rem;padding:0;list-style:none}
+.mt-pill{background:var(--mt-panel);border:1px solid var(--mt-line);color:var(--mt-dim);
+  border-radius:999px;padding:.34rem .85rem;font-size:.76rem;cursor:pointer;
+  font-family:inherit;letter-spacing:.04em}
+.mt-pill:hover{color:var(--mt-text);border-color:var(--mt-orange)}
+.mt-pill[aria-pressed="true"]{background:var(--mt-orange);color:#180C07;border-color:var(--mt-orange);font-weight:700}
+
+/* ---- cta ---- */
+.mt-cta{background:linear-gradient(135deg,var(--mt-panel),var(--mt-panel-2));
+  border:1px solid var(--mt-line);border-radius:14px;padding:2.4rem;margin:3.5rem 0 0;text-align:center}
+.mt-cta h2{margin:0 0 .8rem!important;font-size:1.7rem}
+.mt-cta p{color:var(--mt-dim);max-width:52ch;margin:0 auto 1.6rem}
+.mt-btn{display:inline-block;background:var(--mt-orange);color:#180C07!important;
+  border:0;border-bottom:0!important;border-radius:999px;padding:.85rem 1.9rem;
+  font-weight:700;font-size:.85rem;letter-spacing:.07em;text-transform:uppercase;
+  text-decoration:none;margin:.3rem}
+.mt-btn:hover{background:var(--mt-orange-2);color:#180C07!important}
+.mt-btn--ghost{background:transparent;color:var(--mt-orange)!important;
+  box-shadow:inset 0 0 0 1px var(--mt-orange)}
+.mt-btn--ghost:hover{background:rgba(255,98,16,.12);color:var(--mt-orange)!important}
+
+/* ---- misc ---- */
+.mt-anchor{color:var(--mt-line);text-decoration:none!important;border:0!important;
+  margin-left:.4rem;font-weight:400;opacity:0}
+h2:hover .mt-anchor,h3:hover .mt-anchor{opacity:1}
+.mt-anchor:hover{color:var(--mt-orange)}
+.mt-updated{font-size:.75rem;color:#8A7568;margin-top:3rem;padding-top:1.4rem;
+  border-top:1px solid var(--mt-line)}
+</style>
+
 </head>
 
-<body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-2570 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.11.18 ast-single-post ast-mobile-inherit-site-logo ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header ast-full-width-primary-header">
+<body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-2578 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.11.18 ast-single-post ast-mobile-inherit-site-logo ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header ast-full-width-primary-header">
 
 <a
 	class="skip-link screen-reader-text"
@@ -110,9 +277,9 @@ class="hfeed site" id="page">
 																								<div class="site-header-primary-section-right site-header-section ast-flex ast-grid-right-section">
 										<div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item" data-section="section-hb-menu-1">
 			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-desktop" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto"><a href="/maya-auto-rigger/" class="menu-link">Auto Rigger</a></li>
-<li id="menu-item-2603" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2570 current_page_item menu-item-2603"><a href="/rigger/" aria-current="page" class="menu-link">Rigger</a></li>
+<li id="menu-item-2603" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2603"><a href="/rigger/" class="menu-link">Rigger</a></li>
 <li id="menu-item-2602" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2602"><a href="/developer/" class="menu-link">Developer</a></li>
-<li id="menu-item-2604" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604"><a href="/wiki/" class="menu-link">Wiki</a></li>
+<li id="menu-item-2604" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604 current-menu-item current_page_item"><a href="/wiki/" aria-current="page" class="menu-link">Wiki</a></li>
 </ul></div></nav></div></div>		</div>
 				<div class="ast-builder-layout-element ast-flex site-header-focus-item ast-header-button-1" data-section="section-hb-button-1">
 			<div class="ast-builder-button-wrap ast-builder-button-size-"><a class="ast-custom-button-link" href="https://www.linkedin.com/in/esteban-rodriguez-488a68147/" target="_blank"  role="button" aria-label="Contact" >
@@ -152,363 +319,28 @@ class="hfeed site" id="page">
 				<div class="ast-mobile-header-content content-align-flex-start ">
 						<div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item" data-section="section-hb-menu-1">
 			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-mobile" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1-mobile" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto"><a href="/maya-auto-rigger/" class="menu-link">Auto Rigger</a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2570 current_page_item menu-item-2603"><a href="/rigger/" aria-current="page" class="menu-link">Rigger</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2603"><a href="/rigger/" class="menu-link">Rigger</a></li>
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2602"><a href="/developer/" class="menu-link">Developer</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604"><a href="/wiki/" class="menu-link">Wiki</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604 current-menu-item current_page_item"><a href="/wiki/" aria-current="page" class="menu-link">Wiki</a></li>
 </ul></div></nav></div></div>		</div>
 					</div>
 			</div>
 		</header><!-- #masthead -->
-			<div id="content" class="site-content">
-		<div class="ast-container">
-		
-
-	<div id="primary" class="content-area primary">
-
-		
-					<main id="main" class="site-main">
-				<article
-class="post-2570 page type-page status-publish ast-article-single" id="post-2570" itemtype="https://schema.org/CreativeWork" itemscope="itemscope">
-	
-				<header class="entry-header ast-no-title ast-header-without-markup">
-							</header> <!-- .entry-header -->
-		
-<div class="entry-content clear"
-	data-ast-blocks-layout="true" itemprop="text">
-
-	
-	    <div class="alignfull wp-block-bplugins-custom-html" id='bPluginsCustomHtml-1'>
-    <!-- wp:html -->
-
-<style>
-:root {
-  --mt-accent: #ff6210;
-  --bg-main: #0b0d10;
-  --bg-card: #141821;
-  --text-main: #ffffff;
-  --text-muted: rgba(255,255,255,0.7);
-}
-
-/* =============================
-   SECTION
-============================= */
-
-.rigger-playlists {
-  width: 100%;
-  padding: 6rem 2rem;
-  background: var(--bg-main);
-  color: var(--text-main);
-}
-
-.rigger-playlists h1 {
-  text-align: center;
-  font-size: 2.8rem;
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-}
-
-.rigger-divider {
-  width: 56px;
-  height: 2px;
-  background: var(--mt-accent);
-  margin: 0 auto 3.5rem;
-  border-radius: 2px;
-}
-
-.rigger-playlists p.intro {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto 4rem;
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: var(--text-muted);
-}
-
-/* =============================
-   GRID
-============================= */
-
-.playlist-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 2.8rem;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-/* =============================
-   CARD
-============================= */
-
-.playlist-card {
-  background: var(--bg-card);
-  border-radius: 18px;
-  overflow: hidden;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-}
-
-.playlist-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-}
-
-/* =============================
-   VIDEO
-============================= */
-
-.playlist-video {
-  position: relative;
-  padding-top: 56.25%;
-  background: #000;
-}
-
-.playlist-video iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* =============================
-   CONTENT
-============================= */
-
-.playlist-content {
-  padding: 2rem 2.2rem 2.4rem;
-}
-
-.playlist-tag {
-  display: inline-block;
-  margin-bottom: 0.8rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--mt-accent);
-}
-
-.playlist-content h3 {
-  font-size: 1.35rem;
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-  line-height: 1.35;
-}
-
-.playlist-content p {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--text-muted);
-}
-
-/* =============================
-   BUTTON
-============================= */
-
-.playlist-button {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 1.4rem;
-  padding: 0.55rem 1.2rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--text-main);
-  border: 1px solid rgba(255,98,16,0.4);
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
-
-.playlist-button:hover {
-  background: rgba(255,98,16,0.12);
-  border-color: var(--mt-accent);
-}
-
-/* =============================
-   MOBILE
-============================= */
-
-@media (max-width: 768px) {
-  .rigger-playlists {
-    padding: 4rem 1.5rem;
-  }
-
-  .rigger-playlists h1 {
-    font-size: 2.2rem;
-  }
-}
-
-  /* FORCE TITLES TO WHITE */
-
-.rigger-playlists h1,
-.playlist-content h3 {
-  color: #ffffff !important;
-}
-  
-</style>
-
-<section class="rigger-playlists">
-
-  <h1>Rigging with Mutant Tools</h1>
-  <div class="rigger-divider"></div>
-  <p class="intro">
-    Practical learning paths focused on real production workflows
-    using Mutant Tools.
-  </p>
-
-  <div class="playlist-grid">
-
-    <!-- PLAYLIST 1 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPE-UA-D6i4aS_XmmQUXys-a"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Getting Started</span>
-        <h3>Mutant Tools &#038; Asset Browser – Installation Guide</h3>
-        <p>
-          Install Mutant Tools, configure the Asset Browser,
-          and prepare your Maya environment.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPE-UA-D6i4aS_XmmQUXys-a"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-
-    <!-- PLAYLIST 2 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPGiZymg5FpDA9_kbaUo1eC6"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Practical Rigging</span>
-        <h3>Rigging a Prop with Mutant Tools – Step by Step</h3>
-        <p>
-          A full prop rig built using Mutant Tools blocks
-          in a clean, repeatable workflow.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPGiZymg5FpDA9_kbaUo1eC6"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-
-    <!-- PLAYLIST 3 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPEwyeJM4Ez8duIS4wYzXenH"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Core System</span>
-        <h3>Mutant Tools Rigging System – Understanding All Blocks</h3>
-        <p>
-          A complete overview of the Mutant Tools rigging system
-          and every available block.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPEwyeJM4Ez8duIS4wYzXenH"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-
-    <!-- PLAYLIST 4 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPHqqycBQ1bW52B74H82FetZ"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Beginner Series</span>
-        <h3>Character Rigging 101 – Mutant Tools Biped</h3>
-        <p>
-          A complete beginner-friendly guide to character rigging,
-          covering the full biped workflow using Mutant Tools.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPHqqycBQ1bW52B74H82FetZ"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-    <!-- PLAYLIST 5 -->
-    <div class="playlist-card">
-      <div class="playlist-video">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLYMDeEG84lPG2O4freXQ66X7TehlTsK8m"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="playlist-content">
-        <span class="playlist-tag">Advanced Rigging</span>
-        <h3>Quadruped Rigging in Maya | Mutant Tools Tutorial</h3>
-        <p>
-          A complete step-by-step guide to rigging quadruped characters
-          using the Mutant Tools workflow in Maya.
-        </p>
-        <a
-          class="playlist-button"
-          href="https://www.youtube.com/playlist?list=PLYMDeEG84lPG2O4freXQ66X7TehlTsK8m"
-          target="_blank"
-          rel="noopener noreferrer">
-          Open Playlist
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- /wp:html -->
-    </div>
-    
-	
-	
-</div><!-- .entry-content .clear -->
-
-	
-	
-</article><!-- #post-## -->
-
-			</main><!-- #main -->
 			
-		
-	</div><!-- #primary -->
+<div id="content" class="site-content"><div class="mt-doc">
+<header class="mt-hero"><div class="mt-wrap"><p class="mt-kicker">Wiki</p><h1>Mutant Tools reference</h1><p class="mt-lede">Every <code>mt</code> command and every shipped block, generated from the source at each release. Searchable, and accurate by construction.</p><ul class="mt-stats"><li><b>117</b><span>commands</span></li><li><b>133</b><span>blocks</span></li><li><b>11</b><span>categories</span></li><li><b>44</b><span>control shapes</span></li></ul></div></header><div class="mt-wrap"><div class="mt-body" style="margin-top:3rem"><div class="mt-grid mt-grid--3"><div class="mt-card"><h4>Commands</h4><p>All 117 <code>mt</code> methods with full signatures, grouped by the class they come from. <a href="/wiki/commands/">Browse commands</a></p></div><div class="mt-card"><h4>Blocks</h4><p>All 133 blocks with their options, icons and build commands. <a href="/wiki/blocks/">Browse blocks</a></p></div><div class="mt-card"><h4>Developer guide</h4><p>How the block system fits together, and how to write your own. <a href="/developer/">Read the guide</a></p></div></div>
+<h2 id="start">Start here<a class="mt-anchor" href="#start" aria-label="Link to this section">#</a></h2>
+<div class="mt-code-head"><span class="mt-dot"></span>every session</div>
+<pre><code><span class="tok-k">from</span> maya <span class="tok-k">import</span> <span class="tok-n">cmds</span>
+<span class="tok-k">from</span> Mutant_Tools.Utils.Rigging <span class="tok-k">import</span> main_mutant
 
-	</div> <!-- ast-container -->
-	</div><!-- #content -->
+<span class="tok-n">mt</span> = main_mutant.<span class="tok-f">Mutant</span>()
+<span class="tok-n">nc</span>, <span class="tok-n">curve_data</span>, <span class="tok-n">setup</span> = <span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()</code></pre>
+<p>Those two lines precede everything else on this site. <code>mt</code> is the whole API; <code>nc</code>, <code>curve_data</code> and <code>setup</code> are the JSON configs that keep naming and defaults out of your rigging code.</p><h2 id="layout">Where things live<a class="mt-anchor" href="#layout" aria-label="Link to this section">#</a></h2>
+<div class="mt-table-wrap"><table><thead><tr><th>Path</th><th>What</th></tr></thead><tbody><tr><td><code>Utils/Rigging/tools.py</code></td><td>Controls, attributes, colour, nodes, JSON, matrices</td></tr><tr><td><code>Utils/Rigging/kinematics.py</code></td><td>FK, IK, twist, ribbons, spines, deformers</td></tr><tr><td><code>Utils/Rigging/modules.py</code></td><td>Blocks, guides, base rig hierarchy, dev mode</td></tr><tr><td><code>Utils/Rigging/main_mutant.py</code></td><td>The <code>Mutant</code> class and updates</td></tr><tr><td><code>Blocks/&lt;category&gt;/&lt;block&gt;/</code></td><td>One folder per block: launcher JSON, versioned JSON, exec script</td></tr><tr><td><code>config/name_conventions.json</code></td><td><code>nc</code> - every suffix and side token</td></tr><tr><td><code>config/rig_setup.json</code></td><td><code>setup</code> - default shapes, colours, axes, groups</td></tr><tr><td><code>config/curves.json</code></td><td><code>curve_data</code> - the control shape library</td></tr><tr><td><code>UI/</code></td><td>AutoRigger, BlockBuilder, RigTools, Helpers and the rest of the windows</td></tr><tr><td><code>Docs/AI_MT_COMMAND_RULES.md</code></td><td>Coding rules written for AI assistants</td></tr></tbody></table></div>
+<h2 id="sphinx">The older Sphinx wiki<a class="mt-anchor" href="#sphinx" aria-label="Link to this section">#</a></h2>
+<p>The previous autodoc build is still online at <a href="/docs/_build/html/index.html">/docs/_build/html/</a>. It covers the same modules in less depth and is no longer regenerated - keep it bookmarked only if you have old links pointing into it.</p><div class="mt-cta"><h2>Writing a block?</h2><p>The developer guide walks the whole lifecycle, from the launcher JSON through the build loop to shipping a v002 without breaking last year's scenes.</p><a class="mt-btn" href="/developer/">Developer guide</a><a class="mt-btn mt-btn--ghost" href="/wiki/commands/">Command reference</a></div></div></div>
+</div></div>
 <footer
 class="site-footer" id="colophon" itemtype="https://schema.org/WPFooter" itemscope="itemscope" itemid="#colophon">
 			<div class="site-below-footer-wrap ast-builder-grid-row-container site-footer-focus-item ast-builder-grid-row-2-equal ast-builder-grid-row-tablet-2-equal ast-builder-grid-row-mobile-full ast-footer-row-stack ast-footer-row-tablet-stack ast-footer-row-mobile-stack" data-section="section-below-footer-builder">
