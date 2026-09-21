@@ -244,7 +244,7 @@ def commands(api):
             A(m.code("mt.%s(%s)" % (name, sig), "signature"))
             rest = _docstring_rest(full, summary)
             if rest:
-                A('<pre class="mt-doc"><code>%s</code></pre>' % m.esc(rest))
+                A('<pre class="mt-docstring"><code>%s</code></pre>' % m.esc(rest))
             A('</div></details>')
         A('</section>')
 

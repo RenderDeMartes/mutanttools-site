@@ -93,10 +93,20 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   --mt-orange:#FF6210; --mt-orange-2:#F15808; --mt-code:#0E0805;
   --mt-green:#7CD992; --mt-blue:#79C0FF; --mt-pink:#FF9BD2; --mt-yellow:#FFD479;
 }
-.mt-doc{background:var(--mt-ink);color:var(--mt-text);
-  font-family:'Montserrat',system-ui,sans-serif;line-height:1.7;
-  padding:0 0 6rem;overflow-x:clip}
+/* The homepage carries its own inline CSS: a global `*{font-family:Inter}` that
+   beats an inherited family, and something inside .entry-content that shrinks
+   the base size to ~12px. Both are answered explicitly rather than inherited,
+   so this block renders the same wherever it is dropped. */
+.mt-doc{background:var(--mt-ink);color:var(--mt-text);line-height:1.7;
+  font-size:15px;padding:0 0 6rem;overflow-x:clip}
 .mt-doc *{box-sizing:border-box}
+.mt-doc,.mt-doc p,.mt-doc li,.mt-doc a,.mt-doc span,.mt-doc div,.mt-doc td,.mt-doc th,
+.mt-doc h1,.mt-doc h2,.mt-doc h3,.mt-doc h4,.mt-doc button,.mt-doc summary,.mt-doc input,
+.mt-doc b,.mt-doc strong,.mt-doc i,.mt-doc nav,.mt-doc ol,.mt-doc ul
+  {font-family:'Montserrat',system-ui,-apple-system,sans-serif}
+.mt-doc code,.mt-doc pre,.mt-doc pre *,.mt-doc .mt-sig,.mt-doc .mt-sig *
+  {font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace}
+.mt-body p,.mt-body li{font-size:1rem}
 .mt-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
 /* ---- hero ---- */
@@ -200,10 +210,14 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 .mt-api-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--mt-line)}
 .mt-api-body p{margin:.9rem 0 .6rem;font-size:.9rem}
 .mt-api-body table{font-size:.82rem}
-.mt-doc{background:transparent!important;border:0!important;border-left:2px solid var(--mt-line)!important;
+/* The raw docstring under an expanded command. NOT .mt-doc - that is the page
+   container, and reusing the name leaked pre-wrap and a .79rem font onto every
+   paragraph on the site. */
+.mt-docstring{background:transparent!important;border:0!important;
+  border-left:2px solid var(--mt-line)!important;
   border-radius:0!important;padding:.2rem 0 .2rem 1rem!important;margin:1rem 0 0!important;
   font-size:.79rem!important;color:#B79E92!important;white-space:pre-wrap;line-height:1.55}
-.mt-doc code{color:inherit!important}
+.mt-docstring code{color:inherit!important}
 
 /* ---- search ---- */
 .mt-search{position:relative;margin:0 0 1.6rem}
@@ -356,7 +370,7 @@ examples:
         # example 3: assign the color 'lightblue' to multiple transforms
         assign_color(input=['transform1', 'transform2'], color='lightblue')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>assign_color</b>(input='', color='lightBlue')</span><span class="mt-from">tools.py:267</span></summary><div class="mt-api-body"><p>Assign a color to the desired transform.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">assign_color</span>(input=<span class="tok-s">''</span>, color=<span class="tok-s">'lightBlue'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Input string representing the selection. If not specified, the current selection will be used.
         color (str): Name of the color to assign. Available colors are: 'red', 'blue', 'white', 'purple', 'green',
                                  'lightBlue', 'yellow', 'pink', 'grey', and 'orange'.
@@ -405,7 +419,7 @@ examples:
         # example 3: assign an rgb color to multiple transforms
         assign_color(input=['transform1', 'transform2'], color=[0, 1, 0.5])" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>assign_color_rgb</b>(input='', color=[1, 1, 1], hsv=False)</span><span class="mt-from">tools.py:323</span></summary><div class="mt-api-body"><p>Assign an RGB color or HSV color to the desired transform(s).</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">assign_color_rgb</span>(input=<span class="tok-s">''</span>, color=[1, 1, 1], hsv=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str or list): Input string or list representing the selection. If not specified, the current selection
                                                  will be used.
         color (list): List of RGB or HSV values representing the color to assign.
@@ -454,7 +468,7 @@ examples:
         # create a control cube with the default size, aiming towards the z axis.
         bounding_cube(input='limb_2', axis='z')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>bounding_cube</b>(input='', size=1, name='', axis=setup['twist_axis'])</span><span class="mt-from">tools.py:1321</span></summary><div class="mt-api-body"><p>Create a control cube with coverage for the full limb, resembling a bounding box in length.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">bounding_cube</span>(input=<span class="tok-s">''</span>, size=1, name=<span class="tok-s">''</span>, axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>])</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str or list): Name of the transform(s) to use as input. If not specified, it will use the currently selected object(s).
         size (float): Size of the control cube.
         name (str): Name of the cube. If not specified, a default name will be used.
@@ -493,7 +507,7 @@ examples:
         # creates all the curves specified in the `curve_data` list.
         build_all_curves()" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>build_all_curves</b>()</span><span class="mt-from">tools.py:625</span></summary><div class="mt-api-body"><p>Create all curves to generate icons or images quickly.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">build_all_curves</span>()</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         None
 
 Returns:
@@ -517,7 +531,7 @@ returns:
 example:
         bbox, diagonal_length = calculate_bounding_box_diagonal('psphere1')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>calculate_bounding_box_diagonal</b>(geo)</span><span class="mt-from">tools.py:2541</span></summary><div class="mt-api-body"><p>Calculates the diagonal length of the bounding box of the specified geometry.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">calculate_bounding_box_diagonal</span>(geo)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         geo (str): Name of the geometry.
 
 Returns:
@@ -552,7 +566,7 @@ examples:
         # change the shape of the curve named 'curve1' to a circle shape with a size of 0.5.
         change_curve_shape(input='curve1', new_shape='circle', size=0.5)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>change_curve_shape</b>(input='', new_shape='', size=1)</span><span class="mt-from">tools.py:651</span></summary><div class="mt-api-body"><p>Change the shape of a curve.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">change_curve_shape</span>(input=<span class="tok-s">''</span>, new_shape=<span class="tok-s">''</span>, size=1)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the curve object to modify. If not provided, the currently selected object will be used.
         new_shape (str): The new shape type to be applied to the curve.
         size (float): Size of the new shape.
@@ -595,7 +609,7 @@ example:
         # change the default value of an attribute
         change_default('mynode.myattribute', 10.0)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>change_default</b>(atrr, default)</span><span class="mt-from">tools.py:2118</span></summary><div class="mt-api-body"><p>Change the default value of an attribute.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">change_default</span>(atrr, default)</code></pre>
-<pre class="mt-doc"><code>This function changes the default value of the specified attribute to the given value.
+<pre class="mt-docstring"><code>This function changes the default value of the specified attribute to the given value.
 
 Args:
         attr (str): Name of the attribute to change.
@@ -618,7 +632,7 @@ args:
 
 returns: none" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>check_input</b>(func='', print_input=False)</span><span class="mt-from">tools.py:107</span></summary><div class="mt-api-body"><p>if input is empty uses selection instead, i used to use this but stop becouse != usefull... sorry :)</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">check_input</span>(func=<span class="tok-s">''</span>, print_input=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         func: string: name of the function
         print_input: bool
 
@@ -629,7 +643,7 @@ args:
     comp_node (str): the name of the composematrix node to connect to.
     prefix (str): either "start" or "end" — determines attribute naming." data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>connect_compose_matrix</b>(ctrl, comp_node, prefix)</span><span class="mt-from">tools.py:2920</span></summary><div class="mt-api-body"><p>Connects control object attributes (e.g., start_translateX) to a composeMatrix node.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">connect_compose_matrix</span>(ctrl, comp_node, prefix)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
     ctrl (str): The control object containing the attributes.
     comp_node (str): The name of the composeMatrix node to connect to.
     prefix (str): Either "start" or "end" — determines attribute naming.</code></pre></div></details><details class="mt-api" data-search="connect_md_node in_x1='', in_x2=1.0, out_x='', mode='mult', name='', force=false, vector=false create a multiplydivide node to connect inputs and outputs.
@@ -665,7 +679,7 @@ examples:
         # create a multiplydivide node with a vector attribute and connect attributes.
         connect_md_node('vector1.attr', 'vector2.attr', 'result.attr', 'mult', vector=true)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>connect_md_node</b>(in_x1='', in_x2=1.0, out_x='', mode='mult', name='', force=False, vector=False)</span><span class="mt-from">tools.py:1743</span></summary><div class="mt-api-body"><p>Create a multiplyDivide node to connect inputs and outputs.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">connect_md_node</span>(in_x1=<span class="tok-s">''</span>, in_x2=1.0, out_x=<span class="tok-s">''</span>, mode=<span class="tok-s">'mult'</span>, name=<span class="tok-s">''</span>, force=<span class="tok-k">False</span>, vector=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         in_x1 (str or int or float): Attribute or value to connect to input1X.
         in_x2 (str or int or float): Attribute or value to connect to input2X.
         out_x (str): Attribute to connect the multiplyDivide output.
@@ -707,7 +721,7 @@ returns:
 example:
         connect_object_to_offsets(driver_ctrl="source_ctrl", driven_ctrls=["driven_ctrl_1", "driven_ctrl_2"], offset_name="offset_grp", rotation=true, translation=true, scaling=false)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>connect_object_to_offsets</b>(driver_ctrl='', driven_ctrls=[], offset_name='', auto_root=True, rotation=True, translation=False, scaling=False)</span><span class="mt-from">tools.py:2635</span></summary><div class="mt-api-body"><p>Description:</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">connect_object_to_offsets</span>(driver_ctrl=<span class="tok-s">''</span>, driven_ctrls=[], offset_name=<span class="tok-s">''</span>, auto_root=<span class="tok-k">True</span>, rotation=<span class="tok-k">True</span>, translation=<span class="tok-k">False</span>, scaling=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Connect the transformations (rotation, translation, scaling) of a driver controller to multiple driven controllers.
+<pre class="mt-docstring"><code>Connect the transformations (rotation, translation, scaling) of a driver controller to multiple driven controllers.
 
 Args:
         driver_ctrl (str): The controller whose transformations will be used as the source.
@@ -737,7 +751,7 @@ example:
         # connect remapvalue node
         remap_node = connect_remap_value('input.value', 'output.value', value=0)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>connect_remap_value</b>(input_value, output_value, value=0)</span><span class="mt-from">tools.py:2178</span></summary><div class="mt-api-body"><p>Connect a remapValue node to remap an input value to an output value.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">connect_remap_value</span>(input_value, output_value, value=0)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input_value (str): Input value attribute to connect.
         output_value (str): Output value attribute to connect.
         value (float): Default output value.
@@ -771,7 +785,7 @@ examples:
         # connect the rotate order attribute of multiple objects to the 'rotationorder' attribute of 'controller'.
         connect_rotate_order(input=['object1', 'object2', 'object3'], object='controller')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>connect_rotate_order</b>(input='', object='controller')</span><span class="mt-from">tools.py:1193</span></summary><div class="mt-api-body"><p>Connect the rotate order attribute of the input object(s) to an attribute in the controller object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">connect_rotate_order</span>(input=<span class="tok-s">''</span>, object=<span class="tok-s">'controller'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str or list): Name of the transform(s) to connect the rotate order attribute. If not specified, it will use the currently selected object(s).
         object (str): Name of the controller object where the rotate order attribute will be connected.
 
@@ -814,7 +828,7 @@ example:
         # create a curve between two transforms
         connect_with_line('joint1', 'joint2')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>connect_with_line</b>(start='', end='')</span><span class="mt-from">tools.py:1884</span></summary><div class="mt-api-body"><p>Create a non-selectable curve between two objects (Pole Vectors Lines).</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">connect_with_line</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the start transform (optional).
         end (str): Name of the end transform (optional).
 
@@ -865,7 +879,7 @@ examples:
         # create a sphere-shaped controller in the world with the default color, size of 2, and no gimbal or world controllers.
         controller(shape='sphere', color=setup['main_color'], size=2, gimbal=false, world=false)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>controller</b>(input='', name='', shape='cube', color=setup['main_color'], size=1, gimbal=True, world=True)</span><span class="mt-from">tools.py:713</span></summary><div class="mt-api-body"><p>Create a controller.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">controller</span>(input=<span class="tok-s">''</span>, name=<span class="tok-s">''</span>, shape=<span class="tok-s">'cube'</span>, color=<span class="tok-n">setup</span>[<span class="tok-s">'main_color'</span>], size=1, gimbal=<span class="tok-k">True</span>, world=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the input object. If None, the controller will be created in the world.
         name (str): Desired name for the controller. If None, the input name will be used.
         shape (str): Desired shape of the controller. See curves.json in the config for available shapes.
@@ -901,7 +915,7 @@ Examples:
 returns:
         str: the created node name." data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>create_add_double_linear</b>(name=None)</span><span class="mt-from">tools.py:1980</span></summary><div class="mt-api-body"><p>Create an add node compatible with multiple Maya versions.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_add_double_linear</span>(name=<span class="tok-k">None</span>)</code></pre>
-<pre class="mt-doc"><code>Returns:
+<pre class="mt-docstring"><code>Returns:
         str: The created node name.</code></pre></div></details><details class="mt-api" data-search="create_ik_spline_twist start, end, curve create an ik spline based on two joints and one curve.
 
 this function creates an ik spline handle using the specified start and end joints
@@ -923,7 +937,7 @@ examples:
         # create an ik spline handle between two joints using a curve.
         create_ik_spline_twist('joint1', 'joint2', 'curve1')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>create_ik_spline_twist</b>(start, end, curve)</span><span class="mt-from">tools.py:1703</span></summary><div class="mt-api-body"><p>Create an IK spline based on two joints and one curve.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_ik_spline_twist</span>(start, end, curve)</code></pre>
-<pre class="mt-doc"><code>This function creates an IK spline handle using the specified start and end joints
+<pre class="mt-docstring"><code>This function creates an IK spline handle using the specified start and end joints
 and a curve as the spline shape.
 
 Args:
@@ -953,7 +967,7 @@ args:
 returns:
     str: the name of the created reader locator." data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>create_joint_reader</b>(joint, push_joint_name, return_all=False, locator_size=0.5, color='green')</span><span class="mt-from">tools.py:2717</span></summary><div class="mt-api-body"><p>Creates a reader locator for a given joint and organizes it under a reader group.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_joint_reader</span>(joint, push_joint_name, return_all=<span class="tok-k">False</span>, locator_size=0.5, color=<span class="tok-s">'green'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
     joint (str): The name of the joint to read motion from.
     push_joint_name (str): The base name used to name the reader locator and group.
 
@@ -989,7 +1003,7 @@ examples:
         3. copying an attribute with a line attribute on top:
                 create_proxy_attr(original_attr='l_shoulder_jnt_switch_loc.fk_arms', output_node='l_shoulder_fk_ctrl', line_on_top=true, line_name='lineattr')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>create_proxy_attr</b>(original_attr, output_node, line_on_top=False, line_name='', new_name=False, name='')</span><span class="mt-from">tools.py:2204</span></summary><div class="mt-api-body"><p>Create a proxy attribute from a source node to a target node.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_proxy_attr</span>(original_attr, output_node, line_on_top=<span class="tok-k">False</span>, line_name=<span class="tok-s">''</span>, new_name=<span class="tok-k">False</span>, name=<span class="tok-s">''</span>)</code></pre>
-<pre class="mt-doc"><code>This function copies an attribute from a source node to a target node and creates a proxy attribute that mirrors the source attribute's behavior.
+<pre class="mt-docstring"><code>This function copies an attribute from a source node to a target node and creates a proxy attribute that mirrors the source attribute's behavior.
 
 Args:
         original_attr (str): Original attribute to copy.
@@ -1039,7 +1053,7 @@ args:
 returns:
     dict: a dictionary of created node names for reference." data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>create_push_connections</b>(driver_attr, driven, start_val, end_val, start_t=(0, 0, 0), end_t=(0, 0, 0), start_r=(0, 0, 0), end_r=(0, 0, 0), start_s=(1, 1, 1), end_s=(1, 1, 1), attrs_position=None)</span><span class="mt-from">tools.py:2818</span></summary><div class="mt-api-body"><p>Creates a matrix-based blending system to drive translation, rotation, and scale</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_push_connections</span>(driver_attr, driven, start_val, end_val, start_t=(0, 0, 0), end_t=(0, 0, 0), start_r=(0, 0, 0), end_r=(0, 0, 0), start_s=(1, 1, 1), end_s=(1, 1, 1), attrs_position=<span class="tok-k">None</span>)</code></pre>
-<pre class="mt-doc"><code>of a target object based on an input driver attribute (e.g., rotation).
+<pre class="mt-docstring"><code>of a target object based on an input driver attribute (e.g., rotation).
 
 A remapValue normalizes the input driver range (start_val to end_val) to 0-1,
 and uses that to blend between two sets of transform values using blendMatrix.
@@ -1075,7 +1089,7 @@ args:
 returns:
     tuple: a tuple containing the control name, driver joint name, and bind joint name." data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>create_push_joint</b>(joint_parent=None, reader=None, push_joint_name='Test', custom_position=None)</span><span class="mt-from">tools.py:2754</span></summary><div class="mt-api-body"><p>Creates a push driver system consisting of:</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_push_joint</span>(joint_parent=<span class="tok-k">None</span>, reader=<span class="tok-k">None</span>, push_joint_name=<span class="tok-s">'Test'</span>, custom_position=<span class="tok-k">None</span>)</code></pre>
-<pre class="mt-doc"><code>- a control object,
+<pre class="mt-docstring"><code>- a control object,
   - a driver joint with root/auto hierarchy,
   - and a bind (skl) joint.
 
@@ -1099,7 +1113,7 @@ args:
 returns:
     str: the name of the created quad locator." data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>create_quad_locator</b>(locator, push_joint_name, locator_size=0.5, color='green')</span><span class="mt-from">tools.py:2680</span></summary><div class="mt-api-body"><p>Creates a secondary locator (quad) to receive clean rotation data using euler-quaternion conversion.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_quad_locator</span>(locator, push_joint_name, locator_size=0.5, color=<span class="tok-s">'green'</span>)</code></pre>
-<pre class="mt-doc"><code>This process improves rotational interpolation by converting from euler to quaternion and back.
+<pre class="mt-docstring"><code>This process improves rotational interpolation by converting from euler to quaternion and back.
 
 Args:
     locator (str): The name of the locator to base the quad on (usually the reader).
@@ -1132,7 +1146,7 @@ examples:
                 self.new_attr(ctrl, 'customattr2', -10, 10, 0)
                 self.new_boolean(ctrl, 'customattr3', 'true')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>create_softmod</b>(vertex, name='soft_mod')</span><span class="mt-from">tools.py:2288</span></summary><div class="mt-api-body"><p>Creates a softMod deformer and adds a custom control structure for controlling the strength, radius, and falloff directions.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_softmod</span>(vertex, name=<span class="tok-s">'soft_mod'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         vertex (str): Vertex that the softMod will be created on.
         name (str, optional): Name for the softMod. Defaults to 'soft_mod'.
 
@@ -1189,7 +1203,7 @@ examples:
 
 types:" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>curve</b>(input='', type='cube', rename=True, custom_name=False, name='', size=1, tag=True, playback=True)</span><span class="mt-from">tools.py:498</span></summary><div class="mt-api-body"><p>For Controllers this is legacy, use mt.controller</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">curve</span>(input=<span class="tok-s">''</span>, type=<span class="tok-s">'cube'</span>, rename=<span class="tok-k">True</span>, custom_name=<span class="tok-k">False</span>, name=<span class="tok-s">''</span>, size=1, tag=<span class="tok-k">True</span>, playback=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Will create a curve on the position of the selected input.
+<pre class="mt-docstring"><code>Will create a curve on the position of the selected input.
 (see curves.json in config for more details of available shapes)
 
 Args:
@@ -1240,7 +1254,7 @@ examples:
         # create a curve between two transforms.
         curve_between('joint1', 'joint2')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>curve_between</b>(start, end)</span><span class="mt-from">tools.py:1592</span></summary><div class="mt-api-body"><p>Create a 1D curve between two transforms.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">curve_between</span>(start, end)</code></pre>
-<pre class="mt-doc"><code>This function creates a linear curve between two transforms.
+<pre class="mt-docstring"><code>This function creates a linear curve between two transforms.
 
 Args:
         start (str): Name of the first transform.
@@ -1282,7 +1296,7 @@ examples:
         # duplicate the selected objects with clean names, replacing '_ctrl' with '_copy'.
         duplicate_change_names(input=['ctrl1', 'ctrl2', 'ctrl3'], hi=false, search='_ctrl', replace='_copy')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>duplicate_change_names</b>(input='', hi=True, search='_Jnt', replace='_dup', remove_end_number=True)</span><span class="mt-from">tools.py:1249</span></summary><div class="mt-api-body"><p>Duplicate the hierarchy with clean names, ensuring no duplicated names in the duplicated hierarchy.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">duplicate_change_names</span>(input=<span class="tok-s">''</span>, hi=<span class="tok-k">True</span>, search=<span class="tok-s">'_Jnt'</span>, replace=<span class="tok-s">'_dup'</span>, remove_end_number=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str or list): Name of the transform(s) to duplicate. If not specified, it will use the currently selected object(s).
         hi (bool): If True, duplicate the entire hierarchy. If False, duplicate only the selected object(s).
         search (str): String to search for in the names of the duplicated objects.
@@ -1322,7 +1336,7 @@ example:
         self.find_closest_joint('joint1', ['joint2', 'joint3', 'joint4'])
         'joint2'" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>find_closest_joint</b>(joint, target_list)</span><span class="mt-from">tools.py:2594</span></summary><div class="mt-api-body"><p>Find the closest joint in the target_list to the given joint.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">find_closest_joint</span>(joint, target_list)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         joint (str): The name of the joint to which distances are measured.
         target_list (list[str]): List of joint names to compare distances with.
 
@@ -1352,7 +1366,7 @@ example:
         point = om2.mpoint(1, 2, 3)
         closest_vertex = get_closest_vertex(mesh_fn, point)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>get_closest_vertex</b>(mesh_fn, point)</span><span class="mt-from">tools.py:2389</span></summary><div class="mt-api-body"><p>Returns the closest vertex index on the given mesh to the specified point.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_closest_vertex</span>(mesh_fn, point)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         mesh_fn (om2.MFnMesh): Mesh function set.
         point (om2.MPoint): Point in world space.
 
@@ -1374,7 +1388,7 @@ returns:
 example:
         dag_path = get_dag_path('psphere1')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>get_dag_path</b>(obj)</span><span class="mt-from">tools.py:2369</span></summary><div class="mt-api-body"><p>Returns the DAG path of the specified object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_dag_path</span>(obj)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         obj (str): Name of the object.
 
 Returns:
@@ -1392,7 +1406,7 @@ returns:
 example:
         orientation = get_orient('psphere1')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>get_orient</b>(obj)</span><span class="mt-from">tools.py:2426</span></summary><div class="mt-api-body"><p>Returns the world space orientation of the specified object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_orient</span>(obj)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         obj (str): Name of the object.
 
 Returns:
@@ -1410,7 +1424,7 @@ returns:
 example:
         position = get_position('psphere1')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>get_position</b>(obj)</span><span class="mt-from">tools.py:2412</span></summary><div class="mt-api-body"><p>Returns the world space position of the specified object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_position</span>(obj)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         obj (str): Name of the object.
 
 Returns:
@@ -1428,7 +1442,7 @@ returns:
 example:
         scale = get_scale('psphere1')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>get_scale</b>(obj)</span><span class="mt-from">tools.py:2440</span></summary><div class="mt-api-body"><p>Returns the world space scale of the specified object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_scale</span>(obj)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         obj (str): Name of the object.
 
 Returns:
@@ -1465,7 +1479,7 @@ examples:
         # example 3: show all attributes for multiple transforms
         hide_attr(input=['transform1', 'transform2'], show=true)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>hide_attr</b>(input='', t=False, r=False, s=False, v=False, rotate_order=False, show=False)</span><span class="mt-from">tools.py:411</span></summary><div class="mt-api-body"><p>Hide selected attributes or display all attributes if show is True.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">hide_attr</span>(input=<span class="tok-s">''</span>, t=<span class="tok-k">False</span>, r=<span class="tok-k">False</span>, s=<span class="tok-k">False</span>, v=<span class="tok-k">False</span>, rotate_order=<span class="tok-k">False</span>, show=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Input string representing the selection. If not specified, the current selection will be used.
         t (bool): True to hide translate attributes.
         r (bool): True to hide rotate attributes.
@@ -1517,7 +1531,7 @@ examples:
         # create a line attribute named 'description' with a header of 5 lines.
         line_attr(input='myobject', name='description', lines=5)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>line_attr</b>(input='', name='name', lines=10)</span><span class="mt-from">tools.py:1123</span></summary><div class="mt-api-body"><p>Create a line attribute with a header. _____________ [Name]</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">line_attr</span>(input=<span class="tok-s">''</span>, name=<span class="tok-s">'name'</span>, lines=10)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.
         name (str): Name of the attribute.
         lines (int): Number of lines to create in the attribute's header.
@@ -1560,7 +1574,7 @@ example:
         # unlock specified nodes
         lock_node(['node1', 'node2'], unlock=true)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>lock_node</b>(input='', unlock=False)</span><span class="mt-from">tools.py:1944</span></summary><div class="mt-api-body"><p>Lock or unlock nodes.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">lock_node</span>(input=<span class="tok-s">''</span>, unlock=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>This function allows you to lock or unlock nodes. If no input is specified, it will use the currently selected nodes.
+<pre class="mt-docstring"><code>This function allows you to lock or unlock nodes. If no input is specified, it will use the currently selected nodes.
 
 Args:
         input (str or List[str]): Node or list of nodes to lock or unlock (optional).
@@ -1604,7 +1618,7 @@ examples:
         # match the scale of transform 'obj3' to transform 'obj4'.
         match(this='obj4', that='obj3', t=false, r=false, s=true)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>match</b>(this='', that='', t=True, r=True, s=True)</span><span class="mt-from">tools.py:819</span></summary><div class="mt-api-body"><p>Match two transforms with desired transform, rotate, or scale.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">match</span>(this=<span class="tok-s">''</span>, that=<span class="tok-s">''</span>, t=<span class="tok-k">True</span>, r=<span class="tok-k">True</span>, s=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         this (str): Item to move.
         that (str): Item with desired position.
         t (bool): Match translate if True.
@@ -1650,7 +1664,7 @@ examples:
         # create a new double attribute named 'switch' with a range of 0 to 1 and a default value of 0.
         new_attr(input='myobject', name='switch', min=0, max=1, default=0)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>new_attr</b>(input='', name='switch', min=0, max=1, default=0, keyable=True)</span><span class="mt-from">tools.py:961</span></summary><div class="mt-api-body"><p>Create a new double attribute on a transform.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">new_attr</span>(input=<span class="tok-s">''</span>, name=<span class="tok-s">'switch'</span>, min=0, max=1, default=0, keyable=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.
         name (str): Name of the new attribute.
         min (int/False): Minimum value for the attribute (inclusive). Use False for no minimum.
@@ -1695,7 +1709,7 @@ examples:
         # create a new integer attribute named 'switch' with a range of 0 to 1 and a default value of 0.
         new_attr_interger(input='myobject', name='switch', min=0, max=1, default=0)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>new_attr_interger</b>(input='', name='switch', min=0, max=1, default=0)</span><span class="mt-from">tools.py:1000</span></summary><div class="mt-api-body"><p>Create a new integer attribute on a transform.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">new_attr_interger</span>(input=<span class="tok-s">''</span>, name=<span class="tok-s">'switch'</span>, min=0, max=1, default=0)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.
         name (str): Name of the new attribute.
         min (int): Minimum value for the attribute (inclusive).
@@ -1739,7 +1753,7 @@ examples:
         # create a new boolean attribute named 'visibility' with a default value of false.
         new_boolean(input='myobject', name='visibility', dv=false)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>new_boolean</b>(input='', name='bool', dv='True')</span><span class="mt-from">tools.py:1086</span></summary><div class="mt-api-body"><p>Create a new boolean attribute on a transform.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">new_boolean</span>(input=<span class="tok-s">''</span>, name=<span class="tok-s">'bool'</span>, dv=<span class="tok-s">'True'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.
         name (str): Name of the new attribute.
         dv (bool): Default value for the attribute (True by default).
@@ -1791,7 +1805,7 @@ examples:
         # and make it keyable and a long name attribute.
         new_enum(input='myobject', name='status', enums='pending:processing:completed', keyable=true, long_name=true)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>new_enum</b>(input='', name='switch', enums='Hide:Show', keyable=True, long_name=False, default=0)</span><span class="mt-from">tools.py:1034</span></summary><div class="mt-api-body"><p>Create a new enum attribute on a transform.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">new_enum</span>(input=<span class="tok-s">''</span>, name=<span class="tok-s">'switch'</span>, enums=<span class="tok-s">'Hide:Show'</span>, keyable=<span class="tok-k">True</span>, long_name=<span class="tok-k">False</span>, default=0)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.
         name (str): Name of the new attribute.
         enums (str): Enumerated values separated by a colon (':').
@@ -1840,7 +1854,7 @@ examples:
         # create a nurbs plane between two transforms.
         nurbs_between('joint1', 'joint2')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>nurbs_between</b>(start, end)</span><span class="mt-from">tools.py:1624</span></summary><div class="mt-api-body"><p>Create a NURBS plane between two transforms.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">nurbs_between</span>(start, end)</code></pre>
-<pre class="mt-doc"><code>This function creates a NURBS plane between two transforms.
+<pre class="mt-docstring"><code>This function creates a NURBS plane between two transforms.
 
 Args:
         start (str): Name of the start transform.
@@ -1879,7 +1893,7 @@ examples:
         # create a nurbs plane between three transforms.
         nurbs_between_trio('joint1', 'joint2', 'joint3')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>nurbs_between_trio</b>(start, mid, end)</span><span class="mt-from">tools.py:1663</span></summary><div class="mt-api-body"><p>Create a NURBS plane between three transforms.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">nurbs_between_trio</span>(start, mid, end)</code></pre>
-<pre class="mt-doc"><code>This function creates a NURBS plane between three transforms.
+<pre class="mt-docstring"><code>This function creates a NURBS plane between three transforms.
 
 Args:
         start (str): Name of the start transform.
@@ -1916,7 +1930,7 @@ example:
         # put nodes inside a rig container
         put_inside_rig_container(['node1', 'node2', 'node3'])" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>put_inside_rig_container</b>(inputs=[])</span><span class="mt-from">tools.py:2142</span></summary><div class="mt-api-body"><p>Put nodes inside a rig container.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">put_inside_rig_container</span>(inputs=[])</code></pre>
-<pre class="mt-doc"><code>This function adds the specified nodes to a rig container called "Mutant_Rig". If the container does not exist, it will be created.
+<pre class="mt-docstring"><code>This function adds the specified nodes to a rig container called "Mutant_Rig". If the container does not exist, it will be created.
 
 Args:
         inputs (list): List of nodes to add to the rig container.
@@ -1951,7 +1965,7 @@ example:
         # read data from a json file
         data = read_json("c:\data", "input.json")" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>read_json</b>(path, json_file)</span><span class="mt-from">tools.py:2087</span></summary><div class="mt-api-body"><p>Read data from a JSON file.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">read_json</span>(path, json_file)</code></pre>
-<pre class="mt-doc"><code>This function reads the data from the specified JSON file and returns it as a dictionary.
+<pre class="mt-docstring"><code>This function reads the data from the specified JSON file and returns it as a dictionary.
 
 Args:
         path (str): Path to the folder where the JSON file is located (use '\' to define folders).
@@ -1994,7 +2008,7 @@ example:
         # replace connection with a double linear node on a specific attribute
         replace_connection_with_doublelinear(input='node1', attr='translatex', name='dlnode')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>replace_connection_with_doublelinear</b>(input='', attr='', name='DoubleLinear')</span><span class="mt-from">tools.py:2012</span></summary><div class="mt-api-body"><p>Add a double linear node between two nodes.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">replace_connection_with_doublelinear</span>(input=<span class="tok-s">''</span>, attr=<span class="tok-s">''</span>, name=<span class="tok-s">'DoubleLinear'</span>)</code></pre>
-<pre class="mt-doc"><code>This function adds a double linear node between two nodes to replace an existing connection.
+<pre class="mt-docstring"><code>This function adds a double linear node between two nodes to replace an existing connection.
 
 Args:
         input (str): Node or attribute to replace the connection (optional).
@@ -2043,7 +2057,7 @@ examples:
         # replace 'old' with 'new' in the entire hierarchy under each selected item
         replace_name(search='old', replace='new', hi=true)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>replace_name</b>(input='', search='', replace='', hi=False)</span><span class="mt-from">tools.py:225</span></summary><div class="mt-api-body"><p>Replace names in the selection. Works nicely to change names in hierarchies.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">replace_name</span>(input=<span class="tok-s">''</span>, search=<span class="tok-s">''</span>, replace=<span class="tok-s">''</span>, hi=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Input string representing the selection. If not specified, the current selection will be used.
         search (str): String to search for in the names.
         replace (str): String to replace the matched search string with.
@@ -2085,7 +2099,7 @@ example:
         &gt;&gt;&gt; rivet_constraint(['pcube1.f[0]', 'pcube1.f[1]'])
         ['pcube1.f[0]', 'pcube1.f[1]']" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>rivet_constraint</b>(faces=None)</span><span class="mt-from">tools.py:2564</span></summary><div class="mt-api-body"><p>Applies a rivet constraint to the specified faces.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">rivet_constraint</span>(faces=<span class="tok-k">None</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         faces (list[str]): Optional. The faces to which the rivet constraint should be applied.
                 If not specified, an error is raised.
 
@@ -2136,7 +2150,7 @@ examples:
         # create groups and replace the namespace
         root_grp(replace_nc=true)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>root_grp</b>(input='', custom=False, custom_name='customName', autoRoot=False, replace_nc=False)</span><span class="mt-from">tools.py:132</span></summary><div class="mt-api-body"><p>Create groups.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">root_grp</span>(input=<span class="tok-s">''</span>, custom=<span class="tok-k">False</span>, custom_name=<span class="tok-s">'customName'</span>, autoRoot=<span class="tok-k">False</span>, replace_nc=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Input string representing the selection. If not specified, the current selection will be used.
         custom (bool): Specify if the new group should have a custom name.
         custom_name (str): Name of the custom group (requires `custom` to be True).
@@ -2182,7 +2196,7 @@ example:
         # rotate the shape of a sphere
         rotate_shape('psphere1', x=45, y=0, z=0)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>rotate_shape</b>(input=None, x=0, y=0, z=0)</span><span class="mt-from">tools.py:2454</span></summary><div class="mt-api-body"><p>Rotates the control vertices of the shape nodes of the specified object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">rotate_shape</span>(input=<span class="tok-k">None</span>, x=0, y=0, z=0)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the object.
         x (float): Rotation angle in degrees around the X-axis.
         y (float): Rotation angle in degrees around the Y-axis.
@@ -2208,7 +2222,7 @@ example:
         # scale the shape of a sphere
         scale_shape('psphere1', x=2, y=1, z=1)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>scale_shape</b>(input=None, x=1, y=1, z=1)</span><span class="mt-from">tools.py:2483</span></summary><div class="mt-api-body"><p>Scales the control vertices of the shape nodes of the specified object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">scale_shape</span>(input=<span class="tok-k">None</span>, x=1, y=1, z=1)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the object.
         x (float): Scale factor along the X-axis.
         y (float): Scale factor along the Y-axis.
@@ -2246,7 +2260,7 @@ examples:
         # create a shape with the default attribute name and place it inside the selected transforms.
         shape_with_attr()" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>shape_with_attr</b>(input='', obj_name='Switch', attr_name='Switch')</span><span class="mt-from">tools.py:1409</span></summary><div class="mt-api-body"><p>Create a shape with an attribute and place it inside all the input transforms.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">shape_with_attr</span>(input=<span class="tok-s">''</span>, obj_name=<span class="tok-s">'Switch'</span>, attr_name=<span class="tok-s">'Switch'</span>)</code></pre>
-<pre class="mt-doc"><code>This function is used to have an IK/FK switch on all the controls by adding a shape with the specified attribute.
+<pre class="mt-docstring"><code>This function is used to have an IK/FK switch on all the controls by adding a shape with the specified attribute.
 
 Args:
         input (str or list): Name of the transform(s) to use as input. If not specified, it will use the currently selected object(s).
@@ -2293,7 +2307,7 @@ examples:
         # example 2: smartly assign color to a specific transform
         smart_assign_color(input='transform1')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>smart_assign_color</b>(input='')</span><span class="mt-from">tools.py:371</span></summary><div class="mt-api-body"><p>Smartly assign predefined colors based on the input.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">smart_assign_color</span>(input=<span class="tok-s">''</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str or list): Input string or list representing the selection. If not specified, the current selection
                                                  will be used.
 
@@ -2337,7 +2351,7 @@ examples:
         # create a string attribute named 'description' with the initial value 'object description'.
         string_attr(input='myobject', name='description', string='object description')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>string_attr</b>(input='', name='name', string='string')</span><span class="mt-from">tools.py:1160</span></summary><div class="mt-api-body"><p>Create a string attribute to store information.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">string_attr</span>(input=<span class="tok-s">''</span>, name=<span class="tok-s">'name'</span>, string=<span class="tok-s">'string'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the transform to add the attribute to. If not specified, it will use the currently selected object.
         name (str): Name of the attribute.
         string (str): Initial string value for the attribute.
@@ -2382,7 +2396,7 @@ examples:
         # create a switch between ik and fk chains using 'switchattr' as the switch parent attribute.
         switch_blend_colors(this='ikjoint', that='fkjoint', main='mainjoint', attr='switchattr')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>switch_blend_colors</b>(this='', that='', main='', attr='')</span><span class="mt-from">tools.py:909</span></summary><div class="mt-api-body"><p>Create a switch between 3 chains for IK/FK setups using color blending.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">switch_blend_colors</span>(this=<span class="tok-s">''</span>, that=<span class="tok-s">''</span>, main=<span class="tok-s">''</span>, attr=<span class="tok-s">''</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         this (str): IK joint (can be any transform).
         that (str): FK joint (can be any transform).
         main (str): Main joint that switches between.
@@ -2428,7 +2442,7 @@ examples:
         # create a switch between ik and fk chains using 'switchattr' as the switch parent attribute.
         switch_constraints(this='ikjoint', that='fkjoint', main='ikmainjoint', attr='switchattr')" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>switch_constraints</b>(this='', that='', main='', attr='')</span><span class="mt-from">tools.py:856</span></summary><div class="mt-api-body"><p>Create a switch between 3 chains for IK/FK setups.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">switch_constraints</span>(this=<span class="tok-s">''</span>, that=<span class="tok-s">''</span>, main=<span class="tok-s">''</span>, attr=<span class="tok-s">''</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         this (str): IK joint (can be any transform).
         that (str): FK joint (can be any transform).
         main (str): Main joint that switches between.
@@ -2474,7 +2488,7 @@ examples:
         # create text curves with default parameters.
         text_curves()" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>text_curves</b>(name_text='Name', font='Arial', color=setup['main_color'])</span><span class="mt-from">tools.py:1492</span></summary><div class="mt-api-body"><p>Create text curves.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">text_curves</span>(name_text=<span class="tok-s">'Name'</span>, font=<span class="tok-s">'Arial'</span>, color=<span class="tok-n">setup</span>[<span class="tok-s">'main_color'</span>])</code></pre>
-<pre class="mt-doc"><code>This function creates text curves based on the specified parameters.
+<pre class="mt-docstring"><code>This function creates text curves based on the specified parameters.
 
 Args:
         name_text (str): Text to be curved.
@@ -2511,7 +2525,7 @@ notes:
         - if no transform node is specified, it will create a joint with the given name.
         - the transform node will be positioned based on the selected objects." data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>transform_on_sel</b>(transform='', name='Temp')</span><span class="mt-from">tools.py:1852</span></summary><div class="mt-api-body"><p>Position a transform node based on the selection.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">transform_on_sel</span>(transform=<span class="tok-s">''</span>, name=<span class="tok-s">'Temp'</span>)</code></pre>
-<pre class="mt-doc"><code>This function positions a transform node based on the selected objects.
+<pre class="mt-docstring"><code>This function positions a transform node based on the selected objects.
 If no transform node is specified, it will create a joint.
 
 Args:
@@ -2538,7 +2552,7 @@ example:
         # translate the shape of a sphere
         translate_shape('psphere1', x=1, y=0, z=0)" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>translate_shape</b>(input=None, x=0, y=0, z=0)</span><span class="mt-from">tools.py:2512</span></summary><div class="mt-api-body"><p>Translates the control vertices of the shape nodes of the specified object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">translate_shape</span>(input=<span class="tok-k">None</span>, x=0, y=0, z=0)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the object.
         x (float): Translation distance along the X-axis.
         y (float): Translation distance along the Y-axis.
@@ -2572,7 +2586,7 @@ example:
         # write data to a json file
         write_json("c:\data", "output.json", {"name": "john", "age": 30})" data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>write_json</b>(path, json_file, data)</span><span class="mt-from">tools.py:2053</span></summary><div class="mt-api-body"><p>Write data to a JSON file.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">write_json</span>(path, json_file, data)</code></pre>
-<pre class="mt-doc"><code>This function writes the specified data to a JSON file.
+<pre class="mt-docstring"><code>This function writes the specified data to a JSON file.
 
 Args:
         path (str): Path to the folder where the JSON file will be located (use '\' to define folders).
@@ -2641,7 +2655,7 @@ usage:
                 inverse=false
         )" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>advance_twist</b>(start='', end='', axis=setup['twist_axis'], amount=4, mode='up', driver='', inverse=False)</span><span class="mt-from">kinematics.py:1001</span></summary><div class="mt-api-body"><p>Create a twist system for the chain.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">advance_twist</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], amount=4, mode=<span class="tok-s">'up'</span>, driver=<span class="tok-s">''</span>, inverse=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the first joint in the chain. If empty, the first selected joint will be used.
         end (str): Name of the last joint in the chain. If empty, the last selected joint will be used.
         axis (str): Twist axis.
@@ -2720,7 +2734,7 @@ examples:
         # example 3: create a spine ik/fk spline with a custom name prefix and twist axis
         fk_controllers, ik_controllers = base_spline(name='character_spine', twist_axis='y', amount=8)" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>base_spline</b>(start='', end='', size=1, name='Spine', twist_axis=setup['twist_axis'], amount=5)</span><span class="mt-from">kinematics.py:1534</span></summary><div class="mt-api-body"><p>Select the start and end joints and create an IK/FK spline for a character's spine.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">base_spline</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, size=1, name=<span class="tok-s">'Spine'</span>, twist_axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], amount=5)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the start joint. If not provided, the first selected joint will be used.
         end (str): Name of the end joint. If not provided, the last selected joint will be used.
         size (float): Size of the controls.
@@ -2785,7 +2799,7 @@ examples:
         ribbon_elements = basic_ribbon(start='object1', end='object2', divisions=7, name='myribbon',
                                                                    ctrl_type='cube', size=2.0, world_orient=true)" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>basic_ribbon</b>(start='', end='', divisions=5, name='Ribbon', ctrl_type='circleY', size=1, world_orient=False, start_end_joints=False, orient_like=False)</span><span class="mt-from">kinematics.py:1712</span></summary><div class="mt-api-body"><p>Create a basic ribbon rig between two objects using a plane and follicles.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">basic_ribbon</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, divisions=5, name=<span class="tok-s">'Ribbon'</span>, ctrl_type=<span class="tok-s">'circleY'</span>, size=1, world_orient=<span class="tok-k">False</span>, start_end_joints=<span class="tok-k">False</span>, orient_like=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the start object. If not provided, the first selected object will be used.
         end (str): Name of the end object. If not provided, the second selected object will be used.
         divisions (int): Number of divisions or follicles along the ribbon.
@@ -2841,7 +2855,7 @@ examples:
    # apply bend and squash deformers to the geometry with custom settings
    bend_and_squash_head('head_geo', 'head_grp')" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>bend_and_squash_head</b>(geo, parent_grp)</span><span class="mt-from">kinematics.py:2382</span></summary><div class="mt-api-body"><p>Add squash and bend deformers to the specified geometry.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">bend_and_squash_head</span>(geo, parent_grp)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
    geo (str): Name of the geometry to apply the deformers on.
    parent_grp (str): Name of the parent group for the deformers.
 
@@ -2892,7 +2906,7 @@ examples:
         # example 3: create blend groups and locators with custom attribute name
         blend_between(ctrl='mainctrl', blends='blend1,blend2,blend3', attr_name='myblends')" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>blend_between</b>(ctrl=None, blends='', attr_position='ctrl', attr_name='Blends')</span><span class="mt-from">kinematics.py:1927</span></summary><div class="mt-api-body"><p>Create blend groups and locators for controlling blends.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">blend_between</span>(ctrl=<span class="tok-k">None</span>, blends=<span class="tok-s">''</span>, attr_position=<span class="tok-s">'ctrl'</span>, attr_name=<span class="tok-s">'Blends'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         ctrl (str): Name of the main control.
         blends (str): Comma-separated string of blend names.
         attr_position (str): Position to create the blend attributes. Default is 'ctrl'.
@@ -2937,7 +2951,7 @@ notes:
 usage:
 relevant_values, relevant_joints = copy_skin_values(["psphere1.vtx[10]"])" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>copy_skin_values</b>(vertex_selection)</span><span class="mt-from">kinematics.py:3344</span></summary><div class="mt-api-body"><p>to be used with: self.create_rivet_skin_constraint</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">copy_skin_values</span>(vertex_selection)</code></pre>
-<pre class="mt-doc"><code>Copy skinning values from a selected vertex.
+<pre class="mt-docstring"><code>Copy skinning values from a selected vertex.
 
 Args:
         vertex_selection (list): A list containing the name of a single vertex to copy skinning from.
@@ -2978,7 +2992,7 @@ example:
         # with attributes
         create_auto_rotate_fk("fk_root_ctrl", "fk_root_ctrl_offset")" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_auto_rotate_fk</b>(fk_root_ctrl=None, fk_root_ctrl_offset=None, size=1)</span><span class="mt-from">kinematics.py:2986</span></summary><div class="mt-api-body"><p>Creates an auto-rotate FK setup for a chain of controls in Maya.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_auto_rotate_fk</span>(fk_root_ctrl=<span class="tok-k">None</span>, fk_root_ctrl_offset=<span class="tok-k">None</span>, size=1)</code></pre>
-<pre class="mt-doc"><code>Parameters:
+<pre class="mt-docstring"><code>Parameters:
         fk_root_ctrl (str): The name of the root FK control.
         fk_root_ctrl_offset (str): The name of the offset group for the root FK control.
 
@@ -3021,7 +3035,7 @@ example:
         # create lod containers for 'high' and 'medium' lods
         lods_created = create_lods_containers(['high', 'medium'])" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_lods_containers</b>(lods=['High'])</span><span class="mt-from">kinematics.py:2641</span></summary><div class="mt-api-body"><p>Create LOD (Level of Detail) containers.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_lods_containers</span>(lods=[<span class="tok-s">'High'</span>])</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         lods (list): List of LOD names.
 
 Returns:
@@ -3061,7 +3075,7 @@ examples:
         # create mid ribbons with bendy functionality
         create_mid_ribbons('arm', 'shoulder', 'wrist', ['elbow1', 'elbow2', 'elbow3'], 'x', 5, 1.0, 'blue', 'switch_locator')" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_mid_ribbons</b>(name, first_joint, last_joint, twist_joints, aim, twist_amount, ctrl_size, sec_color, switch_locator)</span><span class="mt-from">kinematics.py:3027</span></summary><div class="mt-api-body"><p>Creates mid ribbons with bendy functionality.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_mid_ribbons</span>(name, first_joint, last_joint, twist_joints, aim, twist_amount, ctrl_size, sec_color, switch_locator)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         name (str): Name prefix for the ribbons and controls.
         first_joint (str): Name of the first joint in the chain.
         last_joint (str): Name of the last joint in the chain.
@@ -3093,7 +3107,7 @@ usage:
 example:
 create_rivet_skin_constraint()" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_rivet_skin_constraint</b>()</span><span class="mt-from">kinematics.py:3384</span></summary><div class="mt-api-body"><p>Create a parent constraint to skinning for selected elements.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_rivet_skin_constraint</span>()</code></pre>
-<pre class="mt-doc"><code>Notes:
+<pre class="mt-docstring"><code>Notes:
 - This function is designed to be used in Autodesk Maya.
 - It assumes you have selected mesh elements (vertices or other components).
 - It creates joints at the selected elements' positions and applies a parent constraint with relevant skinning weights.
@@ -3134,7 +3148,7 @@ example:
         # create a wire system with a mesh and a curve
         wire_system = create_wire_system('mesh1', 'curve1')" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_wire_system</b>(geo, curve, name='Wire', dropoff=100, axis='Y', scale=1)</span><span class="mt-from">kinematics.py:2729</span></summary><div class="mt-api-body"><p>Creates a wire system that can be used to control the shape of a mesh.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_wire_system</span>(geo, curve, name=<span class="tok-s">'Wire'</span>, dropoff=100, axis=<span class="tok-s">'Y'</span>, scale=1)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         geo (str): The name of the mesh that the wire system will be applied to.
         curve (str): The name of the curve that will be used to control the wire system.
         name (str): The prefix for the names of the created objects. Defaults to 'Wire'.
@@ -3187,7 +3201,7 @@ examples:
         # create a ribbon system on a specific curve with custom settings
         curve_to_ribbon('curve2', amount=8, direction='u', size=1.5, color='red')" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>curve_to_ribbon</b>(curve, amount=5, direction='V', size=1, color='lightBlue')</span><span class="mt-from">kinematics.py:2225</span></summary><div class="mt-api-body"><p>Create a ribbon system along the given curve.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">curve_to_ribbon</span>(curve, amount=5, direction=<span class="tok-s">'V'</span>, size=1, color=<span class="tok-s">'lightBlue'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         curve (str): Name of the curve to create the ribbon on.
         amount (int): Number of follicles/hairs to generate along the curve.
         direction (str): Direction of the ribbon ('U' or 'V').
@@ -3227,7 +3241,7 @@ notes:
 example:
         dinamic_pivot("pcube1")" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>dinamic_pivot</b>(input, size=1)</span><span class="mt-from">kinematics.py:2949</span></summary><div class="mt-api-body"><p>Creates a dynamic pivot point for an object in Maya.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">dinamic_pivot</span>(input, size=1)</code></pre>
-<pre class="mt-doc"><code>Parameters:
+<pre class="mt-docstring"><code>Parameters:
         input (str): The name of the object that the rotate pivot will be connected to.
         size (float): The size of the created cube curve. Defaults to 1.
 
@@ -3279,7 +3293,7 @@ note:
         this function assumes the existence of other helper methods such as `check_input`, `bounding_cube`, `curve`, `root_grp`, `assign_color`,
         and `hide_attr`. please ensure that these methods are implemented and correctly handle their respective functionalities." data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>fk_chain</b>(input='', size=1, color=setup['main_color'], curve_type=setup['fk_ctrl'], scale=True, twist_axis=setup['twist_axis'], world_orient=False, direct_connect=False, direct_scale=False)</span><span class="mt-from">kinematics.py:93</span></summary><div class="mt-api-body"><p>Create a FK Chain with selected joints.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">fk_chain</span>(input=<span class="tok-s">''</span>, size=1, color=<span class="tok-n">setup</span>[<span class="tok-s">'main_color'</span>], curve_type=<span class="tok-n">setup</span>[<span class="tok-s">'fk_ctrl'</span>], scale=<span class="tok-k">True</span>, twist_axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], world_orient=<span class="tok-k">False</span>, direct_connect=<span class="tok-k">False</span>, direct_scale=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): The input joint or a string representing the selection. If not specified, it will use the selected joints.
         size (int): The size of the FK controllers.
         color (str): The color of the controllers.
@@ -3333,7 +3347,7 @@ example:
         # calculate the distance between two nodes
         distance = get_distance_between('node1', 'node2')" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>get_distance_between</b>(start_node, end_node)</span><span class="mt-from">kinematics.py:2833</span></summary><div class="mt-api-body"><p>Calculates the distance between two nodes in 3D space.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_distance_between</span>(start_node, end_node)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start_node (str): The name of the starting node.
         end_node (str): The name of the ending node.
 
@@ -3384,7 +3398,7 @@ usage:
                 name='twistchain'
         )" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>joints_middle</b>(start='', end='', axis=setup['twist_axis'], amount=4, name='Twist')</span><span class="mt-from">kinematics.py:661</span></summary><div class="mt-api-body"><p>Create joints in between a joint chain.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">joints_middle</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], amount=4, name=<span class="tok-s">'Twist'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the first joint. If empty, the currently selected joint will be used.
         end (str): Name of the last joint. If empty, the last selected joint will be used.
         axis (str): Twist axis.
@@ -3450,7 +3464,7 @@ usage:
                 name='midjoints'
         )" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>joints_middle_no_chain</b>(start='', end='', axis=setup['twist_axis'], amount=3, name='Mid')</span><span class="mt-from">kinematics.py:734</span></summary><div class="mt-api-body"><p>Create joints in the middle of two selected objects but without a hierarchy.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">joints_middle_no_chain</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], amount=3, name=<span class="tok-s">'Mid'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the first object. If empty, the first selected object will be used.
         end (str): Name of the second object. If empty, the last selected object will be used.
         axis (str): Twist axis.
@@ -3508,7 +3522,7 @@ examples:
         # example 3: create a mirrored group for the selected object with world mirroring enabled
         mirrored_group = mirror_group(world=true)" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>mirror_group</b>(input='', world=True)</span><span class="mt-from">kinematics.py:1660</span></summary><div class="mt-api-body"><p>Create a mirrored group for a specified object or the currently selected object.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">mirror_group</span>(input=<span class="tok-s">''</span>, world=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): Name of the object to mirror. If not provided, the first selected object will be used.
         world (bool): Specifies whether to mirror the group in world space or maintain the original position.
 
@@ -3563,7 +3577,7 @@ examples:
         # example 2: parent matrix with translation only
         parent_matrix(this='source', that='target', translate=true, rotate=false, scale=false, offset=false)" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>parent_matrix</b>(this=None, that=None, translate=True, rotate=True, scale=True, offset=True)</span><span class="mt-from">kinematics.py:2008</span></summary><div class="mt-api-body"><p>Parent matrix between two objects, allowing control over translation, rotation, and scale.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">parent_matrix</span>(this=<span class="tok-k">None</span>, that=<span class="tok-k">None</span>, translate=<span class="tok-k">True</span>, rotate=<span class="tok-k">True</span>, scale=<span class="tok-k">True</span>, offset=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         this (str): Name of the source object.
         that (str): Name of the target object.
         translate (bool): Whether to connect translation. Default is True.
@@ -3620,7 +3634,7 @@ note:
         this function relies on the openmaya module for vector calculations and transformations. please ensure that the module is available and
         properly imported before using this function." data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>pole_vector_placement</b>(bone_one='', bone_two='', bone_three='', back_distance=1)</span><span class="mt-from">kinematics.py:207</span></summary><div class="mt-api-body"><p>Get the perfect Polevector position.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">pole_vector_placement</span>(bone_one=<span class="tok-s">''</span>, bone_two=<span class="tok-s">''</span>, bone_three=<span class="tok-s">''</span>, back_distance=1)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         bone_one (str): The first joint in the chain.
         bone_two (str): The second joint in the chain.
         bone_three (str): The third joint in the chain.
@@ -3662,7 +3676,7 @@ example:
         # proxy selected attributes from one object to another
         mt.proxy_this_attrs(attrs_from='|l_hip_jnt_switch_loc', attrs_to='l_ankle_ik_ctrl', attrs_to_proxy=['hipbend', 'switch_ik_fk'])" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>proxy_this_attrs</b>(attrs_from=None, attrs_to=None, attrs_to_proxy=[], line_at_end=True, line_at_start=True)</span><span class="mt-from">kinematics.py:2864</span></summary><div class="mt-api-body"><p>Proxies attributes from one object to another.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">proxy_this_attrs</span>(attrs_from=<span class="tok-k">None</span>, attrs_to=<span class="tok-k">None</span>, attrs_to_proxy=[], line_at_end=<span class="tok-k">True</span>, line_at_start=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         attrs_from (str): The source object from which to copy attributes.
         attrs_to (str): The destination object to which the attributes will be copied.
         attrs_to_proxy (list): A list of attributes to proxy from the source object to the destination object.
@@ -3703,7 +3717,7 @@ example:
         # put selected nodes inside the 'high' lod container
         lod_container = put_inside_lod(cmds.ls(sl=true), 'high')" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>put_inside_lod</b>(nodes=[], lod='High')</span><span class="mt-from">kinematics.py:2687</span></summary><div class="mt-api-body"><p>Put nodes inside an LOD (Level of Detail) container.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">put_inside_lod</span>(nodes=[], lod=<span class="tok-s">'High'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         nodes (list): List of nodes to put inside the container.
         lod (str): LOD name.
 
@@ -3740,7 +3754,7 @@ examples:
         # remove rivet system from specific controllers
         remove_rivets_ctrls(['ctrl1', 'ctrl2', 'ctrl3'])" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>remove_rivets_ctrls</b>(selection_ctrls=None)</span><span class="mt-from">kinematics.py:2182</span></summary><div class="mt-api-body"><p>Remove the rivet system from the specified controllers.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">remove_rivets_ctrls</span>(selection_ctrls=<span class="tok-k">None</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         selection_ctrls (list): List of names of the controllers.
 
 Returns:
@@ -3789,7 +3803,7 @@ examples:
         ribbon_elements = ribbon_between(start='object1', end='object2', divisions=7, name='myribbon',
                                                                          ctrl_type='cube', size=2.0, world_orient=true)" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>ribbon_between</b>(start='', end='', divisions=5, name='Ribbon', ctrl_type='circleY', size=1, world_orient=False, orient_like=False)</span><span class="mt-from">kinematics.py:1839</span></summary><div class="mt-api-body"><p>Create a ribbon rig between two objects using a NURBS plane and follicles.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">ribbon_between</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, divisions=5, name=<span class="tok-s">'Ribbon'</span>, ctrl_type=<span class="tok-s">'circleY'</span>, size=1, world_orient=<span class="tok-k">False</span>, orient_like=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the start object. If not provided, the first selected object will be used.
         end (str): Name of the end object. If not provided, the second selected object will be used.
         divisions (int): Number of divisions or follicles along the ribbon.
@@ -3836,7 +3850,7 @@ example:
         # select the controllers, then the geometry
         mt.rivets_ctrls()" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>rivets_ctrls</b>(geometry=None, selection_ctrls=None)</span><span class="mt-from">kinematics.py:2088</span></summary><div class="mt-api-body"><p>Create a rivet system for the controllers to follow geometry on the rigs.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">rivets_ctrls</span>(geometry=<span class="tok-k">None</span>, selection_ctrls=<span class="tok-k">None</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         geometry (str): Name of the geometry to attach the controllers to.
         selection_ctrls (list): List of names of the controllers.
 
@@ -3880,7 +3894,7 @@ examples:
         # example 3: create an fk/ik chain with custom color and ik/fk blending mode
         main_joints, ik_joints, fk_joints, fk_system, ik_system, return_groups = simple_fk_ik(color=(1, 0.5, 0), mode='constraints')" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>simple_fk_ik</b>(start='', mid='', end='', size=1, color=setup['main_color'], mode=setup['ik_fk_method'], twist_axis=setup['twist_axis'], use_shared_loc=True)</span><span class="mt-from">kinematics.py:1285</span></summary><div class="mt-api-body"><p>Create an FK/IK chain with a switch for 3 joints.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">simple_fk_ik</span>(start=<span class="tok-s">''</span>, mid=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, size=1, color=<span class="tok-n">setup</span>[<span class="tok-s">'main_color'</span>], mode=<span class="tok-n">setup</span>[<span class="tok-s">'ik_fk_method'</span>], twist_axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], use_shared_loc=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the start joint. If not provided, the first selected joint will be used.
         mid (str): Name of the middle joint. If not provided, the second selected joint will be used.
         end (str): Name of the end joint. If not provided, the third selected joint will be used.
@@ -3958,7 +3972,7 @@ usage:
                 top_curve='curve_type3'
         )" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>simple_ik_chain</b>(start='', end='', size=1, color=setup['main_color'], ik_curve=setup['ik_ctrl'], pv_curve=setup['pv_ctrl'], pv=True, top_curve=setup['top_ik_ctrl'])</span><span class="mt-from">kinematics.py:511</span></summary><div class="mt-api-body"><p>Create a simple IK chain between two joints with controllers.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">simple_ik_chain</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, size=1, color=<span class="tok-n">setup</span>[<span class="tok-s">'main_color'</span>], ik_curve=<span class="tok-n">setup</span>[<span class="tok-s">'ik_ctrl'</span>], pv_curve=<span class="tok-n">setup</span>[<span class="tok-s">'pv_ctrl'</span>], pv=<span class="tok-k">True</span>, top_curve=<span class="tok-n">setup</span>[<span class="tok-s">'top_ik_ctrl'</span>])</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (string): Name of the first joint. If empty, the currently selected joint will be used.
         end (string): Name of the last joint. If empty, the last selected joint will be used.
         size (string): Size of the controller.
@@ -4055,7 +4069,7 @@ usage:
                 right_side=false
         )" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>spline_twist</b>(start='', end='', axis=setup['twist_axis'], amount=4, mode='up', right_side=False)</span><span class="mt-from">kinematics.py:1104</span></summary><div class="mt-api-body"><p>Create a spline twist system for the chain.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">spline_twist</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], amount=4, mode=<span class="tok-s">'up'</span>, right_side=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the first joint in the chain. If empty, the first selected joint will be used.
         end (str): Name of the last joint in the chain. If empty, the last selected joint will be used.
         axis (str): Twist axis.
@@ -4146,7 +4160,7 @@ usage:
                 axis='y'
         )" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>streatchy_ik</b>(ik='', ik_ctrl='', top_ctrl='', pv_ctrl='', attrs_location='', name='', axis='Y')</span><span class="mt-from">kinematics.py:302</span></summary><div class="mt-api-body"><p>Generate all the nodes necessary to create an IK stretching system.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">streatchy_ik</span>(ik=<span class="tok-s">''</span>, ik_ctrl=<span class="tok-s">''</span>, top_ctrl=<span class="tok-s">''</span>, pv_ctrl=<span class="tok-s">''</span>, attrs_location=<span class="tok-s">''</span>, name=<span class="tok-s">''</span>, axis=<span class="tok-s">'Y'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         ik (string): Name of the IK on the limb.
         ik_ctrl (string): Name of the IK Ctrl.
         top_ctrl (string): Name of the Top IK Ctrl.
@@ -4225,7 +4239,7 @@ usage:
                 mode='up'
         )" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>twist</b>(start='', end='', axis=setup['twist_axis'], amount=4, mode='down')</span><span class="mt-from">kinematics.py:796</span></summary><div class="mt-api-body"><p>Create a twist setup for limbs using an old method.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">twist</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], amount=4, mode=<span class="tok-s">'down'</span>)</code></pre>
-<pre class="mt-doc"><code>Old way of creating twist for limbs, i use this one on RdM Tools v2, recommend to use the new advance one
+<pre class="mt-docstring"><code>Old way of creating twist for limbs, i use this one on RdM Tools v2, recommend to use the new advance one
 
 Args:
         start (str): Name of the first joint in the limb. If empty, the first selected joint will be used.
@@ -4290,7 +4304,7 @@ examples:
         # example 3: create a twist fk/ik chain with custom color and twist axis
         result = twist_fk_ik(color=(1, 0.5, 0), twist_axis='y', twist_amount=8)" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>twist_fk_ik</b>(start='', mid='', end='', size=1, color=setup['main_color'], mode=setup['ik_fk_method'], twist_axis=setup['twist_axis'], twist_amount=6, use_shared_loc=True)</span><span class="mt-from">kinematics.py:1464</span></summary><div class="mt-api-body"><p>Create an FK/IK chain with a switch for 3 joints and add twist functionality for a full limb module.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">twist_fk_ik</span>(start=<span class="tok-s">''</span>, mid=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, size=1, color=<span class="tok-n">setup</span>[<span class="tok-s">'main_color'</span>], mode=<span class="tok-n">setup</span>[<span class="tok-s">'ik_fk_method'</span>], twist_axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], twist_amount=6, use_shared_loc=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the start joint. If not provided, the first selected joint will be used.
         mid (str): Name of the middle joint. If not provided, the second selected joint will be used.
         end (str): Name of the end joint. If not provided, the third selected joint will be used.
@@ -4356,7 +4370,7 @@ usage:
                 driver=true
         )" data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>twist_rotate_info</b>(start='', end='', axis=setup['twist_axis'], driver=False)</span><span class="mt-from">kinematics.py:898</span></summary><div class="mt-api-body"><p>Create a system to correctly read the twist information for the desired joint.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">twist_rotate_info</span>(start=<span class="tok-s">''</span>, end=<span class="tok-s">''</span>, axis=<span class="tok-n">setup</span>[<span class="tok-s">'twist_axis'</span>], driver=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         start (str): Name of the first joint in the chain. If empty, the first selected joint will be used.
         end (str): Name of the last joint in the chain. If empty, the last selected joint will be used.
         axis (str): Twist axis.
@@ -4414,7 +4428,7 @@ note:
 example:
         mutant_logger(mode='create')" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>Mutant_logger</b>(mode='create')</span><span class="mt-from">modules.py:752</span></summary><div class="mt-api-body"><p>Manages the Mutant logger for scriptEditor history.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">Mutant_logger</span>(mode=<span class="tok-s">'create'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         mode (str): The mode of operation for the logger. Default is 'create'.
 
 Returns:
@@ -4465,7 +4479,7 @@ example:
     if name != none:
         print(f"entered block name: {name}")" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>ask_name</b>(text='', ask_for='Name', check_split=False, popup=True, allow_name_exists=False)</span><span class="mt-from">modules.py:445</span></summary><div class="mt-api-body"><p>Asks the user for a block name.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">ask_name</span>(text=<span class="tok-s">''</span>, ask_for=<span class="tok-s">'Name'</span>, check_split=<span class="tok-k">False</span>, popup=<span class="tok-k">True</span>, allow_name_exists=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
     text (str): The initial text displayed in the prompt dialog. Defaults to an empty string.
     ask_for (str): The message displayed in the prompt dialog, specifying what the name is asked for. Defaults to 'Name'.
     check_split (bool): Specifies whether to check for name existence after splitting the input at a comma. Defaults to False.
@@ -4514,7 +4528,7 @@ note:
 example:
         build_basea(name='mycharacter', size=1.5)" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>build_baseA</b>(name='Asset_Name', size=1)</span><span class="mt-from">modules.py:630</span></summary><div class="mt-api-body"><p>Creates the base structure for any kind of rig with the same base structure.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">build_baseA</span>(name=<span class="tok-s">'Asset_Name'</span>, size=1)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         name (str): The name of the asset. Default is 'Asset_Name'.
         size (float): The size of the base controllers. Default is 1.
 
@@ -4558,7 +4572,7 @@ note:
 example:
         check_dev_mode()" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>check_dev_mode</b>()</span><span class="mt-from">modules.py:834</span></summary><div class="mt-api-body"><p>Checks if the Mutant Tools is in development mode.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">check_dev_mode</span>()</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         None
 
 Returns:
@@ -4599,7 +4613,7 @@ note:
 example:
         check_is_there_is_base(base='basea')" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>check_is_there_is_base</b>(base='BaseA')</span><span class="mt-from">modules.py:717</span></summary><div class="mt-api-body"><p>Checks if the base structure exists and creates it if not.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">check_is_there_is_base</span>(base=<span class="tok-s">'BaseA'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         base (str): The name of the base structure. Default is 'BaseA'.
 
 Returns:
@@ -4652,7 +4666,7 @@ network node as a tuple.
 note:
     this function assumes the use of the 'cmds' module from autodesk maya or a similar 3d software." data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>create_block</b>(name='Mutant', icon='Limb', attrs={'attrs': 'something'}, build_command='print("Test")', import_command='print("Test2")')</span><span class="mt-from">modules.py:92</span></summary><div class="mt-api-body"><p>Creates a block with specified attributes and commands.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_block</span>(name=<span class="tok-s">'Mutant'</span>, icon=<span class="tok-s">'Limb'</span>, attrs={<span class="tok-s">'attrs'</span>: <span class="tok-s">'something'</span>}, build_command=<span class="tok-s">'print("Test")'</span>, import_command=<span class="tok-s">'print("Test2")'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
     name (str): The name of the block to create. Defaults to 'Mutant'.
     icon (str): The name of the icon to use for the block. Defaults to 'Limb'.
     attrs (dict): A dictionary containing the attributes to add to the block. Defaults to {'attrs': 'something'}.
@@ -4716,7 +4730,7 @@ finally, the created joint is selected, and its name is returned.
 note:
         this function assumes the use of the 'cmds' module from autodesk maya or a similar 3d software." data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>create_joint_guide</b>(name='Guide')</span><span class="mt-from">modules.py:246</span></summary><div class="mt-api-body"><p>Creates a joint guide with the specified name.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_joint_guide</span>(name=<span class="tok-s">'Guide'</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         name (str): The name of the joint guide. Defaults to 'Guide'.
 
 Returns:
@@ -4774,7 +4788,7 @@ finally, the created joint is selected, and its name is returned.
 note:
     this function assumes the use of the 'cmds' module from autodesk maya or a similar 3d software." data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>create_stellar_joint_guide</b>(name=stellar_guide)</span><span class="mt-from">modules.py:321</span></summary><div class="mt-api-body"><p>Creates a stellar joint guide with the specified name.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_stellar_joint_guide</span>(name=stellar_guide)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
     name (str): The name of the stellar joint guide. Defaults to 'stellar_guide'.
 
 Returns:
@@ -4819,7 +4833,7 @@ note:
 example:
         duplicate_and_remove_guides(input='joint_01_guide')" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>duplicate_and_remove_guides</b>(input='')</span><span class="mt-from">modules.py:523</span></summary><div class="mt-api-body"><p>Duplicates the top chain joint and changes '_Guide' to '_Jnt' in the name.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">duplicate_and_remove_guides</span>(input=<span class="tok-s">''</span>)</code></pre>
-<pre class="mt-doc"><code>Renames all children and parent to the world.
+<pre class="mt-docstring"><code>Renames all children and parent to the world.
 
 Args:
         input (str): The input joint(s) to duplicate. If empty, selects the first item from the current selection.
@@ -4854,7 +4868,7 @@ note:
 example:
         duplicate_and_remove_stellar_guides(input='joint_01_guide')" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>duplicate_and_remove_stellar_guides</b>(input='')</span><span class="mt-from">modules.py:572</span></summary><div class="mt-api-body"><p>Duplicates the top chain joint, changes '_Guide' to '_Jnt' in the name, and renames all children plus parent to the world.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">duplicate_and_remove_stellar_guides</span>(input=<span class="tok-s">''</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         input (str): The input joint(s) to duplicate. If empty, selects the first item from the current selection.
 
 Returns:
@@ -4902,7 +4916,7 @@ if both 'up' and 'down' arguments are false, the function does nothing.
 note:
     this function assumes the use of the 'cmds' module from autodesk maya or a similar 3d software." data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>move_outliner</b>(input='', up=False, down=False)</span><span class="mt-from">modules.py:178</span></summary><div class="mt-api-body"><p>Moves the specified object or objects in the outliner hierarchy.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">move_outliner</span>(input=<span class="tok-s">''</span>, up=<span class="tok-k">False</span>, down=<span class="tok-k">False</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
     input (str or list): The name or list of names of the object(s) to move in the outliner hierarchy. Defaults to an empty string, which
                          selects the currently selected objects in the scene.
     up (bool): Specifies whether to move the object(s) up in the outliner hierarchy. Defaults to False.
@@ -4954,7 +4968,7 @@ note:
 example:
     orient_joint(input='joint1')" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>orient_joint</b>(input='')</span><span class="mt-from">modules.py:400</span></summary><div class="mt-api-body"><p>Orients a joint based on the specified input.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">orient_joint</span>(input=<span class="tok-s">''</span>)</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
     input (str): The name of the joint to orient. If not provided, the currently selected joint is used. Defaults to an empty string.
 
 Returns:
@@ -4999,7 +5013,7 @@ note:
 example:
     toggle_dev_mode()" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>toggle_dev_mode</b>()</span><span class="mt-from">modules.py:895</span></summary><div class="mt-api-body"><p>Toggles the Mutant Tools development mode.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">toggle_dev_mode</span>()</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
     None
 
 Returns:
@@ -5040,7 +5054,7 @@ note:
 example:
         update_icons()" data-cat="Modules_class"><summary><span class="mt-sig">mt.<b>update_icons</b>()</span><span class="mt-from">modules.py:791</span></summary><div class="mt-api-body"><p>Updates the icons of Mutant build blocks.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">update_icons</span>()</code></pre>
-<pre class="mt-doc"><code>Args:
+<pre class="mt-docstring"><code>Args:
         None
 
 Returns:
@@ -5062,7 +5076,7 @@ args:
                 check failed. if true (default, used on startup), stays quiet unless an
                 update is found." data-cat="Mutant"><summary><span class="mt-sig">mt.<b>check_for_updates</b>(silent=True)</span><span class="mt-from">main_mutant.py:264</span></summary><div class="mt-api-body"><p>Compares the local version against the latest GitHub release. If a newer release</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">check_for_updates</span>(silent=<span class="tok-k">True</span>)</code></pre>
-<pre class="mt-doc"><code>is available, asks the user if they want to download and install it automatically.
+<pre class="mt-docstring"><code>is available, asks the user if they want to download and install it automatically.
 
 Args:
         silent (bool): If False, also informs the user when no update is needed or the
@@ -5086,7 +5100,7 @@ note:
     this function assumes that the 'get_online_version' and 'get_local_version' methods are implemented and correctly retrieve the online
     and local versions, respectively." data-cat="Mutant"><summary><span class="mt-sig">mt.<b>compare_versions</b>()</span><span class="mt-from">main_mutant.py:188</span></summary><div class="mt-api-body"><p>Compares the local version with the online version and displays a warning if an update is available.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">compare_versions</span>()</code></pre>
-<pre class="mt-doc"><code>Returns:
+<pre class="mt-docstring"><code>Returns:
     None
 
 Raises:
@@ -5104,7 +5118,7 @@ are not logged into github.
 returns:
         dict: the decoded json of the latest release (tag_name, zipball_url, html_url, etc.)" data-cat="Mutant"><summary><span class="mt-sig">mt.<b>get_github_latest_release</b>()</span><span class="mt-from">main_mutant.py:229</span></summary><div class="mt-api-body"><p>Retrieves the latest release info from the Mutant_Tools GitHub repo's public API.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_github_latest_release</span>()</code></pre>
-<pre class="mt-doc"><code>Works without any authentication (public repo), so it works on machines that
+<pre class="mt-docstring"><code>Works without any authentication (public repo), so it works on machines that
 are not logged into GitHub.
 
 Returns:
@@ -5125,7 +5139,7 @@ function returns none.
 note:
     this function assumes that the 'read_json' method is implemented and correctly reads the version information from the json file." data-cat="Mutant"><summary><span class="mt-sig">mt.<b>get_local_version</b>()</span><span class="mt-from">main_mutant.py:164</span></summary><div class="mt-api-body"><p>Retrieves the local version of the tool.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_local_version</span>()</code></pre>
-<pre class="mt-doc"><code>Returns:
+<pre class="mt-docstring"><code>Returns:
     str or None: The local version of the tool if available, None otherwise.
 
 Raises:
@@ -5152,7 +5166,7 @@ determined, the function returns none. otherwise, it returns the online version.
 note:
     this function relies on the 'urllib.request' module, so make sure it is imported before using this function." data-cat="Mutant"><summary><span class="mt-sig">mt.<b>get_online_version</b>()</span><span class="mt-from">main_mutant.py:120</span></summary><div class="mt-api-body"><p>Retrieves the online version of a tool from a specified URL.</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_online_version</span>()</code></pre>
-<pre class="mt-doc"><code>Returns:
+<pre class="mt-docstring"><code>Returns:
     str or None: The online version of the tool if available, None otherwise.
 
 Raises:
@@ -5168,7 +5182,7 @@ mutant_tools folder, mirroring the copy done by easy_install.py.
 args:
         release (dict): a release dict as returned by get_github_latest_release()." data-cat="Mutant"><summary><span class="mt-sig">mt.<b>install_github_release</b>(release)</span><span class="mt-from">main_mutant.py:306</span></summary><div class="mt-api-body"><p>Downloads a GitHub release's source zip and installs it over the current</p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">install_github_release</span>(release)</code></pre>
-<pre class="mt-doc"><code>Mutant_Tools folder, mirroring the copy done by easy_install.py.
+<pre class="mt-docstring"><code>Mutant_Tools folder, mirroring the copy done by easy_install.py.
 
 Args:
         release (dict): A release dict as returned by get_github_latest_release().</code></pre></div></details></section></div></div>

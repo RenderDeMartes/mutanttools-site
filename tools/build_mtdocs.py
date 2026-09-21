@@ -12,7 +12,7 @@ import io, json, os, re, collections
 
 import mt_shell as shell
 import mt_md as m
-import mt_dev, mt_wiki, mt_seo
+import mt_dev, mt_wiki, mt_seo, mt_cluster, mt_home
 
 SCRATCH = os.path.dirname(os.path.abspath(__file__))
 SITE = shell.SITE
@@ -140,6 +140,10 @@ Generated from RenderDeMartes/Mutant_Tools at %(sha)s.
 PAGES = [
     ("/", "weekly"),
     ("/maya-auto-rigger/", "monthly"),
+    ("/free-maya-rigging-tools/", "monthly"),
+    ("/maya-facial-rigging/", "monthly"),
+    ("/maya-animal-rigging/", "monthly"),
+    ("/game-character-rigging-maya/", "monthly"),
     ("/rigger/", "monthly"),
     ("/developer/", "monthly"),
     ("/wiki/", "monthly"),
@@ -151,10 +155,14 @@ PAGES = [
 ]
 
 
+CLUSTER = ("/maya-auto-rigger/", "/free-maya-rigging-tools/", "/maya-facial-rigging/",
+           "/maya-animal-rigging/", "/game-character-rigging-maya/")
+
+
 def sitemap():
     rows = []
     for path, freq in PAGES:
-        pri = "1.0" if path == "/" else ("0.9" if path in ("/maya-auto-rigger/", "/developer/") else "0.7")
+        pri = "1.0" if path == "/" else ("0.9" if path in CLUSTER or path == "/developer/" else "0.7")
         rows.append("  <url><loc>https://mutanttools.com%s</loc>"
                     "<changefreq>%s</changefreq><priority>%s</priority></url>" % (path, freq, pri))
     rows.append("  <url><loc>https://mutanttools.com/docs/_build/html/index.html</loc>"
@@ -171,7 +179,8 @@ GENERATED = {
     "wiki/commands/index.html",
     "wiki/blocks/index.html",
     "maya-auto-rigger/index.html",
-}
+    "index.html",
+} | set("%s/index.html" % slug for slug, _f, _t, _d in mt_cluster.PAGES)
 
 
 # ------------------------------------------------------------- nav repair
@@ -255,6 +264,21 @@ def main():
         % stats["blocks"],
         "https://mutanttools.com/maya-auto-rigger/",
         body, extra_head=ld, nav_current="/maya-auto-rigger/")))
+
+    # the topic cluster around /maya-auto-rigger/
+    for slug, fn, title, desc in mt_cluster.PAGES:
+        cbody, cld = fn(stats)
+        written.append(shell.write("%s/index.html" % slug, shell.page(
+            title, desc % stats, "https://mutanttools.com/%s/" % slug,
+            cbody, extra_head=cld, nav_current="/maya-auto-rigger/")))
+
+    # homepage: retitle and append the copy block below the hero
+    home_path = os.path.join(SITE, "index.html")
+    home = io.open(home_path, encoding="utf-8").read()
+    home = mt_home.patch(home, stats, shell.DOC_CSS)
+    home = shell.add_auto_rigger(home)
+    io.open(home_path, "w", encoding="utf-8", newline="\n").write(home)
+    written.append((home_path, len(home)))
 
     # llms.txt + sitemap
     for name, text in (("llms.txt", llms_txt(stats)), ("sitemap.xml", sitemap())):

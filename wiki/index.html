@@ -93,10 +93,20 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   --mt-orange:#FF6210; --mt-orange-2:#F15808; --mt-code:#0E0805;
   --mt-green:#7CD992; --mt-blue:#79C0FF; --mt-pink:#FF9BD2; --mt-yellow:#FFD479;
 }
-.mt-doc{background:var(--mt-ink);color:var(--mt-text);
-  font-family:'Montserrat',system-ui,sans-serif;line-height:1.7;
-  padding:0 0 6rem;overflow-x:clip}
+/* The homepage carries its own inline CSS: a global `*{font-family:Inter}` that
+   beats an inherited family, and something inside .entry-content that shrinks
+   the base size to ~12px. Both are answered explicitly rather than inherited,
+   so this block renders the same wherever it is dropped. */
+.mt-doc{background:var(--mt-ink);color:var(--mt-text);line-height:1.7;
+  font-size:15px;padding:0 0 6rem;overflow-x:clip}
 .mt-doc *{box-sizing:border-box}
+.mt-doc,.mt-doc p,.mt-doc li,.mt-doc a,.mt-doc span,.mt-doc div,.mt-doc td,.mt-doc th,
+.mt-doc h1,.mt-doc h2,.mt-doc h3,.mt-doc h4,.mt-doc button,.mt-doc summary,.mt-doc input,
+.mt-doc b,.mt-doc strong,.mt-doc i,.mt-doc nav,.mt-doc ol,.mt-doc ul
+  {font-family:'Montserrat',system-ui,-apple-system,sans-serif}
+.mt-doc code,.mt-doc pre,.mt-doc pre *,.mt-doc .mt-sig,.mt-doc .mt-sig *
+  {font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace}
+.mt-body p,.mt-body li{font-size:1rem}
 .mt-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
 /* ---- hero ---- */
@@ -200,10 +210,14 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 .mt-api-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--mt-line)}
 .mt-api-body p{margin:.9rem 0 .6rem;font-size:.9rem}
 .mt-api-body table{font-size:.82rem}
-.mt-doc{background:transparent!important;border:0!important;border-left:2px solid var(--mt-line)!important;
+/* The raw docstring under an expanded command. NOT .mt-doc - that is the page
+   container, and reusing the name leaked pre-wrap and a .79rem font onto every
+   paragraph on the site. */
+.mt-docstring{background:transparent!important;border:0!important;
+  border-left:2px solid var(--mt-line)!important;
   border-radius:0!important;padding:.2rem 0 .2rem 1rem!important;margin:1rem 0 0!important;
   font-size:.79rem!important;color:#B79E92!important;white-space:pre-wrap;line-height:1.55}
-.mt-doc code{color:inherit!important}
+.mt-docstring code{color:inherit!important}
 
 /* ---- search ---- */
 .mt-search{position:relative;margin:0 0 1.6rem}

@@ -6,3 +6,5 @@ deployment:
     - /bin/cp -R google693ef86f823ca3aa.html $DEPLOYPATH
     - /bin/cp -R assets contact developer free-assets learn rigger $DEPLOYPATH
     - /bin/cp -R wiki maya-auto-rigger $DEPLOYPATH
+    - /bin/cp -R free-maya-rigging-tools maya-facial-rigging $DEPLOYPATH
+    - /bin/cp -R maya-animal-rigging game-character-rigging-maya $DEPLOYPATH

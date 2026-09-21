@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 
-	<title>Mutant Tools for Python Developers - Block API, mt Commands &amp; Maya Rigging</title>
-<meta name="description" content="Write Maya rigging blocks with Mutant Tools. The full mt Python API, block anatomy, the build lifecycle, a complete worked example, and the traps to avoid.">
-<link rel="canonical" href="https://mutanttools.com/developer/">
+	<title>Maya Facial Rigging - 20 Modular Face Rig Modules | Mutant Tools</title>
+<meta name="description" content="Modular facial rigging for Maya: jaw, mouth, eyelids, brows, cheeks, tongue, sticky lips and more as 20 stackable blocks. Joint-based, game-exportable, free and open source.">
+<link rel="canonical" href="https://mutanttools.com/maya-facial-rigging/">
 <link rel="icon" href="/assets/img/LogoWhite03-74x74.png" sizes="any">
 <link rel="apple-touch-icon" href="/assets/img/LogoWhite03-300x300.png">
-<meta property="og:title" content="Mutant Tools for Python Developers - Block API, mt Commands &amp; Maya Rigging">
-<meta property="og:description" content="Write Maya rigging blocks with Mutant Tools. The full mt Python API, block anatomy, the build lifecycle, a complete worked example, and the traps to avoid.">
+<meta property="og:title" content="Maya Facial Rigging - 20 Modular Face Rig Modules | Mutant Tools">
+<meta property="og:description" content="Modular facial rigging for Maya: jaw, mouth, eyelids, brows, cheeks, tongue, sticky lips and more as 20 stackable blocks. Joint-based, game-exportable, free and open source.">
 <meta property="og:image" content="https://mutanttools.com/assets/img/santa_render.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -261,7 +261,7 @@ h2:hover .mt-anchor,h3:hover .mt-anchor{opacity:1}
 .mt-updated{font-size:.75rem;color:#8A7568;margin-top:3rem;padding-top:1.4rem;
   border-top:1px solid var(--mt-line)}
 </style>
-
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Mutant Tools do facial rigging?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. There are 20 facial blocks covering skull, jaw, mouth, eyelids, eyelashes, brows, cheeks, nose, tongue, teeth, commissures, orbicularis, sticky lips and pupil dilation, plus face templates and a dedicated face install tool."}}, {"@type": "Question", "name": "Is it joint-based or blendshape-based?", "acceptedAnswer": {"@type": "Answer", "text": "Joint-based, with blendshape and corrective support layered on. That keeps the result exportable to a game engine while still allowing shape-driven fixes where joints alone are not enough."}}, {"@type": "Question", "name": "Can I use only the parts I need?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, and that is the usual case. Faces never agree on design, so blocks let you take the jaw and eyelid setups and leave the rest, or stack a ribbon mouth on a cartoon face without fighting a fixed template."}}, {"@type": "Question", "name": "What is the difference between Mouth, RibbonMouth and MouthGames?", "acceptedAnswer": {"@type": "Answer", "text": "Three mouth builds for three needs. Mouth is the standard setup. RibbonMouth drives the lips along a NURBS ribbon for smoother, more controllable shapes. MouthGames is a lighter build with a smaller joint count for real-time work."}}, {"@type": "Question", "name": "Does it handle sticky lips?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, as its own block, applied after the mouth is built."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mutant Tools", "item": "https://mutanttools.com/"}, {"@type": "ListItem", "position": 2, "name": "Maya auto rigger", "item": "https://mutanttools.com/maya-auto-rigger/"}, {"@type": "ListItem", "position": 3, "name": "Maya facial rigging", "item": "https://mutanttools.com/maya-facial-rigging/"}]}</script>
 </head>
 
 <body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-2578 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.11.18 ast-single-post ast-mobile-inherit-site-logo ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header ast-full-width-primary-header">
@@ -290,9 +290,9 @@ class="hfeed site" id="page">
 								</div>
 																								<div class="site-header-primary-section-right site-header-section ast-flex ast-grid-right-section">
 										<div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item" data-section="section-hb-menu-1">
-			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-desktop" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto"><a href="/maya-auto-rigger/" class="menu-link">Auto Rigger</a></li>
+			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-desktop" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto current-menu-item current_page_item"><a href="/maya-auto-rigger/" aria-current="page" class="menu-link">Auto Rigger</a></li>
 <li id="menu-item-2603" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2603"><a href="/rigger/" class="menu-link">Rigger</a></li>
-<li id="menu-item-2602" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2602 current-menu-item current_page_item"><a href="/developer/" aria-current="page" class="menu-link">Developer</a></li>
+<li id="menu-item-2602" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2602"><a href="/developer/" class="menu-link">Developer</a></li>
 <li id="menu-item-2604" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604"><a href="/wiki/" class="menu-link">Wiki</a></li>
 </ul></div></nav></div></div>		</div>
 				<div class="ast-builder-layout-element ast-flex site-header-focus-item ast-header-button-1" data-section="section-hb-button-1">
@@ -332,9 +332,9 @@ class="hfeed site" id="page">
 	</div>
 				<div class="ast-mobile-header-content content-align-flex-start ">
 						<div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item" data-section="section-hb-menu-1">
-			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-mobile" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1-mobile" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto"><a href="/maya-auto-rigger/" class="menu-link">Auto Rigger</a></li>
+			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-mobile" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1-mobile" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border astra-menu-animation-fade  stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-auto current-menu-item current_page_item"><a href="/maya-auto-rigger/" aria-current="page" class="menu-link">Auto Rigger</a></li>
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2603"><a href="/rigger/" class="menu-link">Rigger</a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2602 current-menu-item current_page_item"><a href="/developer/" aria-current="page" class="menu-link">Developer</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2602"><a href="/developer/" class="menu-link">Developer</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604"><a href="/wiki/" class="menu-link">Wiki</a></li>
 </ul></div></nav></div></div>		</div>
 					</div>
@@ -342,478 +342,44 @@ class="hfeed site" id="page">
 		</header><!-- #masthead -->
 			
 <div id="content" class="site-content"><div class="mt-doc">
-<header class="mt-hero"><div class="mt-wrap"><p class="mt-kicker">Developer guide</p><h1>Mutant Tools for Python developers</h1><p class="mt-lede">Mutant Tools is a block-based modular rigging system for Maya. Everything the UI does, it does by calling Python you can call yourself. This page teaches the whole surface: the <code>mt</code> API, how a block is defined and built, and how to ship your own blocks into the system.</p><ul class="mt-stats"><li><b>117</b><span>mt methods</span></li><li><b>133</b><span>shipped blocks</span></li><li><b>44</b><span>control shapes</span></li><li><b>Maya 2022+</b><span>Python 2 &amp; 3</span></li></ul><p style="margin-top:2rem"><a class="mt-btn" href="/wiki/">Open the command wiki</a><a class="mt-btn mt-btn--ghost" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Source on GitHub</a></p></div></header><div class="mt-wrap"><div class="mt-layout"><nav class="mt-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#quickstart">60-second quickstart</a></li><li><a href="#mental-model">The mental model</a></li><li><a href="#the-mt-object">The mt object</a></li><li><a href="#configs">nc, setup, curve_data</a></li><li><a href="#anatomy">Anatomy of a block</a></li><li><a href="#lifecycle">The build lifecycle</a></li><li><a href="#first-block">Write your first block</a></li><li><a href="#controls">Controls, shapes, colour</a></li><li><a href="#attributes">Attributes</a></li><li><a href="#kinematics">FK, IK, twist, ribbons</a></li><li><a href="#mirroring">Mirroring</a></li><li><a href="#versioning">Block versioning</a></li><li><a href="#traps">Traps that will bite you</a></li><li><a href="#pipeline">Pipeline integration</a></li><li><a href="#ai">Using AI on this codebase</a></li><li><a href="#reference">Where to go next</a></li></ol></nav>
-<article class="mt-body"><h2 id="quickstart">60-second quickstart<a class="mt-anchor" href="#quickstart" aria-label="Link to this section">#</a></h2>
-<p>Install by dragging <code>easy_install.py</code> into a Maya viewport. That copies the package into your <code>maya/&lt;version&gt;/scripts</code> folder, installs the shelf and registers the <b>Mutant-Tools</b> menu so it loads on every startup.</p><p>Then, in the Script Editor's Python tab:</p><div class="mt-code-head"><span class="mt-dot"></span>maya script editor</div>
-<pre><code><span class="tok-k">from</span> maya <span class="tok-k">import</span> <span class="tok-n">cmds</span>
-
-<span class="tok-k">import</span> Mutant_Tools
-<span class="tok-k">from</span> Mutant_Tools.Utils.Rigging <span class="tok-k">import</span> main_mutant
-
-<span class="tok-n">mt</span> = main_mutant.<span class="tok-f">Mutant</span>()
-<span class="tok-n">nc</span>, <span class="tok-n">curve_data</span>, <span class="tok-n">setup</span> = <span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()
-
-<span class="tok-c"># a control, coloured, with an offset group above it</span>
-ctrl = <span class="tok-n">mt</span>.<span class="tok-f">controller</span>(name=<span class="tok-s">'Hand'</span>, shape=<span class="tok-s">'hand'</span>, size=4, color=<span class="tok-s">'blue'</span>)
-<span class="tok-k">print</span>(ctrl)</code></pre>
-<div class="mt-note"><b class="mt-tag">Note</b>Constructing <code>Mutant()</code> has a side effect: if the scene has no <code>Mutant_Tools</code> node it creates one, stamped with the build date and version as locked string attributes. That node is how a scene remembers which version of the tools built it.</div>
-<h3 id="boilerplate">Every block script starts the same way<a class="mt-anchor" href="#boilerplate" aria-label="Link to this section">#</a></h3>
-<p>This header is the contract. The <code>try/except</code> around the import exists so a block can be run both as a loose script sitting in its own folder and as part of the installed package.</p><div class="mt-code-head"><span class="mt-dot"></span>exec_my_thing_v001.py</div>
-<pre><code><span class="tok-k">from</span> __future__ <span class="tok-k">import</span> absolute_import
-<span class="tok-k">from</span> maya <span class="tok-k">import</span> <span class="tok-n">cmds</span>
-<span class="tok-k">import</span> json
-<span class="tok-k">import</span> os
-<span class="tok-k">from</span> pathlib <span class="tok-k">import</span> Path
-
-<span class="tok-k">try</span>:
-    <span class="tok-k">import</span> importlib; <span class="tok-k">from</span> importlib <span class="tok-k">import</span> reload
-<span class="tok-k">except</span> ImportError:
-    <span class="tok-k">import</span> imp; <span class="tok-k">from</span> imp <span class="tok-k">import</span> reload
-
-<span class="tok-k">import</span> Mutant_Tools
-<span class="tok-k">import</span> Mutant_Tools.Utils.Rigging
-<span class="tok-k">from</span> Mutant_Tools.Utils.Rigging <span class="tok-k">import</span> main_mutant
-<span class="tok-f">reload</span>(Mutant_Tools.Utils.Rigging.main_mutant)
-
-<span class="tok-n">mt</span> = main_mutant.<span class="tok-f">Mutant</span>()
-
-TAB_FOLDER = <span class="tok-s">'008_Props'</span>        <span class="tok-c"># which Blocks/ category this lives in</span>
-PYBLOCK_NAME = <span class="tok-s">'exec_my_thing'</span>  <span class="tok-c"># module name without the _vNNN suffix</span></code></pre>
-<h2 id="mental-model">The mental model<a class="mt-anchor" href="#mental-model" aria-label="Link to this section">#</a></h2>
-<p>Three ideas carry the whole system. Get these and the rest is API surface.</p><div class="mt-grid mt-grid--3"><div class="mt-card"><h4>1. A block is a container</h4><p>A Maya <code>dagContainer</code> named <code>&lt;Name&gt;_Block</code>, living under a <code>Mutant_Build</code> group. It holds the guides you place by hand. It is the thing an artist drags around.</p></div><div class="mt-card"><h4>2. A config is a network node</h4><p>A sibling <code>network</code> node named <code>&lt;Name&gt;_Config</code>. Every option an artist can set is an attribute on it, plus the strings that say how to rebuild the block.</p></div><div class="mt-card"><h4>3. Build is re-runnable</h4><p>Blocks and guides are the source. The rig is the output. Deleting the rig and rebuilding from the same blocks must give the same result - that is the whole point of the system.</p></div></div>
-<p>So a scene mid-rig looks like this:</p><div class="mt-code-head"><span class="mt-dot"></span>outliner</div>
-<pre><code>Mutant_Build                     &lt;- group, holds every block
-|-- L_Arm_Block                  &lt;- dagContainer (the block)
-|   `-- L_Shoulder_Guide ...     &lt;- guides you place
-|-- Spine_Block
-`-- Jaw_Block
-
-L_Arm_Config                     &lt;- network node (the options)
-Spine_Config
-Jaw_Config
-
-Asset Name_Grp                   &lt;- the rig the build produces
-|-- Ctrl_Grp
-|-- Rig_Grp
-|   |-- Bind_Joints_Grp
-|   |-- Bind_Geo_Grp
-|   |-- Miscellaneous_Grp
-|   `-- Template_Grp
-`-- Extra_Geo_Grp</code></pre>
-<p>That rig hierarchy comes from <code>mt.build_baseA()</code>, driven entirely by <code>rig_setup.json</code>. Change the JSON, every rig you build afterwards changes shape.</p><h2 id="the-mt-object">The mt object<a class="mt-anchor" href="#the-mt-object" aria-label="Link to this section">#</a></h2>
-<p>There is one entry point and it is deep. <code>Mutant</code> inherits straight down a chain, so a single instance exposes everything:</p><div class="mt-code-head"><span class="mt-dot"></span>method resolution order</div>
-<pre><code>Mutant              main_mutant.py   version checks, GitHub updates
-  \-- Modules_class   modules.py       blocks, guides, base rig, dev mode
-      \-- Kinematics_class kinematics.py FK/IK, twist, ribbons, matrices
-          \-- Tools_class   tools.py      controls, attrs, colour, nodes, JSON</code></pre>
-<div class="mt-table-wrap"><table><thead><tr><th>Class</th><th>File</th><th>Public methods</th><th>What lives there</th></tr></thead><tbody><tr><td><code>Tools_class</code></td><td><code>Utils/Rigging/tools.py</code></td><td>61</td><td>Controls and curve shapes, colour, attribute creation, offset groups, utility-node wiring, JSON read/write, matrix and mesh queries, push/corrective joints</td></tr><tr><td><code>Kinematics_class</code></td><td><code>Utils/Rigging/kinematics.py</code></td><td>36</td><td>FK chains, IK chains and stretch, pole vectors, FK/IK switching, twist, ribbons, spline spines, wires, squash and bend, LODs, rivets</td></tr><tr><td><code>Modules_class</code></td><td><code>Utils/Rigging/modules.py</code></td><td>14</td><td><code>create_block</code>, guides, joint orientation, the base rig hierarchy, the name prompt, logging, dev mode</td></tr><tr><td><code>Mutant</code></td><td><code>Utils/Rigging/main_mutant.py</code></td><td>6</td><td>Local/online version compare, GitHub release check and in-place update</td></tr></tbody></table></div>
-<div class="mt-note"><b class="mt-tag">Note</b>The full signature list, with every argument and default, is in the <a href="/wiki/">command wiki</a>. It is generated from the source, so it cannot drift out of date.</div>
-<h2 id="configs">nc, setup, curve_data<a class="mt-anchor" href="#configs" aria-label="Link to this section">#</a></h2>
-<p>One call returns all three config dictionaries. Call it at the top of every <code>create_</code> and <code>build_</code> function:</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-n">nc</span>, <span class="tok-n">curve_data</span>, <span class="tok-n">setup</span> = <span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()</code></pre>
-<p>They are plain JSON under <code>Mutant_Tools/config/</code>, which means a studio can fork the naming convention without touching a line of rigging code.</p><h3 id="nc">nc - naming conventions<a class="mt-anchor" href="#nc" aria-label="Link to this section">#</a></h3>
-<p>Never hardcode a suffix. Build names from <code>nc</code> and the same block produces <code>_Ctrl</code> at one studio and <code>_CTL</code> at the next.</p><div class="mt-table-wrap"><table><thead><tr><th>Key</th><th>Value</th><th>Key</th><th>Value</th></tr></thead><tbody><tr><td><code>nc['module']</code></td><td><code>_Block</code></td><td><code>nc['ctrl']</code></td><td><code>_Ctrl</code></td></tr><tr><td><code>nc['guide']</code></td><td><code>_Guide</code></td><td><code>nc['gimbal_ctrl']</code></td><td><code>_Gimbal_Ctrl</code></td></tr><tr><td><code>nc['joint']</code></td><td><code>_Jnt</code></td><td><code>nc['world_ctrl']</code></td><td><code>_World_Ctrl</code></td></tr><tr><td><code>nc['joint_bind']</code></td><td><code>_Bnd</code></td><td><code>nc['group']</code></td><td><code>_Grp</code></td></tr><tr><td><code>nc['joint_end']</code></td><td><code>_JntEnd</code></td><td><code>nc['locator']</code></td><td><code>_Loc</code></td></tr><tr><td><code>nc['joint_twist']</code></td><td><code>_JntTwist</code></td><td><code>nc['curve']</code></td><td><code>_Crv</code></td></tr><tr><td><code>nc['ik']</code></td><td><code>_Ik_Jnt</code></td><td><code>nc['offset']</code></td><td><code>_Offset</code></td></tr><tr><td><code>nc['fk']</code></td><td><code>_Fk_Jnt</code></td><td><code>nc['root']</code></td><td><code>_Root</code></td></tr><tr><td><code>nc['left']</code></td><td><code>L_</code></td><td><code>nc['auto']</code></td><td><code>_Auto</code></td></tr><tr><td><code>nc['right']</code></td><td><code>R_</code></td><td><code>nc['null']</code></td><td><code>_Null</code></td></tr><tr><td><code>nc['center']</code></td><td><code>C_</code></td><td><code>nc['follicle']</code></td><td><code>_Fol</code></td></tr><tr><td><code>nc['geo']</code></td><td><code>_Geo</code></td><td><code>nc['skin_cluster']</code></td><td><code>_Skin</code></td></tr></tbody></table></div>
-<p>Utility nodes have entries too - <code>nc['multiplyDivide']</code>, <code>nc['condition']</code>, <code>nc['blend']</code>, <code>nc['remap_value']</code>, <code>nc['reverse']</code>, <code>nc['unitConversion']</code>, <code>nc['distance']</code> - so even the plumbing in a rig reads consistently.</p><h3 id="setup">setup - rig defaults<a class="mt-anchor" href="#setup" aria-label="Link to this section">#</a></h3>
-<div class="mt-table-wrap"><table><thead><tr><th>Key</th><th>Default</th><th>Used for</th></tr></thead><tbody><tr><td><code>setup['base_groups']</code></td><td><code>{geometry: Extra_Geo, control: Ctrl, rig: Rig}</code></td><td>Top level of every rig</td></tr><tr><td><code>setup['rig_groups']</code></td><td><code>{bind_joints, bind_geo, misc, template}</code></td><td>Children of <code>Rig_Grp</code></td></tr><tr><td><code>setup['main_ctrl_grp']</code></td><td><code>Rig_Ctrl</code></td><td>Group parented under the gimbal control</td></tr><tr><td><code>setup['twist_axis']</code></td><td><code>X</code></td><td>Default aim axis for twist and limbs</td></tr><tr><td><code>setup['secondaryAxisOrient']</code></td><td><code>zup</code></td><td>Joint orientation up axis</td></tr><tr><td><code>setup['ik_fk_method']</code></td><td><code>blend</code></td><td><code>blend</code> or constraint switching</td></tr><tr><td><code>setup['left_color']</code> / <code>right_color</code></td><td><code>blue</code> / <code>red</code></td><td>Side colouring</td></tr><tr><td><code>setup['main_color']</code></td><td><code>lightBlue</code></td><td>Default control colour</td></tr><tr><td><code>setup['fk_ctrl']</code></td><td><code>circlePointIn</code></td><td>Default FK shape</td></tr><tr><td><code>setup['ik_ctrl']</code> / <code>pv_ctrl']</code></td><td><code>cube</code> / <code>sphere</code></td><td>Default IK and pole-vector shapes</td></tr><tr><td><code>setup['stretch_default']</code></td><td><code>1</code></td><td>Stretch on by default</td></tr><tr><td><code>setup['volume_preservation']</code></td><td><code>0.5</code></td><td>Squash amount on stretchy limbs</td></tr></tbody></table></div>
-<h3 id="curve_data">curve_data - the shape library<a class="mt-anchor" href="#curve_data" aria-label="Link to this section">#</a></h3>
-<p>44 named shapes, stored as raw CV positions and degree. Pass the name to <code>mt.curve()</code>, <code>mt.controller()</code> or <code>mt.change_curve_shape()</code>:</p><p style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;color:var(--mt-dim);line-height:2"><code>2dArrow</code> &middot; <code>3dArrow</code> &middot; <code>CircleDoubleArrow</code> &middot; <code>WrapperThing</code> &middot; <code>chair</code> &middot; <code>circleDoublePointIn</code> &middot; <code>circleDoublePointOut</code> &middot; <code>circlePointIn</code> &middot; <code>circlePointOut</code> &middot; <code>circlePointUp</code> &middot; <code>circleX</code> &middot; <code>circleY</code> &middot; <code>circleZ</code> &middot; <code>circle_point</code> &middot; <code>cog</code> &middot; <code>cross</code> &middot; <code>cube</code> &middot; <code>cubePlus</code> &middot; <code>curveArrow</code> &middot; <code>cylinder</code> &middot; <code>feet</code> &middot; <code>gear</code> &middot; <code>halfCircle</code> &middot; <code>hand</code> &middot; <code>happyFace</code> &middot; <code>hexagon</code> &middot; <code>locator</code> &middot; <code>mover</code> &middot; <code>octagon</code> &middot; <code>pin_cube</code> &middot; <code>pringle</code> &middot; <code>pringle_point</code> &middot; <code>rectangle</code> &middot; <code>root</code> &middot; <code>roundMover</code> &middot; <code>sphere</code> &middot; <code>square</code> &middot; <code>squarePointUp</code> &middot; <code>squareSmooth</code> &middot; <code>sun</code> &middot; <code>trapezoid</code> &middot; <code>triangle</code> &middot; <code>vis</code> &middot; <code>wheel</code></p><h2 id="anatomy">Anatomy of a block<a class="mt-anchor" href="#anatomy" aria-label="Link to this section">#</a></h2>
-<p>A block is a folder under <code>Blocks/&lt;category&gt;/</code> holding four files:</p><div class="mt-code-head"><span class="mt-dot"></span>folder layout</div>
-<pre><code>Blocks/008_Props/01_Single_FK/
-|-- 01_Single_FK.json          &lt;- launcher, never versioned
-|-- 01_Single_FK_v001.json     &lt;- the versioned copy
-|-- exec_single_fk.py          &lt;- legacy alias
-`-- exec_single_fk_v001.py     &lt;- the implementation</code></pre>
-<p>The launcher JSON keeps a stable filename and points at whichever version is live. That indirection is what lets an old scene keep rebuilding after you ship a v002.</p><div class="mt-code-head"><span class="mt-dot"></span>01_Single_FK.json</div>
-<pre><code>{
-    <span class="tok-s">"Name"</span>:         <span class="tok-s">"Single_FK"</span>,
-    <span class="tok-s">"Description"</span>:  <span class="tok-s">"This will create a Single FK Ctrl + Joint"</span>,
-    <span class="tok-s">"Icon"</span>:         <span class="tok-s">"Bone.png"</span>,
-    <span class="tok-s">"Enable"</span>:       <span class="tok-s">"True"</span>,
-    <span class="tok-s">"python_file"</span>:  <span class="tok-s">"exec_single_fk_v001.py"</span>,
-    <span class="tok-s">"import"</span>:       <span class="tok-s">"import exec_single_fk_v001"</span>,
-    <span class="tok-s">"imp.reload"</span>:   <span class="tok-s">"reload(exec_single_fk_v001)"</span>,
-    <span class="tok-s">"exec_command"</span>: <span class="tok-s">"exec_single_fk_v001.create_single_fk_block()"</span>,
-    <span class="tok-s">"build_command"</span>:<span class="tok-s">"exec_single_fk_v001.build_single_fk_block()"</span>,
-    <span class="tok-s">"attrs"</span>: {
-        <span class="tok-s">"CtrlType_enum"</span>:   <span class="tok-s">"sphere:cube:square:octagon"</span>,
-        <span class="tok-s">"CtrlSize_float"</span>:  <span class="tok-s">"4"</span>,
-        <span class="tok-s">"CtrlColor_enum"</span>:  <span class="tok-s">"lightBlue:blue:white:purple"</span>,
-        <span class="tok-s">"Mirror_enum"</span>:     <span class="tok-s">"False:True:Right_Only"</span>,
-        <span class="tok-s">"Gimbal_bool"</span>:     <span class="tok-s">"True"</span>,
-        <span class="tok-s">"CreateJoint_bool"</span>:<span class="tok-s">"True"</span>,
-        <span class="tok-s">"SetCtrlParentHierarchy_string"</span>: <span class="tok-s">"Ctrl_Grp"</span>,
-        <span class="tok-s">"Help_string"</span>:     <span class="tok-s">"Overview: ...  How To Use: ..."</span>
-    }
-}</code></pre>
-<h3 id="attr-suffixes">The attrs dictionary and its type suffixes<a class="mt-anchor" href="#attr-suffixes" aria-label="Link to this section">#</a></h3>
-<p><code>mt.create_block()</code> walks <code>attrs</code> and turns each key into a real Maya attribute on the config node. The suffix picks the type, and the suffix is stripped from the attribute name - <code>CtrlSize_float</code> becomes <code>.CtrlSize</code>.</p><div class="mt-table-wrap"><table><thead><tr><th>Suffix</th><th>Becomes</th><th>Value in JSON</th><th>Read it back with</th></tr></thead><tbody><tr><td><code>_string</code></td><td>string attribute</td><td><code>"Ctrl_Grp"</code></td><td><code>cmds.getAttr(cfg + '.Name')</code></td></tr><tr><td><code>_enum</code></td><td>enum attribute</td><td><code>"a:b:c"</code> (colon separated)</td><td><code>cmds.getAttr(cfg + '.Name', asString=True)</code></td></tr><tr><td><code>_float</code></td><td><b>integer</b>, min 1, max 20</td><td><code>"4"</code></td><td><code>cmds.getAttr(cfg + '.Name')</code></td></tr><tr><td><code>_bool</code></td><td>boolean attribute</td><td><code>"True"</code></td><td><code>cmds.getAttr(cfg + '.Name')</code></td></tr></tbody></table></div>
-<div class="mt-note mt-warn"><b class="mt-tag">Trap</b><p><code>_float</code> does not create a float. It calls <code>new_attr_interger(min=1, max=20, default=int(value))</code>, so you get an <b>integer clamped between 1 and 20</b>. A control size of <code>4.5</code> is impossible and a twist count of <code>30</code> silently clamps to 20. If you need a real float, add it yourself with <code>mt.new_attr()</code> after <code>create_block</code> returns.</p></div>
-<div class="mt-note mt-warn"><b class="mt-tag">Sharp edge</b><p>The type is chosen with <code>if 'string' in attr</code>, a <b>substring</b> test, not a suffix test, and it is checked in the order string, enum, float, bool. So an attribute you name <code>UseStringy_bool</code> contains <code>string</code> and quietly becomes a string attribute. Keep the type word out of the descriptive part of the name.</p></div>
-<h3 id="create-block-return">What create_block gives you<a class="mt-anchor" href="#create-block-return" aria-label="Link to this section">#</a></h3>
-<div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-n">block</span>, <span class="tok-n">config</span> = <span class="tok-n">mt</span>.<span class="tok-f">create_block</span>(
-    name=<span class="tok-s">'L_Arm'</span>,
-    icon=<span class="tok-s">'Limb'</span>,                 <span class="tok-c"># resolves to Mutant_Tools/Icons/Limb.png</span>
-    attrs=module[<span class="tok-s">'attrs'</span>],
-    build_command=module[<span class="tok-s">'build_command'</span>],
-    import_command=module[<span class="tok-s">'import'</span>],
-)
-<span class="tok-c"># block  -&gt; 'L_Arm_Block'   a dagContainer parented under 'Mutant_Build'</span>
-<span class="tok-c"># config -&gt; 'L_Arm_Config'  a network node holding every option</span></code></pre>
-<p>On top of your own attributes, the config node always carries four more:</p><div class="mt-table-wrap"><table><thead><tr><th>Attribute</th><th>Locked</th><th>Purpose</th></tr></thead><tbody><tr><td><code>precode</code></td><td>no</td><td>Python (or MEL) run <b>before</b> this block builds</td></tr><tr><td><code>Import_Command</code></td><td>yes</td><td>The <code>import ...</code> line the builder execs</td></tr><tr><td><code>Build_Command</code></td><td>yes</td><td>The call the builder evals to build this block</td></tr><tr><td><code>postcode</code></td><td>no</td><td>Python (or MEL) run <b>after</b> this block builds</td></tr></tbody></table></div>
-<div class="mt-note"><b class="mt-tag">Note</b><p><code>precode</code> and <code>postcode</code> are the escape hatch. A rigger who needs one odd fix on one asset can type it straight onto the block instead of forking your code. Both are <code>exec</code>'d, and if that raises, the builder falls back to <code>mel.eval</code> - so legacy MEL snippets keep working.</p></div>
-<h2 id="lifecycle">The build lifecycle<a class="mt-anchor" href="#lifecycle" aria-label="Link to this section">#</a></h2>
-<p>Pressing <b>Build</b> walks the blocks under <code>Mutant_Build</code> <b>in outliner order</b> and runs the same seven steps on each. Reordering blocks in the outliner reorders the build - that is the dependency system.</p><div class="mt-code-head"><span class="mt-dot"></span>AutoRigger build loop, simplified</div>
-<pre><code>for block in blocks:                      # outliner order, top to bottom
-    cmds.select(block)
-    config = config_of(block)
-
-    exec(config.Import_Command)           # import exec_single_fk_v001
-    exec(reload_command)                  # reload(exec_single_fk_v001)
-
-    cmds.select(block)
-    exec(config.precode)                  # falls back to mel.eval on error
-
-    cmds.select(block)
-    recipe = eval(config.Build_Command)   # &lt;- your build_*() runs here
-    recipes[block_name] = recipe          # return value is kept
-
-    cmds.select(block)
-    exec(config.postcode)</code></pre>
-<div class="mt-note mt-ok"><b class="mt-tag">Do this</b><p>Notice <code>cmds.select(block)</code> before every phase. <b>That is the calling convention.</b> Your <code>build_*()</code> takes no arguments; it finds its own block with <code>cmds.ls(sl=True)</code>. Always guard it - the selection can still be empty if someone calls your function by hand.</p></div>
-<div class="mt-code-head"><span class="mt-dot"></span>the guard every build function needs</div>
-<pre><code><span class="tok-k">def</span> <span class="tok-f">build_my_thing_block</span>():
-    <span class="tok-n">nc</span>, <span class="tok-n">curve_data</span>, <span class="tok-n">setup</span> = <span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()
-    <span class="tok-n">mt</span>.<span class="tok-f">check_is_there_is_base</span>()
-
-    selection = <span class="tok-n">cmds</span>.<span class="tok-f">ls</span>(sl=<span class="tok-k">True</span>) <span class="tok-k">or</span> []
-    <span class="tok-k">if</span> <span class="tok-k">not</span> selection:
-        <span class="tok-n">cmds</span>.<span class="tok-f">warning</span>(<span class="tok-s">'Select a block to build.'</span>)
-        <span class="tok-k">return</span>
-
-    <span class="tok-n">block</span> = selection[0]
-    <span class="tok-k">if</span> <span class="tok-k">not</span> <span class="tok-n">cmds</span>.<span class="tok-f">objExists</span>(<span class="tok-n">block</span>):
-        <span class="tok-n">cmds</span>.<span class="tok-f">warning</span>(<span class="tok-s">'Block does not exist: {}'</span>.<span class="tok-f">format</span>(<span class="tok-n">block</span>))
-        <span class="tok-k">return</span></code></pre>
-<h3 id="recipes">The return value is not thrown away<a class="mt-anchor" href="#recipes" aria-label="Link to this section">#</a></h3>
-<p>Whatever <code>build_*()</code> returns is stored in the builder's recipe dictionary under the block's name. Return a dict of the nodes you created and a later block can look them up instead of guessing at string names.</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-k">def</span> <span class="tok-f">build_my_thing_block</span>():
-    ...
-    <span class="tok-k">return</span> {
-        <span class="tok-s">'ctrl'</span>: ctrl,
-        <span class="tok-s">'joint'</span>: jnt,
-        <span class="tok-s">'bind_joint'</span>: bind,
-        <span class="tok-s">'root'</span>: root,
-    }</code></pre>
-<h3 id="deferring">Deferring a block<a class="mt-anchor" href="#deferring" aria-label="Link to this section">#</a></h3>
-<p>Two optional boolean attributes on the config change when a block runs:</p><div class="mt-table-wrap"><table><thead><tr><th>Attribute</th><th>Effect</th></tr></thead><tbody><tr><td><code>RunBeforeBuild</code></td><td>Block is pulled out of the normal pass and run first</td></tr><tr><td><code>RunAfterBuild</code></td><td>Block is deferred and run once every other block is done</td></tr></tbody></table></div>
-<div class="mt-note"><b class="mt-tag">Note</b><p>When either is on, the builder <b>skips that block's precode and postcode</b> during the main pass. Put the work in the build function, not in the code attributes, for any block that defers.</p></div>
-<h3 id="base">check_is_there_is_base<a class="mt-anchor" href="#base" aria-label="Link to this section">#</a></h3>
-<p>First line of every build function. It looks for the base rig hierarchy and calls <code>mt.build_baseA()</code> to create it if missing, so a block can never build into an empty scene and leave nodes at the root.</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-n">mt</span>.<span class="tok-f">check_is_there_is_base</span>()   <span class="tok-c"># default base='BaseA'</span></code></pre>
-<h2 id="first-block">Write your first block<a class="mt-anchor" href="#first-block" aria-label="Link to this section">#</a></h2>
-<p>A complete, working block - a single FK control with an optional joint. Drop the folder into <code>Blocks/008_Props/</code> and it appears in the AutoRigger with no registration step: the UI scans the folders.</p><h3 id="first-json">1. The JSON<a class="mt-anchor" href="#first-json" aria-label="Link to this section">#</a></h3>
-<div class="mt-code-head"><span class="mt-dot"></span>99_Beacon.json</div>
-<pre><code>{
-    <span class="tok-s">"Name"</span>:          <span class="tok-s">"Beacon"</span>,
-    <span class="tok-s">"Description"</span>:   <span class="tok-s">"A single control with an optional bind joint"</span>,
-    <span class="tok-s">"Icon"</span>:          <span class="tok-s">"Bone.png"</span>,
-    <span class="tok-s">"Enable"</span>:        <span class="tok-s">"True"</span>,
-    <span class="tok-s">"python_file"</span>:   <span class="tok-s">"exec_beacon_v001.py"</span>,
-    <span class="tok-s">"import"</span>:        <span class="tok-s">"import exec_beacon_v001"</span>,
-    <span class="tok-s">"imp.reload"</span>:    <span class="tok-s">"reload(exec_beacon_v001)"</span>,
-    <span class="tok-s">"exec_command"</span>:  <span class="tok-s">"exec_beacon_v001.create_beacon_block()"</span>,
-    <span class="tok-s">"build_command"</span>: <span class="tok-s">"exec_beacon_v001.build_beacon_block()"</span>,
-    <span class="tok-s">"attrs"</span>: {
-        <span class="tok-s">"CtrlType_enum"</span>:  <span class="tok-s">"sphere:cube:circleY:locator"</span>,
-        <span class="tok-s">"CtrlSize_float"</span>: <span class="tok-s">"4"</span>,
-        <span class="tok-s">"CtrlColor_enum"</span>: <span class="tok-s">"yellow:blue:red:lightBlue"</span>,
-        <span class="tok-s">"CreateJoint_bool"</span>: <span class="tok-s">"True"</span>,
-        <span class="tok-s">"SetParent_string"</span>: <span class="tok-s">"Ctrl_Grp"</span>,
-        <span class="tok-s">"Help_string"</span>: <span class="tok-s">"Overview:\n  One control, one optional joint.\n\nFields:\n- CtrlType: the shape.\n- CtrlSize: 1-20.\n- CreateJoint: also make a bind joint."</span>
-    }
-}</code></pre>
-<div class="mt-note"><b class="mt-tag">Note</b><p><code>Help_string</code> is what the artist reads in the AutoRigger's help panel. Every shipped block has one. Write it for the person placing guides at 11pm, not for yourself.</p></div>
-<h3 id="first-create">2. The create function<a class="mt-anchor" href="#first-create" aria-label="Link to this section">#</a></h3>
-<p><code>create_</code> runs when an artist adds the block. It must be cheap and build nothing but the block, its config and its guides.</p><div class="mt-code-head"><span class="mt-dot"></span>exec_beacon_v001.py</div>
-<pre><code><span class="tok-k">import</span> os, json
-<span class="tok-k">from</span> pathlib <span class="tok-k">import</span> Path
-<span class="tok-k">from</span> maya <span class="tok-k">import</span> <span class="tok-n">cmds</span>
-
-<span class="tok-k">import</span> Mutant_Tools
-<span class="tok-k">from</span> Mutant_Tools.Utils.Rigging <span class="tok-k">import</span> main_mutant
-<span class="tok-n">mt</span> = main_mutant.<span class="tok-f">Mutant</span>()
-
-TAB_FOLDER = <span class="tok-s">'008_Props'</span>
-PYBLOCK_NAME = <span class="tok-s">'exec_beacon'</span>
-
-
-<span class="tok-k">def</span> <span class="tok-f">_module</span>():
-    path = os.path.<span class="tok-f">join</span>(os.path.<span class="tok-f">dirname</span>(__file__), <span class="tok-s">'99_Beacon.json'</span>)
-    <span class="tok-k">with</span> <span class="tok-f">open</span>(path) <span class="tok-k">as</span> handle:
-        <span class="tok-k">return</span> json.<span class="tok-f">load</span>(handle)
-
-
-<span class="tok-k">def</span> <span class="tok-f">create_beacon_block</span>(name=<span class="tok-s">'Beacon'</span>):
-    <span class="tok-n">nc</span>, <span class="tok-n">curve_data</span>, <span class="tok-n">setup</span> = <span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()
-    module = <span class="tok-f">_module</span>()
-
-    name = <span class="tok-n">mt</span>.<span class="tok-f">ask_name</span>(text=name)
-    <span class="tok-k">if</span> <span class="tok-k">not</span> name:
-        <span class="tok-n">cmds</span>.<span class="tok-f">warning</span>(<span class="tok-s">'Cancelled.'</span>)
-        <span class="tok-k">return</span> <span class="tok-s">''</span>
-
-    <span class="tok-k">if</span> <span class="tok-n">cmds</span>.<span class="tok-f">objExists</span>(<span class="tok-s">'{}{}'</span>.<span class="tok-f">format</span>(name, <span class="tok-n">nc</span>[<span class="tok-s">'module'</span>])):
-        <span class="tok-n">cmds</span>.<span class="tok-f">warning</span>(<span class="tok-s">'Name already exists.'</span>)
-        <span class="tok-k">return</span> <span class="tok-s">''</span>
-
-    <span class="tok-n">block</span>, <span class="tok-n">config</span> = <span class="tok-n">mt</span>.<span class="tok-f">create_block</span>(
-        name=name,
-        icon=<span class="tok-s">'Bone'</span>,
-        attrs=module[<span class="tok-s">'attrs'</span>],
-        build_command=module[<span class="tok-s">'build_command'</span>],
-        import_command=module[<span class="tok-s">'import'</span>],
-    )
-
-    <span class="tok-c"># the guide the artist positions</span>
-    guide = <span class="tok-n">cmds</span>.<span class="tok-f">spaceLocator</span>(n=name + <span class="tok-n">nc</span>[<span class="tok-s">'locator'</span>])[0]
-    <span class="tok-n">cmds</span>.<span class="tok-f">parent</span>(guide, <span class="tok-n">block</span>)
-
-    <span class="tok-n">cmds</span>.<span class="tok-f">select</span>(<span class="tok-n">block</span>)
-    <span class="tok-k">print</span>(<span class="tok-s">'{} created.'</span>.<span class="tok-f">format</span>(name))</code></pre>
-<h3 id="first-build">3. The build function<a class="mt-anchor" href="#first-build" aria-label="Link to this section">#</a></h3>
-<p><code>build_</code> reads the config, reads the guide, and produces rig. Every scene operation is guarded, every name comes from <code>nc</code>, and the new attribute is read through <code>attributeQuery</code> so a scene saved before you added it still builds.</p><div class="mt-code-head"><span class="mt-dot"></span>exec_beacon_v001.py</div>
-<pre><code><span class="tok-k">def</span> <span class="tok-f">build_beacon_block</span>():
-    <span class="tok-n">nc</span>, <span class="tok-n">curve_data</span>, <span class="tok-n">setup</span> = <span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()
-    <span class="tok-n">mt</span>.<span class="tok-f">check_is_there_is_base</span>()
-
-    selection = <span class="tok-n">cmds</span>.<span class="tok-f">ls</span>(sl=<span class="tok-k">True</span>) <span class="tok-k">or</span> []
-    <span class="tok-k">if</span> <span class="tok-k">not</span> selection:
-        <span class="tok-n">cmds</span>.<span class="tok-f">warning</span>(<span class="tok-s">'Select the Beacon block to build.'</span>)
-        <span class="tok-k">return</span>
-
-    <span class="tok-n">block</span> = selection[0]
-    name = <span class="tok-n">block</span>.<span class="tok-f">replace</span>(<span class="tok-n">nc</span>[<span class="tok-s">'module'</span>], <span class="tok-s">''</span>)
-    <span class="tok-n">config</span> = <span class="tok-s">'{}_Config'</span>.<span class="tok-f">format</span>(name)
-
-    <span class="tok-k">if</span> <span class="tok-k">not</span> <span class="tok-n">cmds</span>.<span class="tok-f">objExists</span>(<span class="tok-n">config</span>):
-        <span class="tok-n">cmds</span>.<span class="tok-f">warning</span>(<span class="tok-s">'No config for {}'</span>.<span class="tok-f">format</span>(<span class="tok-n">block</span>))
-        <span class="tok-k">return</span>
-
-    guide = <span class="tok-s">'{}{}'</span>.<span class="tok-f">format</span>(name, <span class="tok-n">nc</span>[<span class="tok-s">'locator'</span>])
-    <span class="tok-k">if</span> <span class="tok-k">not</span> <span class="tok-n">cmds</span>.<span class="tok-f">objExists</span>(guide):
-        <span class="tok-n">cmds</span>.<span class="tok-f">warning</span>(<span class="tok-s">'Guide missing: {}'</span>.<span class="tok-f">format</span>(guide))
-        <span class="tok-k">return</span>
-
-    <span class="tok-c"># ---- read options, every one defensively --------------------</span>
-    shape = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.CtrlType'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>), asString=<span class="tok-k">True</span>)
-    size = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.CtrlSize'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>))
-    color = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.CtrlColor'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>), asString=<span class="tok-k">True</span>)
-
-    make_joint = <span class="tok-k">True</span>
-    <span class="tok-k">if</span> <span class="tok-n">cmds</span>.<span class="tok-f">attributeQuery</span>(<span class="tok-s">'CreateJoint'</span>, node=<span class="tok-n">config</span>, exists=<span class="tok-k">True</span>):
-        make_joint = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.CreateJoint'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>))
-
-    parent_to = <span class="tok-n">setup</span>[<span class="tok-s">'base_groups'</span>][<span class="tok-s">'control'</span>] + <span class="tok-n">nc</span>[<span class="tok-s">'group'</span>]
-    <span class="tok-k">if</span> <span class="tok-n">cmds</span>.<span class="tok-f">attributeQuery</span>(<span class="tok-s">'SetParent'</span>, node=<span class="tok-n">config</span>, exists=<span class="tok-k">True</span>):
-        wanted = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.SetParent'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>))
-        <span class="tok-k">if</span> wanted <span class="tok-k">and</span> <span class="tok-n">cmds</span>.<span class="tok-f">objExists</span>(wanted):
-            parent_to = wanted
-
-    <span class="tok-c"># ---- build ---------------------------------------------------</span>
-    ctrl = <span class="tok-n">mt</span>.<span class="tok-f">curve</span>(input=guide, type=shape, rename=<span class="tok-k">True</span>, custom_name=<span class="tok-k">True</span>,
-                    name=name + <span class="tok-n">nc</span>[<span class="tok-s">'ctrl'</span>], size=size)
-    <span class="tok-n">mt</span>.<span class="tok-f">assign_color</span>(input=ctrl, color=color)
-
-    root = <span class="tok-n">mt</span>.<span class="tok-f">root_grp</span>(input=ctrl)[0]
-
-    <span class="tok-c"># root_grp reparents ctrl, so the old DAG path can be stale</span>
-    ctrl = <span class="tok-n">cmds</span>.<span class="tok-f">listRelatives</span>(root, children=<span class="tok-k">True</span>, type=<span class="tok-s">'transform'</span>)[0]
-    <span class="tok-n">mt</span>.<span class="tok-f">match</span>(root, guide, t=<span class="tok-k">True</span>, r=<span class="tok-k">True</span>)
-
-    <span class="tok-k">if</span> <span class="tok-n">cmds</span>.<span class="tok-f">objExists</span>(parent_to):
-        <span class="tok-n">cmds</span>.<span class="tok-f">parent</span>(root, parent_to)
-
-    jnt = <span class="tok-k">None</span>
-    <span class="tok-k">if</span> make_joint:
-        <span class="tok-n">cmds</span>.<span class="tok-f">select</span>(clear=<span class="tok-k">True</span>)
-        jnt = <span class="tok-n">cmds</span>.<span class="tok-f">joint</span>(n=name + <span class="tok-n">nc</span>[<span class="tok-s">'joint_bind'</span>])
-        <span class="tok-n">mt</span>.<span class="tok-f">match</span>(jnt, ctrl, t=<span class="tok-k">True</span>, r=<span class="tok-k">True</span>)
-        <span class="tok-n">cmds</span>.<span class="tok-f">parentConstraint</span>(ctrl, jnt, mo=<span class="tok-k">True</span>)
-
-        bind_grp = <span class="tok-n">setup</span>[<span class="tok-s">'rig_groups'</span>][<span class="tok-s">'bind_joints'</span>] + <span class="tok-n">nc</span>[<span class="tok-s">'group'</span>]
-        <span class="tok-k">if</span> <span class="tok-n">cmds</span>.<span class="tok-f">objExists</span>(bind_grp):
-            <span class="tok-n">cmds</span>.<span class="tok-f">parent</span>(jnt, bind_grp)
-
-    <span class="tok-k">print</span>(<span class="tok-s">'Built {}'</span>.<span class="tok-f">format</span>(<span class="tok-n">block</span>))
-    <span class="tok-k">return</span> {<span class="tok-s">'ctrl'</span>: ctrl, <span class="tok-s">'root'</span>: root, <span class="tok-s">'joint'</span>: jnt}</code></pre>
-<h2 id="controls">Controls, shapes, colour<a class="mt-anchor" href="#controls" aria-label="Link to this section">#</a></h2>
-<h3 id="control-ways">Two ways to make a control<a class="mt-anchor" href="#control-ways" aria-label="Link to this section">#</a></h3>
-<p><code>mt.controller()</code> is the modern one: it makes the curve, colours it, adds a gimbal child and a world offset in a single call. <code>mt.curve()</code> is the older, lower-level one and is still what most shipped blocks use, because it can convert an existing guide in place.</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-c"># modern: one call, gimbal and world offset included</span>
-ctrl = <span class="tok-n">mt</span>.<span class="tok-f">controller</span>(input=<span class="tok-s">''</span>, name=<span class="tok-s">'Hand'</span>, shape=<span class="tok-s">'hand'</span>,
-                     color=<span class="tok-s">'blue'</span>, size=4, gimbal=<span class="tok-k">True</span>, world=<span class="tok-k">True</span>)
-
-<span class="tok-c"># classic: turn a guide into a control, keeping its transform</span>
-ctrl = <span class="tok-n">mt</span>.<span class="tok-f">curve</span>(input=guide, type=<span class="tok-s">'cube'</span>, rename=<span class="tok-k">True</span>, custom_name=<span class="tok-k">True</span>,
-                name=joint.<span class="tok-f">replace</span>(<span class="tok-n">nc</span>[<span class="tok-s">'joint'</span>], <span class="tok-n">nc</span>[<span class="tok-s">'ctrl'</span>]), size=size)
-<span class="tok-n">mt</span>.<span class="tok-f">assign_color</span>(input=ctrl, color=<span class="tok-s">'blue'</span>)
-root = <span class="tok-n">mt</span>.<span class="tok-f">root_grp</span>(input=ctrl)[0]</code></pre>
-<h3 id="offset-groups">Offset groups<a class="mt-anchor" href="#offset-groups" aria-label="Link to this section">#</a></h3>
-<p><code>mt.root_grp()</code> inserts zeroed groups above a node, keeping its world transform and its place in the hierarchy. It returns a <b>list</b>.</p><div class="mt-table-wrap"><table><thead><tr><th>Call</th><th>Creates</th></tr></thead><tbody><tr><td><code>mt.root_grp(input=ctrl)</code></td><td><code>Hand_Ctrl_Offset_Grp</code></td></tr><tr><td><code>mt.root_grp(input=ctrl, autoRoot=True)</code></td><td><code>Hand_Ctrl_Root_Grp</code> and <code>Hand_Ctrl_Auto_Grp</code></td></tr><tr><td><code>mt.root_grp(input=ctrl, custom=True, custom_name='SdkBuffer')</code></td><td><code>Hand_CtrlSdkBuffer_Grp</code></td></tr></tbody></table></div>
-<div class="mt-note mt-warn"><b class="mt-tag">Trap</b><p>Two things bite here. First, calling it twice with defaults tries to create the same name twice - always pass <code>custom=True, custom_name='...'</code> when a control gets more than one offset. Second, it <b>reparents the node</b>, so any DAG path you were holding may now be stale. Re-fetch the child from the returned group, exactly as the shipped <code>Single_FK</code> block does.</p></div>
-<div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code>root = <span class="tok-n">mt</span>.<span class="tok-f">root_grp</span>(input=ctrl)[0]
-ctrl = <span class="tok-n">cmds</span>.<span class="tok-f">listRelatives</span>(root, children=<span class="tok-k">True</span>, type=<span class="tok-s">'transform'</span>)[0]   <span class="tok-c"># refresh</span></code></pre>
-<h3 id="colour">Colour<a class="mt-anchor" href="#colour" aria-label="Link to this section">#</a></h3>
-<p><code>mt.assign_color()</code> takes ten names and sets Maya's index override. <code>mt.assign_color_rgb()</code> takes RGB or HSV. <code>mt.smart_assign_color()</code> picks by side from the name.</p><div class="mt-table-wrap"><table><thead><tr><th>Name</th><th>Index</th><th>Name</th><th>Index</th><th>Name</th><th>Index</th></tr></thead><tbody><tr><td><code>red</code></td><td>13</td><td><code>blue</code></td><td>6</td><td><code>white</code></td><td>16</td></tr><tr><td><code>purple</code></td><td>9</td><td><code>green</code></td><td>14</td><td><code>lightBlue</code></td><td>18</td></tr><tr><td><code>yellow</code></td><td>17</td><td><code>pink</code></td><td>20</td><td><code>grey</code></td><td>1</td></tr><tr><td><code>orange</code></td><td>21</td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
-<p>The convention the shipped blocks follow, driven from <code>setup</code>:</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-k">if</span> side_guide.<span class="tok-f">startswith</span>(<span class="tok-n">nc</span>[<span class="tok-s">'right'</span>]):
-    color = <span class="tok-n">setup</span>[<span class="tok-s">'right_color'</span>]        <span class="tok-c"># red</span>
-<span class="tok-k">elif</span> side_guide.<span class="tok-f">startswith</span>(<span class="tok-n">nc</span>[<span class="tok-s">'left'</span>]):
-    color = <span class="tok-n">setup</span>[<span class="tok-s">'left_color'</span>]         <span class="tok-c"># blue</span>
-<span class="tok-k">else</span>:
-    color = <span class="tok-n">setup</span>[<span class="tok-s">'center_color'</span>]       <span class="tok-c"># yellow</span>
-
-<span class="tok-n">mt</span>.<span class="tok-f">assign_color</span>(input=ctrl, color=color)</code></pre>
-<h2 id="attributes">Attributes<a class="mt-anchor" href="#attributes" aria-label="Link to this section">#</a></h2>
-<p>Use the <code>mt</code> helpers rather than <code>cmds.addAttr</code>. They keep ordering, keyability and locking consistent across every rig the system produces.</p><div class="mt-table-wrap"><table><thead><tr><th>Call</th><th>Makes</th></tr></thead><tbody><tr><td><code>mt.new_attr(input, name, min, max, default, keyable)</code></td><td>A double</td></tr><tr><td><code>mt.new_attr_interger(input, name, min, max, default)</code></td><td>An integer</td></tr><tr><td><code>mt.new_enum(input, name, enums='Hide:Show', default)</code></td><td>An enum</td></tr><tr><td><code>mt.new_boolean(input, name, dv='True')</code></td><td>A boolean</td></tr><tr><td><code>mt.string_attr(input, name, string)</code></td><td>A string, for storing data on the rig</td></tr><tr><td><code>mt.line_attr(input, name, lines=10)</code></td><td>A separator row in the channel box</td></tr><tr><td><code>mt.hide_attr(input, t, r, s, v, rotate_order, show)</code></td><td>Hides or reveals channels</td></tr><tr><td><code>mt.create_proxy_attr(original_attr, output_node, ...)</code></td><td>A proxy of an attribute elsewhere</td></tr><tr><td><code>mt.change_default(attr, default)</code></td><td>Changes an existing attribute's default</td></tr></tbody></table></div>
-<div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-c"># a roll attribute with a sane range</span>
-attr = <span class="tok-n">mt</span>.<span class="tok-f">new_attr</span>(input=ik_attrs_shape, name=<span class="tok-s">'Roll'</span>, min=-100, max=100, default=0)
-
-<span class="tok-c"># a visibility switch</span>
-<span class="tok-n">mt</span>.<span class="tok-f">new_enum</span>(input=ctrl, name=<span class="tok-s">'Gimbal'</span>, enums=<span class="tok-s">'Hide:Show'</span>)
-
-<span class="tok-c"># a labelled divider, then hide what animators must not touch</span>
-<span class="tok-n">mt</span>.<span class="tok-f">line_attr</span>(input=ctrl, name=<span class="tok-s">'Extras'</span>)
-<span class="tok-n">mt</span>.<span class="tok-f">hide_attr</span>(input=jaw_ctrl, s=<span class="tok-k">True</span>, v=<span class="tok-k">True</span>)</code></pre>
-<h3 id="wiring">Wiring values without spaghetti<a class="mt-anchor" href="#wiring" aria-label="Link to this section">#</a></h3>
-<p>Rather than hand-building utility nodes, the <code>mt</code> helpers name them from <code>nc</code> and connect both sides in one call.</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-c"># invert a value into a rotation limit</span>
-<span class="tok-n">mt</span>.<span class="tok-f">connect_md_node</span>(in_x1=up_limit, in_x2=-1, mode=<span class="tok-s">'multiply'</span>,
-                   out_x=upper_pivot_joint + <span class="tok-s">'.minRotLimit.minRotZLimit'</span>)
-
-<span class="tok-c"># remap one range onto another</span>
-<span class="tok-n">mt</span>.<span class="tok-f">connect_remap_value</span>(input_value, output_value, value=0)
-
-<span class="tok-c"># insert an addDoubleLinear between two already-connected plugs</span>
-<span class="tok-n">mt</span>.<span class="tok-f">replace_connection_with_doublelinear</span>(input=node, attr=<span class="tok-s">'translateY'</span>)
-
-<span class="tok-c"># matrix parenting instead of a constraint</span>
-<span class="tok-n">mt</span>.<span class="tok-f">parent_matrix</span>(this=driver, that=driven, translate=<span class="tok-k">True</span>, rotate=<span class="tok-k">True</span>, scale=<span class="tok-k">False</span>)</code></pre>
-<div class="mt-note"><b class="mt-tag">Note</b><p><code>mt.create_add_double_linear()</code> and <code>mt.create_mdl_compat()</code> exist because Maya renamed these node types between versions. Use them instead of <code>cmds.createNode('addDoubleLinear')</code> if your rigs have to open in more than one Maya release.</p></div>
-<h2 id="kinematics">FK, IK, twist, ribbons<a class="mt-anchor" href="#kinematics" aria-label="Link to this section">#</a></h2>
-<p>The kinematics layer is where the time goes. These calls produce complete, working setups - controls, switches, stretch and all.</p><div class="mt-table-wrap"><table><thead><tr><th>Call</th><th>Produces</th></tr></thead><tbody><tr><td><code>mt.fk_chain(input, size, color, curve_type, scale, twist_axis, world_orient)</code></td><td>An FK control chain over selected joints</td></tr><tr><td><code>mt.simple_ik_chain(start, end, size, color, ik_curve, pv_curve, pv)</code></td><td>An IK handle with control and pole vector</td></tr><tr><td><code>mt.simple_fk_ik(start, mid, end, size, color, mode, twist_axis)</code></td><td>A three-joint FK/IK setup with a switch</td></tr><tr><td><code>mt.twist_fk_ik(start, mid, end, twist_amount=6, ...)</code></td><td>The same plus twist joints - a full limb</td></tr><tr><td><code>mt.streatchy_ik(ik, ik_ctrl, top_ctrl, pv_ctrl, attrs_location, axis)</code></td><td>Stretch nodes on an existing IK chain</td></tr><tr><td><code>mt.base_spline(start, end, size, name='Spine', amount=5)</code></td><td>An IK/FK spline spine</td></tr><tr><td><code>mt.advance_twist(start, end, axis, amount=4, mode='up', driver='')</code></td><td>Distributed twist joints reading real rotation</td></tr><tr><td><code>mt.spline_twist(start, end, axis, amount, mode, right_side)</code></td><td>Spline-driven twist</td></tr><tr><td><code>mt.basic_ribbon(start, end, divisions=5, ctrl_type='circleY')</code></td><td>A follicle ribbon with controls</td></tr><tr><td><code>mt.ribbon_between(start, end, divisions, ...)</code></td><td>A ribbon spanning two existing nodes</td></tr><tr><td><code>mt.curve_to_ribbon(curve, amount=5, direction='V')</code></td><td>A ribbon built along an existing curve</td></tr><tr><td><code>mt.pole_vector_placement(bone_one, bone_two, bone_three, back_distance)</code></td><td>The mathematically correct pole-vector position</td></tr><tr><td><code>mt.joints_middle(start, end, axis, amount=4, name='Twist')</code></td><td>Evenly spaced joints in a chain</td></tr><tr><td><code>mt.blend_between(ctrl, blends, attr_position, attr_name)</code></td><td>Space-switch blend groups and locators</td></tr><tr><td><code>mt.bend_and_squash(name, geo, parent_grp, squash_enabled, bend_enabled)</code></td><td>Squash and bend deformers with controls</td></tr><tr><td><code>mt.create_dynamic_fk(joints)</code></td><td>A dynamic FK chain</td></tr><tr><td><code>mt.dinamic_pivot(input, size)</code></td><td>A movable pivot rig on a control</td></tr><tr><td><code>mt.rivets_ctrls(geometry, selection_ctrls)</code></td><td>Controls stuck to geometry</td></tr></tbody></table></div>
-<div class="mt-note"><b class="mt-tag">Note</b><p>Most of these default their axis and shapes from <code>setup</code>, so calling <code>mt.fk_chain(input=joints)</code> with nothing else already matches the studio's house style. Only pass arguments you actually want to override.</p></div>
-<h2 id="mirroring">Mirroring<a class="mt-anchor" href="#mirroring" aria-label="Link to this section">#</a></h2>
-<p>Mirroring is a group-level trick, not a per-node one. <code>mt.mirror_group()</code> wraps a hierarchy in a group with a negative scale, so the whole branch flips at once and the maths stays exact.</p><p>Shipped blocks expose a <code>Mirror_enum</code> with three states and handle it <b>after</b> the controls exist:</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code>mirror = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.Mirror'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>), asString=<span class="tok-k">True</span>)
-
-<span class="tok-k">if</span> mirror == <span class="tok-s">'Right_Only'</span>:
-    clean_ctrl_grp = <span class="tok-n">mt</span>.<span class="tok-f">mirror_group</span>(clean_ctrl_grp, world=<span class="tok-k">True</span>)
-
-<span class="tok-k">elif</span> mirror == <span class="tok-s">'True'</span>:
-    <span class="tok-k">if</span> side_guide.<span class="tok-f">startswith</span>(<span class="tok-n">nc</span>[<span class="tok-s">'right'</span>]):
-        clean_ctrl_grp = <span class="tok-n">mt</span>.<span class="tok-f">mirror_group</span>(clean_ctrl_grp, world=<span class="tok-k">True</span>)</code></pre>
-<div class="mt-table-wrap"><table><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody><tr><td><code>False</code></td><td>Build exactly what the guides describe</td></tr><tr><td><code>True</code></td><td>Build both sides, auto-prefixing <code>L_</code> where needed</td></tr><tr><td><code>Right_Only</code></td><td>Mirror the built result onto the right side only</td></tr></tbody></table></div>
-<div class="mt-note mt-warn"><b class="mt-tag">Trap</b><p>Mirror <b>after</b> you create controls and <b>before</b> you rely on their world positions, and re-apply constraints afterwards. A constraint made before the mirror group is inserted will fight the negative scale.</p></div>
-<h2 id="versioning">Block versioning<a class="mt-anchor" href="#versioning" aria-label="Link to this section">#</a></h2>
-<p>This is not optional and it is the reason old rigs keep rebuilding. Implementation files carry a version; the launcher JSON does not.</p><div class="mt-code-head"><span class="mt-dot"></span>naming</div>
-<pre><code>exec_mouth_v001.py        003_Mouth_v001.json      &lt;- frozen, never edited again
-exec_mouth_v002.py        003_Mouth_v002.json      &lt;- your new work
-                          003_Mouth.json           &lt;- launcher, repointed to v002</code></pre>
-<p>Shipping a new version:</p><ol><li>Copy <code>exec_x_v001.py</code> and <code>NN_X_v001.json</code> to <code>_v002</code>.</li><li>Make your changes <b>only</b> in the v002 files.</li><li>Repoint the launcher JSON's <code>python_file</code>, <code>import</code>, <code>imp.reload</code>, <code>exec_command</code> and <code>build_command</code> at v002.</li><li>Leave v001 on disk, untouched, forever.</li></ol><div class="mt-note"><b class="mt-tag">Note</b><p>A scene saved last year has <code>exec_mouth_v001.build_mouth_block()</code> baked into its config node's locked <code>Build_Command</code> string. If you deleted or rewrote v001, that scene no longer rebuilds. Keeping old versions is what makes the promise 'this rig can always be rebuilt' true.</p></div>
-<h3 id="back-compat">Adding an attribute to an existing block<a class="mt-anchor" href="#back-compat" aria-label="Link to this section">#</a></h3>
-<p>Old config nodes in saved scenes will not have your new attribute. An unguarded <code>getAttr</code> is a hard error mid-build.</p><div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-c"># WRONG - explodes on every scene saved before this attr existed</span>
-independent_scale = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.IndependentScale'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>))
-
-<span class="tok-c"># RIGHT - fall back to the JSON default</span>
-independent_scale = (
-    <span class="tok-n">cmds</span>.<span class="tok-f">attributeQuery</span>(<span class="tok-s">'IndependentScale'</span>, node=<span class="tok-n">config</span>, exists=<span class="tok-k">True</span>)
-    <span class="tok-k">and</span> <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.IndependentScale'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>))
-)</code></pre>
-<h2 id="traps">Traps that will bite you<a class="mt-anchor" href="#traps" aria-label="Link to this section">#</a></h2>
-<div class="mt-grid mt-grid--2"><div class="mt-card"><h4>_float is an int, 1 to 20</h4><p>The JSON suffix lies. Add a real float with <code>mt.new_attr()</code> after <code>create_block</code> if you need one.</p></div><div class="mt-card"><h4>Type detection is a substring test</h4><p><code>'string' in attr</code>, checked before enum, float and bool. Do not put a type word inside a descriptive attribute name.</p></div><div class="mt-card"><h4>root_grp invalidates DAG paths</h4><p>It reparents the node. Re-fetch the child from the returned group before you use it.</p></div><div class="mt-card"><h4>root_grp twice clashes</h4><p>Default suffixes collide. Pass <code>custom=True, custom_name='...'</code> for the second.</p></div><div class="mt-card"><h4>Build order is outliner order</h4><p>There is no dependency graph. If block B needs block A, A must sit above it.</p></div><div class="mt-card"><h4>Your build function takes no arguments</h4><p>It reads <code>cmds.ls(sl=True)</code>. The builder selects the block for you - guard for the empty case anyway.</p></div><div class="mt-card"><h4>New attrs break old scenes</h4><p>Always guard with <code>cmds.attributeQuery(..., exists=True)</code> and fall back to the JSON default.</p></div><div class="mt-card"><h4>Never delete an old block version</h4><p>Saved scenes hold the versioned call string in a locked attribute.</p></div><div class="mt-card"><h4>precode falls back to MEL</h4><p>If <code>exec</code> raises, the builder tries <code>mel.eval</code>. A Python syntax error can surface as a confusing MEL error.</p></div><div class="mt-card"><h4>Mutant() writes to the scene</h4><p>Constructing it creates a <code>Mutant_Tools</code> node. Expect it in clean-scene checks and asset publishes.</p></div></div>
-<h2 id="pipeline">Pipeline integration<a class="mt-anchor" href="#pipeline" aria-label="Link to this section">#</a></h2>
-<h3 id="headless">Building without the UI<a class="mt-anchor" href="#headless" aria-label="Link to this section">#</a></h3>
-<p>Nothing about a block needs the AutoRigger window. Call the same functions yourself and the same rig comes out - which is what makes batch rebuilds and CI checks possible.</p><div class="mt-code-head"><span class="mt-dot"></span>batch rebuild</div>
-<pre><code><span class="tok-k">from</span> maya <span class="tok-k">import</span> <span class="tok-n">cmds</span>
-<span class="tok-k">from</span> Mutant_Tools.Utils.Rigging <span class="tok-k">import</span> main_mutant
-
-<span class="tok-n">mt</span> = main_mutant.<span class="tok-f">Mutant</span>()
-<span class="tok-n">nc</span>, <span class="tok-n">curve_data</span>, <span class="tok-n">setup</span> = <span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()
-
-<span class="tok-n">cmds</span>.<span class="tok-f">file</span>(<span class="tok-s">'/jobs/show/asset/rig_blocks.ma'</span>, open=<span class="tok-k">True</span>, force=<span class="tok-k">True</span>)
-
-blocks = <span class="tok-n">cmds</span>.<span class="tok-f">listRelatives</span>(<span class="tok-s">'Mutant_Build'</span>, children=<span class="tok-k">True</span>, type=<span class="tok-s">'transform'</span>) <span class="tok-k">or</span> []
-
-<span class="tok-k">for</span> <span class="tok-n">block</span> <span class="tok-k">in</span> blocks:
-    name = <span class="tok-n">block</span>.<span class="tok-f">replace</span>(<span class="tok-n">nc</span>[<span class="tok-s">'module'</span>], <span class="tok-s">''</span>)
-    <span class="tok-n">config</span> = <span class="tok-s">'{}_Config'</span>.<span class="tok-f">format</span>(name)
-    <span class="tok-k">if</span> <span class="tok-k">not</span> <span class="tok-n">cmds</span>.<span class="tok-f">objExists</span>(<span class="tok-n">config</span>):
-        <span class="tok-k">continue</span>
-
-    import_command = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.Import_Command'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>))
-    build_command = <span class="tok-n">cmds</span>.<span class="tok-f">getAttr</span>(<span class="tok-s">'{}.Build_Command'</span>.<span class="tok-f">format</span>(<span class="tok-n">config</span>))
-
-    <span class="tok-f">exec</span>(import_command)
-    <span class="tok-n">cmds</span>.<span class="tok-f">select</span>(<span class="tok-n">block</span>)
-    <span class="tok-f">eval</span>(build_command)
-
-<span class="tok-n">cmds</span>.<span class="tok-f">file</span>(rename=<span class="tok-s">'/jobs/show/asset/rig_built.ma'</span>)
-<span class="tok-n">cmds</span>.<span class="tok-f">file</span>(save=<span class="tok-k">True</span>, type=<span class="tok-s">'mayaAscii'</span>)</code></pre>
-<div class="mt-note mt-warn"><b class="mt-tag">Trap</b><p>Order matters and <code>listRelatives</code> gives you outliner order, which is what you want. Do not sort that list.</p></div>
-<h3 id="versions">Version and update checks<a class="mt-anchor" href="#versions" aria-label="Link to this section">#</a></h3>
-<div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-n">mt</span>.<span class="tok-f">get_local_version</span>()          <span class="tok-c"># from config/version.json</span>
-<span class="tok-n">mt</span>.<span class="tok-f">get_online_version</span>()         <span class="tok-c"># scrapes mutanttools.com/current_version/</span>
-<span class="tok-n">mt</span>.<span class="tok-f">get_github_latest_release</span>()  <span class="tok-c"># public GitHub API, no auth needed</span>
-<span class="tok-n">mt</span>.<span class="tok-f">check_for_updates</span>(silent=<span class="tok-k">False</span>)
-<span class="tok-n">mt</span>.<span class="tok-f">check_dev_mode</span>()             <span class="tok-c"># True while config/version.json has dev_mode on</span>
-<span class="tok-n">mt</span>.<span class="tok-f">toggle_dev_mode</span>()</code></pre>
-<div class="mt-note"><b class="mt-tag">Note</b><p>Turn <b>dev mode</b> on while you develop. It suppresses the update prompt, so your local edits are never overwritten by an auto-update mid-session.</p></div>
-<h3 id="io">Reading and writing rig data<a class="mt-anchor" href="#io" aria-label="Link to this section">#</a></h3>
-<div class="mt-code-head"><span class="mt-dot"></span>python</div>
-<pre><code><span class="tok-n">mt</span>.<span class="tok-f">write_json</span>(path, json_file, data)
-data = <span class="tok-n">mt</span>.<span class="tok-f">read_json</span>(path, json_file)</code></pre>
-<p>The <code>Utils/IO</code> package builds on this for skin weights (<code>NgSkin_Data</code>), control shapes (<code>Ctrl_Data</code>) and guide positions (<code>Guide_Data</code>) - which is how <code>009_Data/01_Load_Skin</code> and <code>02_Load_Ctrls</code> reapply data as ordinary blocks in the build order.</p><h2 id="ai">Using AI on this codebase<a class="mt-anchor" href="#ai" aria-label="Link to this section">#</a></h2>
-<p>Mutant Tools ships machine-readable coding rules so an assistant writes blocks that match the house pattern instead of generic Maya Python. They live in the repo at <code>Docs/AI_MT_COMMAND_RULES.md</code> and <code>Docs/AI_MT_COMMAND_TUTORIAL.md</code>, and there is a <a href="/llms.txt">llms.txt</a> at the site root.</p><p>Paste this at the start of a session:</p><div class="mt-code-head"><span class="mt-dot"></span>initial prompt</div>
-<pre><code>You are coding inside the Mutant_Tools Maya rigging workspace.
-
-Follow these rules strictly:
-1) Use the Mutant API entry point:
-   from Mutant_Tools.Utils.Rigging import main_mutant
-   mt = main_mutant.Mutant()
-2) In block functions, always import configs with:
-   nc, curve_data, setup = mt.import_configs()
-3) In build functions, always validate base with:
-   mt.check_is_there_is_base()
-4) Preserve existing block architecture and naming patterns
-   (create_&lt;block&gt;_block / build_&lt;block&gt;_block).
-5) Before Maya operations, guard with cmds.objExists and
-   cmds.attributeQuery(..., exists=True).
-6) If creating offset/root helper groups repeatedly, use
-   mt.root_grp(input=node, custom=True, custom_name='UniqueSuffix')
-   to avoid name clashes.
-7) If deleting/rebuilding constraints, cache constraint type + targets
-   and restore deterministically with mo=True.
-8) Make minimal, focused edits only; do not refactor unrelated code.
-9) Use cmds.warning for recoverable issues and concise prints for success.
-10) Keep changes compatible with the existing Mutant_Tools style
-    (the codebase mixes Python 2 and 3 patterns).
-11) When adding a new attribute to a block JSON, always guard its getAttr
-    with cmds.attributeQuery(..., exists=True) so old saved rigs still build.
-12) Block versioning is required: create versioned exec/json files and keep
-    the launcher JSON pointing at the active version.
-
-When requirements are ambiguous, choose the simplest solution consistent
-with existing blocks.</code></pre>
-<div class="mt-note"><b class="mt-tag">Note</b><p>Add a scope line for narrow tasks: <i>&ldquo;Implement only the requested body section. Do not add leg/finger/spine logic.&rdquo;</i> Without it, assistants reliably over-build.</p></div>
-<h2 id="reference">Where to go next<a class="mt-anchor" href="#reference" aria-label="Link to this section">#</a></h2>
-<div class="mt-grid mt-grid--3"><div class="mt-card"><h4>Command wiki</h4><p>Every <code>mt</code> method with its full signature, plus all 133 shipped blocks and their options. <a href="/wiki/">Open the wiki</a></p></div><div class="mt-card"><h4>Source</h4><p>The whole system is readable. <a href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">RenderDeMartes/Mutant_Tools</a></p></div><div class="mt-card"><h4>Auto rigger</h4><p>What the blocks feel like from the artist side. <a href="/maya-auto-rigger/">Maya auto rigger</a></p></div><div class="mt-card"><h4>Learn</h4><p>Workflow walkthroughs and production examples. <a href="/learn/">Learn</a></p></div><div class="mt-card"><h4>For riggers</h4><p>The non-Python tour of the same system. <a href="/rigger/">Rigger guide</a></p></div><div class="mt-card"><h4>Free assets</h4><p>Rigs and tools to pull apart. <a href="/free-assets/">Free assets</a></p></div></div>
-<div class="mt-cta"><h2>Build something with it</h2><p>Mutant Tools is free to download and the source is public. If you build a block worth sharing, or hit something this page did not answer, get in touch.</p><a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Get Mutant Tools</a><a class="mt-btn mt-btn--ghost" href="/contact/">Contact</a></div><p class="mt-updated">Generated from <code>RenderDeMartes/Mutant_Tools</code> at <code>2dc3eae</code> &middot; 18 September 2026</p></article></div></div>
+<header class="mt-hero"><div class="mt-wrap"><p class="mt-kicker">Facial rigging</p><h1>Maya facial rigging, module by module</h1><p class="mt-lede">Twenty facial blocks that stack in whatever combination the character needs. Joint-based so the result exports, modular so a cartoon face and a realistic one can share the same tooling without either being a compromise.</p><ul class="mt-stats"><li><b>20</b><span>face modules</span></li><li><b>3</b><span>mouth builds</span></li><li><b>2</b><span>face templates</span></li><li><b>Joint</b><span>based</span></li></ul></div></header><div class="mt-wrap"><div class="mt-layout"><nav class="mt-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#why-faces">Why faces break auto riggers</a></li><li><a href="#modules">The 20 face modules</a></li><li><a href="#order">The order to build in</a></li><li><a href="#mouth">Three mouths</a></li><li><a href="#eyes">Eyes, lids and lashes</a></li><li><a href="#extras">Correctives and wrapping</a></li><li><a href="#games">Faces for games</a></li><li><a href="#faq">FAQ</a></li><li><a href="#related">Related guides</a></li></ol></nav>
+<article class="mt-body"><h2 id="why-faces">Why faces break auto riggers<a class="mt-anchor" href="#why-faces" aria-label="Link to this section">#</a></h2>
+<p>Bodies are broadly the same shape. Two arms, one spine, a predictable number of fingers. That is why a fixed-skeleton auto rigger can get a biped standing up in one click.</p><p>Faces are not like that. A stylised character with four teeth and a hinge jaw and a realistic digital human share almost no topology, no joint count and no control philosophy. A fixed facial template either covers one of those well and the other badly, or covers both badly.</p><div class="mt-note"><b class="mt-tag">Note</b><p>Modules sidestep the argument. Take the jaw. Take the eyelids. Skip the orbicularis if the face does not need it. Add sticky lips only when the shot demands it.</p></div>
+<h2 id="modules">The 20 face modules<a class="mt-anchor" href="#modules" aria-label="Link to this section">#</a></h2>
+<div class="mt-table-wrap"><table><thead><tr><th>Module</th><th>What it builds</th></tr></thead><tbody><tr><td><code>Skull</code></td><td>The root of the face, everything else parents under it</td></tr><tr><td><code>Jaw</code></td><td>Jaw open, sideways and forward, with the pivot where it belongs</td></tr><tr><td><code>Mouth</code></td><td>The standard lip and mouth setup</td></tr><tr><td><code>RibbonMouth</code></td><td>Lips driven along a NURBS ribbon for smoother shapes</td></tr><tr><td><code>MouthGames</code></td><td>A lighter mouth with a smaller joint count</td></tr><tr><td><code>MouthPostBuilds</code></td><td>Fixes applied after the mouth exists</td></tr><tr><td><code>Commissures</code></td><td>The mouth corners, as their own controllable system</td></tr><tr><td><code>StickyLips</code></td><td>Lips that stay together as the jaw opens</td></tr><tr><td><code>Orbicularis</code></td><td>The ring muscle around the mouth</td></tr><tr><td><code>Eyelids</code></td><td>Upper and lower lids following the eyeball</td></tr><tr><td><code>Eyelashes</code></td><td>Lashes driven by the lids</td></tr><tr><td><code>PupilDilation</code></td><td>Pupil and iris scaling</td></tr><tr><td><code>Brows</code></td><td>Brow controls</td></tr><tr><td><code>BrowsAdvance</code></td><td>A denser brow setup with more shaping</td></tr><tr><td><code>Cheeks</code></td><td>Cheek raise and puff</td></tr><tr><td><code>CheeksAdvance</code></td><td>A denser cheek setup</td></tr><tr><td><code>Nose</code></td><td>Nose, nostrils and flare</td></tr><tr><td><code>Tongue</code></td><td>An FK or spline tongue chain</td></tr><tr><td><code>Teeth</code></td><td>Upper and lower teeth, parented correctly to jaw and skull</td></tr><tr><td><code>VisAttrs</code></td><td>Visibility switches so animators see only what they need</td></tr></tbody></table></div>
+<p><a href="/wiki/blocks/#003-facial">Every facial block with its options &rarr;</a></p><h2 id="order">The order to build in<a class="mt-anchor" href="#order" aria-label="Link to this section">#</a></h2>
+<p>Blocks run top to bottom in the outliner, so the stacking order <i>is</i> the dependency order. Faces have a natural one:</p><div class="mt-code-head"><span class="mt-dot"></span>outliner order</div>
+<pre><code>Skull_Block          the face root
+Jaw_Block            everything mouth-shaped hangs off the jaw
+Teeth_Block
+Tongue_Block
+Mouth_Block          or RibbonMouth / MouthGames
+Commissures_Block
+Orbicularis_Block
+Eyelids_Block
+Eyelashes_Block
+Brows_Block
+Cheeks_Block
+Nose_Block
+PupilDilation_Block
+StickyLips_Block     after the mouth exists
+MouthPostBuilds      fixes, last
+VisAttrs_Block       hide what animators should not see</code></pre>
+<div class="mt-note mt-warn"><b class="mt-tag">Trap</b><p>Put <code>StickyLips</code> or <code>MouthPostBuilds</code> above the mouth block and they will build against nodes that do not exist yet. If a facial build fails with missing nodes, check the outliner order before anything else.</p></div>
+<h2 id="mouth">Three mouths, and when to use which<a class="mt-anchor" href="#mouth" aria-label="Link to this section">#</a></h2>
+<div class="mt-grid mt-grid--3"><div class="mt-card"><h4>Mouth</h4><p>The default. Joint-driven lips with the control density most film and TV work wants. Start here.</p></div><div class="mt-card"><h4>RibbonMouth</h4><p>Lips ride a NURBS ribbon, so shapes stay smooth through extreme poses. Worth it on hero characters and anything doing heavy dialogue.</p></div><div class="mt-card"><h4>MouthGames</h4><p>Fewer joints, built to a budget. Use when the rig has to survive an engine skeleton limit.</p></div></div>
+<h2 id="eyes">Eyes, lids and lashes<a class="mt-anchor" href="#eyes" aria-label="Link to this section">#</a></h2>
+<p>The <code>Eyes</code> block, over in the biped category, builds the eyeballs and their aim. <code>Eyelids</code> then rides on top, following the eyeball surface so the lids keep contact as the eye rotates. <code>Eyelashes</code> is driven by the lids rather than skinned separately, so they never slide.</p><p><code>PupilDilation</code> is separate because not every show needs it, and when it does, it is usually animated on its own.</p><h2 id="extras">Correctives and wrapping<a class="mt-anchor" href="#extras" aria-label="Link to this section">#</a></h2>
+<p>Joints get you most of the way. For the rest:</p><ul><li><b>Push joints</b> and <b>quad locators</b>, from the correctives system, drive deformation from real rotation values rather than hand-keyed fixes.</li><li><b>Blendshape</b> and <b>soft mod</b> blocks layer shape work on top.</li><li>The <b>Wrap</b> utilities, including FACS and Skeletor helpers, transfer face data between meshes - useful when the model changes late and you do not want to redo the face.</li><li><b>Faceform Wrap</b> integrates if you have it, installable from the Mutant-Tools menu.</li></ul><h2 id="games">Faces for games<a class="mt-anchor" href="#games" aria-label="Link to this section">#</a></h2>
+<p>Joint-based means exportable. Keep the bind joints in their own group, use <code>MouthGames</code> to stay inside a joint budget, and the face travels to an engine with the body. More on that in the <a href="/game-character-rigging-maya/">game rigging guide</a>.</p><h2 id="faq">Frequently asked questions<a class="mt-anchor" href="#faq" aria-label="Link to this section">#</a></h2>
+<h3 id="does-mutant-tools-do-facial-rigging">Does Mutant Tools do facial rigging?<a class="mt-anchor" href="#does-mutant-tools-do-facial-rigging" aria-label="Link to this section">#</a></h3>
+<p>Yes. There are 20 facial blocks covering skull, jaw, mouth, eyelids, eyelashes, brows, cheeks, nose, tongue, teeth, commissures, orbicularis, sticky lips and pupil dilation, plus face templates and a dedicated face install tool.</p><h3 id="is-it-joint-based-or-blendshape-based">Is it joint-based or blendshape-based?<a class="mt-anchor" href="#is-it-joint-based-or-blendshape-based" aria-label="Link to this section">#</a></h3>
+<p>Joint-based, with blendshape and corrective support layered on. That keeps the result exportable to a game engine while still allowing shape-driven fixes where joints alone are not enough.</p><h3 id="can-i-use-only-the-parts-i-need">Can I use only the parts I need?<a class="mt-anchor" href="#can-i-use-only-the-parts-i-need" aria-label="Link to this section">#</a></h3>
+<p>Yes, and that is the usual case. Faces never agree on design, so blocks let you take the jaw and eyelid setups and leave the rest, or stack a ribbon mouth on a cartoon face without fighting a fixed template.</p><h3 id="what-is-the-difference-between-mouth-ribbonmouth-and-mouthgames">What is the difference between Mouth, RibbonMouth and MouthGames?<a class="mt-anchor" href="#what-is-the-difference-between-mouth-ribbonmouth-and-mouthgames" aria-label="Link to this section">#</a></h3>
+<p>Three mouth builds for three needs. Mouth is the standard setup. RibbonMouth drives the lips along a NURBS ribbon for smoother, more controllable shapes. MouthGames is a lighter build with a smaller joint count for real-time work.</p><h3 id="does-it-handle-sticky-lips">Does it handle sticky lips?<a class="mt-anchor" href="#does-it-handle-sticky-lips" aria-label="Link to this section">#</a></h3>
+<p>Yes, as its own block, applied after the mouth is built.</p><h2 id="related">Related guides<a class="mt-anchor" href="#related" aria-label="Link to this section">#</a></h2>
+<div class="mt-grid mt-grid--2"><div class="mt-card"><h4>Maya auto rigger</h4><p>The whole system: block-based rigging, templates, requirements. <a href="/maya-auto-rigger/">Open &rarr;</a></p></div><div class="mt-card"><h4>Free Maya rigging tools</h4><p>Everything in the box, and what each window is for. <a href="/free-maya-rigging-tools/">Open &rarr;</a></p></div><div class="mt-card"><h4>Maya animal rigging</h4><p>Quadrupeds, birds, wings, tails and snakes. <a href="/maya-animal-rigging/">Open &rarr;</a></p></div><div class="mt-card"><h4>Game rigging in Maya</h4><p>Clean skeletons, Unreal export, MetaHuman. <a href="/game-character-rigging-maya/">Open &rarr;</a></p></div></div>
+<div class="mt-cta"><h2>Rig a face with it</h2><p>The face install tool drops a full setup on a head, then you keep or drop modules until it matches the character.</p><a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Download free</a><a class="mt-btn mt-btn--ghost" href="/maya-auto-rigger/">How it works</a></div></article></div></div>
 <script>
 (function(){
   var links = [].slice.call(document.querySelectorAll('.mt-toc a[href^="#"]'));
