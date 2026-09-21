@@ -1,10 +1,21 @@
 ---
+# Text first, bulk last. cPanel runs these in sequence and a run that does not
+# finish stops partway while still reporting "deployment complete" - the sibling
+# renderdemartes-site repo lost every task after its 30 MB assets copy that way,
+# silently, for three deploys. This site is far smaller, but the wiki grows with
+# every Mutant Tools release, so the order is set defensively.
+#
+# After deploying, check the LAST task's output, not the homepage:
+#   curl -sI https://mutanttools.com/game-character-rigging-maya/ | grep -i last-modified
 deployment:
   tasks:
     - export DEPLOYPATH=/home/renderdem/public_html/mutanttools.com/
+    # --- text -----------------------------------------------------------------
     - /bin/cp -R index.html robots.txt sitemap.xml llms.txt .htaccess $DEPLOYPATH
     - /bin/cp -R google693ef86f823ca3aa.html $DEPLOYPATH
-    - /bin/cp -R assets contact developer free-assets learn rigger $DEPLOYPATH
+    - /bin/cp -R contact developer free-assets learn rigger $DEPLOYPATH
     - /bin/cp -R wiki maya-auto-rigger $DEPLOYPATH
     - /bin/cp -R free-maya-rigging-tools maya-facial-rigging $DEPLOYPATH
     - /bin/cp -R maya-animal-rigging game-character-rigging-maya $DEPLOYPATH
+    # --- bulk -----------------------------------------------------------------
+    - /bin/cp -R assets $DEPLOYPATH
