@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/renderdem/public_html/mutanttools.com/
+    - /bin/cp -R index.html robots.txt sitemap.xml .htaccess $DEPLOYPATH
+    - /bin/cp -R assets contact developer free-assets learn rigger $DEPLOYPATH
