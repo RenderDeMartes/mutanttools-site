@@ -17,6 +17,14 @@ DirectoryIndex index.html index.php
   RewriteRule ^wp-content/uploads/\d{4}/\d{2}/(.+)$ /assets/img/$1 [R=301,L]
   # everything else WordPress -> home
   RewriteRule ^(wp-admin|wp-includes|wp-login\.php|xmlrpc\.php|wp-json)(/.*)?$ / [R=301,L]
+  # old WordPress leftovers Search Console still crawls
+  RewriteRule ^(comments/)?feed(/.*)?$ / [R=301,L]
+  RewriteRule ^page/\d+/?$ / [R=301,L]
+  RewriteRule ^\d+/?$ / [R=301,L]
+  RewriteRule ^\*/?$ / [R=301,L]
+  # moved pages
+  RewriteRule ^download/?$ https://github.com/RenderDeMartes/Mutant_Tools [R=301,L]
+  RewriteRule ^learn/rigger/?$ /rigger/ [R=301,L]
 
   # trailing slash on directory URLs
   RewriteCond %{REQUEST_FILENAME} !-f
