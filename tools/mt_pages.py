@@ -12,8 +12,9 @@ import mt_md as m
 GH = "https://github.com/RenderDeMartes/Mutant_Tools"
 LINKEDIN = "https://www.linkedin.com/in/esteban-rodriguez-488a68147/"
 
-# (kicker, title, description, YouTube playlist id)
-PLAYLISTS = [
+# (kicker, title, description, YouTube id). An id starting "PL" is a playlist,
+# anything else a single video.
+TUTORIALS = [
     ("Getting started", "Mutant Tools &amp; Asset Browser &ndash; Installation Guide",
      "Install Mutant Tools, configure the Asset Browser, and prepare your Maya environment.",
      "PLYMDeEG84lPE-UA-D6i4aS_XmmQUXys-a"),
@@ -31,6 +32,9 @@ PLAYLISTS = [
      "A complete step-by-step guide to rigging quadruped characters using the Mutant Tools "
      "workflow in Maya.",
      "PLYMDeEG84lPG2O4freXQ66X7TehlTsK8m"),
+    ("Mocap", "Mixamo Mocap in Mutant Tools",
+     "Bring Mixamo motion capture onto a Mutant Tools rig with HumanIK retargeting.",
+     "1y6Znuj1zs0"),
 ]
 
 # (kicker, title, author, image, download link)
@@ -53,13 +57,17 @@ def rigger(stats):
     b = [m.hero("Tutorials", "Rigging with Mutant Tools",
                 "Practical learning paths focused on real production workflows using Mutant Tools."),
          _open(), '<div class="mt-grid mt-grid--3">']
-    for kicker, title, desc, pid in PLAYLISTS:
-        video = ('<iframe src="https://www.youtube.com/embed/videoseries?list=%s" title="%s" '
+    for kicker, title, desc, yid in TUTORIALS:
+        if yid.startswith("PL"):
+            embed = "videoseries?list=%s" % yid
+            link = m.btn("Open playlist", "https://www.youtube.com/playlist?list=%s" % yid, ghost=True)
+        else:
+            embed = yid
+            link = m.btn("Watch on YouTube", "https://www.youtube.com/watch?v=%s" % yid, ghost=True)
+        video = ('<iframe src="https://www.youtube.com/embed/%s" title="%s" '
                  'loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" '
-                 'allowfullscreen></iframe>' % (pid, title))
-        b.append(m.media_card(title, desc, video, kicker=kicker,
-                              button=m.btn("Open playlist", "https://www.youtube.com/playlist?list=%s"
-                                           % pid, ghost=True)))
+                 'allowfullscreen></iframe>' % (embed, title))
+        b.append(m.media_card(title, desc, video, kicker=kicker, button=link))
     b.append('</div>')
     b.append(m.cta("Prefer to read?",
                    "Every one of the %d blocks is documented with its options and the command the "
