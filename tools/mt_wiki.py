@@ -140,14 +140,14 @@ def index(stats):
       (stats["methods"], stats["blocks"], stats["categories"], stats["curves"]))
     A('</div></header>')
 
-    A('<div class="mt-wrap"><div class="mt-body" style="margin-top:3rem">')
+    A('<div class="mt-wrap"><div class="mt-body mt-body--wide mt-section">')
     A(m.cards([
-        ("Commands", 'All %d <code>mt</code> methods with full signatures, grouped by the class '
-         'they come from. <a href="/wiki/commands/">Browse commands</a>' % stats["methods"]),
-        ("Blocks", 'All %d blocks with their options, icons and build commands. '
-         '<a href="/wiki/blocks/">Browse blocks</a>' % stats["blocks"]),
-        ("Developer guide", 'How the block system fits together, and how to write your own. '
-         '<a href="/developer/">Read the guide</a>'),
+        ('<a href="/wiki/commands/">Commands</a>', 'All %d <code>mt</code> methods with full '
+         'signatures, grouped by the class they come from.' % stats["methods"]),
+        ('<a href="/wiki/blocks/">Blocks</a>', 'All %d blocks with their options, icons and '
+         'build commands.' % stats["blocks"]),
+        ('<a href="/developer/">Developer guide</a>', 'How the block system fits together, and '
+         'how to write your own.'),
     ], 3))
 
     A(m.h2("Start here", "start"))
@@ -182,11 +182,11 @@ def index(stats):
       'in less depth and is no longer regenerated - keep it bookmarked only if you have old links '
       'pointing into it.</p>')
 
-    A('<div class="mt-cta"><h2>Writing a block?</h2>'
-      '<p>The developer guide walks the whole lifecycle, from the launcher JSON through the build '
-      'loop to shipping a v002 without breaking last year\'s scenes.</p>'
-      '<a class="mt-btn" href="/developer/">Developer guide</a>'
-      '<a class="mt-btn mt-btn--ghost" href="/wiki/commands/">Command reference</a></div>')
+    A(m.cta("Writing a block?",
+            "The developer guide walks the whole lifecycle, from the launcher JSON through the build "
+            "loop to shipping a v002 without breaking last year's scenes.",
+            m.btn("Developer guide", "/developer/"),
+            m.btn("Command reference", "/wiki/commands/", ghost=True)))
     A('</div></div>')
     return "".join(b)
 
@@ -207,19 +207,19 @@ def commands(api):
                 for c, _, _ in [(a, b_, c_) for a, b_, c_ in CLASS_BLURB])
 
     A('<header class="mt-hero"><div class="mt-wrap">')
-    A('<p class="mt-kicker"><a href="/wiki/" style="color:inherit">Wiki</a> / Commands</p>')
+    A('<p class="mt-kicker"><a href="/wiki/">Wiki</a> / Commands</p>')
     A('<h1>Command reference</h1>')
     A('<p class="mt-lede">Every public method on <code>mt</code>, with its real signature and '
       'defaults, read from the source. Click any row to expand.</p>')
     A('</div></header>')
 
-    A('<div class="mt-wrap"><div class="mt-body" style="margin-top:3rem">')
+    A('<div class="mt-wrap"><div class="mt-body mt-body--wide mt-section">')
     A(_searchbox("Search commands - try curve, twist, attr, mirror"))
-    A('<ul class="mt-pills">')
+    A('<div class="mt-pills" role="group" aria-label="Filter">')
     for cls, fname, _ in CLASS_BLURB:
         A('<button class="mt-pill" type="button" data-filter="%s" aria-pressed="false">%s</button>'
           % (cls, fname))
-    A('</ul>')
+    A('</div>')
     A('<p class="mt-count" id="mt-count">%d entries</p>' % total)
 
     for cls, fname, blurb in CLASS_BLURB:
@@ -227,7 +227,7 @@ def commands(api):
         if not meths:
             continue
         A('<section data-group>')
-        A(m.h2("%s <span style=\"font-size:.55em;color:var(--mt-dim);font-weight:400\">%s</span>"
+        A(m.h2("%s <span class=\"mt-meta\">%s</span>"
                % (cls.replace("_class", ""), fname), m.slug(cls)))
         A("<p>%s</p>" % blurb)
         for entry in sorted(meths, key=lambda x: x[0]):
@@ -240,7 +240,7 @@ def commands(api):
               '<span class="mt-from">%s:%d</span></summary>' % (name, pretty_sig, fname, lineno))
             A('<div class="mt-api-body">')
             A("<p>%s</p>" % (m.esc(summary) if summary else
-                             "<i style='color:var(--mt-dim)'>No docstring in the source.</i>"))
+                             "<i class='mt-meta'>No docstring in the source.</i>"))
             A(m.code("mt.%s(%s)" % (name, sig), "signature"))
             rest = _docstring_rest(full, summary)
             if rest:
@@ -283,24 +283,24 @@ def blocks(cats):
     total = sum(len(v) for v in cats.values())
 
     A('<header class="mt-hero"><div class="mt-wrap">')
-    A('<p class="mt-kicker"><a href="/wiki/" style="color:inherit">Wiki</a> / Blocks</p>')
+    A('<p class="mt-kicker"><a href="/wiki/">Wiki</a> / Blocks</p>')
     A('<h1>Block catalogue</h1>')
     A('<p class="mt-lede">All %d blocks that ship with Mutant Tools, with the options each one '
       'exposes on its config node and the exact command the builder calls.</p>' % total)
     A('</div></header>')
 
-    A('<div class="mt-wrap"><div class="mt-body" style="margin-top:3rem">')
+    A('<div class="mt-wrap"><div class="mt-body mt-body--wide mt-section">')
     A(_searchbox("Search blocks - try spine, eyelid, wheel, skin"))
-    A('<ul class="mt-pills">')
+    A('<div class="mt-pills" role="group" aria-label="Filter">')
     for cat in cats:
         A('<button class="mt-pill" type="button" data-filter="%s" aria-pressed="false">%s</button>'
           % (cat, CAT_LABELS.get(cat, cat)))
-    A('</ul>')
+    A('</div>')
     A('<p class="mt-count" id="mt-count">%d entries</p>' % total)
 
     for cat, items in cats.items():
         A('<section data-group>')
-        A(m.h2("%s <span style=\"font-size:.55em;color:var(--mt-dim);font-weight:400\">%s</span>"
+        A(m.h2("%s <span class=\"mt-meta\">%s</span>"
                % (CAT_LABELS.get(cat, cat), cat), m.slug(cat)))
         if cat in CAT_BLURB:
             A("<p>%s</p>" % CAT_BLURB[cat])
@@ -312,7 +312,7 @@ def blocks(cats):
             # label - and it is also what the AutoRigger tree shows.
             label = m.re.sub(r"^\d+_", "", it["folder"]).replace("_", " ")
             A('<summary><span class="mt-sig"><b>%s</b></span>'
-              '<span style="color:var(--mt-dim);font-size:.85rem">%s</span>'
+              '<span class="mt-meta">%s</span>'
               '<span class="mt-from">%s</span></summary>'
               % (m.esc(label), m.esc(it["desc"][:88]), m.esc(it["folder"])))
             A('<div class="mt-api-body">')
@@ -326,7 +326,7 @@ def blocks(cats):
             if it["pyfile"]:
                 meta.append("<code>%s</code>" % m.esc(it["pyfile"]))
             if meta:
-                A('<p style="font-size:.82rem;color:var(--mt-dim)">%s</p>' % " &middot; ".join(meta))
+                A('<p class="mt-meta">%s</p>' % " &middot; ".join(meta))
             A(m.code("%s\n%s" % (it["create"] or "", it["build"] or ""), "commands"))
             rows = _attr_rows(it["attrs"])
             if rows:
@@ -338,10 +338,10 @@ def blocks(cats):
             A('</div></details>')
         A('</section>')
 
-    A('<div class="mt-cta"><h2>Write your own</h2>'
-      '<p>A block is a folder with a JSON and a Python file. Drop it into '
-      '<code>Blocks/</code> and the AutoRigger finds it - no registration step.</p>'
-      '<a class="mt-btn" href="/developer/#first-block">Write your first block</a></div>')
+    A(m.cta("Write your own",
+            "A block is a folder with a JSON and a Python file. Drop it into "
+            "<code>Blocks/</code> and the AutoRigger finds it - no registration step.",
+            m.btn("Write your first block", "/developer/#first-block")))
     A('</div></div>')
     A(SEARCH_JS)
     return "".join(b)

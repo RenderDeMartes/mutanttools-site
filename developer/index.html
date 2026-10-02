@@ -85,188 +85,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel="icon" href="/assets/img/LogoWhite03-300x300.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="/assets/img/LogoWhite03-300x300.png" />
 <meta name="msapplication-TileImage" content="/assets/img/LogoWhite03-300x300.png" />
-
-<style id="mt-docs">
-:root{
-  --mt-ink:#140B06; --mt-panel:#1C0D0A; --mt-panel-2:#241310;
-  --mt-line:#3A241C; --mt-text:#FEF1E4; --mt-dim:#B79E92;
-  --mt-orange:#FF6210; --mt-orange-2:#F15808; --mt-code:#0E0805;
-  --mt-green:#7CD992; --mt-blue:#79C0FF; --mt-pink:#FF9BD2; --mt-yellow:#FFD479;
-}
-/* The homepage carries its own inline CSS: a global `*{font-family:Inter}` that
-   beats an inherited family, and something inside .entry-content that shrinks
-   the base size to ~12px. Both are answered explicitly rather than inherited,
-   so this block renders the same wherever it is dropped. */
-.mt-doc{background:var(--mt-ink);color:var(--mt-text);line-height:1.7;
-  font-size:15px;padding:0 0 6rem;overflow-x:clip}
-.mt-doc *{box-sizing:border-box}
-.mt-doc,.mt-doc p,.mt-doc li,.mt-doc a,.mt-doc span,.mt-doc div,.mt-doc td,.mt-doc th,
-.mt-doc h1,.mt-doc h2,.mt-doc h3,.mt-doc h4,.mt-doc button,.mt-doc summary,.mt-doc input,
-.mt-doc b,.mt-doc strong,.mt-doc i,.mt-doc nav,.mt-doc ol,.mt-doc ul
-  {font-family:'Montserrat',system-ui,-apple-system,sans-serif}
-.mt-doc code,.mt-doc pre,.mt-doc pre *,.mt-doc .mt-sig,.mt-doc .mt-sig *
-  {font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace}
-.mt-body p,.mt-body li{font-size:1rem}
-.mt-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
-
-/* ---- hero ---- */
-.mt-hero{padding:5.5rem 0 3rem;border-bottom:1px solid var(--mt-line)}
-.mt-kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--mt-orange);font-weight:700;margin:0 0 1.1rem}
-.mt-hero h1{font-size:clamp(2.1rem,5.4vw,3.6rem);line-height:1.08;margin:0 0 1.2rem;
-  letter-spacing:-.02em;color:#fff}
-.mt-lede{font-size:clamp(1rem,2.1vw,1.2rem);color:var(--mt-dim);max-width:62ch;margin:0 0 2rem}
-.mt-stats{display:flex;flex-wrap:wrap;gap:2.4rem;margin:2.4rem 0 0;padding:0;list-style:none}
-.mt-stats b{display:block;font-size:1.9rem;color:var(--mt-orange);line-height:1}
-.mt-stats span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mt-dim)}
-
-/* ---- layout ---- */
-/* minmax(0,...) on every track, and min-width:0 on the children. A bare `1fr`
-   floors at the widest child's min-content, so one long unbreakable line in a
-   <pre> or a table blows the column past the container - which it did on mobile,
-   clipping ~127px of every page that has a contents rail. */
-.mt-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:3.5rem;margin-top:3rem}
-.mt-layout>*{min-width:0}
-@media(max-width:940px){.mt-layout{grid-template-columns:minmax(0,1fr);gap:0}}
-.mt-toc{position:sticky;top:90px;align-self:start;max-height:calc(100vh - 120px);
-  overflow-y:auto;font-size:.86rem;padding-right:.5rem}
-@media(max-width:940px){.mt-toc{position:static;max-height:none;margin-bottom:2.5rem;
-  border-bottom:1px solid var(--mt-line);padding-bottom:1.5rem}}
-.mt-toc h2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mt-dim);
-  margin:0 0 .9rem;font-weight:700}
-.mt-toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
-.mt-toc li{margin:0 0 .15rem}
-.mt-toc a{display:block;padding:.34rem .6rem;color:var(--mt-dim);text-decoration:none;
-  border-left:2px solid transparent;border-radius:0 4px 4px 0;transition:.15s}
-.mt-toc a:hover{color:var(--mt-text);background:var(--mt-panel)}
-.mt-toc a.is-on{color:var(--mt-orange);border-left-color:var(--mt-orange);background:var(--mt-panel)}
-
-/* ---- prose ---- */
-.mt-body h2{font-size:clamp(1.5rem,3.2vw,2.1rem);margin:3.6rem 0 1rem;color:#fff;
-  letter-spacing:-.015em;scroll-margin-top:90px}
-.mt-body h2:first-child{margin-top:0}
-.mt-body h3{font-size:1.16rem;margin:2.4rem 0 .8rem;color:var(--mt-orange);scroll-margin-top:90px}
-.mt-body h4{font-size:.98rem;margin:1.8rem 0 .6rem;color:var(--mt-text)}
-.mt-body p{margin:0 0 1.1rem;color:#E8D9CF}
-.mt-body ul,.mt-body ol{margin:0 0 1.2rem;padding-left:1.3rem;color:#E8D9CF}
-.mt-body li{margin:.34rem 0}
-.mt-body a{color:var(--mt-orange);text-decoration:none;border-bottom:1px solid rgba(255,98,16,.35)}
-.mt-body a:hover{color:var(--mt-orange-2);border-bottom-color:var(--mt-orange-2)}
-.mt-body strong{color:#fff}
-.mt-body hr{border:0;border-top:1px solid var(--mt-line);margin:3rem 0}
-
-/* ---- code ---- */
-.mt-body code{font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
-  font-size:.86em;background:var(--mt-panel-2);color:var(--mt-yellow);
-  padding:.14em .42em;border-radius:4px;border:1px solid var(--mt-line)}
-.mt-body pre{background:var(--mt-code);border:1px solid var(--mt-line);border-radius:10px;
-  padding:1.15rem 1.25rem;overflow-x:auto;margin:0 0 1.4rem;font-size:.845rem;line-height:1.65}
-.mt-body pre code{background:none;border:0;padding:0;color:#E6DCD4;font-size:inherit}
-.mt-code-head{display:flex;align-items:center;gap:.6rem;background:var(--mt-panel-2);
-  border:1px solid var(--mt-line);border-bottom:0;border-radius:10px 10px 0 0;
-  padding:.5rem 1rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--mt-dim);font-weight:700}
-.mt-code-head+pre{border-radius:0 0 10px 10px;margin-top:0}
-.mt-code-head .mt-dot{width:8px;height:8px;border-radius:50%;background:var(--mt-orange)}
-.tok-k{color:var(--mt-pink)}.tok-s{color:var(--mt-green)}.tok-c{color:#8A7568;font-style:italic}
-.tok-n{color:var(--mt-blue)}.tok-f{color:var(--mt-yellow)}
-
-/* ---- callouts ---- */
-.mt-note{border-left:3px solid var(--mt-orange);background:var(--mt-panel);
-  padding:1rem 1.2rem;border-radius:0 8px 8px 0;margin:0 0 1.4rem}
-.mt-note p:last-child{margin-bottom:0}
-.mt-note b.mt-tag{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--mt-orange);margin-bottom:.4rem}
-.mt-warn{border-left-color:#FF4D4D}
-.mt-warn b.mt-tag{color:#FF7A7A}
-.mt-ok{border-left-color:var(--mt-green)}
-.mt-ok b.mt-tag{color:var(--mt-green)}
-
-/* ---- tables ---- */
-.mt-table-wrap{overflow-x:auto;margin:0 0 1.5rem;border:1px solid var(--mt-line);border-radius:10px}
-.mt-body table{width:100%;border-collapse:collapse;font-size:.855rem;margin:0}
-.mt-body th{text-align:left;background:var(--mt-panel-2);color:var(--mt-dim);
-  font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;padding:.7rem .9rem;
-  border-bottom:1px solid var(--mt-line);white-space:nowrap}
-.mt-body td{padding:.65rem .9rem;border-bottom:1px solid rgba(58,36,28,.6);
-  vertical-align:top;color:#E8D9CF}
-.mt-body tr:last-child td{border-bottom:0}
-.mt-body td code{white-space:nowrap}
-
-/* ---- cards ---- */
-.mt-grid{display:grid;gap:1rem;margin:0 0 1.6rem}
-.mt-grid--2{grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
-.mt-grid--3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
-.mt-card{background:var(--mt-panel);border:1px solid var(--mt-line);border-radius:10px;padding:1.15rem 1.25rem}
-.mt-card h4{margin:0 0 .45rem;color:var(--mt-orange);font-size:.95rem}
-.mt-card p{margin:0;font-size:.875rem;color:var(--mt-dim)}
-.mt-card code{font-size:.8rem}
-
-/* ---- api entries ---- */
-.mt-api{border:1px solid var(--mt-line);border-radius:10px;margin:0 0 .75rem;background:var(--mt-panel);overflow:hidden}
-.mt-api>summary{cursor:pointer;padding:.8rem 1.1rem;list-style:none;display:flex;
-  gap:.7rem;align-items:baseline;flex-wrap:wrap}
-.mt-api>summary::-webkit-details-marker{display:none}
-.mt-api>summary:hover{background:var(--mt-panel-2)}
-.mt-api .mt-sig{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;color:var(--mt-yellow)}
-.mt-api .mt-sig b{color:#fff;font-weight:700}
-.mt-api .mt-from{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--mt-dim);margin-left:auto;white-space:nowrap}
-.mt-api-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--mt-line)}
-.mt-api-body p{margin:.9rem 0 .6rem;font-size:.9rem}
-.mt-api-body table{font-size:.82rem}
-/* The raw docstring under an expanded command. NOT .mt-doc - that is the page
-   container, and reusing the name leaked pre-wrap and a .79rem font onto every
-   paragraph on the site. */
-.mt-docstring{background:transparent!important;border:0!important;
-  border-left:2px solid var(--mt-line)!important;
-  border-radius:0!important;padding:.2rem 0 .2rem 1rem!important;margin:1rem 0 0!important;
-  font-size:.79rem!important;color:#B79E92!important;white-space:pre-wrap;line-height:1.55}
-.mt-docstring code{color:inherit!important}
-
-/* ---- search ---- */
-.mt-search{position:relative;margin:0 0 1.6rem}
-.mt-search input{width:100%;background:var(--mt-panel);border:1px solid var(--mt-line);
-  border-radius:9px;padding:.85rem 1rem .85rem 2.6rem;color:var(--mt-text);
-  font-family:inherit;font-size:.95rem}
-.mt-search input:focus{outline:2px solid var(--mt-orange);outline-offset:1px;border-color:transparent}
-.mt-search input::placeholder{color:#8A7568}
-.mt-search svg{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);
-  width:16px;height:16px;fill:none;stroke:#8A7568;stroke-width:2}
-.mt-count{font-size:.78rem;color:var(--mt-dim);margin:0 0 1rem}
-.mt-hide{display:none!important}
-
-/* ---- pills ---- */
-.mt-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.6rem;padding:0;list-style:none}
-.mt-pill{background:var(--mt-panel);border:1px solid var(--mt-line);color:var(--mt-dim);
-  border-radius:999px;padding:.34rem .85rem;font-size:.76rem;cursor:pointer;
-  font-family:inherit;letter-spacing:.04em}
-.mt-pill:hover{color:var(--mt-text);border-color:var(--mt-orange)}
-.mt-pill[aria-pressed="true"]{background:var(--mt-orange);color:#180C07;border-color:var(--mt-orange);font-weight:700}
-
-/* ---- cta ---- */
-.mt-cta{background:linear-gradient(135deg,var(--mt-panel),var(--mt-panel-2));
-  border:1px solid var(--mt-line);border-radius:14px;padding:2.4rem;margin:3.5rem 0 0;text-align:center}
-.mt-cta h2{margin:0 0 .8rem!important;font-size:1.7rem}
-.mt-cta p{color:var(--mt-dim);max-width:52ch;margin:0 auto 1.6rem}
-.mt-btn{display:inline-block;background:var(--mt-orange);color:#180C07!important;
-  border:0;border-bottom:0!important;border-radius:999px;padding:.85rem 1.9rem;
-  font-weight:700;font-size:.85rem;letter-spacing:.07em;text-transform:uppercase;
-  text-decoration:none;margin:.3rem}
-.mt-btn:hover{background:var(--mt-orange-2);color:#180C07!important}
-.mt-btn--ghost{background:transparent;color:var(--mt-orange)!important;
-  box-shadow:inset 0 0 0 1px var(--mt-orange)}
-.mt-btn--ghost:hover{background:rgba(255,98,16,.12);color:var(--mt-orange)!important}
-
-/* ---- misc ---- */
-.mt-anchor{color:var(--mt-line);text-decoration:none!important;border:0!important;
-  margin-left:.4rem;font-weight:400;opacity:0}
-h2:hover .mt-anchor,h3:hover .mt-anchor{opacity:1}
-.mt-anchor:hover{color:var(--mt-orange)}
-.mt-updated{font-size:.75rem;color:#8A7568;margin-top:3rem;padding-top:1.4rem;
-  border-top:1px solid var(--mt-line)}
-</style>
-
+<link rel="stylesheet" id="mt-ui" href="/assets/css/mt-ui.css?v=9c6da6f2d3">
 </head>
 
 <body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-2578 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.11.18 ast-single-post ast-mobile-inherit-site-logo ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header ast-full-width-primary-header">
@@ -347,7 +166,7 @@ class="hfeed site" id="page">
 		</header><!-- #masthead -->
 			
 <div id="content" class="site-content"><div class="mt-doc">
-<header class="mt-hero"><div class="mt-wrap"><p class="mt-kicker">Developer guide</p><h1>Mutant Tools for Python developers</h1><p class="mt-lede">Mutant Tools is a block-based modular rigging system for Maya. Everything the UI does, it does by calling Python you can call yourself. This page teaches the whole surface: the <code>mt</code> API, how a block is defined and built, and how to ship your own blocks into the system.</p><ul class="mt-stats"><li><b>117</b><span>mt methods</span></li><li><b>133</b><span>shipped blocks</span></li><li><b>44</b><span>control shapes</span></li><li><b>Maya 2022+</b><span>Python 2 &amp; 3</span></li></ul><p style="margin-top:2rem"><a class="mt-btn" href="/wiki/">Open the command wiki</a><a class="mt-btn mt-btn--ghost" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Source on GitHub</a></p></div></header><div class="mt-wrap"><div class="mt-layout"><nav class="mt-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#quickstart">60-second quickstart</a></li><li><a href="#mental-model">The mental model</a></li><li><a href="#the-mt-object">The mt object</a></li><li><a href="#configs">nc, setup, curve_data</a></li><li><a href="#anatomy">Anatomy of a block</a></li><li><a href="#lifecycle">The build lifecycle</a></li><li><a href="#first-block">Write your first block</a></li><li><a href="#controls">Controls, shapes, colour</a></li><li><a href="#attributes">Attributes</a></li><li><a href="#kinematics">FK, IK, twist, ribbons</a></li><li><a href="#mirroring">Mirroring</a></li><li><a href="#versioning">Block versioning</a></li><li><a href="#traps">Traps that will bite you</a></li><li><a href="#pipeline">Pipeline integration</a></li><li><a href="#ai">Using AI on this codebase</a></li><li><a href="#reference">Where to go next</a></li></ol></nav>
+<header class="mt-hero"><div class="mt-wrap"><p class="mt-kicker">Developer guide</p><h1>Mutant Tools for Python developers</h1><p class="mt-lede">Mutant Tools is a block-based modular rigging system for Maya. Everything the UI does, it does by calling Python you can call yourself. This page teaches the whole surface: the <code>mt</code> API, how a block is defined and built, and how to ship your own blocks into the system.</p><ul class="mt-stats"><li><b>117</b><span>mt methods</span></li><li><b>133</b><span>shipped blocks</span></li><li><b>44</b><span>control shapes</span></li><li><b>Maya 2022+</b><span>Python 2 &amp; 3</span></li></ul><div class="mt-actions"><a class="mt-btn" href="/wiki/">Open the command wiki</a><a class="mt-btn mt-btn--ghost" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Source on GitHub</a></div></div></header><div class="mt-wrap"><div class="mt-layout"><nav class="mt-toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#quickstart">60-second quickstart</a></li><li><a href="#mental-model">The mental model</a></li><li><a href="#the-mt-object">The mt object</a></li><li><a href="#configs">nc, setup, curve_data</a></li><li><a href="#anatomy">Anatomy of a block</a></li><li><a href="#lifecycle">The build lifecycle</a></li><li><a href="#first-block">Write your first block</a></li><li><a href="#controls">Controls, shapes, colour</a></li><li><a href="#attributes">Attributes</a></li><li><a href="#kinematics">FK, IK, twist, ribbons</a></li><li><a href="#mirroring">Mirroring</a></li><li><a href="#versioning">Block versioning</a></li><li><a href="#traps">Traps that will bite you</a></li><li><a href="#pipeline">Pipeline integration</a></li><li><a href="#ai">Using AI on this codebase</a></li><li><a href="#reference">Where to go next</a></li></ol></nav>
 <article class="mt-body"><h2 id="quickstart">60-second quickstart<a class="mt-anchor" href="#quickstart" aria-label="Link to this section">#</a></h2>
 <p>Install by dragging <code>easy_install.py</code> into a Maya viewport. That copies the package into your <code>maya/&lt;version&gt;/scripts</code> folder, installs the shelf and registers the <b>Mutant-Tools</b> menu so it loads on every startup.</p><p>Then, in the Script Editor's Python tab:</p><div class="mt-code-head"><span class="mt-dot"></span>maya script editor</div>
 <pre><code><span class="tok-k">from</span> maya <span class="tok-k">import</span> <span class="tok-n">cmds</span>
@@ -421,7 +240,7 @@ Asset Name_Grp                   &lt;- the rig the build produces
 <p>Utility nodes have entries too - <code>nc['multiplyDivide']</code>, <code>nc['condition']</code>, <code>nc['blend']</code>, <code>nc['remap_value']</code>, <code>nc['reverse']</code>, <code>nc['unitConversion']</code>, <code>nc['distance']</code> - so even the plumbing in a rig reads consistently.</p><h3 id="setup">setup - rig defaults<a class="mt-anchor" href="#setup" aria-label="Link to this section">#</a></h3>
 <div class="mt-table-wrap"><table><thead><tr><th>Key</th><th>Default</th><th>Used for</th></tr></thead><tbody><tr><td><code>setup['base_groups']</code></td><td><code>{geometry: Extra_Geo, control: Ctrl, rig: Rig}</code></td><td>Top level of every rig</td></tr><tr><td><code>setup['rig_groups']</code></td><td><code>{bind_joints, bind_geo, misc, template}</code></td><td>Children of <code>Rig_Grp</code></td></tr><tr><td><code>setup['main_ctrl_grp']</code></td><td><code>Rig_Ctrl</code></td><td>Group parented under the gimbal control</td></tr><tr><td><code>setup['twist_axis']</code></td><td><code>X</code></td><td>Default aim axis for twist and limbs</td></tr><tr><td><code>setup['secondaryAxisOrient']</code></td><td><code>zup</code></td><td>Joint orientation up axis</td></tr><tr><td><code>setup['ik_fk_method']</code></td><td><code>blend</code></td><td><code>blend</code> or constraint switching</td></tr><tr><td><code>setup['left_color']</code> / <code>right_color</code></td><td><code>blue</code> / <code>red</code></td><td>Side colouring</td></tr><tr><td><code>setup['main_color']</code></td><td><code>lightBlue</code></td><td>Default control colour</td></tr><tr><td><code>setup['fk_ctrl']</code></td><td><code>circlePointIn</code></td><td>Default FK shape</td></tr><tr><td><code>setup['ik_ctrl']</code> / <code>pv_ctrl']</code></td><td><code>cube</code> / <code>sphere</code></td><td>Default IK and pole-vector shapes</td></tr><tr><td><code>setup['stretch_default']</code></td><td><code>1</code></td><td>Stretch on by default</td></tr><tr><td><code>setup['volume_preservation']</code></td><td><code>0.5</code></td><td>Squash amount on stretchy limbs</td></tr></tbody></table></div>
 <h3 id="curve_data">curve_data - the shape library<a class="mt-anchor" href="#curve_data" aria-label="Link to this section">#</a></h3>
-<p>44 named shapes, stored as raw CV positions and degree. Pass the name to <code>mt.curve()</code>, <code>mt.controller()</code> or <code>mt.change_curve_shape()</code>:</p><p style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;color:var(--mt-dim);line-height:2"><code>2dArrow</code> &middot; <code>3dArrow</code> &middot; <code>CircleDoubleArrow</code> &middot; <code>WrapperThing</code> &middot; <code>chair</code> &middot; <code>circleDoublePointIn</code> &middot; <code>circleDoublePointOut</code> &middot; <code>circlePointIn</code> &middot; <code>circlePointOut</code> &middot; <code>circlePointUp</code> &middot; <code>circleX</code> &middot; <code>circleY</code> &middot; <code>circleZ</code> &middot; <code>circle_point</code> &middot; <code>cog</code> &middot; <code>cross</code> &middot; <code>cube</code> &middot; <code>cubePlus</code> &middot; <code>curveArrow</code> &middot; <code>cylinder</code> &middot; <code>feet</code> &middot; <code>gear</code> &middot; <code>halfCircle</code> &middot; <code>hand</code> &middot; <code>happyFace</code> &middot; <code>hexagon</code> &middot; <code>locator</code> &middot; <code>mover</code> &middot; <code>octagon</code> &middot; <code>pin_cube</code> &middot; <code>pringle</code> &middot; <code>pringle_point</code> &middot; <code>rectangle</code> &middot; <code>root</code> &middot; <code>roundMover</code> &middot; <code>sphere</code> &middot; <code>square</code> &middot; <code>squarePointUp</code> &middot; <code>squareSmooth</code> &middot; <code>sun</code> &middot; <code>trapezoid</code> &middot; <code>triangle</code> &middot; <code>vis</code> &middot; <code>wheel</code></p><h2 id="anatomy">Anatomy of a block<a class="mt-anchor" href="#anatomy" aria-label="Link to this section">#</a></h2>
+<p>44 named shapes, stored as raw CV positions and degree. Pass the name to <code>mt.curve()</code>, <code>mt.controller()</code> or <code>mt.change_curve_shape()</code>:</p><p style="line-height:2.1"><code>2dArrow</code> &middot; <code>3dArrow</code> &middot; <code>CircleDoubleArrow</code> &middot; <code>WrapperThing</code> &middot; <code>chair</code> &middot; <code>circleDoublePointIn</code> &middot; <code>circleDoublePointOut</code> &middot; <code>circlePointIn</code> &middot; <code>circlePointOut</code> &middot; <code>circlePointUp</code> &middot; <code>circleX</code> &middot; <code>circleY</code> &middot; <code>circleZ</code> &middot; <code>circle_point</code> &middot; <code>cog</code> &middot; <code>cross</code> &middot; <code>cube</code> &middot; <code>cubePlus</code> &middot; <code>curveArrow</code> &middot; <code>cylinder</code> &middot; <code>feet</code> &middot; <code>gear</code> &middot; <code>halfCircle</code> &middot; <code>hand</code> &middot; <code>happyFace</code> &middot; <code>hexagon</code> &middot; <code>locator</code> &middot; <code>mover</code> &middot; <code>octagon</code> &middot; <code>pin_cube</code> &middot; <code>pringle</code> &middot; <code>pringle_point</code> &middot; <code>rectangle</code> &middot; <code>root</code> &middot; <code>roundMover</code> &middot; <code>sphere</code> &middot; <code>square</code> &middot; <code>squarePointUp</code> &middot; <code>squareSmooth</code> &middot; <code>sun</code> &middot; <code>trapezoid</code> &middot; <code>triangle</code> &middot; <code>vis</code> &middot; <code>wheel</code></p><h2 id="anatomy">Anatomy of a block<a class="mt-anchor" href="#anatomy" aria-label="Link to this section">#</a></h2>
 <p>A block is a folder under <code>Blocks/&lt;category&gt;/</code> holding four files:</p><div class="mt-code-head"><span class="mt-dot"></span>folder layout</div>
 <pre><code>Blocks/008_Props/01_Single_FK/
 |-- 01_Single_FK.json          &lt;- launcher, never versioned
@@ -818,7 +637,8 @@ with existing blocks.</code></pre>
 <div class="mt-note"><b class="mt-tag">Note</b><p>Add a scope line for narrow tasks: <i>&ldquo;Implement only the requested body section. Do not add leg/finger/spine logic.&rdquo;</i> Without it, assistants reliably over-build.</p></div>
 <h2 id="reference">Where to go next<a class="mt-anchor" href="#reference" aria-label="Link to this section">#</a></h2>
 <div class="mt-grid mt-grid--3"><div class="mt-card"><h4>Command wiki</h4><p>Every <code>mt</code> method with its full signature, plus all 133 shipped blocks and their options. <a href="/wiki/">Open the wiki</a></p></div><div class="mt-card"><h4>Source</h4><p>The whole system is readable. <a href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">RenderDeMartes/Mutant_Tools</a></p></div><div class="mt-card"><h4>Auto rigger</h4><p>What the blocks feel like from the artist side. <a href="/maya-auto-rigger/">Maya auto rigger</a></p></div><div class="mt-card"><h4>Learn</h4><p>Workflow walkthroughs and production examples. <a href="/learn/">Learn</a></p></div><div class="mt-card"><h4>For riggers</h4><p>The non-Python tour of the same system. <a href="/rigger/">Rigger guide</a></p></div><div class="mt-card"><h4>Free assets</h4><p>Rigs and tools to pull apart. <a href="/free-assets/">Free assets</a></p></div></div>
-<div class="mt-cta"><h2>Build something with it</h2><p>Mutant Tools is free to download and the source is public. If you build a block worth sharing, or hit something this page did not answer, get in touch.</p><a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Get Mutant Tools</a><a class="mt-btn mt-btn--ghost" href="/contact/">Contact</a></div><p class="mt-updated">Generated from <code>RenderDeMartes/Mutant_Tools</code> at <code>2dc3eae</code> &middot; 18 September 2026</p></article></div></div>
+<div class="mt-cta"><h2>Build something with it</h2><p>Mutant Tools is free to download and the source is public. If you build a block worth sharing, or hit something this page did not answer, get in touch.</p><div class="mt-actions"><a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" rel="noopener">Get Mutant Tools</a><a class="mt-btn mt-btn--ghost" href="/contact/">Contact</a></div></div>
+<p class="mt-updated">Generated from <code>RenderDeMartes/Mutant_Tools</code> at <code>2dc3eae</code> &middot; 18 September 2026</p></article></div></div>
 <script>
 (function(){
   var links = [].slice.call(document.querySelectorAll('.mt-toc a[href^="#"]'));

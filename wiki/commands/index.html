@@ -85,188 +85,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel="icon" href="/assets/img/LogoWhite03-300x300.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="/assets/img/LogoWhite03-300x300.png" />
 <meta name="msapplication-TileImage" content="/assets/img/LogoWhite03-300x300.png" />
-
-<style id="mt-docs">
-:root{
-  --mt-ink:#140B06; --mt-panel:#1C0D0A; --mt-panel-2:#241310;
-  --mt-line:#3A241C; --mt-text:#FEF1E4; --mt-dim:#B79E92;
-  --mt-orange:#FF6210; --mt-orange-2:#F15808; --mt-code:#0E0805;
-  --mt-green:#7CD992; --mt-blue:#79C0FF; --mt-pink:#FF9BD2; --mt-yellow:#FFD479;
-}
-/* The homepage carries its own inline CSS: a global `*{font-family:Inter}` that
-   beats an inherited family, and something inside .entry-content that shrinks
-   the base size to ~12px. Both are answered explicitly rather than inherited,
-   so this block renders the same wherever it is dropped. */
-.mt-doc{background:var(--mt-ink);color:var(--mt-text);line-height:1.7;
-  font-size:15px;padding:0 0 6rem;overflow-x:clip}
-.mt-doc *{box-sizing:border-box}
-.mt-doc,.mt-doc p,.mt-doc li,.mt-doc a,.mt-doc span,.mt-doc div,.mt-doc td,.mt-doc th,
-.mt-doc h1,.mt-doc h2,.mt-doc h3,.mt-doc h4,.mt-doc button,.mt-doc summary,.mt-doc input,
-.mt-doc b,.mt-doc strong,.mt-doc i,.mt-doc nav,.mt-doc ol,.mt-doc ul
-  {font-family:'Montserrat',system-ui,-apple-system,sans-serif}
-.mt-doc code,.mt-doc pre,.mt-doc pre *,.mt-doc .mt-sig,.mt-doc .mt-sig *
-  {font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace}
-.mt-body p,.mt-body li{font-size:1rem}
-.mt-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
-
-/* ---- hero ---- */
-.mt-hero{padding:5.5rem 0 3rem;border-bottom:1px solid var(--mt-line)}
-.mt-kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--mt-orange);font-weight:700;margin:0 0 1.1rem}
-.mt-hero h1{font-size:clamp(2.1rem,5.4vw,3.6rem);line-height:1.08;margin:0 0 1.2rem;
-  letter-spacing:-.02em;color:#fff}
-.mt-lede{font-size:clamp(1rem,2.1vw,1.2rem);color:var(--mt-dim);max-width:62ch;margin:0 0 2rem}
-.mt-stats{display:flex;flex-wrap:wrap;gap:2.4rem;margin:2.4rem 0 0;padding:0;list-style:none}
-.mt-stats b{display:block;font-size:1.9rem;color:var(--mt-orange);line-height:1}
-.mt-stats span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mt-dim)}
-
-/* ---- layout ---- */
-/* minmax(0,...) on every track, and min-width:0 on the children. A bare `1fr`
-   floors at the widest child's min-content, so one long unbreakable line in a
-   <pre> or a table blows the column past the container - which it did on mobile,
-   clipping ~127px of every page that has a contents rail. */
-.mt-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:3.5rem;margin-top:3rem}
-.mt-layout>*{min-width:0}
-@media(max-width:940px){.mt-layout{grid-template-columns:minmax(0,1fr);gap:0}}
-.mt-toc{position:sticky;top:90px;align-self:start;max-height:calc(100vh - 120px);
-  overflow-y:auto;font-size:.86rem;padding-right:.5rem}
-@media(max-width:940px){.mt-toc{position:static;max-height:none;margin-bottom:2.5rem;
-  border-bottom:1px solid var(--mt-line);padding-bottom:1.5rem}}
-.mt-toc h2{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mt-dim);
-  margin:0 0 .9rem;font-weight:700}
-.mt-toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
-.mt-toc li{margin:0 0 .15rem}
-.mt-toc a{display:block;padding:.34rem .6rem;color:var(--mt-dim);text-decoration:none;
-  border-left:2px solid transparent;border-radius:0 4px 4px 0;transition:.15s}
-.mt-toc a:hover{color:var(--mt-text);background:var(--mt-panel)}
-.mt-toc a.is-on{color:var(--mt-orange);border-left-color:var(--mt-orange);background:var(--mt-panel)}
-
-/* ---- prose ---- */
-.mt-body h2{font-size:clamp(1.5rem,3.2vw,2.1rem);margin:3.6rem 0 1rem;color:#fff;
-  letter-spacing:-.015em;scroll-margin-top:90px}
-.mt-body h2:first-child{margin-top:0}
-.mt-body h3{font-size:1.16rem;margin:2.4rem 0 .8rem;color:var(--mt-orange);scroll-margin-top:90px}
-.mt-body h4{font-size:.98rem;margin:1.8rem 0 .6rem;color:var(--mt-text)}
-.mt-body p{margin:0 0 1.1rem;color:#E8D9CF}
-.mt-body ul,.mt-body ol{margin:0 0 1.2rem;padding-left:1.3rem;color:#E8D9CF}
-.mt-body li{margin:.34rem 0}
-.mt-body a{color:var(--mt-orange);text-decoration:none;border-bottom:1px solid rgba(255,98,16,.35)}
-.mt-body a:hover{color:var(--mt-orange-2);border-bottom-color:var(--mt-orange-2)}
-.mt-body strong{color:#fff}
-.mt-body hr{border:0;border-top:1px solid var(--mt-line);margin:3rem 0}
-
-/* ---- code ---- */
-.mt-body code{font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
-  font-size:.86em;background:var(--mt-panel-2);color:var(--mt-yellow);
-  padding:.14em .42em;border-radius:4px;border:1px solid var(--mt-line)}
-.mt-body pre{background:var(--mt-code);border:1px solid var(--mt-line);border-radius:10px;
-  padding:1.15rem 1.25rem;overflow-x:auto;margin:0 0 1.4rem;font-size:.845rem;line-height:1.65}
-.mt-body pre code{background:none;border:0;padding:0;color:#E6DCD4;font-size:inherit}
-.mt-code-head{display:flex;align-items:center;gap:.6rem;background:var(--mt-panel-2);
-  border:1px solid var(--mt-line);border-bottom:0;border-radius:10px 10px 0 0;
-  padding:.5rem 1rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--mt-dim);font-weight:700}
-.mt-code-head+pre{border-radius:0 0 10px 10px;margin-top:0}
-.mt-code-head .mt-dot{width:8px;height:8px;border-radius:50%;background:var(--mt-orange)}
-.tok-k{color:var(--mt-pink)}.tok-s{color:var(--mt-green)}.tok-c{color:#8A7568;font-style:italic}
-.tok-n{color:var(--mt-blue)}.tok-f{color:var(--mt-yellow)}
-
-/* ---- callouts ---- */
-.mt-note{border-left:3px solid var(--mt-orange);background:var(--mt-panel);
-  padding:1rem 1.2rem;border-radius:0 8px 8px 0;margin:0 0 1.4rem}
-.mt-note p:last-child{margin-bottom:0}
-.mt-note b.mt-tag{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--mt-orange);margin-bottom:.4rem}
-.mt-warn{border-left-color:#FF4D4D}
-.mt-warn b.mt-tag{color:#FF7A7A}
-.mt-ok{border-left-color:var(--mt-green)}
-.mt-ok b.mt-tag{color:var(--mt-green)}
-
-/* ---- tables ---- */
-.mt-table-wrap{overflow-x:auto;margin:0 0 1.5rem;border:1px solid var(--mt-line);border-radius:10px}
-.mt-body table{width:100%;border-collapse:collapse;font-size:.855rem;margin:0}
-.mt-body th{text-align:left;background:var(--mt-panel-2);color:var(--mt-dim);
-  font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;padding:.7rem .9rem;
-  border-bottom:1px solid var(--mt-line);white-space:nowrap}
-.mt-body td{padding:.65rem .9rem;border-bottom:1px solid rgba(58,36,28,.6);
-  vertical-align:top;color:#E8D9CF}
-.mt-body tr:last-child td{border-bottom:0}
-.mt-body td code{white-space:nowrap}
-
-/* ---- cards ---- */
-.mt-grid{display:grid;gap:1rem;margin:0 0 1.6rem}
-.mt-grid--2{grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
-.mt-grid--3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
-.mt-card{background:var(--mt-panel);border:1px solid var(--mt-line);border-radius:10px;padding:1.15rem 1.25rem}
-.mt-card h4{margin:0 0 .45rem;color:var(--mt-orange);font-size:.95rem}
-.mt-card p{margin:0;font-size:.875rem;color:var(--mt-dim)}
-.mt-card code{font-size:.8rem}
-
-/* ---- api entries ---- */
-.mt-api{border:1px solid var(--mt-line);border-radius:10px;margin:0 0 .75rem;background:var(--mt-panel);overflow:hidden}
-.mt-api>summary{cursor:pointer;padding:.8rem 1.1rem;list-style:none;display:flex;
-  gap:.7rem;align-items:baseline;flex-wrap:wrap}
-.mt-api>summary::-webkit-details-marker{display:none}
-.mt-api>summary:hover{background:var(--mt-panel-2)}
-.mt-api .mt-sig{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;color:var(--mt-yellow)}
-.mt-api .mt-sig b{color:#fff;font-weight:700}
-.mt-api .mt-from{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--mt-dim);margin-left:auto;white-space:nowrap}
-.mt-api-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--mt-line)}
-.mt-api-body p{margin:.9rem 0 .6rem;font-size:.9rem}
-.mt-api-body table{font-size:.82rem}
-/* The raw docstring under an expanded command. NOT .mt-doc - that is the page
-   container, and reusing the name leaked pre-wrap and a .79rem font onto every
-   paragraph on the site. */
-.mt-docstring{background:transparent!important;border:0!important;
-  border-left:2px solid var(--mt-line)!important;
-  border-radius:0!important;padding:.2rem 0 .2rem 1rem!important;margin:1rem 0 0!important;
-  font-size:.79rem!important;color:#B79E92!important;white-space:pre-wrap;line-height:1.55}
-.mt-docstring code{color:inherit!important}
-
-/* ---- search ---- */
-.mt-search{position:relative;margin:0 0 1.6rem}
-.mt-search input{width:100%;background:var(--mt-panel);border:1px solid var(--mt-line);
-  border-radius:9px;padding:.85rem 1rem .85rem 2.6rem;color:var(--mt-text);
-  font-family:inherit;font-size:.95rem}
-.mt-search input:focus{outline:2px solid var(--mt-orange);outline-offset:1px;border-color:transparent}
-.mt-search input::placeholder{color:#8A7568}
-.mt-search svg{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);
-  width:16px;height:16px;fill:none;stroke:#8A7568;stroke-width:2}
-.mt-count{font-size:.78rem;color:var(--mt-dim);margin:0 0 1rem}
-.mt-hide{display:none!important}
-
-/* ---- pills ---- */
-.mt-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.6rem;padding:0;list-style:none}
-.mt-pill{background:var(--mt-panel);border:1px solid var(--mt-line);color:var(--mt-dim);
-  border-radius:999px;padding:.34rem .85rem;font-size:.76rem;cursor:pointer;
-  font-family:inherit;letter-spacing:.04em}
-.mt-pill:hover{color:var(--mt-text);border-color:var(--mt-orange)}
-.mt-pill[aria-pressed="true"]{background:var(--mt-orange);color:#180C07;border-color:var(--mt-orange);font-weight:700}
-
-/* ---- cta ---- */
-.mt-cta{background:linear-gradient(135deg,var(--mt-panel),var(--mt-panel-2));
-  border:1px solid var(--mt-line);border-radius:14px;padding:2.4rem;margin:3.5rem 0 0;text-align:center}
-.mt-cta h2{margin:0 0 .8rem!important;font-size:1.7rem}
-.mt-cta p{color:var(--mt-dim);max-width:52ch;margin:0 auto 1.6rem}
-.mt-btn{display:inline-block;background:var(--mt-orange);color:#180C07!important;
-  border:0;border-bottom:0!important;border-radius:999px;padding:.85rem 1.9rem;
-  font-weight:700;font-size:.85rem;letter-spacing:.07em;text-transform:uppercase;
-  text-decoration:none;margin:.3rem}
-.mt-btn:hover{background:var(--mt-orange-2);color:#180C07!important}
-.mt-btn--ghost{background:transparent;color:var(--mt-orange)!important;
-  box-shadow:inset 0 0 0 1px var(--mt-orange)}
-.mt-btn--ghost:hover{background:rgba(255,98,16,.12);color:var(--mt-orange)!important}
-
-/* ---- misc ---- */
-.mt-anchor{color:var(--mt-line);text-decoration:none!important;border:0!important;
-  margin-left:.4rem;font-weight:400;opacity:0}
-h2:hover .mt-anchor,h3:hover .mt-anchor{opacity:1}
-.mt-anchor:hover{color:var(--mt-orange)}
-.mt-updated{font-size:.75rem;color:#8A7568;margin-top:3rem;padding-top:1.4rem;
-  border-top:1px solid var(--mt-line)}
-</style>
-
+<link rel="stylesheet" id="mt-ui" href="/assets/css/mt-ui.css?v=9c6da6f2d3">
 </head>
 
 <body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-2578 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.11.18 ast-single-post ast-mobile-inherit-site-logo ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header ast-full-width-primary-header">
@@ -347,8 +166,8 @@ class="hfeed site" id="page">
 		</header><!-- #masthead -->
 			
 <div id="content" class="site-content"><div class="mt-doc">
-<header class="mt-hero"><div class="mt-wrap"><p class="mt-kicker"><a href="/wiki/" style="color:inherit">Wiki</a> / Commands</p><h1>Command reference</h1><p class="mt-lede">Every public method on <code>mt</code>, with its real signature and defaults, read from the source. Click any row to expand.</p></div></header><div class="mt-wrap"><div class="mt-body" style="margin-top:3rem"><div class="mt-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="mt-q" type="search" autocomplete="off" spellcheck="false" placeholder="Search commands - try curve, twist, attr, mirror" aria-label="Search commands - try curve, twist, attr, mirror"></div>
-<ul class="mt-pills"><button class="mt-pill" type="button" data-filter="Tools_class" aria-pressed="false">tools.py</button><button class="mt-pill" type="button" data-filter="Kinematics_class" aria-pressed="false">kinematics.py</button><button class="mt-pill" type="button" data-filter="Modules_class" aria-pressed="false">modules.py</button><button class="mt-pill" type="button" data-filter="Mutant" aria-pressed="false">main_mutant.py</button></ul><p class="mt-count" id="mt-count">117 entries</p><section data-group><h2 id="tools-class">Tools <span style="font-size:.55em;color:var(--mt-dim);font-weight:400">tools.py</span><a class="mt-anchor" href="#tools-class" aria-label="Link to this section">#</a></h2>
+<header class="mt-hero"><div class="mt-wrap"><p class="mt-kicker"><a href="/wiki/">Wiki</a> / Commands</p><h1>Command reference</h1><p class="mt-lede">Every public method on <code>mt</code>, with its real signature and defaults, read from the source. Click any row to expand.</p></div></header><div class="mt-wrap"><div class="mt-body mt-body--wide mt-section"><div class="mt-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="mt-q" type="search" autocomplete="off" spellcheck="false" placeholder="Search commands - try curve, twist, attr, mirror" aria-label="Search commands - try curve, twist, attr, mirror"></div>
+<div class="mt-pills" role="group" aria-label="Filter"><button class="mt-pill" type="button" data-filter="Tools_class" aria-pressed="false">tools.py</button><button class="mt-pill" type="button" data-filter="Kinematics_class" aria-pressed="false">kinematics.py</button><button class="mt-pill" type="button" data-filter="Modules_class" aria-pressed="false">modules.py</button><button class="mt-pill" type="button" data-filter="Mutant" aria-pressed="false">main_mutant.py</button></div><p class="mt-count" id="mt-count">117 entries</p><section data-group><h2 id="tools-class">Tools <span class="mt-meta">tools.py</span><a class="mt-anchor" href="#tools-class" aria-label="Link to this section">#</a></h2>
 <p>Controls, attributes, colour, utility nodes, JSON and geometry queries.</p><details class="mt-api" data-search="assign_color input='', color='lightblue' assign a color to the desired transform.
 
 args:
@@ -1510,7 +1329,7 @@ Examples:
         hide_attr(input='transform1', rotate_order=True)
 
         # Example 3: Show all attributes for multiple transforms
-        hide_attr(input=['transform1', 'transform2'], show=True)</code></pre></div></details><details class="mt-api" data-search="import_configs  " data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>import_configs</b>()</span><span class="mt-from">tools.py:102</span></summary><div class="mt-api-body"><p><i style='color:var(--mt-dim)'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
+        hide_attr(input=['transform1', 'transform2'], show=True)</code></pre></div></details><details class="mt-api" data-search="import_configs  " data-cat="Tools_class"><summary><span class="mt-sig">mt.<b>import_configs</b>()</span><span class="mt-from">tools.py:102</span></summary><div class="mt-api-body"><p><i class='mt-meta'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">import_configs</span>()</code></pre>
 </div></details><details class="mt-api" data-search="line_attr input='', name='name', lines=10 create a line attribute with a header. _____________ [name]
 
@@ -2610,7 +2429,7 @@ Notes:
 
 Example:
         # Write data to a JSON file
-        write_json("C:\data", "output.json", {"name": "John", "age": 30})</code></pre></div></details></section><section data-group><h2 id="kinematics-class">Kinematics <span style="font-size:.55em;color:var(--mt-dim);font-weight:400">kinematics.py</span><a class="mt-anchor" href="#kinematics-class" aria-label="Link to this section">#</a></h2>
+        write_json("C:\data", "output.json", {"name": "John", "age": 30})</code></pre></div></details></section><section data-group><h2 id="kinematics-class">Kinematics <span class="mt-meta">kinematics.py</span><a class="mt-anchor" href="#kinematics-class" aria-label="Link to this section">#</a></h2>
 <p>FK and IK systems, twist, ribbons, spines, deformers, LODs.</p><details class="mt-api" data-search="advance_twist start='', end='', axis=setup['twist_axis'], amount=4, mode='up', driver='', inverse=false create a twist system for the chain.
 
 args:
@@ -2835,7 +2654,7 @@ Examples:
 
         # Example 2: Create a basic ribbon rig with custom settings
         ribbon_elements = basic_ribbon(start='object1', end='object2', divisions=7, name='MyRibbon',
-                                                                   ctrl_type='cube', size=2.0, world_orient=True)</code></pre></div></details><details class="mt-api" data-search="bend_and_squash name='sns', geo=none, parent_grp=none, squash_enabled=true, bend_enabled=true, ctrl_guide=none, bend_guide=none, squash_guide=none " data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>bend_and_squash</b>(name='SnS', geo=None, parent_grp=None, squash_enabled=True, bend_enabled=True, ctrl_guide=None, bend_guide=None, squash_guide=None)</span><span class="mt-from">kinematics.py:2458</span></summary><div class="mt-api-body"><p><i style='color:var(--mt-dim)'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
+                                                                   ctrl_type='cube', size=2.0, world_orient=True)</code></pre></div></details><details class="mt-api" data-search="bend_and_squash name='sns', geo=none, parent_grp=none, squash_enabled=true, bend_enabled=true, ctrl_guide=none, bend_guide=none, squash_guide=none " data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>bend_and_squash</b>(name='SnS', geo=None, parent_grp=None, squash_enabled=True, bend_enabled=True, ctrl_guide=None, bend_guide=None, squash_guide=None)</span><span class="mt-from">kinematics.py:2458</span></summary><div class="mt-api-body"><p><i class='mt-meta'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">bend_and_squash</span>(name=<span class="tok-s">'SnS'</span>, geo=<span class="tok-k">None</span>, parent_grp=<span class="tok-k">None</span>, squash_enabled=<span class="tok-k">True</span>, bend_enabled=<span class="tok-k">True</span>, ctrl_guide=<span class="tok-k">None</span>, bend_guide=<span class="tok-k">None</span>, squash_guide=<span class="tok-k">None</span>)</code></pre>
 </div></details><details class="mt-api" data-search="bend_and_squash_head geo, parent_grp add squash and bend deformers to the specified geometry.
 
@@ -2970,7 +2789,7 @@ Notes:
 - The skinning information is filtered to include only joints with significant influence (value &gt; 0.01).
 
 Usage:
-relevant_values, relevant_joints = copy_skin_values(["pSphere1.vtx[10]"])</code></pre></div></details><details class="mt-api" data-search="create_add_compat name " data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_add_compat</b>(name)</span><span class="mt-from">kinematics.py:2370</span></summary><div class="mt-api-body"><p><i style='color:var(--mt-dim)'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
+relevant_values, relevant_joints = copy_skin_values(["pSphere1.vtx[10]"])</code></pre></div></details><details class="mt-api" data-search="create_add_compat name " data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_add_compat</b>(name)</span><span class="mt-from">kinematics.py:2370</span></summary><div class="mt-api-body"><p><i class='mt-meta'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_add_compat</span>(name)</code></pre>
 </div></details><details class="mt-api" data-search="create_auto_rotate_fk fk_root_ctrl=none, fk_root_ctrl_offset=none, size=1 creates an auto-rotate fk setup for a chain of controls in maya.
 
@@ -3018,7 +2837,7 @@ Example:
         create_auto_rotate_fk("FK_Root_Ctrl", "FK_Root_Ctrl_Offset")
 
         # With attributes
-        create_auto_rotate_fk("FK_Root_Ctrl", "FK_Root_Ctrl_Offset")</code></pre></div></details><details class="mt-api" data-search="create_dynamic_fk joints=[] " data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_dynamic_fk</b>(joints=[])</span><span class="mt-from">kinematics.py:3422</span></summary><div class="mt-api-body"><p><i style='color:var(--mt-dim)'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
+        create_auto_rotate_fk("FK_Root_Ctrl", "FK_Root_Ctrl_Offset")</code></pre></div></details><details class="mt-api" data-search="create_dynamic_fk joints=[] " data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_dynamic_fk</b>(joints=[])</span><span class="mt-from">kinematics.py:3422</span></summary><div class="mt-api-body"><p><i class='mt-meta'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_dynamic_fk</span>(joints=[])</code></pre>
 </div></details><details class="mt-api" data-search="create_lods_containers lods=['high'] create lod (level of detail) containers.
 
@@ -3056,7 +2875,7 @@ Notes:
 
 Example:
         # Create LOD containers for 'High' and 'Medium' LODs
-        lods_created = create_lods_containers(['High', 'Medium'])</code></pre></div></details><details class="mt-api" data-search="create_mdl_compat name " data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_mdl_compat</b>(name)</span><span class="mt-from">kinematics.py:2358</span></summary><div class="mt-api-body"><p><i style='color:var(--mt-dim)'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
+        lods_created = create_lods_containers(['High', 'Medium'])</code></pre></div></details><details class="mt-api" data-search="create_mdl_compat name " data-cat="Kinematics_class"><summary><span class="mt-sig">mt.<b>create_mdl_compat</b>(name)</span><span class="mt-from">kinematics.py:2358</span></summary><div class="mt-api-body"><p><i class='mt-meta'>No docstring in the source.</i></p><div class="mt-code-head"><span class="mt-dot"></span>signature</div>
 <pre><code><span class="tok-n">mt</span>.<span class="tok-f">create_mdl_compat</span>(name)</code></pre>
 </div></details><details class="mt-api" data-search="create_mid_ribbons name, first_joint, last_joint, twist_joints, aim, twist_amount, ctrl_size, sec_color, switch_locator creates mid ribbons with bendy functionality.
 
@@ -4410,7 +4229,7 @@ Usage:
                 end='joint2',
                 axis='x',
                 driver=True
-        )</code></pre></div></details></section><section data-group><h2 id="modules-class">Modules <span style="font-size:.55em;color:var(--mt-dim);font-weight:400">modules.py</span><a class="mt-anchor" href="#modules-class" aria-label="Link to this section">#</a></h2>
+        )</code></pre></div></details></section><section data-group><h2 id="modules-class">Modules <span class="mt-meta">modules.py</span><a class="mt-anchor" href="#modules-class" aria-label="Link to this section">#</a></h2>
 <p>Blocks, guides, joint orientation and the base rig hierarchy.</p><details class="mt-api" data-search="mutant_logger mode='create' manages the mutant logger for scripteditor history.
 
 args:
@@ -5072,7 +4891,7 @@ Note:
         This function assumes the use of the 'cmds' module from Autodesk Maya or a similar 3D software.
 
 Example:
-        update_icons()</code></pre></div></details></section><section data-group><h2 id="mutant">Mutant <span style="font-size:.55em;color:var(--mt-dim);font-weight:400">main_mutant.py</span><a class="mt-anchor" href="#mutant" aria-label="Link to this section">#</a></h2>
+        update_icons()</code></pre></div></details></section><section data-group><h2 id="mutant">Mutant <span class="mt-meta">main_mutant.py</span><a class="mt-anchor" href="#mutant" aria-label="Link to this section">#</a></h2>
 <p>Version checks and in-place updates from GitHub.</p><details class="mt-api" data-search="check_for_updates silent=true compares the local version against the latest github release. if a newer release
 is available, asks the user if they want to download and install it automatically.
 

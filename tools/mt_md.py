@@ -85,6 +85,41 @@ def cards(items, cols=2):
     return "".join(out)
 
 
+def btn(label, href, ghost=False):
+    """One button. Off-site links open in a new tab."""
+    cls = "mt-btn mt-btn--ghost" if ghost else "mt-btn"
+    ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
+    return '<a class="%s" href="%s"%s>%s</a>' % (cls, href, ext, label)
+
+
+def actions(*buttons):
+    """A row of buttons, spaced and wrapping."""
+    return '<div class="mt-actions">%s</div>' % "".join(buttons)
+
+
+def cta(title, text, *buttons):
+    """The closing call-to-action box every page ends on."""
+    return '<div class="mt-cta"><h2>%s</h2><p>%s</p>%s</div>\n' % (title, text, actions(*buttons))
+
+
+def hero(kicker, title, lede, extra=""):
+    """The page head every page opens with: kicker, h1, lede, then optional
+    stats or buttons."""
+    return ('<header class="mt-hero"><div class="mt-wrap">'
+            '<p class="mt-kicker">%s</p><h1>%s</h1><p class="mt-lede">%s</p>%s'
+            '</div></header>\n' % (kicker, title, lede, extra))
+
+
+def media_card(title, body, media, kicker="", href="", button=""):
+    """A card with a picture or video on top. `media` is the <img>/<iframe>.
+    With `href` the title links there and the whole card is clickable."""
+    head = '<a href="%s">%s</a>' % (href, title) if href else title
+    return ('<div class="mt-card mt-card--media"><div class="mt-card__media">%s</div>'
+            '<div class="mt-card__body">%s<h3>%s</h3><p>%s</p>%s</div></div>'
+            % (media, '<p class="mt-kicker">%s</p>' % kicker if kicker else "", head, body,
+               actions(button) if button else ""))
+
+
 def slug(text):
     s = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
     return s

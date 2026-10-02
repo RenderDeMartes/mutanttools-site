@@ -1,0 +1,244 @@
+/* Mutant Tools UI - the one stylesheet every page except the homepage uses.
+
+   Edit here, not in the generators. tools/mt_shell.py links this file with a
+   content hash in the query string (CSS is served cached for a year), so run
+   tools/build_mtdocs.py after any change or returning visitors keep the old one.
+
+   The homepage keeps its own frozen copy of the previous styles
+   (tools/home_docs.css) so nothing here can move it.
+
+   Rules of the system:
+   - One accent. Orange marks what you can act on (links, buttons, the active
+     contents entry) and the small kicker above a title. Nothing else.
+   - Headings are white, body is warm off-white, secondary text is muted.
+   - Every box is the same box: surface fill, 1px line, 10px radius.
+*/
+
+:root{
+  --mt-bg:#140B06;         /* page, same ink as the homepage */
+  --mt-surface:#1C0D0A;    /* cards, notes, inputs */
+  --mt-surface-2:#241310;  /* hover, inline code, table head */
+  --mt-code-bg:#0F0805;
+  --mt-line:#33201A;
+  --mt-heading:#FFFFFF;
+  --mt-text:#EADDD4;
+  --mt-muted:#B09A8E;
+  --mt-faint:#7E6A60;
+  --mt-accent:#FF6210;
+  --mt-accent-hover:#FF7A33;
+  --mt-on-accent:#140B06;
+  --mt-radius:10px;
+  --mt-sans:'Montserrat',system-ui,-apple-system,sans-serif;
+  --mt-mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+}
+
+/* ---------------------------------------------------------------- base */
+/* Astra's inline theme CSS sets fonts, sizes and an uppercase h1 on bare
+   elements. Everything is answered explicitly inside .mt-doc so a component
+   renders the same wherever it lands. */
+.mt-doc{background:var(--mt-bg);color:var(--mt-text);line-height:1.7;
+  font-size:16px;padding:0 0 6rem;overflow-x:clip;
+  min-height:calc(100vh - 72px)}  /* short pages still push the footer to the bottom */
+.mt-doc *{box-sizing:border-box}
+.mt-doc,.mt-doc p,.mt-doc li,.mt-doc a,.mt-doc span,.mt-doc div,.mt-doc td,.mt-doc th,
+.mt-doc h1,.mt-doc h2,.mt-doc h3,.mt-doc h4,.mt-doc button,.mt-doc summary,.mt-doc input,
+.mt-doc b,.mt-doc strong,.mt-doc i,.mt-doc nav,.mt-doc ol,.mt-doc ul
+  {font-family:var(--mt-sans)}
+.mt-doc code,.mt-doc pre,.mt-doc pre *,.mt-doc .mt-sig,.mt-doc .mt-sig *
+  {font-family:var(--mt-mono)}
+.mt-doc h1,.mt-doc h2,.mt-doc h3,.mt-doc h4{text-transform:none;font-weight:700;color:var(--mt-heading)}
+.mt-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.mt-section{margin-top:3.5rem}
+.mt-hide{display:none!important}
+
+/* ---------------------------------------------------------- page head */
+/* The header floats over the page, so the head clears it with top padding. */
+.mt-hero{padding:9rem 0 3rem;border-bottom:1px solid var(--mt-line)}
+.mt-hero:last-child{border-bottom:0}
+@media(max-width:921px){.mt-hero{padding-top:7rem}}
+.mt-kicker{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mt-accent);font-weight:600;margin:0 0 .9rem}
+.mt-kicker a{color:inherit;text-decoration:none}
+.mt-kicker a:hover{text-decoration:underline}
+.mt-hero h1{font-size:clamp(2rem,4.2vw,3rem);line-height:1.12;margin:0 0 1rem;letter-spacing:-.02em}
+.mt-lede{font-size:clamp(1rem,1.8vw,1.125rem);color:var(--mt-muted);max-width:62ch;margin:0}
+.mt-lede code{font-size:.9em}
+.mt-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin:2rem 0 0}
+
+/* stats: a quiet facts row under the lede */
+.mt-stats{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;margin:2rem 0 0;padding:0;list-style:none}
+.mt-stats li{margin:0}
+.mt-stats b{display:block;font-size:1.5rem;font-weight:700;color:var(--mt-heading);line-height:1.2}
+.mt-stats span{font-size:.82rem;color:var(--mt-muted)}
+
+/* ------------------------------------------------------------- buttons */
+.mt-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  background:var(--mt-accent);color:var(--mt-on-accent)!important;
+  border:1px solid var(--mt-accent);border-radius:999px;padding:.7rem 1.4rem;
+  font-family:var(--mt-sans);font-weight:600;font-size:.9rem;line-height:1.2;text-transform:none;
+  text-decoration:none!important;cursor:pointer;transition:background .15s,border-color .15s}
+.mt-btn:hover,.mt-btn:focus-visible{background:var(--mt-accent-hover);border-color:var(--mt-accent-hover)}
+.mt-btn--ghost{background:transparent;color:var(--mt-heading)!important;border-color:var(--mt-line)}
+.mt-btn--ghost:hover,.mt-btn--ghost:focus-visible{background:var(--mt-surface);border-color:var(--mt-accent)}
+.mt-btn--sm{padding:.45rem 1rem;font-size:.82rem}
+/* .mt-body a styles must not reach a button */
+.mt-body a.mt-btn{border-bottom:1px solid var(--mt-accent)}
+.mt-body a.mt-btn--ghost{border-bottom-color:var(--mt-line)}
+
+/* -------------------------------------------------------------- layout */
+/* minmax(0,...) on every track, and min-width:0 on the children. A bare `1fr`
+   floors at the widest child's min-content, so one long unbreakable line in a
+   <pre> or a table blows the column past the container - which it did on mobile,
+   clipping ~127px of every page that has a contents rail. */
+.mt-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;margin-top:3rem}
+.mt-layout>*{min-width:0}
+@media(max-width:940px){.mt-layout{grid-template-columns:minmax(0,1fr);gap:0}}
+
+/* contents rail */
+.mt-toc{position:sticky;top:2rem;align-self:start;max-height:calc(100vh - 4rem);
+  overflow-y:auto;font-size:.875rem;padding-right:.5rem}
+@media(max-width:940px){.mt-toc{position:static;max-height:none;margin-bottom:2.5rem;
+  border-bottom:1px solid var(--mt-line);padding-bottom:1.5rem}}
+.mt-toc h2{font-size:.8rem;color:var(--mt-muted);margin:0 0 .75rem;font-weight:600}
+.mt-toc ol{list-style:none;margin:0;padding:0}
+.mt-toc li{margin:0}
+.mt-toc a{display:block;padding:.3rem .75rem;color:var(--mt-muted);text-decoration:none;
+  border-left:1px solid var(--mt-line);transition:color .15s,border-color .15s}
+.mt-toc a:hover{color:var(--mt-heading)}
+.mt-toc a.is-on{color:var(--mt-accent);border-left-color:var(--mt-accent)}
+
+/* --------------------------------------------------------------- prose */
+.mt-body{max-width:78ch}
+.mt-body--wide{max-width:none}
+.mt-body p,.mt-body li{font-size:1rem}
+.mt-body h2{font-size:clamp(1.5rem,2.6vw,1.875rem);line-height:1.25;margin:3.5rem 0 1rem;
+  letter-spacing:-.01em;scroll-margin-top:2rem}
+.mt-body h2:first-child{margin-top:0}
+.mt-body h3{font-size:1.2rem;line-height:1.35;margin:2.25rem 0 .75rem;scroll-margin-top:2rem}
+.mt-body h4{font-size:1rem;margin:1.75rem 0 .5rem}
+.mt-body p{margin:0 0 1.1rem;color:var(--mt-text)}
+.mt-body ul,.mt-body ol{margin:0 0 1.2rem;padding-left:1.3rem;color:var(--mt-text)}
+.mt-body li{margin:.3rem 0}
+.mt-body a{color:var(--mt-accent);text-decoration:none;border-bottom:1px solid rgba(255,98,16,.35)}
+.mt-body a:hover{border-bottom-color:var(--mt-accent)}
+.mt-body strong,.mt-body b{color:var(--mt-heading)}
+.mt-body hr{border:0;border-top:1px solid var(--mt-line);margin:3rem 0}
+
+/* ---------------------------------------------------------------- code */
+.mt-doc code{font-size:.875em;background:var(--mt-surface-2);color:var(--mt-heading);
+  padding:.12em .4em;border-radius:4px}
+.mt-body pre{background:var(--mt-code-bg);border:1px solid var(--mt-line);border-radius:var(--mt-radius);
+  padding:1rem 1.25rem;overflow-x:auto;margin:0 0 1.5rem;font-size:.85rem;line-height:1.65}
+.mt-body pre code{background:none;padding:0;color:var(--mt-text);font-size:inherit}
+/* file label sitting on top of a code block */
+.mt-code-head{background:var(--mt-surface);border:1px solid var(--mt-line);border-bottom:0;
+  border-radius:var(--mt-radius) var(--mt-radius) 0 0;padding:.45rem 1.25rem;
+  font-family:var(--mt-mono);font-size:.78rem;color:var(--mt-muted)}
+.mt-code-head+pre{border-radius:0 0 var(--mt-radius) var(--mt-radius);margin-top:0}
+.mt-code-head .mt-dot{display:none}
+.tok-k{color:#FF9466}.tok-s{color:#A8D8A0}.tok-c{color:var(--mt-faint);font-style:italic}
+.tok-n{color:#9CC8F0}.tok-f{color:#F5D9A8}
+
+/* --------------------------------------------------------------- notes */
+.mt-note{background:var(--mt-surface);border:1px solid var(--mt-line);
+  border-left:3px solid var(--mt-accent);border-radius:var(--mt-radius);
+  padding:1rem 1.25rem;margin:0 0 1.5rem}
+.mt-note p:last-child{margin-bottom:0}
+.mt-note b.mt-tag{display:block;font-size:.875rem;font-weight:600;color:var(--mt-heading);margin-bottom:.3rem}
+.mt-warn{border-left-color:#FF5A5A}
+.mt-ok{border-left-color:#7CD992}
+
+/* -------------------------------------------------------------- tables */
+.mt-table-wrap{overflow-x:auto;margin:0 0 1.5rem;border:1px solid var(--mt-line);border-radius:var(--mt-radius)}
+.mt-doc table{width:100%;border-collapse:collapse;font-size:.875rem;margin:0;border:0}
+.mt-doc th{text-align:left;background:var(--mt-surface);color:var(--mt-muted);
+  font-size:.8rem;font-weight:600;padding:.65rem 1rem;
+  border:0;border-bottom:1px solid var(--mt-line);white-space:nowrap}
+.mt-doc td{padding:.65rem 1rem;border:0;border-bottom:1px solid var(--mt-line);
+  vertical-align:top;color:var(--mt-text)}
+.mt-doc tr:last-child td{border-bottom:0}
+.mt-doc td code{white-space:nowrap}
+
+/* --------------------------------------------------------------- cards */
+.mt-grid{display:grid;gap:1rem;margin:0 0 1.5rem}
+.mt-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.mt-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.mt-grid--3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.mt-grid--2,.mt-grid--3{grid-template-columns:minmax(0,1fr)}}
+.mt-card{position:relative;display:flex;flex-direction:column;background:var(--mt-surface);
+  border:1px solid var(--mt-line);border-radius:var(--mt-radius);padding:1.25rem;
+  transition:border-color .15s}
+.mt-card h3,.mt-card h4{margin:0 0 .4rem;font-size:1.05rem;line-height:1.35;color:var(--mt-heading)}
+.mt-card p{margin:0;font-size:.9rem;color:var(--mt-muted)}
+.mt-card code{font-size:.8rem}
+/* a card whose title is a link is clickable all over */
+.mt-card:has(h3 a,h4 a):hover{border-color:var(--mt-accent)}
+.mt-card h3 a,.mt-card h4 a{color:inherit!important;border:0!important;text-decoration:none}
+.mt-card h3 a::after,.mt-card h4 a::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.mt-card .mt-kicker{margin:0 0 .5rem;font-size:.72rem;color:var(--mt-accent)}
+.mt-card .mt-actions{margin-top:auto;padding-top:1.25rem}
+.mt-card .mt-actions .mt-btn{position:relative;z-index:1}
+
+/* media card: picture or video on top, card body below */
+.mt-card--media{padding:0;overflow:hidden}
+.mt-card__media{aspect-ratio:16/9;background:var(--mt-code-bg);border-bottom:1px solid var(--mt-line)}
+.mt-card__media img,.mt-card__media iframe{display:block;width:100%;height:100%;object-fit:cover;border:0}
+.mt-card__media--tall{aspect-ratio:4/3}
+.mt-card__body{display:flex;flex-direction:column;flex:1;padding:1.25rem}
+
+/* ----------------------------------------------------- api entries */
+.mt-api{border:1px solid var(--mt-line);border-radius:var(--mt-radius);margin:0 0 .5rem;
+  background:var(--mt-surface);overflow:hidden}
+.mt-api>summary{cursor:pointer;padding:.7rem 1rem;list-style:none;display:flex;
+  gap:.75rem;align-items:baseline;flex-wrap:wrap}
+.mt-api>summary::-webkit-details-marker{display:none}
+.mt-api>summary:hover{background:var(--mt-surface-2)}
+.mt-api[open]>summary{border-bottom:1px solid var(--mt-line)}
+.mt-api .mt-sig{font-size:.85rem;color:var(--mt-muted)}
+.mt-api .mt-sig b{color:var(--mt-heading);font-weight:600}
+.mt-api .mt-from{font-size:.75rem;color:var(--mt-faint);margin-left:auto;white-space:nowrap}
+.mt-api-body{padding:0 1rem 1rem}
+.mt-api-body p{margin:.9rem 0 .6rem;font-size:.9rem}
+.mt-api-body table{font-size:.82rem}
+/* The raw docstring under an expanded command. NOT .mt-doc - that is the page
+   container, and reusing the name leaked pre-wrap and a .79rem font onto every
+   paragraph on the site. */
+.mt-docstring{background:transparent!important;border:0!important;
+  border-left:2px solid var(--mt-line)!important;
+  border-radius:0!important;padding:.2rem 0 .2rem 1rem!important;margin:1rem 0 0!important;
+  font-size:.8rem!important;color:var(--mt-muted)!important;white-space:pre-wrap;line-height:1.55}
+.mt-docstring code{color:inherit!important;background:none!important}
+
+/* -------------------------------------------------------------- search */
+.mt-search{position:relative;margin:0 0 1rem}
+.mt-search input{width:100%;background:var(--mt-surface);border:1px solid var(--mt-line);
+  border-radius:var(--mt-radius);padding:.8rem 1rem .8rem 2.6rem;color:var(--mt-heading);
+  font-size:.95rem}
+.mt-search input:focus{outline:0;border-color:var(--mt-accent)}
+.mt-search input::placeholder{color:var(--mt-faint)}
+.mt-search svg{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;fill:none;stroke:var(--mt-faint);stroke-width:2}
+.mt-count{font-size:.82rem;color:var(--mt-muted);margin:0 0 1rem}
+
+/* filter chips */
+.mt-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.5rem;padding:0;list-style:none}
+.mt-pill{background:transparent;border:1px solid var(--mt-line);color:var(--mt-muted);
+  border-radius:999px;padding:.3rem .8rem;font-size:.8rem;cursor:pointer;line-height:1.4}
+.mt-pill:hover{color:var(--mt-heading);border-color:var(--mt-muted)}
+.mt-pill[aria-pressed="true"]{background:var(--mt-heading);color:var(--mt-bg);border-color:var(--mt-heading);font-weight:600}
+
+/* ----------------------------------------------------------------- cta */
+.mt-cta{background:var(--mt-surface);border:1px solid var(--mt-line);border-radius:var(--mt-radius);
+  padding:2.25rem;margin:3.5rem 0 0;text-align:center}
+.mt-cta h2{margin:0 0 .6rem!important;font-size:1.5rem}
+.mt-cta p{color:var(--mt-muted);max-width:52ch;margin:0 auto 1.5rem}
+.mt-cta .mt-actions{justify-content:center;margin:0}
+
+/* ---------------------------------------------------------------- misc */
+.mt-anchor{color:var(--mt-faint)!important;text-decoration:none!important;border:0!important;
+  margin-left:.4rem;font-weight:400;opacity:0}
+h2:hover .mt-anchor,h3:hover .mt-anchor{opacity:1}
+.mt-anchor:hover{color:var(--mt-accent)!important}
+.mt-updated{font-size:.8rem;color:var(--mt-faint);margin-top:3rem;padding-top:1.25rem;
+  border-top:1px solid var(--mt-line)}
+.mt-meta{font-size:.85rem;color:var(--mt-muted)}

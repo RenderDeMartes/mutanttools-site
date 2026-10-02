@@ -9,7 +9,12 @@ people actually type. The hero markup is not touched, so the design is unchanged
 Patches are marker-guarded, so running the build twice replaces the section
 rather than stacking another copy.
 """
-import re
+import io, os, re
+
+# The homepage is frozen: it keeps the styles it shipped with, from its own file,
+# and never picks up assets/css/mt-ui.css. Every other page uses that file.
+HOME_CSS = io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "home_docs.css"),
+                   encoding="utf-8").read()
 
 START = "<!-- mt-home-copy:start -->"
 END = "<!-- mt-home-copy:end -->"
@@ -100,7 +105,7 @@ def _section(stats):
 %(end)s""" % dict(start=START, end=END, **stats)
 
 
-def patch(html, stats, doc_css):
+def patch(html, stats):
     """Apply every homepage edit. Safe to run repeatedly."""
     out = html
 
@@ -116,8 +121,9 @@ def patch(html, stats, doc_css):
     out = re.sub(r'(<h1 class="visually-hidden">\s*).*?(\s*</h1>)',
                  lambda mo: mo.group(1) + H1 + mo.group(2), out, count=1, flags=re.S)
 
-    # The docs stylesheet. Replace any previous copy rather than skipping when
-    # one exists, or a later CSS change would never reach the homepage.
+    # The homepage's own stylesheet. Replace any previous copy rather than
+    # skipping when one exists, so an edit to home_docs.css still lands.
+    doc_css = '<style id="mt-docs">' + HOME_CSS + '</style>'
     if 'id="mt-docs"' in out:
         out = re.sub(r'<style id="mt-docs">.*?</style>', lambda _: doc_css.strip(),
                      out, count=1, flags=re.S)

@@ -10,6 +10,7 @@ itself**, so the documentation cannot drift away from the code:
 | `/wiki/commands/` | Every `mt` method, generated from the AST |
 | `/wiki/blocks/` | Every shipped block, generated from the launcher JSONs |
 | `/maya-auto-rigger/` | Search landing page, with JSON-LD |
+| `/rigger/`, `/learn/`, `/free-assets/`, `/contact/` | The former WordPress pages, rebuilt on the same components |
 
 It also writes `llms.txt`, `sitemap.xml` and `robots.txt`, and adds the Auto
 Rigger nav item to the pages it does not own.
@@ -44,13 +45,25 @@ The build is idempotent - running it twice gives byte-identical output.
 |---|---|
 | `extract_mt.py` | Reads a Mutant_Tools checkout, writes `mt_api.json` and `blocks.json`. Imports no Maya. |
 | `build_mtdocs.py` | Orchestrator. Writes the pages, `llms.txt`, the sitemap, and patches the nav. |
-| `mt_shell.py` | The page shell and the docs stylesheet |
-| `mt_md.py` | Python syntax highlighter and markup helpers |
+| `mt_shell.py` | The page shell; links `assets/css/mt-ui.css` with a content hash |
+| `mt_md.py` | Python syntax highlighter and the component builders (hero, card, media card, button, cta, note, table) |
+| `mt_pages.py` | `/rigger/`, `/learn/`, `/free-assets/`, `/contact/` content |
+| `home_docs.css` | The homepage's frozen copy of the old docs styles |
 | `mt_dev.py` | `/developer/` content |
 | `mt_wiki.py` | `/wiki/`, `/wiki/commands/`, `/wiki/blocks/` content |
 | `mt_seo.py` | `/maya-auto-rigger/` content and its JSON-LD |
 | `shell_*.html` | The Astra chrome, lifted verbatim from a WordPress-era page |
 | `mt_api.json`, `blocks.json`, `curves.json` | Extracted data, committed so a build needs no checkout |
+
+## One look for every page
+
+Every page except the homepage is built from the components in `mt_md.py` and
+styled by one file, `assets/css/mt-ui.css`. Change the look there, then rebuild:
+the shell links the stylesheet as `mt-ui.css?v=<hash>`, and CSS is cached for a
+year, so a CSS edit without a rebuild never reaches returning visitors.
+
+The homepage is deliberately left out. It keeps the styles it shipped with, from
+`home_docs.css`, so nothing done to the shared stylesheet can move it.
 
 ## Why not Sphinx
 

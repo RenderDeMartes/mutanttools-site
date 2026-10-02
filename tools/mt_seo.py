@@ -142,9 +142,8 @@ def build(stats):
     A('<p class="mt-lede">Mutant Tools is a free, block-based auto rigger for Autodesk Maya. '
       'Drop a template, place the guides, press build. Then keep going &mdash; every one of the '
       '%d blocks is a Python file you can read, change or replace.</p>' % stats["blocks"])
-    A('<p><a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" '
-      'rel="noopener">Download free</a>'
-      '<a class="mt-btn mt-btn--ghost" href="#quickstart">See how it works</a></p>')
+    A(m.actions(m.btn("Download free", "https://github.com/RenderDeMartes/Mutant_Tools"),
+                m.btn("See how it works", "#quickstart", ghost=True)))
     A('<ul class="mt-stats">'
       '<li><b>%d</b><span>rigging blocks</span></li>'
       '<li><b>%d</b><span>categories</span></li>'
@@ -318,14 +317,11 @@ def build(stats):
         A(m.h3(q))
         A("<p>%s</p>" % a)
 
-    A('<div class="mt-cta">'
-      '<h2>Download Mutant Tools</h2>'
-      '<p>Free, open source, and installed by dragging one file into Maya. If you are rigging '
-      'something the templates do not cover, that is the case it was built for.</p>'
-      '<a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" '
-      'rel="noopener">Get it on GitHub</a>'
-      '<a class="mt-btn mt-btn--ghost" href="/rigger/">For riggers</a>'
-      '</div>')
+    A(m.cta("Download Mutant Tools",
+            "Free, open source, and installed by dragging one file into Maya. If you are rigging "
+            "something the templates do not cover, that is the case it was built for.",
+            m.btn("Get it on GitHub", "https://github.com/RenderDeMartes/Mutant_Tools"),
+            m.btn("For riggers", "/rigger/", ghost=True)))
 
     A('</article></div></div>')
     A(m.TOC_JS)

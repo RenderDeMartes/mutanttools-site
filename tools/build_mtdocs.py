@@ -12,7 +12,7 @@ import io, json, os, re, collections
 
 import mt_shell as shell
 import mt_md as m
-import mt_dev, mt_wiki, mt_seo, mt_cluster, mt_home
+import mt_dev, mt_wiki, mt_seo, mt_cluster, mt_home, mt_pages
 
 SCRATCH = os.path.dirname(os.path.abspath(__file__))
 SITE = shell.SITE
@@ -180,7 +180,8 @@ GENERATED = {
     "wiki/blocks/index.html",
     "maya-auto-rigger/index.html",
     "index.html",
-} | set("%s/index.html" % slug for slug, _f, _t, _d in mt_cluster.PAGES)
+} | set("%s/index.html" % slug for slug, _f, _t, _d in mt_cluster.PAGES) \
+  | set("%s/index.html" % p[0] for p in mt_pages.PAGES)
 
 
 # ------------------------------------------------------------- nav repair
@@ -272,10 +273,15 @@ def main():
             title, desc % stats, "https://mutanttools.com/%s/" % slug,
             cbody, extra_head=cld, nav_current="/maya-auto-rigger/")))
 
+    # the four former WordPress pages, now on the same components
+    for slug, fn, title, desc, nav in mt_pages.PAGES:
+        written.append(shell.write("%s/index.html" % slug, shell.page(
+            title, desc, "https://mutanttools.com/%s/" % slug, fn(stats), nav_current=nav)))
+
     # homepage: retitle and append the copy block below the hero
     home_path = os.path.join(SITE, "index.html")
     home = io.open(home_path, encoding="utf-8").read()
-    home = mt_home.patch(home, stats, shell.DOC_CSS)
+    home = mt_home.patch(home, stats)
     home = shell.add_auto_rigger(home)
     io.open(home_path, "w", encoding="utf-8", newline="\n").write(home)
     written.append((home_path, len(home)))

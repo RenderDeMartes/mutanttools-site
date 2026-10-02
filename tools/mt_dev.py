@@ -45,10 +45,8 @@ def build(stats):
       '<li><b>%d</b><span>control shapes</span></li>'
       '<li><b>Maya 2022+</b><span>Python 2 &amp; 3</span></li>'
       '</ul>' % (stats["methods"], stats["blocks"], stats["curves"]))
-    A('<p style="margin-top:2rem">'
-      '<a class="mt-btn" href="/wiki/">Open the command wiki</a>'
-      '<a class="mt-btn mt-btn--ghost" href="https://github.com/RenderDeMartes/Mutant_Tools" '
-      'target="_blank" rel="noopener">Source on GitHub</a></p>')
+    A(m.actions(m.btn("Open the command wiki", "/wiki/"),
+                m.btn("Source on GitHub", "https://github.com/RenderDeMartes/Mutant_Tools", ghost=True)))
     A('</div></header>')
 
     A('<div class="mt-wrap"><div class="mt-layout">')
@@ -223,8 +221,7 @@ def build(stats):
     A("<p>%d named shapes, stored as raw CV positions and degree. Pass the name to "
       "<code>mt.curve()</code>, <code>mt.controller()</code> or "
       "<code>mt.change_curve_shape()</code>:</p>" % stats["curves"])
-    A('<p style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;'
-      'color:var(--mt-dim);line-height:2">%s</p>'
+    A('<p style="line-height:2.1">%s</p>'
       % " &middot; ".join("<code>%s</code>" % c for c in stats["curve_names"]))
 
     # ------------------------------------------------------------- anatomy
@@ -903,14 +900,11 @@ def build(stats):
         ("Free assets", 'Rigs and tools to pull apart. <a href="/free-assets/">Free assets</a>'),
     ], 3))
 
-    A('<div class="mt-cta">'
-      '<h2>Build something with it</h2>'
-      '<p>Mutant Tools is free to download and the source is public. If you build a block worth '
-      'sharing, or hit something this page did not answer, get in touch.</p>'
-      '<a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" target="_blank" '
-      'rel="noopener">Get Mutant Tools</a>'
-      '<a class="mt-btn mt-btn--ghost" href="/contact/">Contact</a>'
-      '</div>')
+    A(m.cta("Build something with it",
+            "Mutant Tools is free to download and the source is public. If you build a block worth "
+            "sharing, or hit something this page did not answer, get in touch.",
+            m.btn("Get Mutant Tools", "https://github.com/RenderDeMartes/Mutant_Tools"),
+            m.btn("Contact", "/contact/", ghost=True)))
 
     A('<p class="mt-updated">Generated from <code>RenderDeMartes/Mutant_Tools</code> at '
       '<code>%s</code> &middot; %s</p>' % (stats["sha"], stats["date"]))

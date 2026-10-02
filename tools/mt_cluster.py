@@ -53,21 +53,13 @@ def _also(current):
 
 
 def _cta(title, text):
-    return ('<div class="mt-cta"><h2>%s</h2><p>%s</p>'
-            '<a class="mt-btn" href="https://github.com/RenderDeMartes/Mutant_Tools" '
-            'target="_blank" rel="noopener">Download free</a>'
-            '<a class="mt-btn mt-btn--ghost" href="/maya-auto-rigger/">How it works</a></div>'
-            % (title, text))
+    return m.cta(title, text,
+                 m.btn("Download free", "https://github.com/RenderDeMartes/Mutant_Tools"),
+                 m.btn("How it works", "/maya-auto-rigger/", ghost=True))
 
 
 def _open(kicker, h1, lede, stats_html, toc):
-    b = ['<header class="mt-hero"><div class="mt-wrap">',
-         '<p class="mt-kicker">%s</p>' % kicker,
-         '<h1>%s</h1>' % h1,
-         '<p class="mt-lede">%s</p>' % lede]
-    if stats_html:
-        b.append(stats_html)
-    b.append('</div></header>')
+    b = [m.hero(kicker, h1, lede, stats_html or "")]
     b.append('<div class="mt-wrap"><div class="mt-layout">')
     b.append(m.toc(toc))
     b.append('<article class="mt-body">')
