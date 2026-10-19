@@ -110,13 +110,15 @@ def hero(kicker, title, lede, extra=""):
             '</div></header>\n' % (kicker, title, lede, extra))
 
 
-def media_card(title, body, media, kicker="", href="", button=""):
+def media_card(title, body, media, kicker="", href="", button="", tall=False):
     """A card with a picture or video on top. `media` is the <img>/<iframe>.
-    With `href` the title links there and the whole card is clickable."""
+    With `href` the title links there and the whole card is clickable.
+    `tall` frames the media 4:3 instead of 16:9."""
     head = '<a href="%s">%s</a>' % (href, title) if href else title
-    return ('<div class="mt-card mt-card--media"><div class="mt-card__media">%s</div>'
+    return ('<div class="mt-card mt-card--media"><div class="mt-card__media%s">%s</div>'
             '<div class="mt-card__body">%s<h3>%s</h3><p>%s</p>%s</div></div>'
-            % (media, '<p class="mt-kicker">%s</p>' % kicker if kicker else "", head, body,
+            % (" mt-card__media--tall" if tall else "", media,
+               '<p class="mt-kicker">%s</p>' % kicker if kicker else "", head, body,
                actions(button) if button else ""))
 
 

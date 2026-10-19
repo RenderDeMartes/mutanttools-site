@@ -107,13 +107,14 @@ def free_assets(stats):
     b = [m.hero("Community", "Free rigging assets",
                 "Free rigs for animation practice, testing, and learning real production workflows."),
          _open(), '<div class="mt-grid mt-grid--3">']
-    # Covers are often portrait character shots; crop from the top so the
-    # 16:9 frame keeps the head rather than the waist.
+    # Covers are often portrait character shots; a 4:3 frame cropped from the
+    # top keeps the head and torso rather than the waist.
     for kicker, title, author, image, link in ASSETS:
         b.append(m.media_card(title, "by %s" % author,
                               '<img src="%s" alt="%s" loading="lazy" style="object-position:top">'
                               % (image, title),
-                              kicker=kicker, button=m.btn("Download", link, ghost=True)))
+                              kicker=kicker, button=m.btn("Download", link, ghost=True),
+                              tall=True))
     b.append('</div>')
     b.append(_close())
     return "".join(b)
