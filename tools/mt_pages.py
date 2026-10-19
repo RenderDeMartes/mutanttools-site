@@ -42,6 +42,9 @@ ASSETS = [
     ("Character", "Loris Character Rig", "Yang Xiao",
      "https://public-files.gumroad.com/id17z7pwrhhked21s75kjirjjbc8",
      "https://xiaoy96.gumroad.com/l/mteexk"),
+    ("Character", "Ghost Augur Exorcist and Ghost", "Yang Xiao",
+     "https://public-files.gumroad.com/vb2esqjm8uprcgszqpu1zgs55zbx",
+     "https://xiaoy96.gumroad.com/l/GhostAugur"),
 ]
 
 
@@ -104,9 +107,12 @@ def free_assets(stats):
     b = [m.hero("Community", "Free rigging assets",
                 "Free rigs for animation practice, testing, and learning real production workflows."),
          _open(), '<div class="mt-grid mt-grid--3">']
+    # Covers are often portrait character shots; crop from the top so the
+    # 16:9 frame keeps the head rather than the waist.
     for kicker, title, author, image, link in ASSETS:
         b.append(m.media_card(title, "by %s" % author,
-                              '<img src="%s" alt="%s" loading="lazy">' % (image, title),
+                              '<img src="%s" alt="%s" loading="lazy" style="object-position:top">'
+                              % (image, title),
                               kicker=kicker, button=m.btn("Download", link, ghost=True)))
     b.append('</div>')
     b.append(_close())

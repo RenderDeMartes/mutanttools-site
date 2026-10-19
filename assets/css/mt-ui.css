@@ -181,7 +181,7 @@
 
 /* media card: picture or video on top, card body below */
 .mt-card--media{padding:0;overflow:hidden}
-.mt-card__media{aspect-ratio:16/9;background:var(--mt-code-bg);border-bottom:1px solid var(--mt-line)}
+.mt-card__media{aspect-ratio:16/9;overflow:hidden;background:var(--mt-code-bg);border-bottom:1px solid var(--mt-line)}
 .mt-card__media img,.mt-card__media iframe{display:block;width:100%;height:100%;object-fit:cover;border:0}
 .mt-card__media--tall{aspect-ratio:4/3}
 .mt-card__body{display:flex;flex-direction:column;flex:1;padding:1.25rem}
