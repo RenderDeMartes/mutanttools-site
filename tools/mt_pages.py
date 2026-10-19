@@ -45,6 +45,9 @@ ASSETS = [
     ("Character", "Ghost Augur Exorcist and Ghost", "Yang Xiao",
      "https://public-files.gumroad.com/vb2esqjm8uprcgszqpu1zgs55zbx",
      "https://xiaoy96.gumroad.com/l/GhostAugur"),
+    ("Creature", "Boar Rig", "Bluetape Rigging",
+     "https://public-files.gumroad.com/ihiqmaivfy795m7xa41mngsfhrq2",
+     "https://renderdemartes.gumroad.com/l/boar-rig"),
 ]
 
 
