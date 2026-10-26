@@ -16,15 +16,27 @@ DirectoryIndex index.html index.php
   # media that used to sit in wp-content/uploads
   RewriteRule ^wp-content/uploads/\d{4}/\d{2}/(.+)$ /assets/img/$1 [R=301,L]
   # everything else WordPress -> home
-  RewriteRule ^(wp-admin|wp-includes|wp-login\.php|xmlrpc\.php|wp-json)(/.*)?$ / [R=301,L]
+  RewriteRule ^(wp-admin|wp-includes|wp-content|wp-login\.php|xmlrpc\.php|wp-json|index\.php)(/.*)?$ / [R=301,L]
   # old WordPress leftovers Search Console still crawls
   RewriteRule ^(comments/)?feed(/.*)?$ / [R=301,L]
   RewriteRule ^page/\d+/?$ / [R=301,L]
   RewriteRule ^\d+/?$ / [R=301,L]
+  RewriteRule ^\d{4}/\d{2}/ / [R=301,L]
+  RewriteRule ^(author|category|tag)/ / [R=301,L]
+  RewriteRule ^(hello-world|sample-page|pro-users|reel)/?$ / [R=301,L]
   RewriteRule ^\*/?$ / [R=301,L]
+  # Yoast / Rank Math sitemaps
+  RewriteRule ^(sitemap_index|[a-z0-9_-]+-sitemap(-?\d+)?)\.xml$ /sitemap.xml [R=301,L]
   # moved pages
   RewriteRule ^download/?$ https://github.com/RenderDeMartes/Mutant_Tools [R=301,L]
   RewriteRule ^learn/rigger/?$ /rigger/ [R=301,L]
+  RewriteRule ^riggers/?$ /rigger/ [R=301,L]
+  RewriteRule ^developers/?$ /developer/ [R=301,L]
+  RewriteRule ^block-builder/?$ /wiki/blocks/ [R=301,L]
+  RewriteRule ^code-snipets/?$ /wiki/commands/ [R=301,L]
+  RewriteRule ^resources/?$ /free-assets/ [R=301,L]
+  RewriteRule ^tools/?$ /free-maya-rigging-tools/ [R=301,L]
+  RewriteRule ^installation-guide/?$ /free-maya-rigging-tools/#install [R=301,NE,L]
 
   # trailing slash on directory URLs
   RewriteCond %{REQUEST_FILENAME} !-f
