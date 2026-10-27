@@ -3,7 +3,9 @@
 generators use. No runtime JS highlighting - everything is coloured at build
 time so the pages stay fast and work with scripting off.
 """
-import re, textwrap
+import io, os, re, textwrap
+
+ICONS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "icons")
 
 KEYWORDS = set("""and as assert break class continue def del elif else except finally for from
 global if import in is lambda nonlocal not or pass raise return try while with yield True False
@@ -85,11 +87,25 @@ def cards(items, cols=2):
     return "".join(out)
 
 
+def icon(name):
+    """One icon from the brand kit's UI set (assets/icons), inlined so its strokes
+    take the colour of the text around it."""
+    svg = io.open(os.path.join(ICONS, name + ".svg"), encoding="utf-8").read().strip()
+    return svg.replace('<svg ', '<svg class="mt-icon" aria-hidden="true" focusable="false" ', 1)
+
+
+def chip(label, kind="easy"):
+    """An audience tag: "easy" (teal, for animators) or "deep" (plum, for riggers)."""
+    return '<span class="mt-chip mt-chip--%s">%s</span>' % (kind, label)
+
+
 def btn(label, href, ghost=False):
-    """One button. Off-site links open in a new tab."""
+    """One button. Off-site links open in a new tab and carry the external icon."""
     cls = "mt-btn mt-btn--ghost" if ghost else "mt-btn"
-    ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
-    return '<a class="%s" href="%s"%s>%s</a>' % (cls, href, ext, label)
+    if href.startswith("http"):
+        return ('<a class="%s" href="%s" target="_blank" rel="noopener">%s%s</a>'
+                % (cls, href, label, icon("external")))
+    return '<a class="%s" href="%s">%s</a>' % (cls, href, label)
 
 
 def actions(*buttons):

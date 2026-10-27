@@ -84,25 +84,27 @@ def rigger(stats):
     return "".join(b)
 
 
-def learn(stats):
-    def img(src, alt):
-        return '<img src="%s" alt="%s" loading="lazy">' % (src, alt)
+# (kicker, title, text, image, href) - the two routes /learn/ splits into
+LEARN_PATHS = [
+    ("Rigging path", "Rigger",
+     "Learn character rigging from start to finish using Mutant Tools blocks &ndash; real "
+     "production workflows, step by step.", "/assets/img/santa_render.png", "/rigger/"),
+    ("Technical path", "Developer",
+     "Explore the Python wiki, MT command library, and learn how to build custom blocks and "
+     "extend Mutant Tools.", "/assets/img/code.png", "/developer/"),
+]
 
-    b = [m.hero("Learn", "Learn Mutant Tools",
-                "Tutorials, block-based workflows and production examples for rigging in Maya "
-                "with Mutant Tools."),
-         _open(), '<div class="mt-grid mt-grid--2">',
-         m.media_card("Rigger",
-                      "Learn character rigging from start to finish using Mutant Tools blocks "
-                      "&ndash; real production workflows, step by step.",
-                      img("/assets/img/santa_render.png", "A character rigged with Mutant Tools"),
-                      kicker="Rigging path", href="/rigger/"),
-         m.media_card("Developer",
-                      "Explore the Python wiki, MT command library, and learn how to build custom "
-                      "blocks and extend Mutant Tools.",
-                      img("/assets/img/code.png", "Mutant Tools Python source in an editor"),
-                      kicker="Technical path", href="/developer/"),
-         '</div>', _close()]
+
+def learn(stats):
+    # Full screen, nothing but the two routes - the page as it was on WordPress.
+    b = ['<section class="mt-paths" aria-label="Mutant Tools learning paths">',
+         '<h1 class="mt-sr">Learn Mutant Tools</h1>']
+    for kicker, title, text, image, href in LEARN_PATHS:
+        b.append('<div class="mt-path"><img class="mt-path__img" src="%s" alt="">'
+                 '<div class="mt-path__body"><p class="mt-kicker">%s</p>'
+                 '<h2><a href="%s">%s</a></h2><p class="mt-path__text">%s</p></div></div>'
+                 % (image, kicker, href, title, text))
+    b.append('</section>')
     return "".join(b)
 
 

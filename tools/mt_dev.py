@@ -33,7 +33,7 @@ def build(stats):
 
     # ---------------------------------------------------------------- hero
     A('<header class="mt-hero"><div class="mt-wrap">')
-    A('<p class="mt-kicker">Developer guide</p>')
+    A('<p class="mt-kicker">Developer guide %s</p>' % m.chip("For riggers", "deep"))
     A('<h1>Mutant Tools for Python developers</h1>')
     A('<p class="mt-lede">Mutant Tools is a block-based modular rigging system for Maya. '
       'Everything the UI does, it does by calling Python you can call yourself. This page '

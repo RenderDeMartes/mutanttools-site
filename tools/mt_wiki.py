@@ -87,8 +87,7 @@ SEARCH_JS = """
 </script>
 """
 
-SEARCH_ICON = ('<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/>'
-               '<path d="M20 20l-4-4"/></svg>')
+SEARCH_ICON = m.icon("search")
 
 
 def _docstring_rest(full, summary):
@@ -128,7 +127,7 @@ def index(stats):
     b = []
     A = b.append
     A('<header class="mt-hero"><div class="mt-wrap">')
-    A('<p class="mt-kicker">Wiki</p>')
+    A('<p class="mt-kicker">Wiki %s</p>' % m.chip("For riggers", "deep"))
     A('<h1>Mutant Tools reference</h1>')
     A('<p class="mt-lede">Every <code>mt</code> command and every shipped block, generated from '
       'the source at each release. Searchable, and accurate by construction.</p>')

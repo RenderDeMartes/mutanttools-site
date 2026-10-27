@@ -48,7 +48,6 @@ The build is idempotent - running it twice gives byte-identical output.
 | `mt_shell.py` | The page shell; links `assets/css/mt-ui.css` with a content hash |
 | `mt_md.py` | Python syntax highlighter and the component builders (hero, card, media card, button, cta, note, table) |
 | `mt_pages.py` | `/rigger/`, `/learn/`, `/free-assets/`, `/contact/` content |
-| `home_docs.css` | The homepage's frozen copy of the old docs styles |
 | `mt_dev.py` | `/developer/` content |
 | `mt_wiki.py` | `/wiki/`, `/wiki/commands/`, `/wiki/blocks/` content |
 | `mt_seo.py` | `/maya-auto-rigger/` content and its JSON-LD |
@@ -57,13 +56,15 @@ The build is idempotent - running it twice gives byte-identical output.
 
 ## One look for every page
 
-Every page except the homepage is built from the components in `mt_md.py` and
-styled by one file, `assets/css/mt-ui.css`. Change the look there, then rebuild:
-the shell links the stylesheet as `mt-ui.css?v=<hash>`, and CSS is cached for a
-year, so a CSS edit without a rebuild never reaches returning visitors.
+Every page is built from the components in `mt_md.py` and styled by one file,
+`assets/css/mt-ui.css`, which follows the Mutant Tools brand kit (Ink and
+Graphite grounds, the site's orange for the one action per screen, Giga Sans /
+Manrope / IBM Plex Mono, the UI icons in `assets/icons/`). Change the look there,
+then rebuild: the shell links the stylesheet as `mt-ui.css?v=<hash>`, and CSS is
+cached for a year, so a CSS edit without a rebuild never reaches returning visitors.
 
-The homepage is deliberately left out. It keeps the styles it shipped with, from
-`home_docs.css`, so nothing done to the shared stylesheet can move it.
+The homepage links the same file. Its four-panel hero keeps its own inline
+styles; only the section `mt_home.py` appends below the hero uses the components.
 
 ## Why not Sphinx
 

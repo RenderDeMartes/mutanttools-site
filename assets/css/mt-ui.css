@@ -1,96 +1,211 @@
-/* Mutant Tools UI - the one stylesheet every page except the homepage uses.
+/* Mutant Tools UI - the one stylesheet every page uses, the homepage included.
 
    Edit here, not in the generators. tools/mt_shell.py links this file with a
    content hash in the query string (CSS is served cached for a year), so run
    tools/build_mtdocs.py after any change or returning visitors keep the old one.
 
-   The homepage keeps its own frozen copy of the previous styles
-   (tools/home_docs.css) so nothing here can move it.
+   The homepage's four-panel hero carries its own inline styles and a global
+   `*{font-family:Inter}`; only the section below it is built from these components.
 
-   Rules of the system:
-   - One accent. Orange marks what you can act on (links, buttons, the active
-     contents entry) and the small kicker above a title. Nothing else.
-   - Headings are white, body is warm off-white, secondary text is muted.
-   - Every box is the same box: surface fill, 1px line, 10px radius.
+   Rules of the system, from the Mutant Tools brand kit:
+   - A dark workshop. Ink ground, Graphite cards, a 1px Seam border. No shadows,
+     no gradients: depth is Ink -> Graphite -> Seam.
+   - Mutant Orange is the signal: the primary button, the active state, focus
+     rings. One orange action per screen. Links are Bone and turn orange on hover.
+     (The kit names Spine Yellow for this; the site keeps its own orange instead.)
+   - Block colours fill tiles, tags and status marks only, never body text.
+     Teal means "easy path", plum means "technical".
+   - Three voices: Giga Sans shouts (headlines, uppercase), Manrope explains,
+     IBM Plex Mono labels (eyebrows, block ids, code).
 */
 
+/* ---------------------------------------------------------------- fonts */
+/* Manrope is a variable font: one file covers every weight from 200 to 800. */
+@font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;
+  src:url('/assets/fonts/manrope-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;
+  src:url('/assets/fonts/manrope-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* IBM Plex Mono, latin only: labels, block ids and code are ASCII. */
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;
+  src:url('/assets/fonts/ibm-plex-mono-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;
+  src:url('/assets/fonts/ibm-plex-mono-500-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;
+  src:url('/assets/fonts/ibm-plex-mono-600-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* Latin subset of Giga Sans Black, the wordmark face. */
+@font-face{font-family:'Giga Sans';font-style:normal;font-weight:900;font-display:swap;
+  src:url('/assets/fonts/giga-sans-black.woff') format('woff')}
+
 :root{
-  --mt-bg:#140B06;         /* page, same ink as the homepage */
-  --mt-surface:#1C0D0A;    /* cards, notes, inputs */
-  --mt-surface-2:#241310;  /* hover, inline code, table head */
-  --mt-code-bg:#0F0805;
-  --mt-line:#33201A;
-  --mt-heading:#FFFFFF;
-  --mt-text:#EADDD4;
-  --mt-muted:#B09A8E;
-  --mt-faint:#7E6A60;
-  --mt-accent:#FF6210;
-  --mt-accent-hover:#FF7A33;
-  --mt-on-accent:#140B06;
-  --mt-radius:10px;
-  --mt-sans:'Montserrat',system-ui,-apple-system,sans-serif;
-  --mt-mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+  /* core */
+  --mt-ink:#0D0D0F;        /* page ground */
+  --mt-graphite:#1A1A1E;   /* cards, code, inputs */
+  --mt-graphite-2:#222227; /* hover on a card row, inline code */
+  --mt-seam:#2E2E34;       /* every border */
+  --mt-ash:#A9A69E;        /* muted text */
+  --mt-dim:#D9D5CC;        /* secondary text */
+  --mt-bone:#F2EFE8;       /* text */
+  --mt-signal:#FF6210;     /* Mutant Orange: CTA, active, focus */
+  --mt-signal-hover:#FF7A33;
+  /* status, taken from the block palette */
+  --mt-ok:#7DD181;         /* Joint Green */
+  --mt-warn:#EF8354;       /* Tail Orange */
+  --mt-error:#FF6B6B;      /* Skull Coral */
+  --mt-info:#BFD7EA;       /* Hand Ice */
+  /* audience */
+  --mt-easy:#4ECDC4;       /* Limb Teal: for animators */
+  --mt-deep:#A96DA3;       /* Jaw Plum: for riggers */
+
+  --mt-font-display:'Giga Sans','Arial Black','Helvetica Neue',sans-serif;
+  --mt-font-text:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mt-font-mono:'IBM Plex Mono',ui-monospace,'Cascadia Mono','SFMono-Regular',Menlo,Consolas,monospace;
+
+  --mt-r-xs:4px; --mt-r-sm:8px; --mt-r-md:12px; --mt-r-lg:20px;
+  --mt-ease:cubic-bezier(.2,.8,.2,1);
+  --mt-fast:120ms; --mt-slow:240ms;
+
+  /* Astra's chrome reads these. Links go Bone, hovers go orange, and the warm
+     brown inks of the old theme become the kit's neutral ones. */
+  --ast-global-color-0:var(--mt-bone);
+  --ast-global-color-1:var(--mt-signal);
+  --ast-global-color-2:var(--mt-graphite);
+  --ast-global-color-4:var(--mt-bone);
+  --ast-global-color-6:var(--mt-dim);
+  --ast-global-color-7:var(--mt-ink);
 }
+
+/* --------------------------------------------------------------- chrome */
+/* The header, footer and mobile drawer are Astra markup shared with the
+   homepage. They are restyled here, so only pages that load this file change. */
+html,body,.ast-separate-container{background-color:var(--mt-ink)}
+body,.skip-link{font-family:var(--mt-font-text)}  /* else Astra's Montserrat still downloads */
+::selection{background:var(--mt-signal);color:var(--mt-ink)}
+:focus-visible{outline:2px solid var(--mt-signal);outline-offset:2px}
+
+.site-header .menu-link{font-family:var(--mt-font-text)!important;font-weight:600!important}
+.ast-theme-transparent-header .main-header-menu .menu-link{color:var(--mt-bone)}
+.ast-builder-menu-1 .menu-item:hover>.menu-link,
+.ast-builder-menu-1 .menu-item.current-menu-item>.menu-link,
+.ast-theme-transparent-header .main-header-menu .current-menu-item>.menu-link{color:var(--mt-signal)!important}
+
+/* Contact: an outline button, so the page's own orange action stays the only one. */
+.ast-header-button-1 .ast-custom-button{background:transparent!important;color:var(--mt-bone)!important;
+  border:2px solid var(--mt-bone)!important;border-radius:var(--mt-r-md)!important;
+  font-family:var(--mt-font-text)!important;font-weight:700!important;
+  transition:color var(--mt-fast) var(--mt-ease),border-color var(--mt-fast) var(--mt-ease)}
+.ast-header-button-1 .ast-custom-button-link:hover .ast-custom-button,
+.ast-header-button-1 .ast-custom-button-link:focus-visible .ast-custom-button{
+  background:transparent!important;color:var(--mt-signal)!important;border-color:var(--mt-signal)!important}
+
+.menu-toggle,.menu-toggle:hover,.menu-toggle:focus{background:transparent!important;color:var(--mt-bone)!important;border-color:transparent!important}
+.ast-mobile-header-content,.ast-mobile-header-content .main-header-menu,
+.ast-mobile-header-content .menu-link{background-color:var(--mt-ink)!important}
+.ast-mobile-header-content{border-bottom:1px solid var(--mt-seam)}
+.ast-mobile-header-content .menu-link{color:var(--mt-bone)!important;border-color:var(--mt-seam)!important}
+.ast-mobile-header-content .menu-item:hover>.menu-link,
+.ast-mobile-header-content .current-menu-item>.menu-link{color:var(--mt-signal)!important}
+.ast-mobile-popup-drawer.active .ast-mobile-popup-inner{background-color:var(--mt-ink)}
+.ast-mobile-popup-drawer.active .menu-toggle-close{color:var(--mt-bone)}
+.ast-mobile-popup-drawer .menu-link{color:var(--mt-bone)!important;border-color:var(--mt-seam)!important}
+.ast-mobile-popup-drawer .menu-item:hover>.menu-link{color:var(--mt-signal)!important}
+
+.site-footer,.site-below-footer-wrap[data-section="section-below-footer-builder"]{
+  background-color:var(--mt-ink)!important;border-top-color:var(--mt-seam)!important}
+.site-footer,.site-footer p{font-family:var(--mt-font-mono);font-size:.8rem;color:var(--mt-ash)}
 
 /* ---------------------------------------------------------------- base */
 /* Astra's inline theme CSS sets fonts, sizes and an uppercase h1 on bare
    elements. Everything is answered explicitly inside .mt-doc so a component
    renders the same wherever it lands. */
-.mt-doc{background:var(--mt-bg);color:var(--mt-text);line-height:1.7;
+.mt-doc{background:var(--mt-ink);color:var(--mt-dim);line-height:1.6;
   font-size:16px;padding:0 0 6rem;overflow-x:clip;
   min-height:calc(100vh - 72px)}  /* short pages still push the footer to the bottom */
 .mt-doc *{box-sizing:border-box}
 .mt-doc,.mt-doc p,.mt-doc li,.mt-doc a,.mt-doc span,.mt-doc div,.mt-doc td,.mt-doc th,
-.mt-doc h1,.mt-doc h2,.mt-doc h3,.mt-doc h4,.mt-doc button,.mt-doc summary,.mt-doc input,
+.mt-doc h3,.mt-doc h4,.mt-doc button,.mt-doc summary,.mt-doc input,
 .mt-doc b,.mt-doc strong,.mt-doc i,.mt-doc nav,.mt-doc ol,.mt-doc ul
-  {font-family:var(--mt-sans)}
-.mt-doc code,.mt-doc pre,.mt-doc pre *,.mt-doc .mt-sig,.mt-doc .mt-sig *
-  {font-family:var(--mt-mono)}
-.mt-doc h1,.mt-doc h2,.mt-doc h3,.mt-doc h4{text-transform:none;font-weight:700;color:var(--mt-heading)}
+  {font-family:var(--mt-font-text)}
+.mt-doc h1,.mt-doc h2{font-family:var(--mt-font-display);font-weight:900;text-transform:uppercase;
+  letter-spacing:0;color:var(--mt-bone)}
+.mt-doc h3,.mt-doc h4{text-transform:none;font-weight:700;color:var(--mt-bone)}
+/* every label in the mono voice, at a specificity the bare-element rule above cannot beat */
+.mt-doc code,.mt-doc pre,.mt-doc pre *,.mt-doc .mt-sig,.mt-doc .mt-sig *,
+.mt-doc .mt-kicker,.mt-doc .mt-kicker *,.mt-doc .mt-chip,.mt-doc .mt-stats span,
+.mt-doc .mt-count,.mt-doc .mt-updated,.mt-doc .mt-code-head,.mt-doc th,.mt-doc .mt-tag,
+.mt-doc .mt-pill,.mt-doc .mt-from,.mt-doc .mt-anchor,.mt-doc h2 .mt-meta
+  {font-family:var(--mt-font-mono)}
+.mt-doc h2 .mt-meta{font-size:.4em;font-weight:500;letter-spacing:.04em;text-transform:none;
+  color:var(--mt-ash);vertical-align:middle;margin-left:.35rem}
 .mt-wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 .mt-section{margin-top:3.5rem}
 .mt-hide{display:none!important}
 
+/* one inline icon, sized to the text around it; strokes follow `color` */
+.mt-icon{width:1.1em;height:1.1em;flex:none;vertical-align:-.15em}
+
 /* ---------------------------------------------------------- page head */
 /* The header floats over the page, so the head clears it with top padding. */
-.mt-hero{padding:9rem 0 3rem;border-bottom:1px solid var(--mt-line)}
+.mt-hero{padding:9rem 0 3.5rem;border-bottom:1px solid var(--mt-seam)}
 .mt-hero:last-child{border-bottom:0}
 @media(max-width:921px){.mt-hero{padding-top:7rem}}
-.mt-kicker{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--mt-accent);font-weight:600;margin:0 0 .9rem}
+/* eyebrow: mono, uppercase, tracked +8% */
+.mt-kicker{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .75rem;
+  font-size:.8125rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mt-ash);margin:0 0 1.25rem}
 .mt-kicker a{color:inherit;text-decoration:none}
-.mt-kicker a:hover{text-decoration:underline}
-.mt-hero h1{font-size:clamp(2rem,4.2vw,3rem);line-height:1.12;margin:0 0 1rem;letter-spacing:-.02em}
-.mt-lede{font-size:clamp(1rem,1.8vw,1.125rem);color:var(--mt-muted);max-width:62ch;margin:0}
-.mt-lede code{font-size:.9em}
-.mt-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin:2rem 0 0}
+.mt-kicker a:hover{color:var(--mt-signal)}
+.mt-hero h1{font-size:clamp(2.35rem,5.4vw,4.5rem);line-height:.95;margin:0 0 1.5rem;max-width:18ch}
+.mt-lede{font-size:clamp(1.05rem,1.8vw,1.25rem);line-height:1.55;color:var(--mt-dim);max-width:60ch;margin:0}
+.mt-lede code{font-size:.85em}
+.mt-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin:2.25rem 0 0}
 
 /* stats: a quiet facts row under the lede */
-.mt-stats{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;margin:2rem 0 0;padding:0;list-style:none}
+.mt-stats{display:flex;flex-wrap:wrap;gap:1.25rem 3rem;margin:2.5rem 0 0;padding:0;list-style:none}
 .mt-stats li{margin:0}
-.mt-stats b{display:block;font-size:1.5rem;font-weight:700;color:var(--mt-heading);line-height:1.2}
-.mt-stats span{font-size:.82rem;color:var(--mt-muted)}
+.mt-stats b{display:block;font-family:var(--mt-font-display);font-weight:900;font-size:2rem;
+  line-height:1.1;color:var(--mt-bone)}
+.mt-stats span{display:block;font-family:var(--mt-font-mono);font-size:.75rem;letter-spacing:.06em;
+  line-height:1.45;text-transform:uppercase;color:var(--mt-ash)}
+
+/* audience tags: teal is the easy path, plum the technical one */
+.mt-chip{display:inline-flex;align-items:center;padding:.3rem .65rem;border-radius:var(--mt-r-sm);
+  font-family:var(--mt-font-mono);font-size:.75rem;font-weight:600;letter-spacing:.02em;
+  text-transform:none;line-height:1.3;color:var(--mt-ink);background:var(--mt-bone)}
+.mt-chip--easy{background:var(--mt-easy)}
+.mt-chip--deep{background:var(--mt-deep)}
 
 /* ------------------------------------------------------------- buttons */
-.mt-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  background:var(--mt-accent);color:var(--mt-on-accent)!important;
-  border:1px solid var(--mt-accent);border-radius:999px;padding:.7rem 1.4rem;
-  font-family:var(--mt-sans);font-weight:600;font-size:.9rem;line-height:1.2;text-transform:none;
-  text-decoration:none!important;cursor:pointer;transition:background .15s,border-color .15s}
-.mt-btn:hover,.mt-btn:focus-visible{background:var(--mt-accent-hover);border-color:var(--mt-accent-hover)}
-.mt-btn--ghost{background:transparent;color:var(--mt-heading)!important;border-color:var(--mt-line)}
-.mt-btn--ghost:hover,.mt-btn--ghost:focus-visible{background:var(--mt-surface);border-color:var(--mt-accent)}
-.mt-btn--sm{padding:.45rem 1rem;font-size:.82rem}
+/* 52px tall, radius 12. Primary is orange; a block snaps to 96% on press. */
+.mt-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  min-height:52px;padding:0 1.75rem;
+  background:var(--mt-signal);color:var(--mt-ink)!important;
+  border:2px solid var(--mt-signal);border-radius:var(--mt-r-md);
+  font-family:var(--mt-font-text);font-weight:700;font-size:1rem;line-height:1.2;text-transform:none;
+  text-decoration:none!important;cursor:pointer;
+  transition:background var(--mt-fast) var(--mt-ease),border-color var(--mt-fast) var(--mt-ease),
+    color var(--mt-fast) var(--mt-ease),transform var(--mt-fast) var(--mt-ease)}
+.mt-btn:hover,.mt-btn:focus-visible{background:var(--mt-signal-hover);border-color:var(--mt-signal-hover);color:var(--mt-ink)!important}
+.mt-btn:active{transform:scale(.96)}
+.mt-btn--ghost{background:transparent;color:var(--mt-bone)!important;border-color:var(--mt-bone)}
+.mt-btn--ghost:hover,.mt-btn--ghost:focus-visible{background:transparent;color:var(--mt-signal)!important;border-color:var(--mt-signal)}
+.mt-btn--sm{min-height:40px;padding:0 1.1rem;font-size:.875rem}
+.mt-btn .mt-icon{width:1.05em;height:1.05em}
 /* .mt-body a styles must not reach a button */
-.mt-body a.mt-btn{border-bottom:1px solid var(--mt-accent)}
-.mt-body a.mt-btn--ghost{border-bottom-color:var(--mt-line)}
+.mt-body a.mt-btn{border-bottom:2px solid var(--mt-signal)}
+.mt-body a.mt-btn--ghost{border-bottom-color:var(--mt-bone)}
+.mt-body a.mt-btn--ghost:hover{border-bottom-color:var(--mt-signal)}
 
 /* -------------------------------------------------------------- layout */
 /* minmax(0,...) on every track, and min-width:0 on the children. A bare `1fr`
    floors at the widest child's min-content, so one long unbreakable line in a
    <pre> or a table blows the column past the container - which it did on mobile,
    clipping ~127px of every page that has a contents rail. */
-.mt-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;margin-top:3rem}
+.mt-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:4rem;margin-top:3.5rem}
 .mt-layout>*{min-width:0}
 @media(max-width:940px){.mt-layout{grid-template-columns:minmax(0,1fr);gap:0}}
 
@@ -98,147 +213,253 @@
 .mt-toc{position:sticky;top:2rem;align-self:start;max-height:calc(100vh - 4rem);
   overflow-y:auto;font-size:.875rem;padding-right:.5rem}
 @media(max-width:940px){.mt-toc{position:static;max-height:none;margin-bottom:2.5rem;
-  border-bottom:1px solid var(--mt-line);padding-bottom:1.5rem}}
-.mt-toc h2{font-size:.8rem;color:var(--mt-muted);margin:0 0 .75rem;font-weight:600}
+  border-bottom:1px solid var(--mt-seam);padding-bottom:1.5rem}}
+.mt-toc h2{font-family:var(--mt-font-mono)!important;font-size:.75rem;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mt-ash);margin:0 0 .9rem}
 .mt-toc ol{list-style:none;margin:0;padding:0}
 .mt-toc li{margin:0}
-.mt-toc a{display:block;padding:.3rem .75rem;color:var(--mt-muted);text-decoration:none;
-  border-left:1px solid var(--mt-line);transition:color .15s,border-color .15s}
-.mt-toc a:hover{color:var(--mt-heading)}
-.mt-toc a.is-on{color:var(--mt-accent);border-left-color:var(--mt-accent)}
+.mt-toc a{display:block;padding:.35rem .85rem;color:var(--mt-ash);text-decoration:none;
+  border-left:2px solid var(--mt-seam);transition:color var(--mt-fast) var(--mt-ease),border-color var(--mt-fast) var(--mt-ease)}
+.mt-toc a:hover{color:var(--mt-bone)}
+.mt-toc a.is-on{color:var(--mt-bone);border-left-color:var(--mt-signal)}
 
 /* --------------------------------------------------------------- prose */
-.mt-body{max-width:78ch}
+.mt-body{max-width:74ch}
 .mt-body--wide{max-width:none}
-.mt-body p,.mt-body li{font-size:1rem}
-.mt-body h2{font-size:clamp(1.5rem,2.6vw,1.875rem);line-height:1.25;margin:3.5rem 0 1rem;
-  letter-spacing:-.01em;scroll-margin-top:2rem}
+.mt-body p,.mt-body li{font-size:1.0625rem;line-height:1.65}
+.mt-body h2{font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;margin:4rem 0 1.25rem;scroll-margin-top:2rem}
 .mt-body h2:first-child{margin-top:0}
-.mt-body h3{font-size:1.2rem;line-height:1.35;margin:2.25rem 0 .75rem;scroll-margin-top:2rem}
-.mt-body h4{font-size:1rem;margin:1.75rem 0 .5rem}
-.mt-body p{margin:0 0 1.1rem;color:var(--mt-text)}
-.mt-body ul,.mt-body ol{margin:0 0 1.2rem;padding-left:1.3rem;color:var(--mt-text)}
-.mt-body li{margin:.3rem 0}
-.mt-body a{color:var(--mt-accent);text-decoration:none;border-bottom:1px solid rgba(255,98,16,.35)}
-.mt-body a:hover{border-bottom-color:var(--mt-accent)}
-.mt-body strong,.mt-body b{color:var(--mt-heading)}
-.mt-body hr{border:0;border-top:1px solid var(--mt-line);margin:3rem 0}
+.mt-body h3{font-size:clamp(1.15rem,2vw,1.35rem);line-height:1.3;margin:2.5rem 0 .75rem;scroll-margin-top:2rem}
+.mt-body h4{font-size:1.05rem;margin:1.75rem 0 .5rem}
+.mt-body p{margin:0 0 1.15rem;color:var(--mt-dim)}
+.mt-body ul,.mt-body ol{margin:0 0 1.25rem;padding-left:1.3rem;color:var(--mt-dim)}
+.mt-body li{margin:.35rem 0}
+.mt-body li::marker{color:var(--mt-ash)}
+.mt-body a{color:var(--mt-bone);font-weight:600;text-decoration:underline;text-decoration-color:var(--mt-ash);
+  text-decoration-thickness:1px;text-underline-offset:4px;border:0;
+  transition:color var(--mt-fast) var(--mt-ease),text-decoration-color var(--mt-fast) var(--mt-ease)}
+.mt-body a:hover{color:var(--mt-signal);text-decoration-color:var(--mt-signal)}
+.mt-body strong,.mt-body b{color:var(--mt-bone)}
+.mt-body hr{border:0;border-top:1px solid var(--mt-seam);margin:3rem 0}
 
 /* ---------------------------------------------------------------- code */
-.mt-doc code{font-size:.875em;background:var(--mt-surface-2);color:var(--mt-heading);
-  padding:.12em .4em;border-radius:4px}
-.mt-body pre{background:var(--mt-code-bg);border:1px solid var(--mt-line);border-radius:var(--mt-radius);
-  padding:1rem 1.25rem;overflow-x:auto;margin:0 0 1.5rem;font-size:.85rem;line-height:1.65}
-.mt-body pre code{background:none;padding:0;color:var(--mt-text);font-size:inherit}
-/* file label sitting on top of a code block */
-.mt-code-head{background:var(--mt-surface);border:1px solid var(--mt-line);border-bottom:0;
-  border-radius:var(--mt-radius) var(--mt-radius) 0 0;padding:.45rem 1.25rem;
-  font-family:var(--mt-mono);font-size:.78rem;color:var(--mt-muted)}
-.mt-code-head+pre{border-radius:0 0 var(--mt-radius) var(--mt-radius);margin-top:0}
+.mt-doc code{font-size:.85em;background:var(--mt-graphite-2);color:var(--mt-bone);
+  padding:.12em .4em;border-radius:var(--mt-r-xs);border:1px solid var(--mt-seam)}
+.mt-body pre{background:var(--mt-graphite);border:1px solid var(--mt-seam);border-radius:var(--mt-r-md);
+  padding:1.1rem 1.35rem;overflow-x:auto;margin:0 0 1.5rem;font-size:.875rem;line-height:1.7}
+.mt-body pre code{background:none;border:0;padding:0;color:var(--mt-dim);font-size:inherit}
+/* file label sitting on top of a code block, with the kit's code icon */
+.mt-code-head{display:flex;align-items:center;gap:.5rem;background:var(--mt-graphite);
+  border:1px solid var(--mt-seam);border-bottom:0;
+  border-radius:var(--mt-r-md) var(--mt-r-md) 0 0;padding:.6rem 1.35rem;
+  font-family:var(--mt-font-mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mt-ash)}
+.mt-code-head::before{content:"";width:14px;height:14px;flex:none;background:currentColor;
+  -webkit-mask:url('/assets/icons/code.svg') center/contain no-repeat;mask:url('/assets/icons/code.svg') center/contain no-repeat}
+.mt-code-head+pre{border-radius:0 0 var(--mt-r-md) var(--mt-r-md);margin-top:0;border-top-color:var(--mt-seam)}
 .mt-code-head .mt-dot{display:none}
-.tok-k{color:#FF9466}.tok-s{color:#A8D8A0}.tok-c{color:var(--mt-faint);font-style:italic}
-.tok-n{color:#9CC8F0}.tok-f{color:#F5D9A8}
+/* syntax: block colours are allowed here because code is not body text */
+.tok-k{color:#F0B3DE}                       /* Face Pink */
+.tok-s{color:var(--mt-ok)}                  /* Joint Green */
+.tok-c{color:#7C7A73;font-style:italic}
+.tok-n{color:var(--mt-info)}                /* Hand Ice */
+.tok-f{color:#FFE66D}                       /* Spine Yellow */
 
 /* --------------------------------------------------------------- notes */
-.mt-note{background:var(--mt-surface);border:1px solid var(--mt-line);
-  border-left:3px solid var(--mt-accent);border-radius:var(--mt-radius);
-  padding:1rem 1.25rem;margin:0 0 1.5rem}
+/* A Graphite box with a status stripe and the matching icon from the kit. */
+.mt-note{--mt-note:var(--mt-info);--mt-note-icon:url('/assets/icons/info.svg');
+  background:var(--mt-graphite);border:1px solid var(--mt-seam);
+  border-left:3px solid var(--mt-note);border-radius:var(--mt-r-md);
+  padding:1.1rem 1.35rem;margin:0 0 1.5rem}
 .mt-note p:last-child{margin-bottom:0}
-.mt-note b.mt-tag{display:block;font-size:.875rem;font-weight:600;color:var(--mt-heading);margin-bottom:.3rem}
-.mt-warn{border-left-color:#FF5A5A}
-.mt-ok{border-left-color:#7CD992}
+.mt-note b.mt-tag{display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem;
+  font-family:var(--mt-font-mono);font-size:.75rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mt-note)}
+.mt-note b.mt-tag::before{content:"";width:16px;height:16px;flex:none;background:currentColor;
+  -webkit-mask:var(--mt-note-icon) center/contain no-repeat;mask:var(--mt-note-icon) center/contain no-repeat}
+.mt-warn{--mt-note:var(--mt-warn);--mt-note-icon:url('/assets/icons/warning.svg')}
+.mt-error{--mt-note:var(--mt-error);--mt-note-icon:url('/assets/icons/error.svg')}
+.mt-ok{--mt-note:var(--mt-ok);--mt-note-icon:url('/assets/icons/done.svg')}
 
 /* -------------------------------------------------------------- tables */
-.mt-table-wrap{overflow-x:auto;margin:0 0 1.5rem;border:1px solid var(--mt-line);border-radius:var(--mt-radius)}
-.mt-doc table{width:100%;border-collapse:collapse;font-size:.875rem;margin:0;border:0}
-.mt-doc th{text-align:left;background:var(--mt-surface);color:var(--mt-muted);
-  font-size:.8rem;font-weight:600;padding:.65rem 1rem;
-  border:0;border-bottom:1px solid var(--mt-line);white-space:nowrap}
-.mt-doc td{padding:.65rem 1rem;border:0;border-bottom:1px solid var(--mt-line);
-  vertical-align:top;color:var(--mt-text)}
+.mt-table-wrap{overflow-x:auto;margin:0 0 1.5rem;border:1px solid var(--mt-seam);border-radius:var(--mt-r-md)}
+.mt-doc table{width:100%;border-collapse:collapse;font-size:.9rem;margin:0;border:0}
+.mt-doc th{text-align:left;background:var(--mt-graphite);color:var(--mt-ash);
+  font-family:var(--mt-font-mono);font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  padding:.75rem 1rem;border:0;border-bottom:1px solid var(--mt-seam);white-space:nowrap}
+.mt-doc td{padding:.75rem 1rem;border:0;border-bottom:1px solid var(--mt-seam);
+  vertical-align:top;color:var(--mt-dim)}
 .mt-doc tr:last-child td{border-bottom:0}
 .mt-doc td code{white-space:nowrap}
 
 /* --------------------------------------------------------------- cards */
-.mt-grid{display:grid;gap:1rem;margin:0 0 1.5rem}
+.mt-grid{display:grid;gap:1.25rem;margin:0 0 1.5rem}
 .mt-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .mt-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media(max-width:900px){.mt-grid--3{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.mt-grid--2,.mt-grid--3{grid-template-columns:minmax(0,1fr)}}
-.mt-card{position:relative;display:flex;flex-direction:column;background:var(--mt-surface);
-  border:1px solid var(--mt-line);border-radius:var(--mt-radius);padding:1.25rem;
-  transition:border-color .15s}
-.mt-card h3,.mt-card h4{margin:0 0 .4rem;font-size:1.05rem;line-height:1.35;color:var(--mt-heading)}
-.mt-card p{margin:0;font-size:.9rem;color:var(--mt-muted)}
+.mt-grid--4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:900px){.mt-grid--3,.mt-grid--4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.mt-grid--2,.mt-grid--3,.mt-grid--4{grid-template-columns:minmax(0,1fr)}}
+.mt-card{position:relative;display:flex;flex-direction:column;background:var(--mt-graphite);
+  border:1px solid var(--mt-seam);border-radius:var(--mt-r-lg);padding:1.5rem 1.6rem;
+  transition:border-color var(--mt-fast) var(--mt-ease)}
+.mt-card h3,.mt-card h4{margin:0 0 .5rem;font-size:1.1rem;line-height:1.35;color:var(--mt-bone)}
+.mt-card p{margin:0;font-size:.95rem;line-height:1.55;color:var(--mt-ash)}
 .mt-card code{font-size:.8rem}
 /* a card whose title is a link is clickable all over */
-.mt-card:has(h3 a,h4 a):hover{border-color:var(--mt-accent)}
-.mt-card h3 a,.mt-card h4 a{color:inherit!important;border:0!important;text-decoration:none}
+.mt-card:has(h3 a,h4 a):hover{border-color:var(--mt-bone)}
+.mt-card h3 a,.mt-card h4 a{color:inherit!important;border:0!important;text-decoration:none!important}
 .mt-card h3 a::after,.mt-card h4 a::after{content:"";position:absolute;inset:0;border-radius:inherit}
-.mt-card .mt-kicker{margin:0 0 .5rem;font-size:.72rem;color:var(--mt-accent)}
-.mt-card .mt-actions{margin-top:auto;padding-top:1.25rem}
+.mt-card .mt-kicker{margin:0 0 .65rem;font-size:.72rem}
+.mt-card .mt-actions{margin-top:auto;padding-top:1.5rem}
 .mt-card .mt-actions .mt-btn{position:relative;z-index:1}
 
 /* media card: picture or video on top, card body below */
 .mt-card--media{padding:0;overflow:hidden}
-.mt-card__media{aspect-ratio:16/9;overflow:hidden;background:var(--mt-code-bg);border-bottom:1px solid var(--mt-line)}
+.mt-card__media{aspect-ratio:16/9;overflow:hidden;background:var(--mt-ink);border-bottom:1px solid var(--mt-seam)}
 .mt-card__media img,.mt-card__media iframe{display:block;width:100%;height:100%;object-fit:cover;border:0}
 .mt-card__media--tall{aspect-ratio:4/3}
-.mt-card__body{display:flex;flex-direction:column;flex:1;padding:1.25rem}
+.mt-card__body{display:flex;flex-direction:column;flex:1;padding:1.5rem 1.6rem}
 
 /* ----------------------------------------------------- api entries */
-.mt-api{border:1px solid var(--mt-line);border-radius:var(--mt-radius);margin:0 0 .5rem;
-  background:var(--mt-surface);overflow:hidden}
-.mt-api>summary{cursor:pointer;padding:.7rem 1rem;list-style:none;display:flex;
+.mt-api{border:1px solid var(--mt-seam);border-radius:var(--mt-r-md);margin:0 0 .5rem;
+  background:var(--mt-graphite);overflow:hidden}
+.mt-api>summary{cursor:pointer;padding:.8rem 1rem;list-style:none;display:flex;
   gap:.75rem;align-items:baseline;flex-wrap:wrap}
 .mt-api>summary::-webkit-details-marker{display:none}
-.mt-api>summary:hover{background:var(--mt-surface-2)}
-.mt-api[open]>summary{border-bottom:1px solid var(--mt-line)}
-.mt-api .mt-sig{font-size:.85rem;color:var(--mt-muted)}
-.mt-api .mt-sig b{color:var(--mt-heading);font-weight:600}
-.mt-api .mt-from{font-size:.75rem;color:var(--mt-faint);margin-left:auto;white-space:nowrap}
+.mt-api>summary::before{content:"";align-self:center;width:14px;height:14px;flex:none;background:var(--mt-ash);
+  -webkit-mask:url('/assets/icons/chevron-right.svg') center/contain no-repeat;
+  mask:url('/assets/icons/chevron-right.svg') center/contain no-repeat;
+  transition:transform var(--mt-fast) var(--mt-ease)}
+.mt-api[open]>summary::before{transform:rotate(90deg)}
+.mt-api>summary:hover{background:var(--mt-graphite-2)}
+.mt-api>summary:hover::before{background:var(--mt-bone)}
+.mt-api[open]>summary{border-bottom:1px solid var(--mt-seam)}
+.mt-api .mt-sig{font-size:.85rem;color:var(--mt-ash)}
+.mt-api .mt-sig b{color:var(--mt-bone);font-weight:600}
+.mt-api .mt-from{font-family:var(--mt-font-mono);font-size:.72rem;color:#7C7A73;margin-left:auto;white-space:nowrap}
 .mt-api-body{padding:0 1rem 1rem}
-.mt-api-body p{margin:.9rem 0 .6rem;font-size:.9rem}
-.mt-api-body table{font-size:.82rem}
+.mt-api-body p{margin:.9rem 0 .6rem;font-size:.95rem}
+.mt-api-body table{font-size:.85rem}
 /* The raw docstring under an expanded command. NOT .mt-doc - that is the page
    container, and reusing the name leaked pre-wrap and a .79rem font onto every
    paragraph on the site. */
 .mt-docstring{background:transparent!important;border:0!important;
-  border-left:2px solid var(--mt-line)!important;
+  border-left:2px solid var(--mt-seam)!important;
   border-radius:0!important;padding:.2rem 0 .2rem 1rem!important;margin:1rem 0 0!important;
-  font-size:.8rem!important;color:var(--mt-muted)!important;white-space:pre-wrap;line-height:1.55}
-.mt-docstring code{color:inherit!important;background:none!important}
+  font-size:.8rem!important;color:var(--mt-ash)!important;white-space:pre-wrap;line-height:1.55}
+.mt-docstring code{color:inherit!important;background:none!important;border:0!important}
 
 /* -------------------------------------------------------------- search */
 .mt-search{position:relative;margin:0 0 1rem}
-.mt-search input{width:100%;background:var(--mt-surface);border:1px solid var(--mt-line);
-  border-radius:var(--mt-radius);padding:.8rem 1rem .8rem 2.6rem;color:var(--mt-heading);
-  font-size:.95rem}
-.mt-search input:focus{outline:0;border-color:var(--mt-accent)}
-.mt-search input::placeholder{color:var(--mt-faint)}
-.mt-search svg{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);
-  width:16px;height:16px;fill:none;stroke:var(--mt-faint);stroke-width:2}
-.mt-count{font-size:.82rem;color:var(--mt-muted);margin:0 0 1rem}
+.mt-search input{width:100%;min-height:52px;background:var(--mt-graphite);border:1px solid var(--mt-seam);
+  border-radius:var(--mt-r-md);padding:.8rem 1rem .8rem 2.9rem;color:var(--mt-bone);
+  font-size:1rem;transition:border-color var(--mt-fast) var(--mt-ease)}
+.mt-search input:hover{border-color:var(--mt-ash)}
+.mt-search input:focus{outline:0;border-color:var(--mt-signal);box-shadow:0 0 0 1px var(--mt-signal)}
+.mt-search input::placeholder{color:#7C7A73}
+.mt-search svg{position:absolute;left:1rem;top:50%;transform:translateY(-50%);
+  width:18px;height:18px;color:var(--mt-ash);pointer-events:none}
+.mt-count{font-family:var(--mt-font-mono);font-size:.78rem;letter-spacing:.04em;color:var(--mt-ash);margin:0 0 1rem}
 
-/* filter chips */
-.mt-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.5rem;padding:0;list-style:none}
-.mt-pill{background:transparent;border:1px solid var(--mt-line);color:var(--mt-muted);
-  border-radius:999px;padding:.3rem .8rem;font-size:.8rem;cursor:pointer;line-height:1.4}
-.mt-pill:hover{color:var(--mt-heading);border-color:var(--mt-muted)}
-.mt-pill[aria-pressed="true"]{background:var(--mt-heading);color:var(--mt-bg);border-color:var(--mt-heading);font-weight:600}
+/* filter chips: mono tags, the pressed one takes the active orange */
+.mt-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.5rem;padding:0;list-style:none}
+.mt-doc .mt-pill{background:transparent;border:1px solid var(--mt-seam);color:var(--mt-dim);
+  border-radius:var(--mt-r-sm);padding:.4rem .8rem;font-family:var(--mt-font-mono);font-size:.78rem;
+  font-weight:500;cursor:pointer;line-height:1.4;text-transform:none;
+  transition:color var(--mt-fast) var(--mt-ease),border-color var(--mt-fast) var(--mt-ease)}
+.mt-doc .mt-pill:hover,.mt-doc .mt-pill:focus{background:transparent;color:var(--mt-bone);border-color:var(--mt-bone)}
+.mt-doc .mt-pill[aria-pressed="true"]{background:var(--mt-signal);color:var(--mt-ink);border-color:var(--mt-signal);font-weight:600}
 
 /* ----------------------------------------------------------------- cta */
-.mt-cta{background:var(--mt-surface);border:1px solid var(--mt-line);border-radius:var(--mt-radius);
-  padding:2.25rem;margin:3.5rem 0 0;text-align:center}
-.mt-cta h2{margin:0 0 .6rem!important;font-size:1.5rem}
-.mt-cta p{color:var(--mt-muted);max-width:52ch;margin:0 auto 1.5rem}
+.mt-cta{background:var(--mt-graphite);border:1px solid var(--mt-seam);border-radius:var(--mt-r-lg);
+  padding:2.75rem 2rem;margin:4rem 0 0;text-align:center}
+.mt-cta h2{margin:0 0 .85rem!important;font-size:clamp(1.6rem,3vw,2.4rem)!important;line-height:1}
+.mt-cta p{color:var(--mt-ash);max-width:52ch;margin:0 auto 1.75rem}
 .mt-cta .mt-actions{justify-content:center;margin:0}
 
+/* ------------------------------------------------------------- bands */
+/* Landing-page sections, as below the homepage hero: a kicker numbered like the
+   kit's boards ("01 / What it is"), a big Giga headline, then the content. */
+.mt-doc.mt-home{min-height:0;padding-bottom:0}
+.mt-band{padding:6rem 0;border-top:1px solid var(--mt-seam)}
+@media(max-width:700px){.mt-band{padding:4rem 0}}
+.mt-band h2{font-size:clamp(2rem,4.6vw,3.5rem);line-height:.95;margin:0 0 2.5rem;max-width:16ch}
+.mt-band .mt-cta h2{max-width:none}
+/* headline left, prose right; one column on narrow screens */
+.mt-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:1.75rem 4.5rem;
+  align-items:start;margin:0 0 3rem}
+.mt-split h2{margin:0}
+.mt-split .mt-body p:last-child{margin-bottom:0}
+@media(max-width:900px){.mt-split{grid-template-columns:minmax(0,1fr)}}
+
+/* stats as one strip of tiles split by Seam lines */
+.mt-stats--tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:0;
+  background:var(--mt-seam);border:1px solid var(--mt-seam);border-radius:var(--mt-r-lg);overflow:hidden}
+.mt-stats--tiles li{background:var(--mt-graphite);padding:1.75rem 1.6rem}
+.mt-stats--tiles b{font-size:clamp(2.25rem,4vw,3.25rem);margin-bottom:.35rem}
+@media(max-width:700px){.mt-stats--tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* a card that opens with one of the kit's icons on an Ink tile */
+.mt-card__icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;
+  border-radius:var(--mt-r-md);background:var(--mt-ink);border:1px solid var(--mt-seam);
+  color:var(--mt-bone);margin:0 0 1.25rem}
+.mt-card__icon .mt-icon{width:22px;height:22px}
+/* the "go" line at the foot of a link card */
+.mt-doc .mt-card__go{display:flex;align-items:center;gap:.35rem;margin-top:auto;padding-top:1.5rem;
+  font-family:var(--mt-font-mono);font-size:.72rem;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mt-ash);transition:color var(--mt-fast) var(--mt-ease)}
+.mt-card:hover .mt-card__go{color:var(--mt-signal)}
+
+/* call to action laid out as a row: pitch left, buttons right */
+.mt-cta--split{display:flex;align-items:center;justify-content:space-between;gap:1.5rem 3rem;
+  text-align:left;margin:0;padding:2.5rem 2.75rem}
+.mt-cta--split p{margin:0!important}
+.mt-cta--split .mt-actions{flex:none;justify-content:flex-start}
+@media(max-width:800px){.mt-cta--split{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem}}
+
+/* ------------------------------------------------------------- paths */
+/* A full-screen choice between routes, as on /learn/: photo panels stacked and
+   cut on a slant, the image easing in and the description appearing on hover. */
+.mt-doc:has(.mt-paths){padding-bottom:0}
+.mt-paths{position:relative;display:flex;flex-direction:column;height:100vh;min-height:560px;overflow:hidden}
+.mt-path{position:relative;flex:1;overflow:hidden;clip-path:polygon(0 0,100% 6%,100% 100%,0 94%)}
+.mt-path:not(:last-child){margin-bottom:-6%}
+.mt-path__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:brightness(.65) contrast(.95);
+  transition:transform .8s cubic-bezier(.22,1,.36,1),filter .8s cubic-bezier(.22,1,.36,1)}
+.mt-path::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(13,13,15,.45);
+  transition:background .6s ease}
+.mt-path:hover .mt-path__img{transform:scale(1.08);filter:brightness(.9) contrast(1.05)}
+.mt-path:hover::after{background:rgba(13,13,15,.25)}
+.mt-path__body{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.75rem;padding:3rem;text-align:center}
+.mt-path .mt-kicker{justify-content:center;margin:0;color:var(--mt-bone);opacity:.85;letter-spacing:.3em}
+.mt-path h2{margin:0;font-size:clamp(2.25rem,4.5vw,3.5rem);line-height:1}
+.mt-path h2 a{color:inherit;text-decoration:none}
+.mt-path h2 a::after{content:"";position:absolute;inset:0}  /* the whole panel is the link */
+.mt-doc .mt-path__text{max-width:480px;margin:0;font-size:1.05rem;line-height:1.6;color:var(--mt-bone);
+  opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease}
+.mt-path:hover .mt-path__text,.mt-path:focus-within .mt-path__text{opacity:1;transform:none}
+@media(max-width:900px){
+  .mt-paths{height:auto;min-height:0}
+  .mt-path{clip-path:none;margin:0!important;min-height:50vh}
+  .mt-doc .mt-path__text{opacity:1;transform:none}
+}
+
+/* visually hidden, still read by screen readers and search engines */
+.mt-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
 /* ---------------------------------------------------------------- misc */
-.mt-anchor{color:var(--mt-faint)!important;text-decoration:none!important;border:0!important;
-  margin-left:.4rem;font-weight:400;opacity:0}
-h2:hover .mt-anchor,h3:hover .mt-anchor{opacity:1}
-.mt-anchor:hover{color:var(--mt-accent)!important}
-.mt-updated{font-size:.8rem;color:var(--mt-faint);margin-top:3rem;padding-top:1.25rem;
-  border-top:1px solid var(--mt-line)}
-.mt-meta{font-size:.85rem;color:var(--mt-muted)}
+.mt-anchor{color:var(--mt-ash)!important;text-decoration:none!important;border:0!important;
+  margin-left:.5rem;font-family:var(--mt-font-mono);font-weight:400;font-size:.6em;
+  vertical-align:middle;opacity:0;transition:opacity var(--mt-fast) var(--mt-ease)}
+h2:hover .mt-anchor,h3:hover .mt-anchor,.mt-anchor:focus-visible{opacity:1}
+.mt-anchor:hover{color:var(--mt-signal)!important}
+.mt-updated{font-family:var(--mt-font-mono);font-size:.75rem;color:var(--mt-ash);margin-top:3rem;padding-top:1.25rem;
+  border-top:1px solid var(--mt-seam)}
+.mt-meta{font-size:.9rem;color:var(--mt-ash)}
+
+@media(prefers-reduced-motion:reduce){
+  .mt-doc *,.mt-doc *::before{transition:none!important}
+  .mt-btn:active{transform:none}
+}
