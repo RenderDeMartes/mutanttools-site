@@ -58,7 +58,7 @@ The build is idempotent - running it twice gives byte-identical output.
 
 Every page is built from the components in `mt_md.py` and styled by one file,
 `assets/css/mt-ui.css`, which follows the Mutant Tools brand kit (Ink and
-Graphite grounds, the site's orange for the one action per screen, Giga Sans /
+Graphite grounds, the site's orange for the one action per screen, Archivo Black /
 Manrope / IBM Plex Mono, the UI icons in `assets/icons/`). Change the look there,
 then rebuild: the shell links the stylesheet as `mt-ui.css?v=<hash>`, and CSS is
 cached for a year, so a CSS edit without a rebuild never reaches returning visitors.

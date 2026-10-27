@@ -15,7 +15,7 @@
      (The kit names Spine Yellow for this; the site keeps its own orange instead.)
    - Block colours fill tiles, tags and status marks only, never body text.
      Teal means "easy path", plum means "technical".
-   - Three voices: Giga Sans shouts (headlines, uppercase), Manrope explains,
+   - Three voices: Archivo Black shouts (headlines, uppercase), Manrope explains,
      IBM Plex Mono labels (eyebrows, block ids, code).
 */
 
@@ -37,9 +37,11 @@
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;
   src:url('/assets/fonts/ibm-plex-mono-600-latin.woff2') format('woff2');
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-/* Latin subset of Giga Sans Black, the wordmark face. */
-@font-face{font-family:'Giga Sans';font-style:normal;font-weight:900;font-display:swap;
-  src:url('/assets/fonts/giga-sans-black.woff') format('woff')}
+/* Archivo Black, the headline face: a free (OFL) stand-in for the kit's Giga Sans.
+   It ships one weight; declaring the 400-900 range stops browsers faking a bolder one. */
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400 900;font-display:swap;
+  src:url('/assets/fonts/archivo-black-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
 :root{
   /* core */
@@ -61,7 +63,7 @@
   --mt-easy:#4ECDC4;       /* Limb Teal: for animators */
   --mt-deep:#A96DA3;       /* Jaw Plum: for riggers */
 
-  --mt-font-display:'Giga Sans','Arial Black','Helvetica Neue',sans-serif;
+  --mt-font-display:'Archivo Black','Arial Black','Helvetica Neue',sans-serif;
   --mt-font-text:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mt-font-mono:'IBM Plex Mono',ui-monospace,'Cascadia Mono','SFMono-Regular',Menlo,Consolas,monospace;
 
@@ -378,7 +380,7 @@ body,.skip-link{font-family:var(--mt-font-text)}  /* else Astra's Montserrat sti
 
 /* ------------------------------------------------------------- bands */
 /* Landing-page sections, as below the homepage hero: a kicker numbered like the
-   kit's boards ("01 / What it is"), a big Giga headline, then the content. */
+   kit's boards ("01 / What it is"), a big headline, then the content. */
 .mt-doc.mt-home{min-height:0;padding-bottom:0}
 .mt-band{padding:6rem 0;border-top:1px solid var(--mt-seam)}
 @media(max-width:700px){.mt-band{padding:4rem 0}}
