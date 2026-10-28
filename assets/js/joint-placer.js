@@ -133,6 +133,9 @@ for (const P of SIDES) {
   }
 }
 const POINT = Object.fromEntries(POINTS.map((p) => [p.id, p]));
+// The body's centre line. The rig mirrors across X = 0, so these stay on it,
+// moving only up and down, forward and back.
+const MIDLINE = new Set(['groin', 'chin', 'Spine_Root', 'Spine_Base', 'Spine_Belly', 'Spine_Chest', 'Neck', 'Head', 'HeadEnd']);
 
 // Twist joints, like the Unreal mannequin's: on each long bone, parented to
 // the joint the bone starts from and spaced evenly along it.
@@ -216,7 +219,7 @@ const FOOT_GUIDES = ['Foot_Heel', 'Foot_HeelMid', 'Foot_BallFloor', 'Foot_In', '
 const EYE_AIM = 0.2;
 
 const HINTS = {
-  front: 'Front: drag the coloured markers onto the joints; white handles fine-tune the rest. Scroll to zoom.',
+  front: 'Front: drag the coloured markers onto the joints; white handles fine-tune the rest. The spine and head stay on the centre line. Scroll to zoom.',
   side: 'Side: drag forward or back to fix depth, and set the ankle, ball, toes and heel. Scroll to zoom.',
   top: 'Top: place each finger’s base and tip, slide the joints between onto the creases, and fix the elbow’s bend. Scroll to zoom.',
   '3d': 'Drag to orbit, scroll to zoom. Check the joints sit inside the mesh.',
@@ -835,8 +838,9 @@ function init(root) {
       if (z && z.front - z.back < thin) { thin = z.front - z.back; throat = y; }
     }
     S.land = { crotch, throat };
-    S.pos.groin = V(cx, crotch, bodyZ(crotch, 0.5));
-    S.pos.chin = V(cx, throat + 0.015 * H, bodyZ(throat + 0.015 * H, 0.5));
+    // found along the body's own middle, placed on the rig's centre line
+    S.pos.groin = V(0, crotch, bodyZ(crotch, 0.5));
+    S.pos.chin = V(0, throat + 0.015 * H, bodyZ(throat + 0.015 * H, 0.5));
   }
 
   // Each arm: a first line from where the arm meets the torso to the hand's
@@ -1079,6 +1083,9 @@ function init(root) {
   // the twists.
   function derive() {
     const M = S.pos, J = {}, y0 = S.bounds.min.y;
+    // the centre line stays on X = 0, written back like the elbows below
+    for (const k of MIDLINE) if (M[k]) M[k].x = 0;
+    for (const k in S.spineOff) S.spineOff[k].x = 0;
     for (const k in M) J[k] = M[k].clone();
     for (const [key, f] of SPINE) J[key] = M.Spine_Root.clone().lerp(M.Neck, f).add(S.spineOff[key] || V());
     J.Spine_End = J.Neck.clone();
@@ -1247,7 +1254,7 @@ function init(root) {
   // third axis is found from the mesh or kept, as the point asks.
   function dragTarget(pt, from, p) {
     const b = S.bounds, pad = S.H * 0.1;
-    const X = clamp(p.x, b.min.x - pad, b.max.x + pad);
+    const X = MIDLINE.has(pt.id) ? 0 : clamp(p.x, b.min.x - pad, b.max.x + pad);
     const Y = clamp(p.y, b.min.y - pad, b.max.y + pad);
     const Z = clamp(p.z, b.min.z - pad, b.max.z + pad);
     if (S.view === 'front') return V(X, Y, pt.front === 'center' ? depthAt(X, Y, from.z) : from.z);

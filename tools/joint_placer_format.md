@@ -122,9 +122,9 @@ characters and can be ignored.
 
 | Guide | Placed from |
 |---|---|
-| `Spine_Root`, `Spine_Base`, `Spine_Belly`, `Spine_Chest` | The body's centre line, spaced as in the template between the root and the neck |
-| `Spine_End`, `Neck` | The same point: the base of the neck |
-| `Head`, `HeadEnd` | Just above the chin marker; the top of the mesh |
+| `Spine_Root`, `Spine_Base`, `Spine_Belly`, `Spine_Chest` | On X = 0, the centre line the rig mirrors across, spaced as in the template between the root and the neck |
+| `Spine_End`, `Neck` | The same point: the base of the neck, on X = 0 |
+| `Head`, `HeadEnd` | On X = 0: just above the chin marker; the top of the mesh |
 | `L_Clavicle` | Beside the neck at shoulder height |
 | `L_ClavicleEnd`, `L_Shoulder` | The same point: the shoulder |
 | `L_Elbow`, `L_Wrist` | The markers. The elbow is kept on the shoulder-wrist plane, bent back |
