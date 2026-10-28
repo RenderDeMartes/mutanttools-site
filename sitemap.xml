@@ -13,6 +13,7 @@
   <url><loc>https://mutanttools.com/wiki/blocks/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mutanttools.com/learn/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mutanttools.com/free-assets/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/web-to-rig/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mutanttools.com/contact/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mutanttools.com/docs/_build/html/index.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

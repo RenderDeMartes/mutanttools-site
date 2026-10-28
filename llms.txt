@@ -76,6 +76,9 @@ a type word inside a descriptive attribute name.
 - [For riggers](https://mutanttools.com/rigger/): the artist-facing tour.
 - [Learn](https://mutanttools.com/learn/): workflow walkthroughs.
 - [Free assets](https://mutanttools.com/free-assets/): downloadable rigs and tools.
+- [Web to Rig](https://mutanttools.com/web-to-rig/): place a skeleton on a character in the
+  browser, then drop one file into Maya for a full Mutant Tools rig on Unreal's Manny skeleton.
+  The model is never uploaded.
 - [Contact](https://mutanttools.com/contact/)
 
 ## In-repo AI documentation

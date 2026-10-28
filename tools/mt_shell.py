@@ -50,7 +50,26 @@ def add_auto_rigger(header):
     return RIGGER_LI.sub(lambda mo: AUTO_LI + mo.group(0), header)
 
 
-HEADER = add_auto_rigger(HEADER)
+# The Web to Rig tool goes last in the menu, after Wiki. Same anchoring on the
+# link rather than the li's id, for the same desktop/mobile reason.
+PLACER_LI = ('\n<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-mt-placer">'
+             '<a href="/web-to-rig/" class="menu-link">Web to Rig</a></li>')
+WIKI_LI = re.compile(r'<li\b[^>]*>\s*<a href="/wiki/"[^>]*class="menu-link"[^>]*>.*?</li>', re.S)
+
+
+def add_web_to_rig(header):
+    """Insert the Web to Rig nav item once per menu, if it is not already there."""
+    if re.search(r'href="/web-to-rig/"[^>]*class="menu-link"', header):
+        return header
+    return WIKI_LI.sub(lambda mo: mo.group(0) + PLACER_LI, header)
+
+
+def add_nav_items(header):
+    """Every nav item the generator adds to the WordPress-era menu."""
+    return add_web_to_rig(add_auto_rigger(header))
+
+
+HEADER = add_nav_items(HEADER)
 
 
 def _mark_current(header, href):

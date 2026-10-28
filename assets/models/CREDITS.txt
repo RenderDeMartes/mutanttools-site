@@ -1,0 +1,10 @@
+quaternius-superhero-male.fbx
+  "Superhero_Male_FullBody" from Universal Base Characters by Quaternius
+  https://quaternius.com/packs/universalbasecharacters.html
+
+quaternius-animations.glb
+  16 clips and their skeleton from Universal Animation Library by Quaternius
+  (meshes removed), https://quaternius.itch.io/universal-animation-library
+
+Both released under CC0 1.0 Universal (public domain dedication):
+https://creativecommons.org/publicdomain/zero/1.0/
