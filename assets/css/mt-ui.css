@@ -505,6 +505,26 @@ body,.skip-link{font-family:var(--mt-font-text)}  /* else Astra's Montserrat sti
   font-family:var(--mt-font-mono);font-size:.72rem;letter-spacing:.04em;color:var(--mt-ash)}
 .mt-placer[data-state="empty"] .mt-stage__bar,.mt-placer[data-state="empty"] .mt-stage__hint{display:none}
 
+/* Beta: police tape across the stage's top right corner, clipped by it; every
+   click goes through, and the bar keeps clear of it. Phones get the short tape. */
+.mt-placer__intro .mt-beta{margin:.75rem 0 0;font-size:.82rem;line-height:1.5;color:var(--mt-ash)}
+.mt-beta a{color:var(--mt-bone)}
+.mt-tape{position:absolute;top:0;right:0;z-index:4;width:170px;height:170px;overflow:hidden;pointer-events:none}
+.mt-tape>span{position:absolute;top:53px;right:-65px;width:260px;height:24px;transform:rotate(45deg);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.4);
+  background:repeating-linear-gradient(45deg,#1A1A1A 0 6px,#F2C300 6px 12px) top/100% 4px no-repeat,
+    repeating-linear-gradient(45deg,#1A1A1A 0 6px,#F2C300 6px 12px) bottom/100% 4px no-repeat,#F2C300;
+  color:#1A1A1A;font:700 .66rem/1 var(--mt-font-mono);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.mt-tape__short{display:none}
+.mt-stage__bar{right:142px}
+@media(max-width:600px){
+  .mt-tape{width:96px;height:96px}
+  .mt-tape>span{top:26px;right:-52px;width:180px;height:20px;font-size:.6rem}
+  .mt-tape__long{display:none}
+  .mt-tape__short{display:inline}
+  .mt-stage__bar{right:64px}
+}
+
 /* markers: a ring in the marker's block colour, its name on hover or focus */
 .mt-doc .mt-marker{position:absolute;left:0;top:0;width:24px;height:24px;margin:-12px 0 0 -12px;padding:0;
   border-radius:50%;background:transparent;border:3px solid var(--c);outline:1.5px solid var(--mt-ink);

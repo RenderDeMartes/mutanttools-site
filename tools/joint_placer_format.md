@@ -41,12 +41,12 @@ put Maya's import there before anything is bound.
 {
   "format": "mutant-tools-web-to-rig",
   "version": 1,
-  "model": "Superhero_Male",
-  "mesh": "Superhero_Male.fbx",
+  "model": "Superhero_Male_FullBody",
+  "mesh": "Superhero_Male_FullBody.fbx",
   "meshes": ["Eyebrows", "Eyes", "SuperHero_Male"],
   "skeleton": "skeleton.json",
   "manny": "manny_skeleton.json",
-  "skin_pack": "skin/Superhero_Male.bSkinPack",
+  "skin_pack": "skin/Superhero_Male_FullBody.bSkinPack",
   "template": "HumanUnrealGameTemplate",
   "units": "cm",
   "up_axis": "y",
@@ -73,6 +73,11 @@ and per joint `parent`, `world_translate`, `world_rotate`, `local_translate`,
 Positions come from the placed joints (twists at Manny's own fractions); each
 joint keeps Manny's orientation, swung only as far as its bone now points
 elsewhere, so Manny's axis conventions survive.
+
+Two joints Manny does not have come last: `eye_l` and `eye_r`, under `head`
+where the eye guides are, turned like the head (zero joint orient). They carry
+the eyeballs' skin, and WebToRig constrains them to the rig's `L_Eyes_Bnd` and
+`R_Eyes_Bnd`, so the eye controls turn the eyeballs.
 
 ## skeleton.json
 
@@ -105,7 +110,7 @@ elsewhere, so Manny's axis conventions survive.
 | `upAxis` | Always `y`. |
 | `sourceUpAxis` | The model's own up axis: from the FBX's `GlobalSettings`, or `z` when the user flagged it or the model lies flatter than it stands. |
 | `fingers` | 5, 4, 3 or 0. Decides which finger guides and joints exist. |
-| `guides` | **What the template needs.** Template guide name -> position, for every body guide, both sides. Guides that share a spot in the template are written for each name (see below). Face guides are not placed: WebToRig moves them with the head and switches the face blocks off for the first build, since their eyelids and lips need edges picked on the mesh. |
+| `guides` | **What the template needs.** Template guide name -> position, for every body guide and the eyes, both sides. Guides that share a spot in the template are written for each name (see below). The rest of the face is not placed: WebToRig moves it with the head and switches the face blocks off for the first build, since their eyelids and lips need edges picked on the mesh. |
 | `joints` | The skeleton as joints, parents before children, named `<key>_Jnt`. |
 | `markers` | The raw points the user placed. |
 
@@ -125,20 +130,24 @@ characters and can be ignored.
 | `L_Elbow`, `L_Wrist` | The markers. The elbow is kept on the shoulder-wrist plane, bent back |
 | `L_Hand_Palm` | The wrist |
 | `L_Hand_InnerCup`, `L_Hand_OutterCup` | Between the wrist and the thumb / ring and pinky metacarpals |
-| `L_Hand_Thumb_00` ... `_03` | Markers at `_00` (root by the wrist) and `_03` (tip); `_01`, `_02` spaced between |
-| `L_Hand_<Index/Middle/Ring/Pinky>_00` ... `_04` | Markers at `_01` (knuckle) and `_04` (tip); `_02`, `_03` spaced between; `_00` between the wrist and the knuckle, on the plane the finger curls in (through knuckle and tip, square to the palm) |
+| `L_Hand_Thumb_00` ... `_03` | Markers at `_00` (root by the wrist) and `_03` (tip); `_01`, `_02` handles between them, which keep their place relative to the two markers |
+| `L_Hand_<Index/Middle/Ring/Pinky>_00` ... `_04` | Markers at `_01` (knuckle) and `_04` (tip); `_02`, `_03` handles between them, always on the plane the finger curls in (through knuckle and tip, square to the palm); `_00` a free handle between the wrist and the knuckle |
 | `L_Pelvis` | Above the hip |
 | `L_PelvisEnd`, `L_Hip` | The same point: the hip joint |
 | `L_Knee` | The marker, kept on the hip-ankle plane, bent forward |
 | `L_Ankle`, `L_Foot_Ankle` | The same point: the middle of the shin above the foot |
 | `L_Foot_Ball`, `L_Foot_Toes`, `L_Foot_Heel` | The foot's front and back from the mesh; toes and heel on the floor |
-| `L_Foot_BallFloor`, `L_Foot_In`, `L_Foot_Out`, `L_Foot_HeelMid` | The ball dropped to the floor; the foot's inner and outer edge at the ball; a third of the way from heel to ball |
+| `L_Foot_BallFloor`, `L_Foot_HeelMid` | The ball dropped to the floor; a third of the way from heel to ball |
+| `L_Foot_In`, `L_Foot_Out` | The pivots the foot rocks on: handles on the floor across from the ball, placed at the foot's inner and outer edge as the mesh has them |
+| `L_Eyes` | The middle of the eyeball, when the model has eyeballs as parts of their own; otherwise halfway up the head, an eyeball's radius behind the face |
+| `L_Eyes_Aim` | Straight ahead of the eye, a fifth of the body's height away |
 
 With `fingers` below 5 the missing fingers' guides are left out, and with 0
 there are no finger or cup guides.
 
 Every non-marker guide is the page's own placement plus whatever the user
-dragged it by, so a guide can sit anywhere the user put it.
+dragged it by, so it sits where the user put it, held only by the rules above
+(the foot pivots on the floor, a finger's joints on its plane).
 
 ## Skin pack
 
@@ -148,7 +157,10 @@ hand, the twist joints to Manny's twists, the rest by position):
 
 - each vertex goes to the nearest bone it can see from inside its mesh (a
   ray from the bone must reach the vertex without leaving the surface); a mesh
-  with no bone inside it, like an eyeball, takes the nearest bone;
+  with no bone inside it takes the nearest bone;
+- an eyeball mesh (a round part centred on an eye guide, as `L_Eyes` finds
+  them) goes whole to `eye_l` or `eye_r`, whichever eye each vertex is nearer;
+  the page's own preview keeps it on the head;
 - weights blend across each joint over the last fifth of a bone, are smoothed
   twice over the surface, and keep at most 4 joints per vertex, each at least
   0.01, normalised to 1.

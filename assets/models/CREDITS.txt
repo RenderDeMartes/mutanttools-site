@@ -1,4 +1,4 @@
-quaternius-superhero-male.fbx
+Superhero_Male_FullBody.fbx
   "Superhero_Male_FullBody" from Universal Base Characters by Quaternius
   https://quaternius.com/packs/universalbasecharacters.html
 

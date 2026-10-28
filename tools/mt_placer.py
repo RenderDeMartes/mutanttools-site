@@ -50,8 +50,9 @@ NEXT = (
      "Your character comes in standing as it did here, on the Manny skeleton, with the skin "
      "weights from this page. Any skeleton the file had is replaced."),
     ("eye", "05 &middot; Stage 3", "Place the template",
-     "The HumanUnrealGameTemplate guides land on the joints you placed here, and the face "
-     "guides follow the head. Check them, and move any you want, before building."),
+     "The HumanUnrealGameTemplate guides land on the joints, eyes and foot pivots you placed "
+     "here, and the rest of the face follows the head. Check them, and move any you want, "
+     "before building."),
     ("build", "06 &middot; Stage 4", "Build the rig",
      "Mutant Tools builds the body block by block, then the Manny joints follow it, so the "
      "skinned character moves with the controls."),
@@ -81,7 +82,8 @@ def build(stats):
         '<p>Everything is placed for you when the model loads. Drag a coloured marker or a '
         'white handle to correct it: a point carries what hangs below it (the neck takes the '
         'head, the shoulder the whole arm) and never what is above it. Elbows and knees move on '
-        'their own, so the hands and feet stay put.</p>'
+        'their own, so the hands and feet stay put. White handles also mark each eye, and the '
+        'inner and outer edge each foot rocks on.</p>'
         '<ol class="mt-markers" data-marker-list></ol>'
         '<label class="mt-check"><input type="checkbox" data-mirror checked> Mirror left and right</label>'
         '<p class="mt-label">Model facing the wrong way?</p>'
@@ -92,9 +94,10 @@ def build(stats):
         '</div>' % (m.icon("reload"), m.icon("build")))
 
     fingers = (
-        '<p>Looking down on each hand, drag every finger&rsquo;s base (the knuckle) and its tip. '
-        'The joints in between are spaced along the finger, and each finger stays flat in the '
-        'plane it curls in.</p>'
+        '<p>Looking down on each hand, drag every finger&rsquo;s base (the knuckle) and its tip, '
+        'then the white handles between them onto the creases. A finger&rsquo;s joints from the '
+        'knuckle to the tip stay flat in the plane it curls in; its metacarpal and the cups go '
+        'anywhere.</p>'
         '<div class="mt-field"><label for="mt-fingers">Fingers per hand</label>'
         '<select id="mt-fingers" class="mt-select" data-fingers>'
         '<option value="5">5 &middot; thumb and four fingers</option>'
@@ -167,6 +170,8 @@ def build(stats):
         '<button type="button" data-topology aria-pressed="false">Topology</button></div>'
         '</div>'
         '<p class="mt-stage__hint" data-hint></p>'
+        '<div class="mt-tape" aria-hidden="true"><span><span class="mt-tape__long">Beta &middot; proof of '
+        'concept</span><span class="mt-tape__short">Beta</span></span></div>'
         '<div class="mt-drop" data-dropzone>'
         '<span class="mt-card__icon">%s</span>'
         '<p class="mt-drop__title" data-drop-msg data-idle="Drop a GLB, FBX or OBJ here">'
@@ -192,7 +197,9 @@ def build(stats):
         '<p class="mt-kicker">Free tool &middot; runs in your browser</p>'
         '<h1>Web to Rig</h1>'
         '<p class="mt-lede">Place a skeleton on your character here, then drop one file into '
-        'Maya for a full Mutant Tools rig, built on Unreal&rsquo;s Manny skeleton.</p></div>'
+        'Maya for a full Mutant Tools rig, built on Unreal&rsquo;s Manny skeleton.</p>'
+        '<p class="mt-beta">A beta, and a proof of concept only. Need rigs you can ship? Contact '
+        '<a href="https://bluetaperigging.com" target="_blank" rel="noopener">bluetaperigging.com</a>.</p></div>'
         + stage +
         '<div class="mt-placer__steps">'
         + _step("01 / Model", "Load your character", load, locked=False)

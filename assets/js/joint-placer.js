@@ -37,7 +37,7 @@ THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 THREE.SkinnedMesh.prototype.raycast = acceleratedRaycast;
 
-const EXAMPLE = { url: '/assets/models/quaternius-superhero-male.fbx', name: 'Superhero_Male.fbx' };
+const EXAMPLE = { url: '/assets/models/Superhero_Male_FullBody.fbx', name: 'Superhero_Male_FullBody.fbx' };
 const FORMAT = 'mutant-tools-skeleton';
 const FORMAT_VERSION = 2;
 const TEMPLATE = 'HumanUnrealGameTemplate';
@@ -111,6 +111,7 @@ HANDLE('Head', 'Head', 'front side');
 HANDLE('HeadEnd', 'Head top', 'front side', 'keep');
 for (const P of SIDES) {
   const side = SIDE_LABEL[P];
+  HANDLE(P + 'Eyes', side + ' eye', 'front side', 'keep');
   HANDLE(P + 'Clavicle', side + ' clavicle', 'front side', 'keep');
   HANDLE(P + 'Shoulder', side + ' shoulder', 'front side top');
   HANDLE(P + 'Pelvis', side + ' pelvis', 'front side');
@@ -119,10 +120,16 @@ for (const P of SIDES) {
   HANDLE(P + 'Foot_Ball', side + ' ball', 'side', 'keep');
   HANDLE(P + 'Foot_Toes', side + ' toes', 'side', 'keep');
   HANDLE(P + 'Foot_Heel', side + ' heel', 'side', 'keep');
+  // the pivots the foot rocks on, on the floor across from the ball
+  HANDLE(P + 'Foot_In', side + ' foot inside', 'front', 'keep');
+  HANDLE(P + 'Foot_Out', side + ' foot outside', 'front', 'keep');
   HANDLE(P + 'Hand_InnerCup', side + ' inner cup', 'top', 'keep', 'height', { finger: 'thumb' });
   HANDLE(P + 'Hand_OutterCup', side + ' outer cup', 'top', 'keep', 'height', { finger: 'ring pinky' });
   for (const f of FINGERS) {
     if (f.id !== 'thumb') HANDLE(fingerKey(P, f.id, '00'), side + ' ' + f.id + ' 00', 'top', 'keep', 'height', { finger: f.id });
+    for (const n in FINGER_STEPS[f.id === 'thumb' ? 'thumb' : 'other']) {
+      HANDLE(fingerKey(P, f.id, n), side + ' ' + f.id + ' ' + n, 'top', 'keep', 'height', { finger: f.id, middle: true });
+    }
   }
 }
 const POINT = Object.fromEntries(POINTS.map((p) => [p.id, p]));
@@ -177,10 +184,11 @@ const SPINE = [['Spine_Base', 0.274], ['Spine_Belly', 0.518], ['Spine_Chest', 0.
 const SPINE_KEYS = new Set(SPINE.map(([k]) => k));
 
 // What carries what while placing: moving a point moves everything under it
-// here and nothing above it. The neck takes the chin and head along; the
-// chest takes the clavicles and arms; the groin takes the root and legs. The
-// wrist and ankle hang off the shoulder and hip, so a bend can be fixed at the
-// elbow or knee without moving the hand or the foot.
+// here and nothing above it. The neck takes the chin, head and eyes along;
+// the chest takes the clavicles and arms; the groin takes the root and legs.
+// The wrist and ankle hang off the shoulder and hip, so a bend can be fixed at
+// the elbow or knee without moving the hand or the foot. A finger's middle
+// joints are not here: they keep their place between its markers.
 const PLACE_PARENT = { Spine_Root: 'groin', chin: 'Neck', Head: 'chin', HeadEnd: 'Head' };
 for (const P of SIDES) {
   Object.assign(PLACE_PARENT, {
@@ -188,6 +196,7 @@ for (const P of SIDES) {
     [P + 'Wrist']: P + 'Shoulder', [P + 'Hand_InnerCup']: P + 'Wrist', [P + 'Hand_OutterCup']: P + 'Wrist',
     [P + 'Pelvis']: 'Spine_Root', [P + 'Hip']: P + 'Pelvis', [P + 'Knee']: P + 'Hip', [P + 'Ankle']: P + 'Hip',
     [P + 'Foot_Ball']: P + 'Ankle', [P + 'Foot_Toes']: P + 'Foot_Ball', [P + 'Foot_Heel']: P + 'Ankle',
+    [P + 'Foot_In']: P + 'Ankle', [P + 'Foot_Out']: P + 'Ankle', [P + 'Eyes']: 'Head',
     [fingerKey(P, 'thumb', '00')]: P + 'Hand_InnerCup', [fingerKey(P, 'thumb', '03')]: fingerKey(P, 'thumb', '00'),
   });
   for (const f of ['index', 'middle', 'ring', 'pinky']) {
@@ -202,11 +211,14 @@ for (const [k, p] of Object.entries(PLACE_PARENT)) (PLACE_CHILDREN[p] || (PLACE_
 // Template guides that are not joints of their own: where each one sits.
 const GUIDE_ALIASES = { Spine_End: 'Neck', ClavicleEnd: 'Shoulder', PelvisEnd: 'Hip', Foot_Ankle: 'Ankle', Hand_Palm: 'Wrist' };
 const FOOT_GUIDES = ['Foot_Heel', 'Foot_HeelMid', 'Foot_BallFloor', 'Foot_In', 'Foot_Out'];
+// How far ahead of the eye its aim guide sits, of the body's height: about
+// where the template has it.
+const EYE_AIM = 0.2;
 
 const HINTS = {
   front: 'Front: drag the coloured markers onto the joints; white handles fine-tune the rest. Scroll to zoom.',
   side: 'Side: drag forward or back to fix depth, and set the ankle, ball, toes and heel. Scroll to zoom.',
-  top: 'Top: place each finger’s base and tip, and fix the elbow’s bend. Scroll to zoom.',
+  top: 'Top: place each finger’s base and tip, slide the joints between onto the creases, and fix the elbow’s bend. Scroll to zoom.',
   '3d': 'Drag to orbit, scroll to zoom. Check the joints sit inside the mesh.',
 };
 
@@ -267,13 +279,21 @@ function init(root) {
     balls[key].renderOrder = 11;
     skeleton.add(balls[key]);
   }
+  // the eyes and the foot's rock pivots are guides, not joints: dots, no bones
+  const pivotMat = new THREE.MeshBasicMaterial({ color: 0xf2efe8, depthTest: false, transparent: true });
+  const PIVOTS = SIDES.flatMap((P) => [P + 'Eyes', P + 'Foot_In', P + 'Foot_Out']);
+  for (const key of PIVOTS) {
+    balls[key] = new THREE.Mesh(ballGeo, pivotMat);
+    balls[key].renderOrder = 11;
+    skeleton.add(balls[key]);
+  }
   skeleton.visible = false;
   scene.add(skeleton);
 
   const S = {
     pivot: null, meshes: [], bounds: new THREE.Box3(), H: 1, cx: 0,
     points: new Float32Array(0), profile: [], feet: [], ankleX: {},
-    pos: {}, spineOff: {}, joints: {}, list: jointList(5, 2), fingers: 5, twists: 2, hand: 'L_',
+    pos: {}, spineOff: {}, mids: {}, eyeParts: new Set(), joints: {}, list: jointList(5, 2), fingers: 5, twists: 2, hand: 'L_',
     view: 'front', up: 'y', turn: 0, name: 'model', selected: null,
   };
   const ray = new THREE.Raycaster();
@@ -630,11 +650,13 @@ function init(root) {
     if (!(back < ankle.z)) back = ankle.z - S.H * 0.02;
     return { front, back };
   }
-  function footWidthAt(ankle, z) {
+  function footWidthAt(ankle, z, sign) {
     const F = S.feet, reach = S.H * 0.06, band = S.H * 0.015;
     let lo = Infinity, hi = -Infinity;
     for (let i = 0; i < F.length; i += 3) {
       if (Math.abs(F[i] - ankle.x) > reach || Math.abs(F[i + 2] - z) > band) continue;
+      // never past the body's middle, where feet together would meet the other one
+      if ((F[i] - S.cx) * sign < 0) continue;
       lo = Math.min(lo, F[i]);
       hi = Math.max(hi, F[i]);
     }
@@ -684,31 +706,47 @@ function init(root) {
     return out;
   }
 
-  // Each finger curls in one plane: through its knuckle and tip, square to
-  // the palm. The joints between them are on that line already; the
-  // metacarpal is put on the plane too, written back like the elbow. Returns
-  // the keys it moved.
-  function flattenFingers(s, M) {
+  // The back of the hand: square to the palm through the wrist and the first
+  // and last finger's knuckles, the same way up on both hands. Straight up
+  // (palms down) when there are too few fingers to tell.
+  function backOfHand(s, J) {
     const fingers = FINGER_SETS[S.fingers].filter((f) => f !== 'thumb');
-    if (fingers.length < 2) return [];
-    const W = M[s + 'Wrist'];
-    const first = M[fingerKey(s, fingers[0], '01')], last = M[fingerKey(s, fingers[fingers.length - 1], '01')];
-    if (!W || !first || !last) return [];
-    const palm = first.clone().sub(W).cross(last.clone().sub(W));
-    if (palm.lengthSq() < 1e-12) return [];
-    palm.normalize();
-    const moved = [];
-    for (const f of fingers) {
-      const key = fingerKey(s, f, '00');
-      const knuckle = M[fingerKey(s, f, '01')], tip = M[fingerKey(s, f, '04')], meta = M[key];
-      if (!knuckle || !tip || !meta) continue;
-      const n = tip.clone().sub(knuckle).cross(palm);
-      if (n.lengthSq() < 1e-12) continue;
-      n.normalize();
-      meta.addScaledVector(n, -meta.clone().sub(knuckle).dot(n));
-      moved.push(key);
+    const W = J[s + 'Wrist'];
+    const first = fingers.length > 1 && J[fingerKey(s, fingers[0], '01')];
+    const last = fingers.length > 1 && J[fingerKey(s, fingers[fingers.length - 1], '01')];
+    if (!W || !first || !last) return V(0, 1, 0);
+    const back = first.clone().sub(W).cross(last.clone().sub(W)).multiplyScalar(SIGN[s]);
+    return back.lengthSq() < 1e-12 ? V(0, 1, 0) : back.normalize();
+  }
+
+  // A finger's frame from its first marker: `along` toward its tip, `length`
+  // away; `back` toward the back of the hand, square to that; `across`
+  // square to both. A finger curls in its along-back plane.
+  function fingerFrame(s, f, J) {
+    const [a, z] = FINGER_ENDS[f === 'thumb' ? 'thumb' : 'other'];
+    const from = J[fingerKey(s, f, a)];
+    const along = J[fingerKey(s, f, z)].clone().sub(from);
+    const length = along.length() || 1e-6;
+    along.divideScalar(length);
+    const back = V();
+    for (const up of [backOfHand(s, J), V(0, 1, 0), V(1, 0, 0)]) {
+      back.copy(up).addScaledVector(along, -up.dot(along));
+      if (back.lengthSq() > 1e-8) break;
     }
-    return moved;
+    back.normalize();
+    return { from, along, length, back, across: along.clone().cross(back) };
+  }
+
+  // Where a finger's middle joint sits: a share of the way from its first
+  // marker to its tip, plus shares of that length toward the back of the hand
+  // and across, so it follows when either marker moves. Only the thumb's go
+  // across: a finger's joints from the knuckle to the tip stay in the plane it
+  // curls in, while its metacarpal and the cups go anywhere.
+  function middleAt(s, f, n, J) {
+    const F = fingerFrame(s, f, J);
+    const m = S.mids[fingerKey(s, f, n)] || { t: FINGER_STEPS[f === 'thumb' ? 'thumb' : 'other'][n], b: 0, c: 0 };
+    return F.from.clone().addScaledVector(F.along, m.t * F.length)
+      .addScaledVector(F.back, m.b * F.length).addScaledVector(F.across, m.c * F.length);
   }
 
   // ------------------------------------------------------- auto placement
@@ -721,16 +759,19 @@ function init(root) {
   //   arms    the points outside the torso, followed along their own axis:
   //           the shoulder where the arm meets the torso, the wrist at the
   //           forearm's thinnest point, the elbow halfway between
-  //   legs    each leg's slice centre at the hip, knee and ankle
+  //   legs    each leg's slice centre at the hip, knee and ankle; each foot's
+  //           inner and outer edge across from the ball
+  //   eyes    the eyeballs, when the model has them as parts of their own
   // The offsets from those landmarks come from real skeletons: the Mutant
   // Tools human template and Quaternius' base characters.
   const AUTO_STEPS = [
     ['Measuring the body', () => {}],
     ['Finding the crotch and the throat', () => findTrunk()],
     ['Following the arms to the wrists', () => findArms()],
-    ['Finding the hips, knees and ankles', () => findLegs()],
+    ['Finding the hips, knees and feet', () => findLegs()],
     ['Fitting the hands and fingers', () => { for (const s of SIDES) guessFingers(s); }],
     ['Placing the spine, neck and head', () => placeSpine()],
+    ['Finding the eyes', () => findEyes()],
   ];
   let placing = false;
 
@@ -745,6 +786,7 @@ function init(root) {
     const items = [...list.children];
     S.pos = {};
     S.spineOff = {};
+    S.mids = {};
     S.joints = {};
     invalidate();
     for (let i = 0; i < AUTO_STEPS.length; i++) {
@@ -897,6 +939,10 @@ function init(root) {
       S.pos[s + 'Foot_Ball'] = V(ankle.x, y0 + 0.016 * H, ankle.z + (foot.front - ankle.z) * 0.62);
       S.pos[s + 'Foot_Toes'] = V(ankle.x, y0, foot.front);
       S.pos[s + 'Foot_Heel'] = V(ankle.x, y0, foot.back);
+      // the pivots it rocks on: its inner and outer edge across from the ball
+      const ball = S.pos[s + 'Foot_Ball'], wide = footWidthAt(ankle, ball.z, sign);
+      S.pos[s + 'Foot_In'] = V(sign > 0 ? wide.lo : wide.hi, y0, ball.z);
+      S.pos[s + 'Foot_Out'] = V(sign > 0 ? wide.hi : wide.lo, y0, ball.z);
     }
   }
 
@@ -905,6 +951,8 @@ function init(root) {
   // reaches furthest toward the front. Metacarpals and cups sit between the
   // wrist and the fingers.
   function guessFingers(s) {
+    // the middle joints go back to their usual places along each finger
+    for (const key in S.mids) if (key.startsWith(s)) delete S.mids[key];
     const { W, along, across } = handFrame(s);
     const { length } = handReach(s);
     const pts = S.points, d = V();
@@ -963,10 +1011,72 @@ function init(root) {
     }
   }
 
+  // The eyes: the middle of each eyeball when the model has them as parts of
+  // their own, else where eyes sit in a head: about halfway from the chin to
+  // the top, a fifth of the forehead's width out from the middle, an
+  // eyeball's radius behind the face.
+  function findEyes() {
+    const M = S.pos, chin = M.chin.y, top = M.HeadEnd.y, tall = top - chin, mid = M.Head.x;
+    const found = eyeballs(chin, top, mid);
+    S.eyeParts = found.parts;
+    const brow = headHalf(chin + tall * 0.65, mid);
+    for (const s of SIDES) {
+      if (found[s]) {
+        M[s + 'Eyes'] = found[s];
+        continue;
+      }
+      const x = mid + SIGN[s] * brow * 0.45, y = chin + tall * 0.48;
+      const hit = rayZ(x, y);
+      M[s + 'Eyes'] = V(x, y, hit ? hit.front - brow * 0.16 : bodyZ(y, 0.75));
+    }
+  }
+
+  // Eyeballs modelled as parts of their own: a mesh inside the head whose
+  // half on a side is about as tall and deep as it is wide, small next to the
+  // head and above the mouth. Eyebrows, lashes and teeth are too flat. Every
+  // such mesh centred on a chosen eyeball is one of its `parts`, a cornea
+  // modelled over it too: the eye joint carries their skin.
+  function eyeballs(chin, top, mid) {
+    const tall = top - chin, round = [], best = {}, v = V();
+    for (const m of S.meshes) {
+      const halves = { L_: new THREE.Box3(), R_: new THREE.Box3() };
+      const pos = m.geometry.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        m.getVertexPosition(i, v).applyMatrix4(m.matrixWorld);
+        halves[v.x >= mid ? 'L_' : 'R_'].expandByPoint(v);
+      }
+      const all = halves.L_.clone().union(halves.R_);
+      if (all.min.y < chin - tall * 0.2 || all.max.y > top + tall * 0.1) continue;
+      for (const s of SIDES) {
+        if (halves[s].isEmpty()) continue;
+        const size = halves[s].getSize(V()), at = halves[s].getCenter(V());
+        const big = Math.max(size.x, size.y, size.z), ratio = Math.min(size.x, size.y, size.z) / (big || 1);
+        if (big > tall * 0.3 || ratio < 0.6 || at.y < chin + tall * 0.3 || Math.abs(at.x - mid) > tall * 0.5) continue;
+        const score = ratio + (/eye/i.test(m.name) && !/brow|lash|lid/i.test(m.name) ? 1 : 0);
+        round.push({ mesh: m, s, at, big });
+        if (!best[s] || score > best[s].score) best[s] = { score, at, big };
+      }
+    }
+    const parts = new Set(round.filter((r) => best[r.s] && r.at.distanceTo(best[r.s].at) < best[r.s].big * 0.5)
+      .map((r) => r.mesh));
+    return { L_: best.L_ && best.L_.at, R_: best.R_ && best.R_.at, parts };
+  }
+
+  // Half the head's width at height y.
+  function headHalf(y, mid) {
+    const P = S.points, band = S.H * 0.01;
+    let half = 0;
+    for (let i = 0; i < P.length; i += 3) {
+      const out = Math.abs(P[i] - mid);
+      if (out < S.H * 0.12 && Math.abs(P[i + 1] - y) < band) half = Math.max(half, out);
+    }
+    return half || S.H * 0.045;
+  }
+
   // ------------------------------------------------------------ skeleton
   // Everything the page works out rather than stores: the spine's inner
-  // joints, the bend planes, the middle finger joints, the foot pivots, the
-  // twists.
+  // joints, the bend planes, the middle finger joints, the foot pivots' floor,
+  // the twists.
   function derive() {
     const M = S.pos, J = {}, y0 = S.bounds.min.y;
     for (const k in M) J[k] = M[k].clone();
@@ -979,22 +1089,20 @@ function init(root) {
       M[s + 'Knee'].copy(bendPlane(M[s + 'Hip'], M[s + 'Knee'], M[s + 'Ankle'], KNEE_POLE));
       J[s + 'Elbow'] = M[s + 'Elbow'].clone();
       J[s + 'Knee'] = M[s + 'Knee'].clone();
-      for (const key of flattenFingers(s, M)) J[key] = M[key].clone();
       const W = J[s + 'Wrist'];
       J[s + 'Hand_End'] = W.clone().addScaledVector(W.clone().sub(J[s + 'Elbow']), 0.5);
       for (const f of FINGER_SETS[S.fingers]) {
-        const kind = f === 'thumb' ? 'thumb' : 'other';
-        const [a, z] = FINGER_ENDS[kind];
-        for (const [n, t] of Object.entries(FINGER_STEPS[kind])) {
-          J[fingerKey(s, f, n)] = J[fingerKey(s, f, a)].clone().lerp(J[fingerKey(s, f, z)], t);
-        }
+        for (const n in FINGER_STEPS[f === 'thumb' ? 'thumb' : 'other']) J[fingerKey(s, f, n)] = middleAt(s, f, n, J);
       }
       const ball = J[s + 'Foot_Ball'], heel = J[s + 'Foot_Heel'];
       J[s + 'Foot_BallFloor'] = V(ball.x, y0, ball.z);
       J[s + 'Foot_HeelMid'] = heel.clone().lerp(J[s + 'Foot_BallFloor'], 0.3);
-      const wide = footWidthAt(J[s + 'Ankle'], ball.z);
-      J[s + 'Foot_In'] = V(SIGN[s] > 0 ? wide.lo : wide.hi, y0, ball.z);
-      J[s + 'Foot_Out'] = V(SIGN[s] > 0 ? wide.hi : wide.lo, y0, ball.z);
+      // the rock's pivots stay on the floor, across from the ball
+      for (const g of ['Foot_In', 'Foot_Out']) {
+        if (!M[s + g]) continue;
+        M[s + g].set(M[s + g].x, y0, ball.z);
+        J[s + g] = M[s + g].clone();
+      }
       for (const [from, to] of TWIST_BONES) {
         for (let i = 1; i <= S.twists; i++) {
           J[twistKey(s, from, i)] = J[s + from].clone().lerp(J[s + to], i / (S.twists + 1));
@@ -1016,6 +1124,11 @@ function init(root) {
       pos.setXYZ(i * 2, a.x, a.y, a.z);
       pos.setXYZ(i * 2 + 1, b.x, b.y, b.z);
     });
+    for (const key of PIVOTS) {
+      if (!S.joints[key]) continue;
+      used.add(key);
+      balls[key].position.copy(S.joints[key]);
+    }
     for (const key in balls) balls[key].visible = used.has(key);
     pos.needsUpdate = true;
     bones.geometry.setDrawRange(0, S.list.length * 2);
@@ -1153,8 +1266,20 @@ function init(root) {
   const spineNow = () => Object.fromEntries(SPINE.map(([k, f]) =>
     [k, S.pos.Spine_Root.clone().lerp(S.pos.Neck, f).add(S.spineOff[k] || V())]));
 
+  // A finger's middle joint keeps where it is dragged to as its place in the
+  // finger's frame (see middleAt); the other hand's twin takes it mirrored.
+  function moveMiddle(id, to) {
+    const f = POINT[id].finger, F = fingerFrame(sideOf(id), f, S.joints);
+    const d = to.clone().sub(F.from).divideScalar(F.length);
+    const m = S.mids[id] = { t: d.dot(F.along), b: d.dot(F.back), c: f === 'thumb' ? d.dot(F.across) : 0 };
+    if ($('[data-mirror]').checked) S.mids[twinOf(id)] = { t: m.t, b: m.b, c: -m.c };
+    rebuild();
+    invalidate();
+  }
+
   function movePoint(id, p) {
     const pt = POINT[id];
+    if (pt.middle) return moveMiddle(id, dragTarget(pt, pointAt(id).clone(), p));
     const before = spineNow(), moved = new Set();
     const from = pointAt(id).clone();
     const to = dragTarget(pt, from, p);
@@ -1569,12 +1694,18 @@ function init(root) {
     const name = entry.file.src.name;
     const weights = {};
     const src = entry.file.src.positions, p = V();
+    const eyes = S.eyeParts.has(entry.mesh) ? SIDES.filter((s) => S.joints[s + 'Eyes']) : [];
+    const nearestEye = (q) => eyes.reduce((a, b) =>
+      (q.distanceToSquared(S.joints[a + 'Eyes']) <= q.distanceToSquared(S.joints[b + 'Eyes']) ? a : b));
     entry.file.nodeOf.forEach((node, i) => {
-      // a file vertex three.js dropped (one no polygon uses) is weighted from
+      // an eyeball turns with its eye: all of it on the nearer eye's joint.
+      // A file vertex three.js dropped (one no polygon uses) is weighted from
       // its own position, so nothing is left without a joint
-      const w = node >= 0 ? entry.W[node] : prune(weightsFor(
-        p.set(src[i * 3], src[i * 3 + 1], src[i * 3 + 2]).applyMatrix4(entry.mesh.matrixWorld).clone(),
-        S.weights.segs, entry.mesh, entry.box));
+      const w = eyes.length
+        ? { [nearestEye(p.set(src[i * 3], src[i * 3 + 1], src[i * 3 + 2]).applyMatrix4(entry.mesh.matrixWorld)) + 'Eyes']: 1 }
+        : node >= 0 ? entry.W[node] : prune(weightsFor(
+          p.set(src[i * 3], src[i * 3 + 1], src[i * 3 + 2]).applyMatrix4(entry.mesh.matrixWorld).clone(),
+          S.weights.segs, entry.mesh, entry.box));
       for (const [k, v] of Object.entries(w)) {
         const joint = weights[nameOf(k)] || (weights[nameOf(k)] = {});
         joint[i] = Math.round(((joint[i] || 0) + v) * 1e6) / 1e6;
@@ -1880,8 +2011,8 @@ function init(root) {
   }
 
   // Every body guide of the template, by its name in the template, including
-  // the ones that share a joint's position (Spine_End, L_ClavicleEnd ...) and
-  // the foot pivots that are not joints at all.
+  // the ones that share a joint's position (Spine_End, L_ClavicleEnd ...), and
+  // the foot pivots and eyes that are not joints at all.
   function guides() {
     const place = toFile();
     const out = {};
@@ -1893,6 +2024,13 @@ function init(root) {
       else for (const s of SIDES) add(s + alias, s + key);
     }
     for (const s of SIDES) for (const g of FOOT_GUIDES) add(s + g, s + g);
+    // each eye, and where it looks: straight ahead
+    for (const s of SIDES) {
+      const eye = S.joints[s + 'Eyes'];
+      if (!eye) continue;
+      add(s + 'Eyes', s + 'Eyes');
+      out[s + 'Eyes_Aim_Guide'] = place(eye.clone().add(V(0, 0, S.H * EYE_AIM)));
+    }
     return out;
   }
 
@@ -1945,7 +2083,8 @@ function init(root) {
   };
   // The joints here whose skin each Manny joint takes. Cups and the leg's
   // pelvis joint have no Manny twin and give theirs to the hand and pelvis;
-  // twists go by where they sit along the bone.
+  // twists go by where they sit along the bone. The eyes have no Manny twin
+  // either: they get joints of their own under the head (see mannyFile).
   const MANNY_SKIN = {
     Spine_Root: 'pelvis', Spine_Base: 'spine_01', Spine_Belly: 'spine_02', Spine_Chest: 'spine_04', Neck: 'neck_01',
     Head: 'head',
@@ -1966,7 +2105,7 @@ function init(root) {
       [P + 'Clavicle']: 'clavicle' + s, [P + 'Shoulder']: 'upperarm' + s, [P + 'Elbow']: 'lowerarm' + s,
       [P + 'Wrist']: 'hand' + s, [P + 'Hand_InnerCup']: 'hand' + s, [P + 'Hand_OutterCup']: 'hand' + s,
       [P + 'Hand_End']: 'hand' + s, [P + 'Pelvis']: 'pelvis', [P + 'Hip']: 'thigh' + s, [P + 'Knee']: 'calf' + s,
-      [P + 'Ankle']: 'foot' + s, [P + 'Foot_Ball']: 'ball' + s,
+      [P + 'Ankle']: 'foot' + s, [P + 'Foot_Ball']: 'ball' + s, [P + 'Eyes']: 'eye' + s,
       [twistKey(P, 'Shoulder', 1)]: 'upperarm_twist_01' + s, [twistKey(P, 'Shoulder', 2)]: 'upperarm_twist_02' + s,
       [twistKey(P, 'Elbow', 1)]: 'lowerarm_twist_02' + s, [twistKey(P, 'Elbow', 2)]: 'lowerarm_twist_01' + s,
       [twistKey(P, 'Hip', 1)]: 'thigh_twist_01' + s, [twistKey(P, 'Hip', 2)]: 'thigh_twist_01' + s,
@@ -2054,9 +2193,24 @@ function init(root) {
     const { T, R } = fitManny(ref);
     const deg = (q) => new THREE.Euler().setFromQuaternion(q, 'ZYX').toArray().slice(0, 3)
       .map((a) => r4(THREE.MathUtils.radToDeg(a)));
+    const order = [...ref.order];
+    const parent = Object.fromEntries(order.map((k) => [k, ref.joints[k].parent]));
+    const radius = Object.fromEntries(order.map((k) => [k, ref.joints[k].radius]));
+    // Manny has no eyes: each one gets a joint under the head, turned like the
+    // head, where its handle is, to carry the eyeball's skin
+    const place = toFile();
+    for (const s of SIDES) {
+      const k = MANNY_SKIN[s + 'Eyes'];
+      if (!S.joints[s + 'Eyes']) continue;
+      T[k] = V(...place(S.joints[s + 'Eyes']));
+      R[k] = R.head.clone();
+      parent[k] = 'head';
+      radius[k] = radius.head * 0.5;
+      order.push(k);
+    }
     const joints = {};
-    for (const k of ref.order) {
-      const j = ref.joints[k], p = j.parent;
+    for (const k of order) {
+      const p = parent[k];
       const pq = p ? R[p] : new THREE.Quaternion(), pt = p ? T[p] : V();
       const pqi = pq.clone().invert();
       joints[k] = {
@@ -2068,13 +2222,13 @@ function init(root) {
         local_scale: [1, 1, 1],
         joint_orient: deg(pqi.multiply(R[k])),
         rotate_order: 0,
-        radius: j.radius,
+        radius: radius[k],
         segment_scale_compensate: false,
       };
     }
     return {
       meta: { version: 1, description: 'Manny (SKM_Manny_BaseSkeleton) fitted to ' + S.name + ' by Mutant Tools Web to Rig' },
-      joint_order: ref.order,
+      joint_order: order,
       joints,
     };
   }
@@ -2092,7 +2246,7 @@ function init(root) {
     '',
     'Files:',
     '  ' + S.source.name + '   your character, unchanged',
-    '  manny_skeleton.json   Unreal\'s Manny skeleton fitted to it (Y-up, cm)',
+    '  manny_skeleton.json   Unreal\'s Manny skeleton fitted to it, plus eye joints (Y-up, cm)',
     '  skeleton.json         the template guides and the placed joints',
     '  skin/                 Mutant Tools skin pack for the Manny joints',
     '  web_to_rig.json       how the files fit together',
