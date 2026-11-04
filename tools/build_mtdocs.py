@@ -124,6 +124,8 @@ a type word inside a descriptive attribute name.
 - [For riggers](https://mutanttools.com/rigger/): the artist-facing tour.
 - [Learn](https://mutanttools.com/learn/): workflow walkthroughs.
 - [Free assets](https://mutanttools.com/free-assets/): downloadable rigs and tools.
+- [Meta Mutant](https://mutanttools.com/meta-mutant/): the tutorial for moving the MetaHuman face
+  rig onto a custom head in Maya. The result is vanilla Maya 2026, with no custom nodes.
 - [Contact](https://mutanttools.com/contact/)
 
 ## In-repo AI documentation
@@ -151,6 +153,7 @@ PAGES = [
     ("/wiki/blocks/", "monthly"),
     ("/learn/", "monthly"),
     ("/free-assets/", "monthly"),
+    ("/meta-mutant/", "monthly"),
     ("/contact/", "yearly"),
 ]
 

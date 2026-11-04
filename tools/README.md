@@ -11,6 +11,7 @@ itself**, so the documentation cannot drift away from the code:
 | `/wiki/blocks/` | Every shipped block, generated from the launcher JSONs |
 | `/maya-auto-rigger/` | Search landing page, with JSON-LD |
 | `/rigger/`, `/learn/`, `/free-assets/`, `/contact/` | The former WordPress pages, rebuilt on the same components |
+| `/meta-mutant/` | The Meta Mutant tutorial, for people who are not riggers. Meta Mutant's Help button in Maya opens it |
 
 It also writes `llms.txt`, `sitemap.xml` and `robots.txt`, and adds the Auto
 Rigger nav item to the pages it does not own.
@@ -51,6 +52,7 @@ The build is idempotent - running it twice gives byte-identical output.
 | `mt_dev.py` | `/developer/` content |
 | `mt_wiki.py` | `/wiki/`, `/wiki/commands/`, `/wiki/blocks/` content |
 | `mt_seo.py` | `/maya-auto-rigger/` content and its JSON-LD |
+| `mt_metamutant.py` | `/meta-mutant/`, with its widgets in `assets/js/meta-mutant.js` and its pictures and videos in `assets/img/meta-mutant/` |
 | `shell_*.html` | The Astra chrome, lifted verbatim from a WordPress-era page |
 | `mt_api.json`, `blocks.json`, `curves.json` | Extracted data, committed so a build needs no checkout |
 

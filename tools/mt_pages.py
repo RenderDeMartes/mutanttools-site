@@ -9,6 +9,8 @@ over from the WordPress versions.
 """
 import mt_md as m
 
+import mt_metamutant
+
 GH = "https://github.com/RenderDeMartes/Mutant_Tools"
 LINKEDIN = "https://www.linkedin.com/in/esteban-rodriguez-488a68147/"
 
@@ -138,6 +140,7 @@ def contact(stats):
 
 # (slug, builder, title, description, nav href to mark current)
 PAGES = [
+    ("meta-mutant", mt_metamutant.build, mt_metamutant.TITLE, mt_metamutant.DESC, ""),
     ("rigger", rigger, "For Riggers — Mutant Tools",
      "Mutant Tools for riggers: modular blocks, guide placement, rebuilds that keep controllers "
      "and skins, and a workflow built for real deadlines.", "/rigger/"),
