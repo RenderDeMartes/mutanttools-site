@@ -78,6 +78,8 @@ a type word inside a descriptive attribute name.
 - [Free assets](https://mutanttools.com/free-assets/): downloadable rigs and tools.
 - [Meta Mutant](https://mutanttools.com/meta-mutant/): the tutorial for moving the MetaHuman face
   rig onto a custom head in Maya. The result is vanilla Maya 2026, with no custom nodes.
+- [TopoTransfer](https://mutanttools.com/topotransfer/): the tutorial for fitting one mesh onto the
+  shape of another in the browser, keeping its topology.
 - [Contact](https://mutanttools.com/contact/)
 
 ## In-repo AI documentation

@@ -14,6 +14,7 @@
   <url><loc>https://mutanttools.com/learn/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mutanttools.com/free-assets/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mutanttools.com/meta-mutant/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mutanttools.com/topotransfer/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mutanttools.com/contact/</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mutanttools.com/docs/_build/html/index.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

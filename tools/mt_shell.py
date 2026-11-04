@@ -50,7 +50,33 @@ def add_auto_rigger(header):
     return RIGGER_LI.sub(lambda mo: AUTO_LI + mo.group(0), header)
 
 
-HEADER = add_auto_rigger(HEADER)
+# Submenus: Meta Mutant under Rigger, Wiki under Developer, in the desktop and the
+# mobile menu alike. mt-ui.css opens them on hover or keyboard focus.
+WIKI_LI = re.compile(r'\s*<li\b[^>]*>\s*<a href="/wiki/"[^>]*class="menu-link"[^>]*>Wiki</a></li>')
+
+
+def _with_submenu(header, href, children):
+    """Give the nav item linking to `href` a submenu of (href, label) children, in each menu."""
+    items = "".join('<li class="menu-item"><a href="%s" class="menu-link">%s</a></li>' % c for c in children)
+
+    def rewrite(mo):
+        return ('<li%sclass="%s menu-item-has-children"%s>%s<ul class="sub-menu">%s</ul></li>'
+                % (mo.group(1), mo.group(2), mo.group(3), mo.group(4), items))
+
+    pattern = r'<li\b([^>]*?)class="([^"]*)"([^>]*)>(\s*<a href="%s"[^>]*class="menu-link"[^>]*>[^<]*</a>)</li>' % re.escape(href)
+    return re.sub(pattern, rewrite, header)
+
+
+def add_submenus(header):
+    """Once per menu; a header that already has them stays as it is."""
+    if 'class="sub-menu"' in header:
+        return header
+    header = WIKI_LI.sub("", header)
+    header = _with_submenu(header, "/rigger/", [("/meta-mutant/", "Meta Mutant")])
+    return _with_submenu(header, "/developer/", [("/wiki/", "Wiki")])
+
+
+HEADER = add_submenus(add_auto_rigger(HEADER))
 
 
 def _mark_current(header, href):

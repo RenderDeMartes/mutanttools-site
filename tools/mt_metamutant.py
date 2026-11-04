@@ -17,6 +17,11 @@ JS_PATH = os.path.join(shell.SITE, "assets", "js", "meta-mutant.js")
 TITLE = "Meta Mutant Tutorial - MetaHuman Face Rig on a Custom Head | Mutant Tools"
 DESC = ("Move the MetaHuman face rig onto a custom head in Maya, in four steps. The result is "
         "vanilla Maya 2026: animators need no custom nodes, plugin or Mutant Tools.")
+GUIDE = "https://raw.githubusercontent.com/RenderDeMartes/Mutant_Tools/main/Docs/AI_META_MUTANT.md"
+# Every prompt starts here: it must work on a computer where Claude Code knows nothing of Mutant Tools.
+START = ("Find Mutant Tools on this computer: the Mutant_Tools folder in Maya's scripts folder, usually "
+         "Documents/maya/2026/scripts. Read Docs/AI_META_MUTANT.md inside it, or " + GUIDE + " if it is not "
+         "there, and follow it to connect to my open Maya. Ask me before saving anything. Then: ")
 HEAD_SITE = 'Jean Leal (<a href="https://jeanleart3d.com/" target="_blank" rel="noopener">jeanleart3d.com</a>)'
 
 
@@ -37,7 +42,13 @@ def _ai(prompt, text=""):
 
 
 def _prompt(text):
-    return '<div class="mm-prompt" data-copy><code>%s</code></div>' % text
+    """A complete prompt, with the part that finds the tool, shown whole."""
+    return '<div class="mm-prompt" data-copy><code>%s%s</code></div>' % (START, text)
+
+
+def _task(text):
+    """A prompt shown as its task alone. Copying it adds the start, shown once above the list."""
+    return '<div class="mm-prompt" data-copy data-start="%s"><code>%s</code></div>' % (START, text)
 
 
 def _band(number, label, title, section_id=""):
@@ -136,16 +147,17 @@ def build(stats):
     A(_step("01", "Maya, artist", "Pick points",
             "<p>Mark the same places on your head as on the MetaHuman, which is already marked: 30 points, "
             "the lips, the eyelids, then the eye and teeth meshes.</p>"
-            + _ai("Open Meta Mutant for my mesh Head on port 7501. Check its scale is 1 and ask me before freezing anything."),
+            + _ai("Open Meta Mutant for the head mesh I have selected. Check its scale is 1, and ask me before freezing anything."),
             '<figure class="mm-shot">%s</figure>' % _img("ui_pick_lines", "Pick Points window: MetaHuman on the left already marked, the head on the right with its lines picked")))
     A(_step("02", "Maya, one click", "Prepare",
             "<p>Saves both heads and the picks, then opens the fitting tool in the browser with everything loaded.</p>",
             '<figure class="mm-shot mm-shot--ui">%s</figure>' % _img("ui_mm_steps", "The Meta Mutant window with four steps")))
-    A(_step("03", "Browser, TopoTransfer", "Wrap",
+    A(_step("03", "Browser", "TopoTransfer",
             "<p>Press <b>Fit</b>, then <b>Keep result</b> and <b>Send to Maya</b>. The MetaHuman surface takes the "
             "shape of your head. About 9 seconds on this head.</p>"
             '<p class="mt-meta">Teal is your head, grey is the MetaHuman. A mottled mix means the two surfaces match closely.</p>'
-            + _ai("Place the guides on my head in TopoTransfer.", "TopoTransfer has a Claude switch in its Guides panel."),
+            + '<p><a class="mt-btn mt-btn--ghost mt-btn--sm" href="/topotransfer/">Learn more about TopoTransfer</a></p>'
+            + _ai("TopoTransfer is open in my browser with Claude on in its Guides step. Place the guides on my head, then show me a front picture so I can check them.", "Turn on the Claude switch in TopoTransfer&rsquo;s Guides panel first."),
             _compare("tt_kept_view", "tt_loaded_view", "After the fit: surfaces match", "Before the fit: shapes differ")
             + '<figure class="mm-shot">%s<figcaption>MetaHuman topology (33,845 points) in the shape of the head by %s (4,279 points).</figcaption></figure>'
             % (_img("tt_noref_view", "MetaHuman topology in the shape of the custom head"), HEAD_SITE)))
@@ -153,7 +165,7 @@ def build(stats):
             "<p>Creates <code>Head_MH</code>, a rigged copy of your head, and the face board. Takes 69 to 85 seconds "
             "on this head. Your original meshes are hidden, not changed.</p>"
             "<p><b>Face + board view</b> shows the face and the controls side by side.</p>"
-            + _ai("Apply the rig to Head on port 7501. Then render jaw open, blink and smile from the front and the side, and tell me what looks wrong."),
+            + _ai("Run Apply for the head in my open Meta Mutant window. Warn me first if it would replace a rig with animation. Then render jaw open, blink and smile from the front and the side, and tell me what looks wrong."),
             '<figure class="mm-shot mm-shot--ui">%s</figure>' % _img("ui_mm_ready", "All four steps complete")))
     A(END)
 
@@ -164,26 +176,31 @@ def build(stats):
       '<div class="mm-sliders" id="mm-sliders"></div></div></div></section>' % IMG)
 
     # -------------------------------------------------------------------- poses
-    A(_band("05", "Poses", "Expressions and phonemes", "poses"))
-    A('<div class="mm-poses"><ul class="mt-pills" id="mm-exp"></ul><img id="mm-exp-img" src="%sex_happy.webp" '
-      'alt="The rigged head with a happy expression" width="800" height="800"></div>' % IMG)
-    A('<div class="mm-sounds"><div class="mm-sounds__big"><img id="mm-ph-img" src="%sph_00.webp" alt="" width="300" height="300">'
-      '<b id="mm-ph-name">AA</b><span id="mm-ph-word"></span></div><div><ul class="mt-pills" id="mm-ph-filter"></ul>'
-      '<div class="mm-ph" id="mm-ph"></div><p class="mt-meta">First-pass shapes. Some sounds share a shape, such as D, T and N. '
-      'This model has no tongue, so tongue sounds show only the jaw and lips.</p></div></div>' % IMG)
+    A(_band("05", "Poses", "Speech and expressions", "poses"))
+    A('<div class="mm-say"><img id="mm-stage" src="%sv_rest.webp" alt="The rigged head saying the text" width="560" height="560"><div>'
+      '<form class="mm-say__form"><label class="mt-kicker" for="mm-say">Type something for the head to say</label>'
+      '<div class="mm-say__row"><input id="mm-say" type="text" maxlength="120" value="Hello, I am Meta Mutant." autocomplete="off" spellcheck="false">'
+      '<button class="mt-btn" id="mm-play" type="button">Play</button></div>'
+      '<input id="mm-scrub" class="mm-say__scrub" type="range" min="0" max="1" step="1" value="0" aria-label="Move through the speech"></form>'
+      '<div class="mm-say__chips" id="mm-chips" aria-label="The sounds of this text"></div>'
+      '<p class="mt-kicker mm-say__label">Expressions</p><ul class="mt-pills" id="mm-exp"></ul>'
+      '<details class="mm-ai"><summary>All 39 sounds</summary><ul class="mt-pills" id="mm-sounds"></ul></details>'
+      '<p class="mt-meta">Rendered from the rig. English only, and approximate: it reads spelling, with no voice or timing from audio. '
+      'Some sounds share a shape, such as D, T and N. This model has no tongue.</p></div></div>' % IMG)
     A(END)
 
     # ----------------------------------------------------------------------- ai
     A(_band("06", "Optional", "AI help", "ai"))
-    A('<p class="mm-short">The whole workflow works without AI. Claude Code can connect to Maya as a helper, to run steps, '
-      'measure results and change the tool. An artist still judges the result. To connect it, use the MCP menu in '
-      'Mutant Tools and choose Start Bridge.</p><div class="mt-grid mt-grid--2 mm-prompts">')
+    A('<p class="mm-short">The whole workflow works without AI. Claude Code can help as a tool: it needs no copy of the '
+      'code open, since each prompt tells it where to look. An artist still judges the result.</p>'
+      '<p class="mt-kicker">Every prompt starts with</p><div class="mm-prompt mm-prompt--start"><code>%s</code></div>'
+      '<p class="mt-kicker mm-then">Then ask. Copy adds the start</p><div class="mt-grid mt-grid--2 mm-prompts">' % START)
     for label, text in (
-            ("Check a pose", "Jaw open looks bad on my head. Check it on port 7501, compare with the MetaHuman, and show me close-ups."),
-            ("Fix a problem", "The eyes need to rotate from the center of each eye sphere. Mostly CTRL_R_eye. Update the tool, not only this scene."),
-            ("Make a test animation", "Create an animation for happy, sad, angry, kissing, yelling and all the phonemes. Put text on top with each pose name. Use port 7501."),
-            ("Change the setup", "Can the tool create a camera for the face board, so I can use two panels with the board on one side and the rig on the other?")):
-        A('<div><p class="mt-kicker">%s</p>%s</div>' % (label, _prompt(text)))
+            ("Check a pose", "Jaw open looks bad on my head. Compare it with the MetaHuman, and show me close-ups from several angles."),
+            ("Fix a problem", "The eyes do not rotate from the center of each eye, mostly CTRL_R_eye. Find out why, then tell me which file you would change before editing it."),
+            ("Make a test animation", "Key happy, sad, angry, kissing, yelling and all the phonemes on the face board, with each pose&rsquo;s name in text at the top of the view."),
+            ("Check before sharing", "Can this rig go to an animator as it is? List any custom nodes, plugins or outside files it needs.")):
+        A('<div><p class="mt-kicker">%s</p>%s</div>' % (label, _task(text)))
     A('</div>' + END)
 
     # ------------------------------------------------------------------ changes
