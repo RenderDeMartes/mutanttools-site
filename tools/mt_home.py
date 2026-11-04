@@ -152,7 +152,6 @@ def patch(html, stats):
     else:
         out = out.replace("</head>", shell.DOC_CSS + "\n</head>", 1)
 
-    out = shell.add_submenus(out)
     section = _section(stats)
     if START in out and END in out:
         out = re.sub(re.escape(START) + r".*?" + re.escape(END), lambda _: section, out, flags=re.S)

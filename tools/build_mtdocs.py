@@ -12,7 +12,7 @@ import io, json, os, re, collections
 
 import mt_shell as shell
 import mt_md as m
-import mt_dev, mt_wiki, mt_seo, mt_cluster, mt_home, mt_pages
+import mt_dev, mt_wiki, mt_seo, mt_cluster, mt_home, mt_pages, mt_placer
 
 SCRATCH = os.path.dirname(os.path.abspath(__file__))
 SITE = shell.SITE
@@ -128,6 +128,9 @@ a type word inside a descriptive attribute name.
   rig onto a custom head in Maya. The result is vanilla Maya 2026, with no custom nodes.
 - [TopoTransfer](https://mutanttools.com/topotransfer/): the tutorial for fitting one mesh onto the
   shape of another in the browser, keeping its topology.
+- [Web to Rig](https://mutanttools.com/web-to-rig/): place a skeleton on a character in the
+  browser, then drop one file into Maya for a full Mutant Tools rig on Unreal's Manny skeleton.
+  The model is never uploaded.
 - [Contact](https://mutanttools.com/contact/)
 
 ## In-repo AI documentation
@@ -157,6 +160,7 @@ PAGES = [
     ("/free-assets/", "monthly"),
     ("/meta-mutant/", "monthly"),
     ("/topotransfer/", "monthly"),
+    ("/web-to-rig/", "monthly"),
     ("/contact/", "yearly"),
 ]
 
@@ -185,6 +189,7 @@ GENERATED = {
     "wiki/commands/index.html",
     "wiki/blocks/index.html",
     "maya-auto-rigger/index.html",
+    "web-to-rig/index.html",
     "index.html",
 } | set("%s/index.html" % slug for slug, _f, _t, _d in mt_cluster.PAGES) \
   | set("%s/index.html" % p[0] for p in mt_pages.PAGES)
@@ -194,7 +199,8 @@ GENERATED = {
 def fix_nav():
     """Bring the nav on the pages this script does not regenerate up to date.
 
-    Two edits: point the Wiki item at the new wiki, and add the Auto Rigger item.
+    Two edits: point the Wiki item at the new wiki, and add the Auto Rigger and
+    Web to Rig items.
     Only the nav's Wiki link is rewritten - it carries `class="menu-link"`. A
     blanket replace would also rewrite the wiki index's deliberate link to the
     old Sphinx build, which exists so old bookmarks still land somewhere.
@@ -212,7 +218,7 @@ def fix_nav():
             if rel in GENERATED:
                 continue          # rewritten from scratch below
             s = io.open(p, encoding="utf-8").read()
-            new = shell.add_auto_rigger(nav_link.sub('href="/wiki/"', s))
+            new = shell.add_nav_items(nav_link.sub('href="/wiki/"', s))
             if new == s:
                 continue
             io.open(p, "w", encoding="utf-8", newline="\n").write(new)
@@ -284,11 +290,16 @@ def main():
         written.append(shell.write("%s/index.html" % slug, shell.page(
             title, desc, "https://mutanttools.com/%s/" % slug, fn(stats), nav_current=nav)))
 
+    # /web-to-rig/
+    written.append(shell.write("web-to-rig/index.html", shell.page(
+        mt_placer.TITLE, mt_placer.DESC, "https://mutanttools.com/web-to-rig/",
+        mt_placer.build(stats), nav_current="/web-to-rig/")))
+
     # homepage: retitle and append the copy block below the hero
     home_path = os.path.join(SITE, "index.html")
     home = io.open(home_path, encoding="utf-8").read()
     home = mt_home.patch(home, stats)
-    home = shell.add_auto_rigger(home)
+    home = shell.add_nav_items(home)
     io.open(home_path, "w", encoding="utf-8", newline="\n").write(home)
     written.append((home_path, len(home)))
 

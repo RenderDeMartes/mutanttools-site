@@ -50,9 +50,9 @@ def add_auto_rigger(header):
     return RIGGER_LI.sub(lambda mo: AUTO_LI + mo.group(0), header)
 
 
-# Submenus: Meta Mutant under Rigger, Wiki under Developer, in the desktop and the
+# Submenus: Meta Mutant under Rigger, Wiki and Web to Rig under Developer, in the desktop and the
 # mobile menu alike. mt-ui.css opens them on hover or keyboard focus.
-WIKI_LI = re.compile(r'\s*<li\b[^>]*>\s*<a href="/wiki/"[^>]*class="menu-link"[^>]*>Wiki</a></li>')
+NAV_WIKI = re.compile(r'\s*<li\b[^>]*>\s*<a href="/wiki/"[^>]*class="menu-link"[^>]*>Wiki</a></li>')
 
 
 def _with_submenu(header, href, children):
@@ -71,12 +71,17 @@ def add_submenus(header):
     """Once per menu; a header that already has them stays as it is."""
     if 'class="sub-menu"' in header:
         return header
-    header = WIKI_LI.sub("", header)
+    header = NAV_WIKI.sub("", header)
     header = _with_submenu(header, "/rigger/", [("/meta-mutant/", "Meta Mutant")])
-    return _with_submenu(header, "/developer/", [("/wiki/", "Wiki")])
+    return _with_submenu(header, "/developer/", [("/wiki/", "Wiki"), ("/web-to-rig/", "Web to Rig")])
 
 
-HEADER = add_submenus(add_auto_rigger(HEADER))
+def add_nav_items(header):
+    """Every change the generator makes to the WordPress-era menu."""
+    return add_submenus(add_auto_rigger(header))
+
+
+HEADER = add_nav_items(HEADER)
 
 
 def _mark_current(header, href):

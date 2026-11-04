@@ -18,5 +18,6 @@ deployment:
     - /bin/cp -R free-maya-rigging-tools maya-facial-rigging $DEPLOYPATH
     - /bin/cp -R maya-animal-rigging game-character-rigging-maya $DEPLOYPATH
     - /bin/cp -R meta-mutant topotransfer $DEPLOYPATH
+    - /bin/cp -R web-to-rig $DEPLOYPATH
     # --- bulk -----------------------------------------------------------------
     - /bin/cp -R assets $DEPLOYPATH

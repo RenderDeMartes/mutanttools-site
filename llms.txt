@@ -80,6 +80,9 @@ a type word inside a descriptive attribute name.
   rig onto a custom head in Maya. The result is vanilla Maya 2026, with no custom nodes.
 - [TopoTransfer](https://mutanttools.com/topotransfer/): the tutorial for fitting one mesh onto the
   shape of another in the browser, keeping its topology.
+- [Web to Rig](https://mutanttools.com/web-to-rig/): place a skeleton on a character in the
+  browser, then drop one file into Maya for a full Mutant Tools rig on Unreal's Manny skeleton.
+  The model is never uploaded.
 - [Contact](https://mutanttools.com/contact/)
 
 ## In-repo AI documentation

@@ -13,6 +13,7 @@ itself**, so the documentation cannot drift away from the code:
 | `/rigger/`, `/learn/`, `/free-assets/`, `/contact/` | The former WordPress pages, rebuilt on the same components |
 | `/meta-mutant/` | The Meta Mutant tutorial, for people who are not riggers. Meta Mutant's Help button in Maya opens it |
 | `/topotransfer/` | The TopoTransfer tutorial, linked from Meta Mutant's |
+| `/web-to-rig/` | Web to Rig, a browser tool: place a skeleton on a character, download a folder that Maya turns into a full Mutant Tools rig |
 
 It also writes `llms.txt`, `sitemap.xml` and `robots.txt`, and adds the Auto
 Rigger nav item to the pages it does not own.
@@ -55,6 +56,10 @@ The build is idempotent - running it twice gives byte-identical output.
 | `mt_seo.py` | `/maya-auto-rigger/` content and its JSON-LD |
 | `mt_topotransfer.py` | `/topotransfer/`, with its pictures in `assets/img/topotransfer/` |
 | `mt_metamutant.py` | `/meta-mutant/`. Its Claude prompts start from nothing: they find the install and read `Docs/AI_META_MUTANT.md` in Mutant_Tools. With its widgets in `assets/js/meta-mutant.js` and its pictures and videos in `assets/img/meta-mutant/` |
+| `mt_placer.py` | `/web-to-rig/`, the frame for `assets/js/joint-placer.js` (three.js, pinned, from jsDelivr), and the walkthrough of what happens in Maya |
+| `joint_placer_format.md` | What `/web-to-rig/` downloads, for WebToRig in Mutant Tools (`UI/WebToRig`) |
+| `assets/models/` | Web to Rig's CC0 example character and test animations, by Quaternius (see `CREDITS.txt` there), and the Manny reference skeleton |
+| `assets/maya/Drag_into_Maya.py` | Goes in every Web to Rig download: installs Mutant Tools if needed, then opens WebToRig on the folder |
 | `shell_*.html` | The Astra chrome, lifted verbatim from a WordPress-era page |
 | `mt_api.json`, `blocks.json`, `curves.json` | Extracted data, committed so a build needs no checkout |
 
@@ -86,6 +91,17 @@ and every block's options in one searchable page.
 
 The old build stays online and is still linked from `/wiki/`, so existing
 bookmarks keep working.
+
+## Tuning Web to Rig's auto placement
+
+Open `/web-to-rig/?debug` and the page puts its state on `window.__placer`
+(`S`, `autoPlace`, `loadBuffer`, `rebuild`). The example character carries its
+own hand-placed skeleton, so after a placement each of our joints can be
+measured against the matching bone (`pelvis`, `upperarm_l` ...) in the console.
+On Quaternius' male and female base characters the auto placement lands within
+about 2 cm on average of their skeletons, worst joint about 4 cm (the shoulders).
+The spine's inner joints follow the Mutant Tools template's spacing, so they
+sit higher than Unreal-style spine_02 and spine_03 by design.
 
 ## Notes
 
