@@ -17,7 +17,7 @@ JS_PATH = os.path.join(shell.SITE, "assets", "js", "meta-mutant.js")
 TITLE = "Meta Mutant Tutorial - MetaHuman Face Rig on a Custom Head | Mutant Tools"
 DESC = ("Move the MetaHuman face rig onto a custom head in Maya, in four steps. The result is "
         "vanilla Maya 2026: animators need no custom nodes, plugin or Mutant Tools.")
-HEAD_SITE = '<a href="https://jeanleart3d.com/" target="_blank" rel="noopener">jeanleart3d.com</a>'
+HEAD_SITE = 'Jean Leal (<a href="https://jeanleart3d.com/" target="_blank" rel="noopener">jeanleart3d.com</a>)'
 
 
 def _js_src():
