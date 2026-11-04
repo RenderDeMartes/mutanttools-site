@@ -142,7 +142,7 @@ def contact(stats):
 # (slug, builder, title, description, nav href to mark current)
 PAGES = [
     ("meta-mutant", mt_metamutant.build, mt_metamutant.TITLE, mt_metamutant.DESC, "/meta-mutant/"),
-    ("topotransfer", mt_topotransfer.build, mt_topotransfer.TITLE, mt_topotransfer.DESC, ""),
+    ("topotransfer", mt_topotransfer.build, mt_topotransfer.TITLE, mt_topotransfer.DESC, "/topotransfer/"),
     ("rigger", rigger, "For Riggers — Mutant Tools",
      "Mutant Tools for riggers: modular blocks, guide placement, rebuilds that keep controllers "
      "and skins, and a workflow built for real deadlines.", "/rigger/"),

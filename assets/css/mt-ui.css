@@ -707,21 +707,7 @@ h2:hover .mt-anchor,h3:hover .mt-anchor,.mt-anchor:focus-visible{opacity:1}
 .mt-doc .mm-slider input{width:100%;min-width:0;height:26px;margin:0;padding:0;border:0;background:transparent;accent-color:var(--mt-signal);cursor:grab}
 
 /* poses */
-.mm-poses img{display:block;width:100%;max-width:440px;height:auto;border:1px solid var(--mt-seam);border-radius:var(--mt-r-lg)}
-.mm-sounds{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:1.5rem 2.5rem;align-items:start;margin-top:3rem}
-.mm-sounds__big{position:sticky;top:6rem;display:grid;gap:.35rem}
-.mm-sounds__big img{display:block;width:100%;height:auto;border:1px solid var(--mt-seam);border-radius:var(--mt-r-md)}
-.mt-doc .mm-sounds__big b{font-family:var(--mt-font-display);font-size:2rem;font-weight:900;line-height:1;color:var(--mt-bone)}
-.mt-doc .mm-sounds__big span{font-family:var(--mt-font-mono);font-size:.8rem;color:var(--mt-ash)}
-@media(max-width:800px){.mm-sounds{grid-template-columns:minmax(0,1fr)}.mm-sounds__big{position:static;max-width:240px}}
-.mm-ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:.4rem;margin:0 0 1.25rem}
-.mt-doc .mm-ph button{display:block;min-width:0;padding:0;overflow:hidden;background:var(--mt-graphite);color:var(--mt-dim);
-  border:1px solid var(--mt-seam);border-radius:var(--mt-r-sm);cursor:pointer;
-  font-family:var(--mt-font-mono);font-size:.72rem;font-weight:500;line-height:1.2;transition:border-color var(--mt-fast) var(--mt-ease)}
-.mt-doc .mm-ph button:hover,.mt-doc .mm-ph button:focus{background:var(--mt-graphite);color:var(--mt-bone);border-color:var(--mt-bone)}
-.mt-doc .mm-ph button[aria-pressed="true"]{color:var(--mt-bone);border-color:var(--mt-signal)}
-.mm-ph img{display:block;width:100%;aspect-ratio:1;height:auto;object-fit:cover}
-.mm-ph span{display:block;padding:.2rem 0 .3rem;font-family:var(--mt-font-mono)}
+.mm-poses img{display:block;width:100%;max-width:520px;height:auto;border:1px solid var(--mt-seam);border-radius:var(--mt-r-lg)}
 
 /* eye pivot diagram */
 .mm-eyes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
@@ -759,26 +745,6 @@ h2:hover .mt-anchor,h3:hover .mt-anchor,.mt-anchor:focus-visible{opacity:1}
   opacity:1!important;visibility:visible!important;background:transparent!important;border:0!important;transform:none!important}
 #primary-site-navigation-mobile .sub-menu .menu-link{padding-left:2.25rem!important}
 
-/* speech and expressions: one stage */
-.mm-say{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:2rem 3.5rem;align-items:start}
-.mm-say>img{position:sticky;top:6rem;display:block;width:100%;height:auto;border:1px solid var(--mt-seam);border-radius:var(--mt-r-lg);background:var(--mt-ink)}
-@media(max-width:900px){.mm-say{grid-template-columns:minmax(0,1fr)}.mm-say>img{position:static}}
-.mt-doc .mm-say__form .mt-kicker{display:block;margin:0 0 .5rem}
-.mm-say__row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem}
-.mt-doc .mm-say__row input{width:100%;min-width:0;min-height:52px;padding:0 1rem;background:var(--mt-graphite);color:var(--mt-bone);
-  border:1px solid var(--mt-seam);border-radius:var(--mt-r-md);font-size:1rem;transition:border-color var(--mt-fast) var(--mt-ease)}
-.mt-doc .mm-say__row input:focus{outline:0;border-color:var(--mt-signal);box-shadow:0 0 0 1px var(--mt-signal)}
-.mm-say__row .mt-btn{min-width:104px}
-.mt-doc .mm-say__scrub{display:block;width:100%;height:30px;margin:.75rem 0 .5rem;padding:0;border:0;background:transparent;accent-color:var(--mt-signal);cursor:grab}
-.mm-say__chips{display:flex;flex-wrap:wrap;gap:.25rem;margin:0 0 1.75rem;min-height:1.75rem}
-.mt-doc .mm-say__chips button{padding:.15rem .4rem;background:var(--mt-graphite);color:var(--mt-ash);border:1px solid var(--mt-seam);border-radius:var(--mt-r-xs);
-  font-family:var(--mt-font-mono);font-size:.72rem;font-weight:500;line-height:1.4;cursor:pointer}
-.mt-doc .mm-say__chips button:hover,.mt-doc .mm-say__chips button:focus{background:var(--mt-graphite);color:var(--mt-bone);border-color:var(--mt-bone)}
-.mt-doc .mm-say__chips button.is-on{background:var(--mt-signal);color:var(--mt-ink);border-color:var(--mt-signal)}
-.mt-doc .mm-say__label{margin:0 0 .6rem}
-.mm-say .mt-pills{margin-bottom:1.25rem}
-.mm-say details .mt-pills{margin:.75rem 0 .25rem}
-.mm-say>div>.mt-meta{margin:1rem 0 0}
 .mm-hero .mm-cmp{border-radius:var(--mt-r-lg)}
 /* Web to Rig's walkthrough: what happens in Maya, as numbered cards */
 .mt-next{list-style:none;padding:0}

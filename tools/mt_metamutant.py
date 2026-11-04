@@ -176,17 +176,9 @@ def build(stats):
       '<div class="mm-sliders" id="mm-sliders"></div></div></div></section>' % IMG)
 
     # -------------------------------------------------------------------- poses
-    A(_band("05", "Poses", "Speech and expressions", "poses"))
-    A('<div class="mm-say"><img id="mm-stage" src="%sv_rest.webp" alt="The rigged head saying the text" width="560" height="560"><div>'
-      '<form class="mm-say__form"><label class="mt-kicker" for="mm-say">Type something for the head to say</label>'
-      '<div class="mm-say__row"><input id="mm-say" type="text" maxlength="120" value="Hello, I am Meta Mutant." autocomplete="off" spellcheck="false">'
-      '<button class="mt-btn" id="mm-play" type="button">Play</button></div>'
-      '<input id="mm-scrub" class="mm-say__scrub" type="range" min="0" max="1" step="1" value="0" aria-label="Move through the speech"></form>'
-      '<div class="mm-say__chips" id="mm-chips" aria-label="The sounds of this text"></div>'
-      '<p class="mt-kicker mm-say__label">Expressions</p><ul class="mt-pills" id="mm-exp"></ul>'
-      '<details class="mm-ai"><summary>All 39 sounds</summary><ul class="mt-pills" id="mm-sounds"></ul></details>'
-      '<p class="mt-meta">Rendered from the rig. English only, and approximate: it reads spelling, with no voice or timing from audio. '
-      'Some sounds share a shape, such as D, T and N. This model has no tongue.</p></div></div>' % IMG)
+    A(_band("05", "Poses", "Expressions", "poses"))
+    A('<div class="mm-poses"><ul class="mt-pills" id="mm-exp"></ul><img id="mm-stage" src="%sex_happy.webp" '
+      'alt="The rigged head with a happy expression" width="560" height="560"></div>' % IMG)
     A(END)
 
     # ----------------------------------------------------------------------- ai

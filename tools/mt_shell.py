@@ -50,7 +50,7 @@ def add_auto_rigger(header):
     return RIGGER_LI.sub(lambda mo: AUTO_LI + mo.group(0), header)
 
 
-# Submenus: Meta Mutant under Rigger, Wiki and Web to Rig under Developer, in the desktop and the
+# Submenus: Meta Mutant and TopoTransfer under Rigger, Wiki and Web to Rig under Developer, in the desktop and the
 # mobile menu alike. mt-ui.css opens them on hover or keyboard focus.
 NAV_WIKI = re.compile(r'\s*<li\b[^>]*>\s*<a href="/wiki/"[^>]*class="menu-link"[^>]*>Wiki</a></li>')
 
@@ -68,11 +68,10 @@ def _with_submenu(header, href, children):
 
 
 def add_submenus(header):
-    """Once per menu; a header that already has them stays as it is."""
-    if 'class="sub-menu"' in header:
-        return header
+    """Once per menu, whatever submenus the header had before."""
+    header = re.sub(r'<ul class="sub-menu">.*?</ul>', "", header, flags=re.S).replace(" menu-item-has-children", "")
     header = NAV_WIKI.sub("", header)
-    header = _with_submenu(header, "/rigger/", [("/meta-mutant/", "Meta Mutant")])
+    header = _with_submenu(header, "/rigger/", [("/meta-mutant/", "Meta Mutant"), ("/topotransfer/", "TopoTransfer")])
     return _with_submenu(header, "/developer/", [("/wiki/", "Wiki"), ("/web-to-rig/", "Web to Rig")])
 
 
